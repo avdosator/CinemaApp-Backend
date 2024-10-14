@@ -13,12 +13,6 @@ This is the backend part of the CinemaApp, built using **Spring Boot** and **Pos
 - **PostgreSQL**: The relational database used for storing data.
 - **Swagger**: For API documentation.
 
-## Planned Features
-
-- **Ticket Purchase API**: Endpoints for purchasing tickets.
-- **Seat Reservation API**: Endpoints for reserving specific seats in the cinema.
-- **Projection Schedule API**: Endpoints to view movie schedules across multiple cinema subsidiaries.
-
 ## Setup and Installation
 
 1. Clone the backend repository:
