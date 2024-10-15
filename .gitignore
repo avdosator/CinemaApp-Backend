@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 Help-tools.txt
+application.properties
 
 ### NetBeans ###
 /nbproject/private/
