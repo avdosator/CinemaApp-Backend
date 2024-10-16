@@ -34,6 +34,11 @@ This is the backend part of the CinemaApp, built using **Spring Boot** and **Pos
    ```
    ./mvnw spring-boot:run
    ```
+   
+5. Access the API documentation (Swagger) at:
+   ```
+   http://localhost:8080/swagger-ui/
+   ```
 
    
 ## Database Configuration
