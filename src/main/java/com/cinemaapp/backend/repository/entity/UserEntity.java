@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.UUID;
 public class UserEntity {
 
 
-    // Also add fields for relationships with payment, reservation, and seat_reservation
+    // Also add fields for relationships with reservation, and seat_reservation
     // + add new getters and setters
 
 
@@ -39,16 +40,19 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    private CityEntity city; // will be relationship with City entity
+    private CityEntity city;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<PaymentEntity> paymentEntity;
 
     @Column(name = "role")
     private String role;
 
     @Column(name = "created_at")
-    private Date dateCreated;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Date dateUpdated;
+    private LocalDateTime updatedAt;
 
     public UUID getId() {
         return id;
@@ -106,6 +110,14 @@ public class UserEntity {
         this.city = city;
     }
 
+    public List<PaymentEntity> getPaymentEntity() {
+        return paymentEntity;
+    }
+
+    public void setPaymentEntity(List<PaymentEntity> paymentEntity) {
+        this.paymentEntity = paymentEntity;
+    }
+
     public String getRole() {
         return role;
     }
@@ -114,19 +126,19 @@ public class UserEntity {
         this.role = role;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
-        return dateUpdated;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.dateUpdated = updatedAt;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

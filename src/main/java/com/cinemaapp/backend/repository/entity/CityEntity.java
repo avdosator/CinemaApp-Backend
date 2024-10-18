@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,10 +32,10 @@ public class CityEntity {
     private List<UserEntity> userEntities;
 
     @Column(name = "created_at")
-    private Date dateCreated;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Date dateUpdated;
+    private LocalDateTime updatedAt;
 
 
 }
