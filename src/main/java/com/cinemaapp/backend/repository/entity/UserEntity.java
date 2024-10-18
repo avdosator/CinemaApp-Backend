@@ -12,6 +12,11 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserEntity {
 
+
+    // Also add fields for relationships with payment, reservation, and seat_reservation
+    // + add new getters and setters
+
+
     @Id
     @Column(name = "user_id")
     @GeneratedValue

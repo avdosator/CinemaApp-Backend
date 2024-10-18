@@ -13,6 +13,10 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CityEntity {
 
+
+    // Add relationship with venue + getters and setters
+
+
     @Id
     @Column(name = "city_id")
     @GeneratedValue
@@ -32,4 +36,6 @@ public class CityEntity {
 
     @Column(name = "updated_at")
     private Date dateUpdated;
+
+
 }
