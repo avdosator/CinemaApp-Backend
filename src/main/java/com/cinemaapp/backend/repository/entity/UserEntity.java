@@ -34,7 +34,7 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    private String city; // will be relationship with City entity
+    private CityEntity city; // will be relationship with City entity
 
     @Column(name = "role")
     private String role;
@@ -43,7 +43,7 @@ public class UserEntity {
     private Date dateCreated;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Date dateUpdated;
 
     public UUID getId() {
         return id;
@@ -93,11 +93,11 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public String getCity() {
+    public CityEntity getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(CityEntity city) {
         this.city = city;
     }
 
@@ -118,10 +118,10 @@ public class UserEntity {
     }
 
     public Date getUpdatedAt() {
-        return updatedAt;
+        return dateUpdated;
     }
 
     public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+        this.dateUpdated = updatedAt;
     }
 }
