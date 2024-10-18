@@ -40,7 +40,7 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    private CityEntity city;
+    private CityEntity cityEntity;
 
     @OneToMany(mappedBy = "userEntity")
     private List<PaymentEntity> paymentEntity;
@@ -102,12 +102,12 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public CityEntity getCity() {
-        return city;
+    public CityEntity getCityEntity() {
+        return cityEntity;
     }
 
-    public void setCity(CityEntity city) {
-        this.city = city;
+    public void setCityEntity(CityEntity cityEntity) {
+        this.cityEntity = cityEntity;
     }
 
     public List<PaymentEntity> getPaymentEntity() {
