@@ -19,7 +19,7 @@ public class UserEntity {
 
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 
@@ -39,7 +39,7 @@ public class UserEntity {
     private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
     private CityEntity cityEntity;
 
     @OneToMany(mappedBy = "userEntity")

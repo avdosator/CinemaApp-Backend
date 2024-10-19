@@ -14,7 +14,7 @@ import java.util.UUID;
 public class CityEntity {
 
     @Id
-    @Column(name = "city_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 
@@ -23,6 +23,9 @@ public class CityEntity {
 
     @Column(name = "postal_code")
     private int postalCode;
+
+    @Column(name = "country")
+    private String country;
 
     @OneToMany(mappedBy = "cityEntity")
     private List<UserEntity> userEntities;
@@ -58,6 +61,14 @@ public class CityEntity {
 
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public List<UserEntity> getUserEntities() {

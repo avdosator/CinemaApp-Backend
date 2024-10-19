@@ -13,7 +13,7 @@ import java.util.UUID;
 public class PhotoEntity {
 
     @Id
-    @Column(name = "photo_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 

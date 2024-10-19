@@ -19,7 +19,7 @@ public class MovieEntity {
 
 
     @Id
-    @Column(name = "movie_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 
@@ -29,10 +29,10 @@ public class MovieEntity {
     @Column(name = "language")
     private String language;
 
-    @Column(name = "projection_start")
+    @Column(name = "projection_start_date")
     private Date projectionStart;
 
-    @Column(name = "projection_end")
+    @Column(name = "projection_end_date")
     private Date projectionEnd;
 
     @Column(name = "director")
@@ -53,13 +53,19 @@ public class MovieEntity {
     @Column(name = "imdb_rating")
     private double imdbRating;
 
+    @Column(name = "rotten_tomatoes_rating")
+    private double rottenTomatoesRating;
+
     @Column(name = "synopsis")
     private String synopsis;
 
     @Column(name = "trailer_url")
     private String trailerUrl;
 
-    @Column(name = "movie_status")
+    @Column(name = "cover_photo_id")
+    private UUID coverPhotoId;
+
+    @Column(name = "status")
     private String status;
 
     @Column(name = "created_at")

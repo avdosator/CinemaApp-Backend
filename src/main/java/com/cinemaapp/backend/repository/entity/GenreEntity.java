@@ -15,7 +15,7 @@ public class GenreEntity {
     // Implement relationship with movie_genre + getters and setters
 
     @Id
-    @Column(name = "genre_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 

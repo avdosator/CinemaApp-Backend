@@ -12,8 +12,11 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class VenueEntity {
 
+    // Implement relationships with seat and projection tables + getters and setters
+
+
     @Id
-    @Column(name = "venue_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 
@@ -27,7 +30,7 @@ public class VenueEntity {
     private String streetNumber;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
     private CityEntity cityEntity;
 
     @Column(name = "phone")

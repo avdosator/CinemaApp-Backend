@@ -16,7 +16,7 @@ public class PaymentEntity {
 
 
     @Id
-    @Column(name = "payment_id")
+    @Column(name = "id")
     @GeneratedValue
     private UUID id;
 
@@ -33,7 +33,7 @@ public class PaymentEntity {
     private String status; // also enum based on DDL
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 
     @Column(name = "updated_at")
