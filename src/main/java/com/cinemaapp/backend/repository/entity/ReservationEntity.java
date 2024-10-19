@@ -12,7 +12,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ReservationEntity {
 
-    // rel with projection and  + getters and setters
+    // rel with   seat_reservation + getters and setters
 
     @Id
     @Column(name = "id")
@@ -25,7 +25,7 @@ public class ReservationEntity {
 
     @ManyToOne
     @JoinColumn(name = "projection_id", referencedColumnName = "id")
-    private UUID projectionId;
+    private ProjectionEntity projectionEntity;
 
     @Column(name = "status")
     private String status; // should be "pending", "confirmed" or "canceled"

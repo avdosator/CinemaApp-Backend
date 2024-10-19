@@ -15,7 +15,7 @@ import java.util.UUID;
 public class MovieEntity {
 
 
-    // Implement relationship with projection and movie_genre + getters and setters
+    // Implement relationship  movie_genre + getters and setters
 
 
     @Id
@@ -67,6 +67,9 @@ public class MovieEntity {
 
     @Column(name = "status")
     private String status;
+
+    @OneToMany(mappedBy = "movieEntity")
+    private List<ProjectionEntity> projectionEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

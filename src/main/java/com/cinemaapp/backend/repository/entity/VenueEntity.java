@@ -13,7 +13,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class VenueEntity {
 
-    // Implement relationships with  projection table + getters and setters
+    // Implement relationships with  + getters and setters
 
 
     @Id
@@ -36,6 +36,9 @@ public class VenueEntity {
 
     @OneToMany(mappedBy = "venueEntity")
     private List<SeatEntity> seatEntities;
+
+    @OneToMany(mappedBy = "venueEntity")
+    private List<ProjectionEntity> projectionEntities;
 
     @Column(name = "phone")
     private String phone;
