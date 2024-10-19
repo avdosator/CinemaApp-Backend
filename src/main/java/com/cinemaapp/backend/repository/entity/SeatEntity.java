@@ -5,40 +5,29 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "venue")
+@Table(name = "seat")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class VenueEntity {
+public class SeatEntity {
 
-    // Implement relationships with  projection table + getters and setters
-
+    // implement relationship with seat_reservation + getters and setters
 
     @Id
     @Column(name = "id")
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "street")
-    private String street;
-
-    @Column(name = "street_number")
-    private String streetNumber;
+    @Column(name = "number")
+    private String number;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "id")
-    private CityEntity cityEntity;
+    @JoinColumn(name = "venue_id", referencedColumnName = "id")
+    private VenueEntity venueEntity;
 
-    @OneToMany(mappedBy = "venueEntity")
-    private List<SeatEntity> seatEntities;
-
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "type")
+    private String type; // should be "regular", "vip" or "love"
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
