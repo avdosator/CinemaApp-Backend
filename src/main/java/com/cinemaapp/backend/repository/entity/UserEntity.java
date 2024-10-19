@@ -43,7 +43,10 @@ public class UserEntity {
     private CityEntity cityEntity;
 
     @OneToMany(mappedBy = "userEntity")
-    private List<PaymentEntity> paymentEntity;
+    private List<PaymentEntity> paymentEntities;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<ReservationEntity> reservationEntities;
 
     @Column(name = "role")
     private String role;
@@ -110,12 +113,20 @@ public class UserEntity {
         this.cityEntity = cityEntity;
     }
 
-    public List<PaymentEntity> getPaymentEntity() {
-        return paymentEntity;
+    public List<PaymentEntity> getPaymentEntities() {
+        return paymentEntities;
     }
 
-    public void setPaymentEntity(List<PaymentEntity> paymentEntity) {
-        this.paymentEntity = paymentEntity;
+    public void setPaymentEntities(List<PaymentEntity> paymentEntities) {
+        this.paymentEntities = paymentEntities;
+    }
+
+    public List<ReservationEntity> getReservationEntities() {
+        return reservationEntities;
+    }
+
+    public void setReservationEntities(List<ReservationEntity> reservationEntities) {
+        this.reservationEntities = reservationEntities;
     }
 
     public String getRole() {
