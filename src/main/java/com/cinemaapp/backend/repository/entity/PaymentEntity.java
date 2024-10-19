@@ -12,7 +12,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PaymentEntity {
 
-    // Add relationship with projection
+    // Add getters and setters
 
 
     @Id
@@ -35,6 +35,13 @@ public class PaymentEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "projection_id", referencedColumnName = "id")
+    private ProjectionEntity projectionEntity;
+
+    @OneToOne(mappedBy = "paymentEntity")
+    private TicketEntity ticketEntity;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

@@ -31,6 +31,9 @@ public class ProjectionEntity {
     @OneToMany(mappedBy = "reservationEntity")
     private List<ReservationEntity> reservationEntities;
 
+    @OneToMany(mappedBy = "paymentEntity")
+    private List<PaymentEntity> paymentEntities;
+
     @Column(name = "start_time")
     private LocalTime startTime;
 
