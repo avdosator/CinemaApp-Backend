@@ -28,9 +28,6 @@ public class ProjectionEntity {
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private MovieEntity movieEntity;
 
-    @OneToMany(mappedBy = "reservationEntity")
-    private List<ReservationEntity> reservationEntities;
-
     @OneToMany(mappedBy = "paymentEntity")
     private List<PaymentEntity> paymentEntities;
 

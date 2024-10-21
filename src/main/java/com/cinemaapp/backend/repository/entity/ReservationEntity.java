@@ -23,10 +23,6 @@ public class ReservationEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "projection_id", referencedColumnName = "id")
-    private ProjectionEntity projectionEntity;
-
     @Column(name = "status")
     private String status; // should be "pending", "confirmed" or "canceled"
 

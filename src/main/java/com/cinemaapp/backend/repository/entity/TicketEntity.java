@@ -12,7 +12,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TicketEntity {
 
-    // implement relationship with seat_reservation
+    // implement relationship with seat_reservation + getter and setters
 
     @Id
     @Column(name = "id")
