@@ -28,9 +28,6 @@ public class ProjectionEntity {
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private MovieEntity movieEntity;
 
-    @OneToMany(mappedBy = "paymentEntity")
-    private List<PaymentEntity> paymentEntities;
-
     @Column(name = "start_time")
     private LocalTime startTime;
 

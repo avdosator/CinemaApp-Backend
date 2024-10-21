@@ -35,11 +35,7 @@ public class PaymentEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "projection_id", referencedColumnName = "id")
-    private ProjectionEntity projectionEntity;
-
+    
     @OneToOne(mappedBy = "paymentEntity")
     private TicketEntity ticketEntity;
 
