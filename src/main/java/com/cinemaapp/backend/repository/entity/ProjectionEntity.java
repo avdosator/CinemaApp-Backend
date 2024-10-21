@@ -21,8 +21,8 @@ public class ProjectionEntity {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "venue_id", referencedColumnName = "id")
-    private VenueEntity venueEntity;
+    @JoinColumn(name = "hall_id", referencedColumnName = "id")
+    private HallEntity hallEntity;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
@@ -35,7 +35,7 @@ public class ProjectionEntity {
     private LocalDate endDate;
 
     @Column(name = "start_time")
-    private LocalTime startTime;
+    private String[] startTime;  // Two members, first number is hours and second is minutes of projection starting time
 
     @Column(name = "available_seats")
     private int availableSeats;

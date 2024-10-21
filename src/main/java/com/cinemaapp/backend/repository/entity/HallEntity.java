@@ -9,12 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "venue")
+@Table(name = "hall")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class VenueEntity {
-
-    // Implement relationships with  + getters and setters
-
+public class HallEntity {
 
     @Id
     @Column(name = "id")
@@ -24,24 +21,15 @@ public class VenueEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "street")
-    private String street;
-
-    @Column(name = "street_number")
-    private String streetNumber;
-
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "id")
-    private CityEntity cityEntity;
+    @JoinColumn(name = "venue_id", referencedColumnName = "id")
+    private VenueEntity venueEntity;
 
-    @OneToMany(mappedBy = "venueEntity")
-    private List<SeatEntity> seatEntities;
+    @OneToMany(mappedBy = "hallEntity")
+    private List<ProjectionEntity> projectionEntities;
 
-    @OneToMany(mappedBy = "venueEntity")
-    private List<HallEntity> hallEntities;
-
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "total_seats")
+    private int totalSeats;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
