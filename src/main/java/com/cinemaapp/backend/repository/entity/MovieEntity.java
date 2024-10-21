@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class MovieEntity {
 
 
-    // Implement relationship  movie_genre + getters and setters
+    //  getters and setters
 
 
     @Id
@@ -60,6 +61,14 @@ public class MovieEntity {
 
     @Column(name = "status")
     private String status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<GenreEntity> genreEntities;
 
     @OneToMany(mappedBy = "movieEntity")
     private List<ProjectionEntity> projectionEntities;

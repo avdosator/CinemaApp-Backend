@@ -28,6 +28,9 @@ public class HallEntity {
     @OneToMany(mappedBy = "hallEntity")
     private List<ProjectionEntity> projectionEntities;
 
+    @OneToMany(mappedBy = "hallEntity")
+    private List<SeatEntity> seatEntities;
+
     @Column(name = "total_seats")
     private int totalSeats;
 

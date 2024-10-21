@@ -35,9 +35,6 @@ public class VenueEntity {
     private CityEntity cityEntity;
 
     @OneToMany(mappedBy = "venueEntity")
-    private List<SeatEntity> seatEntities;
-
-    @OneToMany(mappedBy = "venueEntity")
     private List<HallEntity> hallEntities;
 
     @Column(name = "phone")

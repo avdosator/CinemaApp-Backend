@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProjectionEntity {
 
-    // relationship with seat_reservation + getters and setters
+    // relationship + getters and setters
 
 
     @Column(name = "id")
@@ -35,13 +36,16 @@ public class ProjectionEntity {
     private LocalDate endDate;
 
     @Column(name = "start_time")
-    private String[] startTime;  // Two members, first number is hours and second is minutes of projection starting time
+    private String[] startTime;  // It will represent start times of all projections for specific hall/venue
 
     @Column(name = "available_seats")
     private int availableSeats;
 
     @Column(name = "status")
     private String status; //  should be "upcoming", "active", "completed" or "canceled"
+
+    @OneToMany(mappedBy = "projectionEntity")
+    private List<SeatReservationEntity> seatReservationEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

@@ -5,15 +5,12 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "reservation")
+@Table(name = "seat_reservation")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ReservationEntity {
-
-    // rel with   seat_reservation + getters and setters
+public class SeatReservationEntity {
 
     @Id
     @Column(name = "id")
@@ -21,17 +18,30 @@ public class ReservationEntity {
     private UUID id;
 
     @ManyToOne
+    @JoinColumn(name = "projection_id", referencedColumnName = "id")
+    private ProjectionEntity projectionEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "seat_id", referencedColumnName = "id")
+    private SeatEntity seatEntity;
+
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "reservationEntity")
-    private List<SeatReservationEntity> seatReservationEntities;
+    @ManyToOne
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    private TicketEntity ticketEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
+    private ReservationEntity reservationEntity;
 
     @Column(name = "status")
-    private String status; // should be "pending", "confirmed" or "canceled"
+    private String status; // reserved or purchased
 
-    @Column(name = "total_price")
-    private double totalPrice;
+    @Column(name = "reservation_time")
+    private LocalDateTime reservationTime;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

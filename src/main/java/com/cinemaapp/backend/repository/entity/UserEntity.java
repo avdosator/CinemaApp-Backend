@@ -14,7 +14,7 @@ import java.util.UUID;
 public class UserEntity {
 
 
-    // Also add fields for relationships with reservation, and seat_reservation
+    // Also add fields for relationships with seat_reservation
     // + add new getters and setters
 
 
@@ -47,6 +47,9 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity")
     private List<ReservationEntity> reservationEntities;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<SeatReservationEntity> seatReservationEntities;
 
     @Column(name = "role")
     private String role;

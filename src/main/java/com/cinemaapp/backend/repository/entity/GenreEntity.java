@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class GenreEntity {
 
-    // Implement relationship with movie_genre + getters and setters
+     // getters and setters
 
     @Id
     @Column(name = "id")
@@ -21,6 +22,9 @@ public class GenreEntity {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "genreEntities")
+    private Set<MovieEntity> movieEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TicketEntity {
 
-    // implement relationship with seat_reservation + getter and setters
+    //  getter and setters
 
     @Id
     @Column(name = "id")
@@ -22,6 +23,9 @@ public class TicketEntity {
     @OneToOne()
     @JoinColumn(name = "payment_id", referencedColumnName = "id")
     private PaymentEntity paymentEntity;
+
+    @OneToMany(mappedBy = "ticketEntity")
+    private List<SeatReservationEntity> seatReservationEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
