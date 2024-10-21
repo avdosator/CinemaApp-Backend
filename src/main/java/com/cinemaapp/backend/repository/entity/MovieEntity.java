@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -29,17 +28,11 @@ public class MovieEntity {
     @Column(name = "language")
     private String language;
 
-    @Column(name = "projection_start_date")
-    private Date projectionStart;
-
-    @Column(name = "projection_end_date")
-    private Date projectionEnd;
-
     @Column(name = "director")
     private String director;
 
     @Column(name = "pg_rating")
-    private int pgRating;
+    private String pgRating;
 
     @Column(name = "duration")
     private int durationInMinutes;

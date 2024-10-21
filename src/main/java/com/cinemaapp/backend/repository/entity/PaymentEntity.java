@@ -35,7 +35,7 @@ public class PaymentEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
-    
+
     @OneToOne(mappedBy = "paymentEntity")
     private TicketEntity ticketEntity;
 
