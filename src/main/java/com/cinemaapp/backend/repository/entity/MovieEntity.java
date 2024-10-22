@@ -1,0 +1,221 @@
+package com.cinemaapp.backend.repository.entity;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+@Entity
+@Table(name = "movie")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class MovieEntity {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue
+    private UUID id;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "language")
+    private String language;
+
+    @Column(name = "director")
+    private String director;
+
+    @Column(name = "pg_rating")
+    private String pgRating;
+
+    @Column(name = "duration")
+    private int durationInMinutes;
+
+    @Column(name = "writers")
+    private List<String> writers;
+
+    @Column(name = "actors")
+    private List<String> actors;
+
+    @Column(name = "imdb_rating")
+    private double imdbRating;
+
+    @Column(name = "rotten_tomatoes_rating")
+    private double rottenTomatoesRating;
+
+    @Column(name = "synopsis")
+    private String synopsis;
+
+    @Column(name = "trailer_url")
+    private String trailerUrl;
+
+    @Column(name = "cover_photo_id")
+    private UUID coverPhotoId;
+
+    @Column(name = "status")
+    private String status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<GenreEntity> genreEntities;
+
+    @OneToMany(mappedBy = "movieEntity")
+    private List<ProjectionEntity> projectionEntities;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getPgRating() {
+        return pgRating;
+    }
+
+    public void setPgRating(String pgRating) {
+        this.pgRating = pgRating;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public List<String> getWriters() {
+        return writers;
+    }
+
+    public void setWriters(List<String> writers) {
+        this.writers = writers;
+    }
+
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
+    }
+
+    public double getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(double imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public double getRottenTomatoesRating() {
+        return rottenTomatoesRating;
+    }
+
+    public void setRottenTomatoesRating(double rottenTomatoesRating) {
+        this.rottenTomatoesRating = rottenTomatoesRating;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
+
+    public UUID getCoverPhotoId() {
+        return coverPhotoId;
+    }
+
+    public void setCoverPhotoId(UUID coverPhotoId) {
+        this.coverPhotoId = coverPhotoId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Set<GenreEntity> getGenreEntities() {
+        return genreEntities;
+    }
+
+    public void setGenreEntities(Set<GenreEntity> genreEntities) {
+        this.genreEntities = genreEntities;
+    }
+
+    public List<ProjectionEntity> getProjectionEntities() {
+        return projectionEntities;
+    }
+
+    public void setProjectionEntities(List<ProjectionEntity> projectionEntities) {
+        this.projectionEntities = projectionEntities;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+}
