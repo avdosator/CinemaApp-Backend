@@ -14,7 +14,9 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProjectionEntity {
 
+    @Id
     @Column(name = "id")
+    @GeneratedValue
     private UUID id;
 
     @ManyToOne

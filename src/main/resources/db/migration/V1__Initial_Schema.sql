@@ -36,7 +36,7 @@ CREATE TABLE hall (
 );
 
 -- Create User table
-CREATE TABLE user (
+CREATE TABLE users (
     id UUID PRIMARY KEY,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
@@ -103,7 +103,7 @@ CREATE TABLE payment (
     payment_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(30),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_payment_user FOREIGN KEY (user_id) REFERENCES user(id)
+    CONSTRAINT fk_payment_users FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Create Ticket table
@@ -122,7 +122,7 @@ CREATE TABLE reservation (
     total_price DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_reservation_user FOREIGN KEY (user_id) REFERENCES user(id)
+    CONSTRAINT fk_reservation_users FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Create Seat table
@@ -150,7 +150,7 @@ CREATE TABLE seat_reservation (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_seat_reservation_projection FOREIGN KEY (projection_id) REFERENCES projection(id),
     CONSTRAINT fk_seat_reservation_seat FOREIGN KEY (seat_id) REFERENCES seat(id),
-    CONSTRAINT fk_seat_reservation_user FOREIGN KEY (user_id) REFERENCES user(id),
+    CONSTRAINT fk_seat_reservation_users FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_seat_reservation_ticket FOREIGN KEY (ticket_id) REFERENCES ticket(id),
     CONSTRAINT fk_seat_reservation_reservation FOREIGN KEY (reservation_id) REFERENCES reservation(id)
 );
