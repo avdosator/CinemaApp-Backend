@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,9 +13,6 @@ import java.util.UUID;
 @Table(name = "projection")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProjectionEntity {
-
-    // relationship + getters and setters
-
 
     @Column(name = "id")
     private UUID id;
@@ -52,4 +48,92 @@ public class ProjectionEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public HallEntity getHallEntity() {
+        return hallEntity;
+    }
+
+    public void setHallEntity(HallEntity hallEntity) {
+        this.hallEntity = hallEntity;
+    }
+
+    public MovieEntity getMovieEntity() {
+        return movieEntity;
+    }
+
+    public void setMovieEntity(MovieEntity movieEntity) {
+        this.movieEntity = movieEntity;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String[] getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String[] startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<SeatReservationEntity> getSeatReservationEntities() {
+        return seatReservationEntities;
+    }
+
+    public void setSeatReservationEntities(List<SeatReservationEntity> seatReservationEntities) {
+        this.seatReservationEntities = seatReservationEntities;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

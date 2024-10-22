@@ -13,8 +13,6 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class SeatEntity {
 
-    //  getters and setters
-
     @Id
     @Column(name = "id")
     @GeneratedValue
@@ -38,4 +36,60 @@ public class SeatEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public HallEntity getHallEntity() {
+        return hallEntity;
+    }
+
+    public void setHallEntity(HallEntity hallEntity) {
+        this.hallEntity = hallEntity;
+    }
+
+    public List<SeatReservationEntity> getSeatReservationEntities() {
+        return seatReservationEntities;
+    }
+
+    public void setSeatReservationEntities(List<SeatReservationEntity> seatReservationEntities) {
+        this.seatReservationEntities = seatReservationEntities;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

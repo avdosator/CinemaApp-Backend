@@ -14,10 +14,6 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class MovieEntity {
 
-
-    //  getters and setters
-
-
     @Id
     @Column(name = "id")
     @GeneratedValue
@@ -78,4 +74,148 @@ public class MovieEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getPgRating() {
+        return pgRating;
+    }
+
+    public void setPgRating(String pgRating) {
+        this.pgRating = pgRating;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public List<String> getWriters() {
+        return writers;
+    }
+
+    public void setWriters(List<String> writers) {
+        this.writers = writers;
+    }
+
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
+    }
+
+    public double getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(double imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public double getRottenTomatoesRating() {
+        return rottenTomatoesRating;
+    }
+
+    public void setRottenTomatoesRating(double rottenTomatoesRating) {
+        this.rottenTomatoesRating = rottenTomatoesRating;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
+
+    public UUID getCoverPhotoId() {
+        return coverPhotoId;
+    }
+
+    public void setCoverPhotoId(UUID coverPhotoId) {
+        this.coverPhotoId = coverPhotoId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Set<GenreEntity> getGenreEntities() {
+        return genreEntities;
+    }
+
+    public void setGenreEntities(Set<GenreEntity> genreEntities) {
+        this.genreEntities = genreEntities;
+    }
+
+    public List<ProjectionEntity> getProjectionEntities() {
+        return projectionEntities;
+    }
+
+    public void setProjectionEntities(List<ProjectionEntity> projectionEntities) {
+        this.projectionEntities = projectionEntities;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

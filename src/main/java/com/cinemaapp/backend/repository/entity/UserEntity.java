@@ -13,11 +13,6 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserEntity {
 
-
-    // Also add fields for relationships with seat_reservation
-    // + add new getters and setters
-
-
     @Id
     @Column(name = "id")
     @GeneratedValue
@@ -130,6 +125,14 @@ public class UserEntity {
 
     public void setReservationEntities(List<ReservationEntity> reservationEntities) {
         this.reservationEntities = reservationEntities;
+    }
+
+    public List<SeatReservationEntity> getSeatReservationEntities() {
+        return seatReservationEntities;
+    }
+
+    public void setSeatReservationEntities(List<SeatReservationEntity> seatReservationEntities) {
+        this.seatReservationEntities = seatReservationEntities;
     }
 
     public String getRole() {

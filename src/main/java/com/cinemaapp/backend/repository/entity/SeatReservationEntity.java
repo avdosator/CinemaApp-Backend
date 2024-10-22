@@ -48,4 +48,84 @@ public class SeatReservationEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public ProjectionEntity getProjectionEntity() {
+        return projectionEntity;
+    }
+
+    public void setProjectionEntity(ProjectionEntity projectionEntity) {
+        this.projectionEntity = projectionEntity;
+    }
+
+    public SeatEntity getSeatEntity() {
+        return seatEntity;
+    }
+
+    public void setSeatEntity(SeatEntity seatEntity) {
+        this.seatEntity = seatEntity;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    public TicketEntity getTicketEntity() {
+        return ticketEntity;
+    }
+
+    public void setTicketEntity(TicketEntity ticketEntity) {
+        this.ticketEntity = ticketEntity;
+    }
+
+    public ReservationEntity getReservationEntity() {
+        return reservationEntity;
+    }
+
+    public void setReservationEntity(ReservationEntity reservationEntity) {
+        this.reservationEntity = reservationEntity;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(LocalDateTime reservationTime) {
+        this.reservationTime = reservationTime;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

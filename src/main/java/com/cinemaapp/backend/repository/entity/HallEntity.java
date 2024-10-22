@@ -39,4 +39,68 @@ public class HallEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public VenueEntity getVenueEntity() {
+        return venueEntity;
+    }
+
+    public void setVenueEntity(VenueEntity venueEntity) {
+        this.venueEntity = venueEntity;
+    }
+
+    public List<ProjectionEntity> getProjectionEntities() {
+        return projectionEntities;
+    }
+
+    public void setProjectionEntities(List<ProjectionEntity> projectionEntities) {
+        this.projectionEntities = projectionEntities;
+    }
+
+    public List<SeatEntity> getSeatEntities() {
+        return seatEntities;
+    }
+
+    public void setSeatEntities(List<SeatEntity> seatEntities) {
+        this.seatEntities = seatEntities;
+    }
+
+    public int getTotalSeats() {
+        return totalSeats;
+    }
+
+    public void setTotalSeats(int totalSeats) {
+        this.totalSeats = totalSeats;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
