@@ -102,5 +102,127 @@ public class Movie {
         return updatedAt;
     }
 
-    
+    public static MovieBuilder builder() {
+        return new MovieBuilder();
+    }
+
+    private static class MovieBuilder {
+        private UUID id;
+        private String title;
+        private String language;
+        private String director;
+        private String pgRating;
+        private int durationInMinutes;
+        private List<String> writers;
+        private List<String> actors;
+        private double imdbRating;
+        private double rottenTomatoesRating;
+        private String synopsis;
+        private String trailerUrl;
+        private UUID coverPhotoId;
+        private String status;
+        private Set<Genre> genres;
+        private List<Projection> projections;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+
+        MovieBuilder() {
+        }
+
+        public MovieBuilder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+        public MovieBuilder title(String title) {
+            this.title = title;
+            return this;
+        }
+        public MovieBuilder language(String language) {
+            this.language = language;
+            return this;
+        }
+        public MovieBuilder director(String director) {
+            this.director = director;
+            return this;
+        }
+        public MovieBuilder pgRating(String pgRating) {
+            this.pgRating = pgRating;
+            return this;
+        }
+        public MovieBuilder durationInMinutes(int durationInMinutes) {
+            this.durationInMinutes = durationInMinutes;
+            return this;
+        }
+        public MovieBuilder writers(List<String> writers) {
+            this.writers = writers;
+            return this;
+        }
+        public MovieBuilder actors(List<String> actors) {
+            this.actors = actors;
+            return this;
+        }
+        public MovieBuilder imdbRating(double imdbRating) {
+            this.imdbRating = imdbRating;
+            return this;
+        }
+        public MovieBuilder rottenTomatoesRating(double rottenTomatoesRating) {
+            this.rottenTomatoesRating = rottenTomatoesRating;
+            return this;
+        }
+        public MovieBuilder synopsis(String synopsis) {
+            this.synopsis = synopsis;
+            return this;
+        }
+        public MovieBuilder trailerUrl(String trailerUrl) {
+            this.trailerUrl = trailerUrl;
+            return this;
+        }
+        public MovieBuilder coverPhotoId(UUID coverPhotoId) {
+            this.coverPhotoId = coverPhotoId;
+            return this;
+        }
+        public MovieBuilder status(String status) {
+            this.status = status;
+            return this;
+        }
+        public MovieBuilder genres(Set<Genre> genres) {
+            this.genres = genres;
+            return this;
+        }
+        public MovieBuilder projections(List<Projection> projections) {
+            this.projections = projections;
+            return this;
+        }
+        public MovieBuilder createdAt(LocalDateTime createdAt) {
+            this.updatedAt = createdAt;
+            return this;
+        }
+        public MovieBuilder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        public Movie build() {
+            return new Movie(
+                    this.id,
+                    this.title,
+                    this.language,
+                    this.director,
+                    this.pgRating,
+                    this.durationInMinutes,
+                    this.writers,
+                    this.actors,
+                    this.imdbRating,
+                    this.rottenTomatoesRating,
+                    this.synopsis,
+                    this.trailerUrl,
+                    this.coverPhotoId,
+                    this.status,
+                    this.genres,
+                    this.projections,
+                    this.createdAt,
+                    this.updatedAt
+            );
+        }
+    }
 }
