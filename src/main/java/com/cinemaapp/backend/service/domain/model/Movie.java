@@ -7,24 +7,24 @@ import java.util.UUID;
 
 public class Movie {
 
-    private UUID id;
-    private String title;
-    private String language;
-    private String director;
-    private String pgRating;
-    private int durationInMinutes;
-    private List<String> writers;
-    private List<String> actors;
-    private double imdbRating;
-    private double rottenTomatoesRating;
-    private String synopsis;
-    private String trailerUrl;
-    private UUID coverPhotoId;
-    private String status;
-    private Set<Genre> genres;
-    private List<Projection> projections;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private final UUID id;
+    private final String title;
+    private final String language;
+    private final String director;
+    private final String pgRating;
+    private final int durationInMinutes;
+    private final List<String> writers;
+    private final List<String> actors;
+    private final double imdbRating;
+    private final double rottenTomatoesRating;
+    private final String synopsis;
+    private final String trailerUrl;
+    private final UUID coverPhotoId;
+    private final String status;
+    private final Set<Genre> genres;
+    private final List<Projection> projections;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 
     Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes, List<String> writers, List<String> actors, double imdbRating, double rottenTomatoesRating, String synopsis, String trailerUrl, UUID coverPhotoId, String status, Set<Genre> genres, List<Projection> projections, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
