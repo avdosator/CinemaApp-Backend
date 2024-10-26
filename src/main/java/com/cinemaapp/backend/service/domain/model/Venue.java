@@ -71,6 +71,8 @@ public class Venue {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
+        VenueBuilder() {}
+
         public VenueBuilder id(UUID id) {
             this.id = id;
             return this;
