@@ -54,7 +54,7 @@ public class City {
     public static CityBuilder builder() {
         return new CityBuilder();
     }
-    
+
     private static class CityBuilder {
         private UUID id;
         private String name;
