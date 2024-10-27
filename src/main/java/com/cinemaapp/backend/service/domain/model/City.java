@@ -62,7 +62,7 @@ public class City {
         return new CityBuilder();
     }
 
-    private static class CityBuilder {
+    public static class CityBuilder {
         private UUID id;
         private String name;
         private int postalCode;

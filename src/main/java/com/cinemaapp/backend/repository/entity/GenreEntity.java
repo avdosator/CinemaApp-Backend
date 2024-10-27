@@ -1,11 +1,14 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Genre;
+import com.cinemaapp.backend.service.domain.model.Movie;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,7 +25,7 @@ public class GenreEntity {
     private String name;
 
     @ManyToMany(mappedBy = "genreEntities")
-    private Set<MovieEntity> movieEntities;
+    private List<MovieEntity> movieEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -46,11 +49,11 @@ public class GenreEntity {
         this.name = name;
     }
 
-    public Set<MovieEntity> getMovieEntities() {
+    public List<MovieEntity> getMovieEntities() {
         return movieEntities;
     }
 
-    public void setMovieEntities(Set<MovieEntity> movieEntities) {
+    public void setMovieEntities(List<MovieEntity> movieEntities) {
         this.movieEntities = movieEntities;
     }
 
@@ -68,5 +71,18 @@ public class GenreEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Genre toDomainModel() {
+        List<Movie> movies = (this.movieEntities == null ? Collections.emptyList() : this.movieEntities.stream()
+                .map(MovieEntity::toDomainModel)
+                .toList());
+        return Genre.builder()
+                .id(this.id)
+                .name(this.name)
+                .movies(movies)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }

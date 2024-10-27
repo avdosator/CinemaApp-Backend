@@ -1,10 +1,14 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.City;
+import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.model.Venue;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -101,5 +105,26 @@ public class CityEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    // add missing after UserEntity and VenueEntity toDomainModel implementation
+    public City toDomainModel() {
+        List<User> users = (this.userEntities == null ? Collections.emptyList() : this.userEntities.stream()
+                .map(UserEntity::toDomainModel)
+                .toList());
+        List<Venue> venues = (this.venueEntities == null ? Collections.emptyList() : this.venueEntities.stream()
+                .map(VenueEntity::toDomainModel)
+                .toList());
+
+        return City.builder()
+                .id(this.id)
+                .name(this.name)
+                .postalCode(this.postalCode)
+                .country(this.country)
+                .users(users)
+                .venues(venues)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }

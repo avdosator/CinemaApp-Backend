@@ -38,7 +38,7 @@ public class Ticket {
         return new TicketBuilder();
     }
 
-    private static class TicketBuilder {
+    public static class TicketBuilder {
         private UUID id;
         private Payment payment;
         private List<SeatReservation> seatReservations;

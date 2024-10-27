@@ -57,7 +57,7 @@ public class Reservation {
         return new ReservationBuilder();
     }
 
-    private static class ReservationBuilder {
+    public static class ReservationBuilder {
         private UUID id;
         private User user;
         private List<SeatReservation> seatReservations;

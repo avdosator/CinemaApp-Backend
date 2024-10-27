@@ -1,12 +1,15 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Genre;
+import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -64,7 +67,7 @@ public class MovieEntity {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private Set<GenreEntity> genreEntities;
+    private List<GenreEntity> genreEntities;
 
     @OneToMany(mappedBy = "movieEntity")
     private List<ProjectionEntity> projectionEntities;
@@ -187,11 +190,11 @@ public class MovieEntity {
         this.status = status;
     }
 
-    public Set<GenreEntity> getGenreEntities() {
+    public List<GenreEntity> getGenreEntities() {
         return genreEntities;
     }
 
-    public void setGenreEntities(Set<GenreEntity> genreEntities) {
+    public void setGenreEntities(List<GenreEntity> genreEntities) {
         this.genreEntities = genreEntities;
     }
 
@@ -217,5 +220,36 @@ public class MovieEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Movie toDomainModel() {
+        List<Genre> genres = (this.genreEntities == null ? Collections.emptyList() : this.genreEntities.stream()
+                .map(GenreEntity::toDomainModel)
+                .toList());
+        List<Projection> projections = (this.projectionEntities == null ?
+                Collections.emptyList() : this.projectionEntities.stream()
+                .map(ProjectionEntity::toDomainModel)
+                .toList());
+
+        return Movie.builder()
+                .id(this.id)
+                .title(this.title)
+                .language(this.language)
+                .director(this.director)
+                .pgRating(this.pgRating)
+                .durationInMinutes(this.durationInMinutes)
+                .writers(this.writers)
+                .actors(this.actors)
+                .imdbRating(this.imdbRating)
+                .rottenTomatoesRating(this.rottenTomatoesRating)
+                .synopsis(this.synopsis)
+                .trailerUrl(this.trailerUrl)
+                .coverPhotoId(this.coverPhotoId)
+                .status(this.status)
+                .genres(genres)
+                .projections(projections)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }
