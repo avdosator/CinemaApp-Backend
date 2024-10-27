@@ -109,6 +109,8 @@ public class User {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
+        UserBuilder() {}
+
         public UserBuilder id(UUID id) {
             this.id = id;
             return this;
