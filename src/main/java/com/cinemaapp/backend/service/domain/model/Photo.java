@@ -49,7 +49,7 @@ public class Photo {
         return new PhotoBuilder();
     }
 
-    private static class PhotoBuilder {
+    public static class PhotoBuilder {
         private UUID id;
         private String url;
         private UUID refEntityId;
