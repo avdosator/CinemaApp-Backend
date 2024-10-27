@@ -1,18 +1,18 @@
 package com.cinemaapp.backend.service.domain.model;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 public class Genre {
 
     private final UUID id;
     private final String name;
-    private final Set<Movie> movies;
+    private final List<Movie> movies;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public Genre(UUID id, String name, Set<Movie> movies, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Genre(UUID id, String name, List<Movie> movies, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.movies = movies;
@@ -28,7 +28,7 @@ public class Genre {
         return name;
     }
 
-    public Set<Movie> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
@@ -47,7 +47,7 @@ public class Genre {
     public static class GenreBuilder {
         private UUID id;
         private String name;
-        private Set<Movie> movies;
+        private List<Movie> movies;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
@@ -63,7 +63,7 @@ public class Genre {
             return this;
         }
 
-        public GenreBuilder movies(Set<Movie> movies) {
+        public GenreBuilder movies(List<Movie> movies) {
             this.movies = movies;
             return this;
         }

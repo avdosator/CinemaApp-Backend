@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +23,7 @@ public class GenreEntity {
     private String name;
 
     @ManyToMany(mappedBy = "genreEntities")
-    private Set<MovieEntity> movieEntities;
+    private List<MovieEntity> movieEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -47,11 +47,11 @@ public class GenreEntity {
         this.name = name;
     }
 
-    public Set<MovieEntity> getMovieEntities() {
+    public List<MovieEntity> getMovieEntities() {
         return movieEntities;
     }
 
-    public void setMovieEntities(Set<MovieEntity> movieEntities) {
+    public void setMovieEntities(List<MovieEntity> movieEntities) {
         this.movieEntities = movieEntities;
     }
 

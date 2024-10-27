@@ -2,7 +2,6 @@ package com.cinemaapp.backend.service.domain.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class Movie {
@@ -21,14 +20,14 @@ public class Movie {
     private final String trailerUrl;
     private final UUID coverPhotoId;
     private final String status;
-    private final Set<Genre> genres;
+    private final List<Genre> genres;
     private final List<Projection> projections;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes,
           List<String> writers, List<String> actors, double imdbRating, double rottenTomatoesRating, String synopsis,
-          String trailerUrl, UUID coverPhotoId, String status, Set<Genre> genres, List<Projection> projections,
+          String trailerUrl, UUID coverPhotoId, String status, List<Genre> genres, List<Projection> projections,
           LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
@@ -106,7 +105,7 @@ public class Movie {
         return status;
     }
 
-    public Set<Genre> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
@@ -126,7 +125,7 @@ public class Movie {
         return new MovieBuilder();
     }
 
-    private static class MovieBuilder {
+    public static class MovieBuilder {
         private UUID id;
         private String title;
         private String language;
@@ -141,7 +140,7 @@ public class Movie {
         private String trailerUrl;
         private UUID coverPhotoId;
         private String status;
-        private Set<Genre> genres;
+        private List<Genre> genres;
         private List<Projection> projections;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
@@ -219,7 +218,7 @@ public class Movie {
             return this;
         }
 
-        public MovieBuilder genres(Set<Genre> genres) {
+        public MovieBuilder genres(List<Genre> genres) {
             this.genres = genres;
             return this;
         }
