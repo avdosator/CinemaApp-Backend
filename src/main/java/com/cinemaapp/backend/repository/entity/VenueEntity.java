@@ -116,14 +116,14 @@ public class VenueEntity {
         this.updatedAt = updatedAt;
     }
 
-    // add city and halls after their implementation
+    // add halls after their implementation
     public Venue toDomainModel() {
         return Venue.builder()
                 .id(this.id)
                 .name(this.name)
                 .street(this.street)
                 .streetNumber(this.streetNumber)
-                .city()
+                .city(this.cityEntity.toDomainModel())
                 .halls()
                 .phone(this.phone)
                 .createdAt(this.createdAt)

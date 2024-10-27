@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Hall;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -102,5 +103,19 @@ public class HallEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    // add projections and seats after their implementation of this method
+    public Hall toDomainModel() {
+        return Hall.builder()
+                .id(this.id)
+                .name(this.name)
+                .venue(this.venueEntity.toDomainModel())
+                .projections()
+                .seats()
+                .totalSeats(this.totalSeats)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }
