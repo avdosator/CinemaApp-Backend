@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Reservation;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -91,5 +92,17 @@ public class ReservationEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Reservation toDomainModel() {
+        return Reservation.builder()
+                .id(this.id)
+                .user(this.userEntity.toDomainModel())
+                .seatReservations()
+                .status(this.status)
+                .totalPrice(this.totalPrice)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }
