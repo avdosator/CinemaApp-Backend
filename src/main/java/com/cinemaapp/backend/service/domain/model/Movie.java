@@ -194,7 +194,7 @@ public class Movie {
             return this;
         }
         public MovieBuilder createdAt(LocalDateTime createdAt) {
-            this.updatedAt = createdAt;
+            this.createdAt = createdAt;
             return this;
         }
         public MovieBuilder updatedAt(LocalDateTime updatedAt) {
