@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -137,5 +138,21 @@ public class ProjectionEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Projection toDomainModel() {
+        return Projection.builder()
+                .id(this.id)
+                .hall(this.hallEntity.toDomainModel())
+                .movie(this.movieEntity.toDomainModel())
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .startTime(this.startTime)
+                .availableSeats(this.availableSeats)
+                .status(this.status)
+                .seatReservations()
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }
