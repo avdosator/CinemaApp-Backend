@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Payment;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -101,5 +102,18 @@ public class PaymentEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Payment toDomainModel() {
+        return Payment.builder()
+                .id(this.id)
+                .amount(this.amount)
+                .method(this.method)
+                .paymentTime(this.paymentTime)
+                .status(this.status)
+                .user(this.userEntity.toDomainModel())
+                .ticket()
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }

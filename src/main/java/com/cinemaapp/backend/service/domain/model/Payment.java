@@ -62,7 +62,7 @@ public class Payment {
         return new PaymentBuilder();
     }
 
-    private static class PaymentBuilder {
+    public static class PaymentBuilder {
         private UUID id;
         private double amount;
         private String method;
