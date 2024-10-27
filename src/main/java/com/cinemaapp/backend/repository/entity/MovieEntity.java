@@ -2,6 +2,7 @@ package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Genre;
 import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -225,6 +226,11 @@ public class MovieEntity {
         List<Genre> genres = (this.genreEntities == null ? Collections.emptyList() : this.genreEntities.stream()
                 .map(GenreEntity::toDomainModel)
                 .toList());
+        List<Projection> projections = (this.projectionEntities == null ?
+                Collections.emptyList() : this.projectionEntities.stream()
+                .map(ProjectionEntity::toDomainModel)
+                .toList());
+
         return Movie.builder()
                 .id(this.id)
                 .title(this.title)
@@ -241,7 +247,7 @@ public class MovieEntity {
                 .coverPhotoId(this.coverPhotoId)
                 .status(this.status)
                 .genres(genres)
-                .projections()
+                .projections(projections)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

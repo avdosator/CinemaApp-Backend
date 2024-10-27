@@ -1,11 +1,13 @@
 package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Reservation;
+import com.cinemaapp.backend.service.domain.model.SeatReservation;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -95,10 +97,15 @@ public class ReservationEntity {
     }
 
     public Reservation toDomainModel() {
+        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ? Collections.emptyList() :
+                this.seatReservationEntities.stream()
+                        .map(SeatReservationEntity::toDomainModel)
+                        .toList());
+
         return Reservation.builder()
                 .id(this.id)
                 .user(this.userEntity.toDomainModel())
-                .seatReservations()
+                .seatReservations(seatReservations)
                 .status(this.status)
                 .totalPrice(this.totalPrice)
                 .createdAt(this.createdAt)

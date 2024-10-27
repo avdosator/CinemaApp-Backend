@@ -1,11 +1,13 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Hall;
 import com.cinemaapp.backend.service.domain.model.Venue;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -118,13 +120,18 @@ public class VenueEntity {
 
     // add halls after their implementation
     public Venue toDomainModel() {
+        List<Hall> halls = (this.hallEntities == null ? Collections.emptyList() :
+                this.hallEntities.stream()
+                        .map(HallEntity::toDomainModel)
+                        .toList());
+
         return Venue.builder()
                 .id(this.id)
                 .name(this.name)
                 .street(this.street)
                 .streetNumber(this.streetNumber)
                 .city(this.cityEntity.toDomainModel())
-                .halls()
+                .halls(halls)
                 .phone(this.phone)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
