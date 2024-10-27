@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.City;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -101,5 +102,19 @@ public class CityEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    // add missing after UserEntity and VenueEntity toDomainModel implementation
+    public City toDomainModel() {
+        return City.builder()
+                .id(this.id)
+                .name(this.name)
+                .postalCode(this.postalCode)
+                .country(this.country)
+                .users()
+                .venues()
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }
