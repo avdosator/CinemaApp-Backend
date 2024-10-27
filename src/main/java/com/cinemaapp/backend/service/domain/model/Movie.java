@@ -26,7 +26,10 @@ public class Movie {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes, List<String> writers, List<String> actors, double imdbRating, double rottenTomatoesRating, String synopsis, String trailerUrl, UUID coverPhotoId, String status, Set<Genre> genres, List<Projection> projections, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes,
+          List<String> writers, List<String> actors, double imdbRating, double rottenTomatoesRating, String synopsis,
+          String trailerUrl, UUID coverPhotoId, String status, Set<Genre> genres, List<Projection> projections,
+          LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.language = language;
@@ -50,54 +53,71 @@ public class Movie {
     public UUID getId() {
         return id;
     }
+
     public String getTitle() {
         return title;
     }
+
     public String getLanguage() {
         return language;
     }
+
     public String getDirector() {
         return director;
     }
+
     public String getPgRating() {
         return pgRating;
     }
+
     public int getDurationInMinutes() {
         return durationInMinutes;
     }
+
     public List<String> getWriters() {
         return writers;
     }
+
     public List<String> getActors() {
         return actors;
     }
+
     public double getImdbRating() {
         return imdbRating;
     }
+
     public double getRottenTomatoesRating() {
         return rottenTomatoesRating;
     }
+
     public String getSynopsis() {
         return synopsis;
     }
+
     public String getTrailerUrl() {
         return trailerUrl;
     }
+
     public UUID getCoverPhotoId() {
         return coverPhotoId;
     }
+
     public String getStatus() {
         return status;
     }
+
     public Set<Genre> getGenres() {
         return genres;
     }
+
     public List<Projection> getProjections() {
         return projections;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -133,70 +153,87 @@ public class Movie {
             this.id = id;
             return this;
         }
+
         public MovieBuilder title(String title) {
             this.title = title;
             return this;
         }
+
         public MovieBuilder language(String language) {
             this.language = language;
             return this;
         }
+
         public MovieBuilder director(String director) {
             this.director = director;
             return this;
         }
+
         public MovieBuilder pgRating(String pgRating) {
             this.pgRating = pgRating;
             return this;
         }
+
         public MovieBuilder durationInMinutes(int durationInMinutes) {
             this.durationInMinutes = durationInMinutes;
             return this;
         }
+
         public MovieBuilder writers(List<String> writers) {
             this.writers = writers;
             return this;
         }
+
         public MovieBuilder actors(List<String> actors) {
             this.actors = actors;
             return this;
         }
+
         public MovieBuilder imdbRating(double imdbRating) {
             this.imdbRating = imdbRating;
             return this;
         }
+
         public MovieBuilder rottenTomatoesRating(double rottenTomatoesRating) {
             this.rottenTomatoesRating = rottenTomatoesRating;
             return this;
         }
+
         public MovieBuilder synopsis(String synopsis) {
             this.synopsis = synopsis;
             return this;
         }
+
         public MovieBuilder trailerUrl(String trailerUrl) {
             this.trailerUrl = trailerUrl;
             return this;
         }
+
         public MovieBuilder coverPhotoId(UUID coverPhotoId) {
             this.coverPhotoId = coverPhotoId;
             return this;
         }
+
         public MovieBuilder status(String status) {
             this.status = status;
             return this;
         }
+
         public MovieBuilder genres(Set<Genre> genres) {
             this.genres = genres;
             return this;
         }
+
         public MovieBuilder projections(List<Projection> projections) {
             this.projections = projections;
             return this;
         }
+
         public MovieBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public MovieBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

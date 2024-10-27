@@ -38,33 +38,43 @@ public class Projection {
     public UUID getId() {
         return id;
     }
+
     public Hall getHall() {
         return hall;
     }
+
     public Movie getMovie() {
         return movie;
     }
+
     public LocalDate getStartDate() {
         return startDate;
     }
+
     public LocalDate getEndDate() {
         return endDate;
     }
+
     public String[] getStartTime() {
         return startTime;
     }
+
     public int getAvailableSeats() {
         return availableSeats;
     }
+
     public String getStatus() {
         return status;
     }
+
     public List<SeatReservation> getSeatReservations() {
         return seatReservations;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -86,48 +96,59 @@ public class Projection {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
-        ProjectionBuilder() {}
+        ProjectionBuilder() {
+        }
 
         public ProjectionBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public ProjectionBuilder hall(Hall hall) {
             this.hall = hall;
             return this;
         }
+
         public ProjectionBuilder movie(Movie movie) {
             this.movie = movie;
             return this;
         }
+
         public ProjectionBuilder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
+
         public ProjectionBuilder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
+
         public ProjectionBuilder startTime(String[] startTime) {
             this.startTime = startTime;
             return this;
         }
+
         public ProjectionBuilder availableSeats(int availableSeats) {
             this.availableSeats = availableSeats;
             return this;
         }
+
         public ProjectionBuilder status(String status) {
             this.status = status;
             return this;
         }
+
         public ProjectionBuilder seatReservations(List<SeatReservation> seatReservations) {
             this.seatReservations = seatReservations;
             return this;
         }
+
         public ProjectionBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public ProjectionBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

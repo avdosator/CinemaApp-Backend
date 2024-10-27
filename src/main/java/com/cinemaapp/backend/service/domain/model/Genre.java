@@ -1,7 +1,5 @@
 package com.cinemaapp.backend.service.domain.model;
 
-import com.cinemaapp.backend.repository.entity.MovieEntity;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -59,18 +57,22 @@ public class Genre {
             this.id = id;
             return this;
         }
+
         public GenreBuilder name(String name) {
             this.name = name;
             return this;
         }
+
         public GenreBuilder movies(Set<Movie> movies) {
             this.movies = movies;
             return this;
         }
+
         public GenreBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public GenreBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

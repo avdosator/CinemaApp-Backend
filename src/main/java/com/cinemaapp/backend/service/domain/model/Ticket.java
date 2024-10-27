@@ -21,12 +21,15 @@ public class Ticket {
     public UUID getId() {
         return id;
     }
+
     public Payment getPayment() {
         return payment;
     }
+
     public List<SeatReservation> getSeatReservations() {
         return seatReservations;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -41,20 +44,24 @@ public class Ticket {
         private List<SeatReservation> seatReservations;
         private LocalDateTime createdAt;
 
-        TicketBuilder() {}
+        TicketBuilder() {
+        }
 
         public TicketBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public TicketBuilder payment(Payment payment) {
             this.payment = payment;
             return this;
         }
+
         public TicketBuilder seatReservations(List<SeatReservation> seatReservations) {
             this.seatReservations = seatReservations;
             return this;
         }
+
         public TicketBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;

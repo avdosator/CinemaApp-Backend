@@ -29,24 +29,31 @@ public class Hall {
     public UUID getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public Venue getVenue() {
         return venue;
     }
+
     public List<Projection> getProjections() {
         return projections;
     }
+
     public List<Seat> getSeats() {
         return seats;
     }
+
     public int getTotalSeats() {
         return totalSeats;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -71,30 +78,37 @@ public class Hall {
             this.id = id;
             return this;
         }
+
         public HallBuilder name(String name) {
             this.name = name;
             return this;
         }
+
         public HallBuilder venue(Venue venue) {
             this.venue = venue;
             return this;
         }
+
         public HallBuilder projections(List<Projection> projections) {
             this.projections = projections;
             return this;
         }
+
         public HallBuilder seats(List<Seat> seats) {
             this.seats = seats;
             return this;
         }
+
         public HallBuilder totalSeats(int totalSeats) {
             this.totalSeats = totalSeats;
             return this;
         }
+
         public HallBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public HallBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

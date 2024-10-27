@@ -28,21 +28,27 @@ public class Seat {
     public UUID getId() {
         return id;
     }
+
     public String getNumber() {
         return number;
     }
+
     public Hall getHall() {
         return hall;
     }
+
     public List<SeatReservation> getSeatReservations() {
         return seatReservations;
     }
+
     public String getType() {
         return type;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -60,32 +66,39 @@ public class Seat {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
-        SeatBuilder() {}
+        SeatBuilder() {
+        }
 
         public SeatBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public SeatBuilder number(String number) {
             this.number = number;
             return this;
         }
+
         public SeatBuilder hall(Hall hall) {
             this.hall = hall;
             return this;
         }
+
         public SeatBuilder seatReservations(List<SeatReservation> seatReservations) {
             this.seatReservations = seatReservations;
             return this;
         }
+
         public SeatBuilder type(String type) {
             this.type = type;
             return this;
         }
+
         public SeatBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public SeatBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

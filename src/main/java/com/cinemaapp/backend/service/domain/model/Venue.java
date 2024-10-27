@@ -31,27 +31,35 @@ public class Venue {
     public UUID getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public String getStreet() {
         return street;
     }
+
     public String getStreetNumber() {
         return streetNumber;
     }
+
     public City getCity() {
         return city;
     }
+
     public List<Hall> getHalls() {
         return halls;
     }
+
     public String getPhone() {
         return phone;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -71,40 +79,49 @@ public class Venue {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
-        VenueBuilder() {}
+        VenueBuilder() {
+        }
 
         public VenueBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public VenueBuilder name(String name) {
             this.name = name;
             return this;
         }
+
         public VenueBuilder street(String street) {
             this.street = street;
             return this;
         }
+
         public VenueBuilder streetNumber(String streetNumber) {
             this.streetNumber = streetNumber;
             return this;
         }
+
         public VenueBuilder city(City city) {
             this.city = city;
             return this;
         }
+
         public VenueBuilder halls(List<Hall> halls) {
             this.halls = halls;
             return this;
         }
+
         public VenueBuilder phone(String phone) {
             this.phone = phone;
             return this;
         }
+
         public VenueBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public VenueBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

@@ -1,9 +1,5 @@
 package com.cinemaapp.backend.service.domain.model;
 
-import com.cinemaapp.backend.repository.entity.TicketEntity;
-import com.cinemaapp.backend.repository.entity.UserEntity;
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -33,24 +29,31 @@ public class Payment {
     public UUID getId() {
         return id;
     }
+
     public double getAmount() {
         return amount;
     }
+
     public String getMethod() {
         return method;
     }
+
     public LocalDateTime getPaymentTime() {
         return paymentTime;
     }
+
     public String getStatus() {
         return status;
     }
+
     public User getUser() {
         return user;
     }
+
     public Ticket getTicket() {
         return ticket;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -69,36 +72,44 @@ public class Payment {
         private Ticket ticket;
         private LocalDateTime updatedAt;
 
-        PaymentBuilder() {}
+        PaymentBuilder() {
+        }
 
         public PaymentBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public PaymentBuilder amount(double amount) {
             this.amount = amount;
             return this;
         }
+
         public PaymentBuilder method(String method) {
             this.method = method;
             return this;
         }
+
         public PaymentBuilder paymentTime(LocalDateTime paymentTime) {
             this.paymentTime = paymentTime;
             return this;
         }
+
         public PaymentBuilder status(String status) {
             this.status = status;
             return this;
         }
+
         public PaymentBuilder user(User user) {
             this.user = user;
             return this;
         }
+
         public PaymentBuilder ticket(Ticket ticket) {
             this.ticket = ticket;
             return this;
         }
+
         public PaymentBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

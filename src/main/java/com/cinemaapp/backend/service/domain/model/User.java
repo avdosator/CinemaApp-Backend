@@ -109,56 +109,69 @@ public class User {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
-        UserBuilder() {}
+        UserBuilder() {
+        }
 
         public UserBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public UserBuilder firstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
+
         public UserBuilder lastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
+
         public UserBuilder email(String email) {
             this.email = email;
             return this;
         }
+
         public UserBuilder passwordHash(String passwordHash) {
             this.passwordHash = passwordHash;
             return this;
         }
+
         public UserBuilder phone(String phone) {
             this.phone = phone;
             return this;
         }
+
         public UserBuilder city(City city) {
             this.city = city;
             return this;
         }
+
         public UserBuilder payments(List<Payment> payments) {
             this.payments = payments;
             return this;
         }
+
         public UserBuilder reservations(List<Reservation> reservations) {
             this.reservations = reservations;
             return this;
         }
+
         public UserBuilder seatReservations(List<SeatReservation> seatReservations) {
             this.seatReservations = seatReservations;
             return this;
         }
+
         public UserBuilder role(String role) {
             this.role = role;
             return this;
         }
+
         public UserBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public UserBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

@@ -29,24 +29,31 @@ public class City {
     public UUID getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public int getPostalCode() {
         return postalCode;
     }
+
     public String getCountry() {
         return country;
     }
+
     public List<User> getUsers() {
         return users;
     }
+
     public List<Venue> getVenues() {
         return venues;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -71,30 +78,37 @@ public class City {
             this.id = id;
             return this;
         }
+
         public CityBuilder name(String name) {
             this.name = name;
             return this;
         }
+
         public CityBuilder postalCode(int postalCode) {
             this.postalCode = postalCode;
             return this;
         }
+
         public CityBuilder country(String country) {
             this.country = country;
             return this;
         }
+
         public CityBuilder users(List<User> users) {
             this.users = users;
             return this;
         }
+
         public CityBuilder venues(List<Venue> venues) {
             this.venues = venues;
             return this;
         }
+
         public CityBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public CityBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;

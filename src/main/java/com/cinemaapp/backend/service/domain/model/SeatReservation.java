@@ -1,7 +1,5 @@
 package com.cinemaapp.backend.service.domain.model;
 
-import com.cinemaapp.backend.repository.entity.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 

@@ -28,21 +28,27 @@ public class Reservation {
     public UUID getId() {
         return id;
     }
+
     public User getUser() {
         return user;
     }
+
     public List<SeatReservation> getSeatReservations() {
         return seatReservations;
     }
+
     public String getStatus() {
         return status;
     }
+
     public double getTotalPrice() {
         return totalPrice;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -60,32 +66,39 @@ public class Reservation {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
-        public ReservationBuilder() {}
+        public ReservationBuilder() {
+        }
 
         public ReservationBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public ReservationBuilder user(User user) {
             this.user = user;
             return this;
         }
+
         public ReservationBuilder seatReservations(List<SeatReservation> seatReservations) {
             this.seatReservations = seatReservations;
             return this;
         }
+
         public ReservationBuilder status(String status) {
             this.status = status;
             return this;
         }
+
         public ReservationBuilder totalPrice(double totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
+
         public ReservationBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
+
         public ReservationBuilder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
