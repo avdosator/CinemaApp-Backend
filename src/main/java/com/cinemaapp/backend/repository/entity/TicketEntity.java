@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.Ticket;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -58,5 +59,14 @@ public class TicketEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Ticket toDomainModel() {
+        return Ticket.builder()
+                .id(this.id)
+                .payment(this.paymentEntity.toDomainModel())
+                .seatReservations()
+                .createdAt(this.createdAt)
+                .build();
     }
 }
