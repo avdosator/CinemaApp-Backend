@@ -34,7 +34,7 @@ public class ProjectionEntity {
     private LocalDate endDate;
 
     @Column(name = "start_time")
-    private String[] startTime;  // It will represent start times of all projections for specific hall/venue
+    private String[] startTime;  // It will represent start times of all projections for specific hall/venue -> "19:00"
 
     @Column(name = "available_seats")
     private int availableSeats;
