@@ -128,6 +128,19 @@ public class DatabaseInitializer implements CommandLineRunner {
                 crudMovieRepository.save(movie);
             }
 
+            // seed venue table
+            for (int i = 1; i <= 6; i++) {
+                VenueEntity venue = new VenueEntity();
+                venue.setName("Sarajevo Venue " + i);
+                venue.setStreet("Example Street");
+                venue.setStreetNumber(String.valueOf(i));
+                venue.setCityEntity(sarajevo);
+                venue.setPhone("987-654-3210");
+                venue.setCreatedAt(LocalDateTime.now());
+                venue.setUpdatedAt(LocalDateTime.now());
+
+                crudVenueRepository.save(venue);
+            }
             
             System.out.println("Database seeded successfully");
         }
