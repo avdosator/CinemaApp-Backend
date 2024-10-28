@@ -71,6 +71,36 @@ public class DatabaseInitializer implements CommandLineRunner {
             user.setUpdatedAt(LocalDateTime.now());
 
             crudUserRepository.save(user);
+
+            // seed genre table
+            List<GenreEntity> genres = new ArrayList<>();
+
+            GenreEntity action = new GenreEntity();
+            action.setName("action");
+            action.setCreatedAt(LocalDateTime.now());
+            action.setUpdatedAt(LocalDateTime.now());
+            genres.add(action);
+
+            GenreEntity drama = new GenreEntity();
+            drama.setName("drama");
+            drama.setCreatedAt(LocalDateTime.now());
+            drama.setUpdatedAt(LocalDateTime.now());
+            genres.add(drama);
+
+            GenreEntity comedy = new GenreEntity();
+            comedy.setName("comedy");
+            comedy.setCreatedAt(LocalDateTime.now());
+            comedy.setUpdatedAt(LocalDateTime.now());
+            genres.add(comedy);
+
+            GenreEntity thriller = new GenreEntity();
+            thriller.setName("thriller");
+            thriller.setCreatedAt(LocalDateTime.now());
+            thriller.setUpdatedAt(LocalDateTime.now());
+            genres.add(thriller);
+
+            crudGenreRepository.saveAll(genres);
+
             
             System.out.println("Database seeded successfully");
         }
