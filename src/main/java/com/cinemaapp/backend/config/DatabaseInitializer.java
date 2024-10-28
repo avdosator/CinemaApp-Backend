@@ -101,6 +101,33 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             crudGenreRepository.saveAll(genres);
 
+            // retrieve data due to error
+            List<GenreEntity> allGenres = crudGenreRepository.findAll();
+
+            // seed movie table
+            String[] statuses = {"active", "draft", "archived"};
+            for (int i = 0; i < 20; i++) {
+                MovieEntity movie = new MovieEntity();
+                movie.setTitle("Sample Movie " + (i + 1));
+                movie.setLanguage("English");
+                movie.setDirector("Director");
+                movie.setPgRating("PG-13");
+                movie.setDurationInMinutes(120);
+                movie.setWriters(Arrays.asList("Writer 1", "Writer 2"));
+                movie.setActors(Arrays.asList("Actor 1", "Actor 2"));
+                movie.setImdbRating(7.5 + (i % 2) * 0.5);
+                movie.setRottenTomatoesRating(85 + (i % 2) * 5);
+                movie.setSynopsis("A sample synopsis for the movie.");
+                //movie.setTrailerUrl("http://example.com/trailer" + (i + 1));
+                //movie.setCoverPhotoId(UUID.randomUUID());
+                movie.setStatus(statuses[i % 2]);
+                movie.setCreatedAt(LocalDateTime.now());
+                movie.setUpdatedAt(LocalDateTime.now());
+                movie.setGenreEntities(List.of(allGenres.get(i % genres.size()))); // Assign a genre
+
+                crudMovieRepository.save(movie);
+            }
+
             
             System.out.println("Database seeded successfully");
         }
