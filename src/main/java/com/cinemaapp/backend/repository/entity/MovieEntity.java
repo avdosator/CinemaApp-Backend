@@ -61,7 +61,7 @@ public class MovieEntity {
     @Column(name = "status")
     private String status;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id"),

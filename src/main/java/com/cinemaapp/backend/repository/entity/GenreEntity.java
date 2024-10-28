@@ -24,7 +24,7 @@ public class GenreEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "genreEntities")
+    @ManyToMany(mappedBy = "genreEntities", cascade = CascadeType.ALL)
     private List<MovieEntity> movieEntities;
 
     @Column(name = "created_at")

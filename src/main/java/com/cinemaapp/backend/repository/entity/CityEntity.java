@@ -31,7 +31,7 @@ public class CityEntity {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "cityEntity")
+    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.ALL)
     private List<UserEntity> userEntities;
 
     @OneToMany(mappedBy = "cityEntity")
