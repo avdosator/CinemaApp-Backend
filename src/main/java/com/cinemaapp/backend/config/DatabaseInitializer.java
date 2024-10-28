@@ -1,8 +1,7 @@
 package com.cinemaapp.backend.config;
 
-import com.cinemaapp.backend.repository.CityRepository;
-import com.cinemaapp.backend.repository.GenreRepository;
-import com.cinemaapp.backend.repository.MovieRepository;
+import com.cinemaapp.backend.repository.*;
+import com.cinemaapp.backend.repository.crud.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -10,19 +9,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
 
-    private final CityRepository cityRepository;
-    private final GenreRepository genreRepository;
-    private final MovieRepository movieRepository;
+    private final CrudCityRepository crudCityRepository;
+    private final CrudGenreRepository crudGenreRepository;
+    private final CrudVenueRepository crudVenueRepository;
+    private final CrudMovieRepository crudMovieRepository;
+    private final CrudUserRepository crudUserRepository;
+
 
     @Autowired
-    public DatabaseInitializer(CityRepository cityRepository, GenreRepository genreRepository, MovieRepository movieRepository) {
-        this.cityRepository = cityRepository;
-        this.genreRepository = genreRepository;
-        this.movieRepository = movieRepository;
+    public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
+                               CrudVenueRepository crudVenueRepository, CrudMovieRepository crudMovieRepository,
+                               CrudUserRepository crudUserRepository) {
+        this.crudCityRepository = crudCityRepository;
+        this.crudGenreRepository = crudGenreRepository;
+        this.crudVenueRepository = crudVenueRepository;
+        this.crudMovieRepository = crudMovieRepository;
+        this.crudUserRepository = crudUserRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-
+        
     }
 }
