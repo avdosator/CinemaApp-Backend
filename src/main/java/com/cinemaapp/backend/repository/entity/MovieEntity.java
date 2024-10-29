@@ -69,7 +69,7 @@ public class MovieEntity {
     )
     private List<GenreEntity> genreEntities;
 
-    @OneToMany(mappedBy = "movieEntity")
+    @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
 
     @Column(name = "created_at")
