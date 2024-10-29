@@ -74,13 +74,13 @@ public class GenreEntity {
     }
 
     public Genre toDomainModel() {
-        List<Movie> movies = (this.movieEntities == null ? Collections.emptyList() : this.movieEntities.stream()
-                .map(MovieEntity::toDomainModel)
-                .toList());
+//        List<Movie> movies = (this.movieEntities == null ? Collections.emptyList() : this.movieEntities.stream()
+//                .map(MovieEntity::toDomainModel)
+//                .toList());
         return Genre.builder()
                 .id(this.id)
                 .name(this.name)
-                .movies(movies)
+                //.movies(movies)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

@@ -158,7 +158,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             crudVenueRepository.save(venue);
         }
-        
+
         System.out.println("Database seeded successfully");
     }
 //    }

@@ -143,23 +143,23 @@ public class ProjectionEntity {
     }
 
     public Projection toDomainModel() {
-        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ? Collections.emptyList() :
-                this.seatReservationEntities.stream()
-                        .map(SeatReservationEntity::toDomainModel)
-                        .toList());
+//        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ? Collections.emptyList() :
+//                this.seatReservationEntities.stream()
+//                        .map(SeatReservationEntity::toDomainModel)
+//                        .toList());
 
         return Projection.builder()
                 .id(this.id)
-                .hall(this.hallEntity.toDomainModel())
-                .movie(this.movieEntity.toDomainModel())
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .startTime(this.startTime)
-                .availableSeats(this.availableSeats)
+                //.hall(this.hallEntity.toDomainModel())
+                //.movie(this.movieEntity.toDomainModel())
+                //.startDate(this.startDate)
+                //.endDate(this.endDate)
+                //.startTime(this.startTime)
+                //.availableSeats(this.availableSeats)
                 .status(this.status)
-                .seatReservations(seatReservations)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.seatReservations(seatReservations)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }
