@@ -21,7 +21,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<Movie> getAllMovies() {
         List<Movie> movieList = movieService.findAllMovies();
         if(movieList.isEmpty()) {
