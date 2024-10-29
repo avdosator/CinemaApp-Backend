@@ -14,4 +14,11 @@ public class MovieSpecification {
             return criteriaBuilder.equal(projections.get("status"), "active");
         };
     }
+
+    public static Specification<MovieEntity> hasUpcomingProjection() {
+        return (root, query, criteriaBuilder) -> {
+            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+            return criteriaBuilder.equal(projections.get("status"), "upcoming");
+        };
+    }
 }
