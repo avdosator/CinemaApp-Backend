@@ -29,4 +29,9 @@ public class MovieServiceImpl implements MovieService {
     public Page<Movie> findAllActiveMovies(SearchMoviesRequest searchMoviesRequest) {
         return movieRepository.findAllActiveMovies(searchMoviesRequest);
     }
+
+    @Override
+    public Page<Movie> findAllUpcomingMovies(SearchMoviesRequest searchMoviesRequest) {
+        return movieRepository.findAllUpcomingMovies(searchMoviesRequest);
+    }
 }

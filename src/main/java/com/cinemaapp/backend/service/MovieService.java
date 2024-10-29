@@ -9,4 +9,5 @@ import java.util.List;
 public interface MovieService {
     Page<Movie> findAllMovies(SearchMoviesRequest searchMoviesRequest);
     Page<Movie> findAllActiveMovies(SearchMoviesRequest searchMoviesRequest);
+    Page<Movie> findAllUpcomingMovies(SearchMoviesRequest searchMoviesRequest);
 }
