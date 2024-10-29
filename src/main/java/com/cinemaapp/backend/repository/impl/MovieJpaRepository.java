@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -56,11 +57,31 @@ public class MovieJpaRepository implements MovieRepository {
         page.setPageSize(movieEntities.getSize());
         page.setTotalElements(movieEntities.getNumberOfElements());
         page.setTotalPages(movieEntities.getTotalPages());
-        List<Movie> movies = new ArrayList<>();
+        List<Movie> activeMovies = new ArrayList<>();
         for (MovieEntity movieEntity : movieEntities) {
-            movies.add(movieEntity.toDomainModel());
+            activeMovies.add(movieEntity.toDomainModel());
         }
-        page.setContent(movies);
+        page.setContent(activeMovies);
+        return page;
+    }
+
+    @Override
+    public Page<Movie> findAllUpcomingMovies(SearchMoviesRequest searchMoviesRequest) {
+        Specification<MovieEntity> specification = MovieSpecification.hasUpcomingProjection();
+        org.springframework.data.domain.Page<MovieEntity> movieEntities =
+                crudMovieRepository.findAll(
+                        specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
+                );
+        Page<Movie> page = new Page<>();
+        page.setPageNumber(movieEntities.getNumber());
+        page.setPageSize(movieEntities.getSize());
+        page.setTotalElements(movieEntities.getNumberOfElements());
+        page.setTotalPages(movieEntities.getTotalPages());
+        List<Movie> upcomingMovies = new ArrayList<>();
+        for (MovieEntity movieEntity : movieEntities) {
+            upcomingMovies.add(movieEntity.toDomainModel());
+        }
+        page.setContent(upcomingMovies);
         return page;
     }
 }
