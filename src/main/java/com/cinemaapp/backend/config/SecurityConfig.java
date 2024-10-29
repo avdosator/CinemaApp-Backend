@@ -15,9 +15,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) // disabled in development
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                                "/api/**").permitAll() // Allow all requests
-                        .anyRequest().authenticated() // Other than "/api/*" should be from authenticated user
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll() // Allow all requests to all endpoints in development
                 );
 
         return http.build();
