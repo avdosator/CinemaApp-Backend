@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.controller;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
@@ -24,11 +25,17 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<Movie> getAllMovies(@RequestParam SearchMoviesRequest searchMoviesRequest) {
-        List<Movie> movieList = movieService.findAllMovies(searchMoviesRequest);
-        if(movieList.isEmpty()) {
-            return Collections.emptyList();
+    public Page<Movie> getAllMovies(@RequestParam SearchMoviesRequest searchMoviesRequest) {
+        Page<Movie> movies = movieService.findAllMovies(searchMoviesRequest);
+        if(movies.isEmpty()) {
+            Page<Movie> emptyPage = new Page<>();
+            emptyPage.setContent(Collections.emptyList());
+            emptyPage.setPageNumber(0);
+            emptyPage.setPageSize(0);
+            emptyPage.setTotalElements(0);
+            emptyPage.setTotalPages(0);
+            return emptyPage;
         }
-        return movieList;
+        return movies;
     }
 }

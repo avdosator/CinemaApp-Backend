@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.service.impl;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
@@ -20,7 +21,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findAllMovies(SearchMoviesRequest searchMoviesRequest) {
+    public Page<Movie> findAllMovies(SearchMoviesRequest searchMoviesRequest) {
         return movieRepository.findAllMovies(searchMoviesRequest);
     }
 }

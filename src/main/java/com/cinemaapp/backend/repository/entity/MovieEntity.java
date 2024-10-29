@@ -245,11 +245,11 @@ public class MovieEntity {
                 .synopsis(this.synopsis)
                 //.trailerUrl(this.trailerUrl)
                 //.coverPhotoId(this.coverPhotoId)
-                .status(this.status)
+                //.status(this.status)
                 .genres(genres)
                 .projections(projections)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }

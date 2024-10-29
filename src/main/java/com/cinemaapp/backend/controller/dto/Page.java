@@ -49,4 +49,8 @@ public class Page<T> {
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
+
+    public boolean isEmpty() {
+        return content.isEmpty();
+    }
 }
