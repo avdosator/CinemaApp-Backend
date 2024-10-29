@@ -36,4 +36,19 @@ public class MovieController {
         }
         return movies;
     }
+
+    @GetMapping("/active")
+    public Page<Movie> getAllActiveMovies(@ModelAttribute SearchMoviesRequest searchMoviesRequest) {
+        Page<Movie> activeMovies = movieService.findAllActiveMovies(searchMoviesRequest);
+        if(activeMovies.isEmpty()) {
+            Page<Movie> emptyPage = new Page<>();
+            emptyPage.setContent(Collections.emptyList());
+            emptyPage.setPageNumber(0);
+            emptyPage.setPageSize(0);
+            emptyPage.setTotalElements(0);
+            emptyPage.setTotalPages(0);
+            return emptyPage;
+        }
+        return activeMovies;
+    }
 }
