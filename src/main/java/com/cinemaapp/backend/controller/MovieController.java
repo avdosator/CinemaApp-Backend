@@ -5,16 +5,14 @@ import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/movies")
+@ControllerAdvice
 public class MovieController {
 
     private final MovieService movieService;
@@ -25,7 +23,7 @@ public class MovieController {
     }
 
     @GetMapping
-    public Page<Movie> getAllMovies(@RequestParam SearchMoviesRequest searchMoviesRequest) {
+    public Page<Movie> getAllMovies(@ModelAttribute SearchMoviesRequest searchMoviesRequest) {
         Page<Movie> movies = movieService.findAllMovies(searchMoviesRequest);
         if(movies.isEmpty()) {
             Page<Movie> emptyPage = new Page<>();
