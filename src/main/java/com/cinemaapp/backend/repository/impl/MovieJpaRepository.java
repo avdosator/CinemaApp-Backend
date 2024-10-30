@@ -7,6 +7,7 @@ import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
 import com.cinemaapp.backend.controller.dto.Page;
+import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -72,16 +73,7 @@ public class MovieJpaRepository implements MovieRepository {
                 crudMovieRepository.findAll(
                         specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
                 );
-        Page<Movie> page = new Page<>();
-        page.setPageNumber(movieEntities.getNumber());
-        page.setPageSize(movieEntities.getSize());
-        page.setTotalElements(movieEntities.getNumberOfElements());
-        page.setTotalPages(movieEntities.getTotalPages());
-        List<Movie> upcomingMovies = new ArrayList<>();
-        for (MovieEntity movieEntity : movieEntities) {
-            upcomingMovies.add(movieEntity.toDomainModel());
-        }
-        page.setContent(upcomingMovies);
-        return page;
+
+        return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
     }
 }
