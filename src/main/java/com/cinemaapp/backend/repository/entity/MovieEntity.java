@@ -69,7 +69,7 @@ public class MovieEntity {
     )
     private List<GenreEntity> genreEntities;
 
-    @OneToMany(mappedBy = "movieEntity")
+    @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
 
     @Column(name = "created_at")
@@ -234,22 +234,22 @@ public class MovieEntity {
         return Movie.builder()
                 .id(this.id)
                 .title(this.title)
-                .language(this.language)
-                .director(this.director)
-                .pgRating(this.pgRating)
+                //.language(this.language)
+                //.director(this.director)
+                //.pgRating(this.pgRating)
                 .durationInMinutes(this.durationInMinutes)
-                .writers(this.writers)
-                .actors(this.actors)
-                .imdbRating(this.imdbRating)
-                .rottenTomatoesRating(this.rottenTomatoesRating)
+                //.writers(this.writers)
+                //.actors(this.actors)
+                //.imdbRating(this.imdbRating)
+                //.rottenTomatoesRating(this.rottenTomatoesRating)
                 .synopsis(this.synopsis)
-                .trailerUrl(this.trailerUrl)
-                .coverPhotoId(this.coverPhotoId)
-                .status(this.status)
+                //.trailerUrl(this.trailerUrl)
+                //.coverPhotoId(this.coverPhotoId)
+                //.status(this.status)
                 .genres(genres)
                 .projections(projections)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }

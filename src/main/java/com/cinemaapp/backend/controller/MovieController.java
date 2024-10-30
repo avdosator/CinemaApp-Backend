@@ -1,17 +1,15 @@
 package com.cinemaapp.backend.controller;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collections;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/movies")
+@ControllerAdvice
 public class MovieController {
 
     private final MovieService movieService;
@@ -21,12 +19,30 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("")
-    public List<Movie> getAllMovies() {
-        List<Movie> movieList = movieService.findAllMovies();
-        if(movieList.isEmpty()) {
-            return Collections.emptyList();
+    @GetMapping
+    public Page<Movie> getAllMovies(@ModelAttribute SearchMoviesRequest searchMoviesRequest) {
+        Page<Movie> movies = movieService.findAllMovies(searchMoviesRequest);
+        if(movies.isEmpty()) {
+            return new Page<>();
         }
-        return movieList;
+        return movies;
+    }
+
+    @GetMapping("/active")
+    public Page<Movie> getAllActiveMovies(@ModelAttribute SearchMoviesRequest searchMoviesRequest) {
+        Page<Movie> activeMovies = movieService.findAllActiveMovies(searchMoviesRequest);
+        if(activeMovies.isEmpty()) {
+            return new Page<Movie>();
+        }
+        return activeMovies;
+    }
+
+    @GetMapping("/upcoming")
+    public Page<Movie> getAllUpcomingMovies(@ModelAttribute SearchMoviesRequest searchMoviesRequest) {
+        Page<Movie> upcomingMovies = movieService.findAllUpcomingMovies(searchMoviesRequest);
+        if(upcomingMovies.isEmpty()) {
+            return new Page<Movie>();
+        }
+        return upcomingMovies;
     }
 }
