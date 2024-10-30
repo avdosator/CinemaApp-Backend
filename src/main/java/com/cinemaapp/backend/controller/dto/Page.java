@@ -1,14 +1,15 @@
 package com.cinemaapp.backend.controller.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Page<T> {
 
-    private List<T> content;
-    private int pageNumber;
-    private int pageSize;
-    private int totalElements;
-    private int totalPages;
+    private List<T> content = new ArrayList<>();
+    private int pageNumber = 0;
+    private int pageSize = 0;
+    private int totalElements = 0;
+    private int totalPages = 0;
 
     public List<T> getContent() {
         return content;
