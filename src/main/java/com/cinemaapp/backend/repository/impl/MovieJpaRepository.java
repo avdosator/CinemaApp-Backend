@@ -34,21 +34,18 @@ public class MovieJpaRepository implements MovieRepository {
     @Override
     public Page<Movie> findAllActiveMovies(SearchMoviesRequest searchMoviesRequest) {
         Specification<MovieEntity> specification = MovieSpecification.hasActiveProjection();
-        org.springframework.data.domain.Page<MovieEntity> movieEntities =
-                crudMovieRepository.findAll(
-                        specification,
-                        PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
-                );
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
+        );
         return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
     }
 
     @Override
     public Page<Movie> findAllUpcomingMovies(SearchMoviesRequest searchMoviesRequest) {
         Specification<MovieEntity> specification = MovieSpecification.hasUpcomingProjection();
-        org.springframework.data.domain.Page<MovieEntity> movieEntities =
-                crudMovieRepository.findAll(
-                        specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
-                );
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
+        );
 
         return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
     }
