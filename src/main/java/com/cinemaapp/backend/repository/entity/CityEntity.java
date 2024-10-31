@@ -121,7 +121,7 @@ public class CityEntity {
                 .name(this.name)
                 .postalCode(this.postalCode)
                 .country(this.country)
-                .users(users)
+                //.users(users)
                 .venues(venues)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)

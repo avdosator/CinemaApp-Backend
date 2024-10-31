@@ -29,7 +29,7 @@ public class HallEntity {
     @JoinColumn(name = "venue_id", referencedColumnName = "id")
     private VenueEntity venueEntity;
 
-    @OneToMany(mappedBy = "hallEntity")
+    @OneToMany(mappedBy = "hallEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
 
     @OneToMany(mappedBy = "hallEntity")
@@ -122,8 +122,8 @@ public class HallEntity {
                 .name(this.name)
                 .venue(this.venueEntity.toDomainModel())
                 .projections(projections)
-                .seats(seats)
-                .totalSeats(this.totalSeats)
+                //.seats(seats)
+                //.totalSeats(this.totalSeats)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

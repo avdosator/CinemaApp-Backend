@@ -34,7 +34,7 @@ public class VenueEntity {
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private CityEntity cityEntity;
 
-    @OneToMany(mappedBy = "venueEntity")
+    @OneToMany(mappedBy = "venueEntity", cascade = CascadeType.MERGE)
     private List<HallEntity> hallEntities;
 
     @Column(name = "phone")
