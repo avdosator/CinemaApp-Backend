@@ -87,8 +87,8 @@ public class PhotoEntity {
                 .url(this.url)
                 .refEntityId(this.refEntityId)
                 .entityType(this.entityType)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }

@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -23,13 +22,14 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final CrudUserRepository crudUserRepository;
     private final CrudProjectionRepository crudProjectionRepository;
     private final CrudHallRepository crudHallRepository;
+    private final CrudPhotoRepository crudPhotoRepository;
 
 
     @Autowired
     public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
                                CrudVenueRepository crudVenueRepository, CrudMovieRepository crudMovieRepository,
                                CrudUserRepository crudUserRepository, CrudProjectionRepository crudProjectionRepository,
-                               CrudHallRepository crudHallRepository) {
+                               CrudHallRepository crudHallRepository, CrudPhotoRepository crudPhotoRepository) {
         this.crudCityRepository = crudCityRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
@@ -37,6 +37,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         this.crudUserRepository = crudUserRepository;
         this.crudProjectionRepository = crudProjectionRepository;
         this.crudHallRepository = crudHallRepository;
+        this.crudPhotoRepository = crudPhotoRepository;
     }
 
     @Override
@@ -126,31 +127,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         crudGenreRepository.saveAll(genres);
 
-        // List<GenreEntity> allGenres = crudGenreRepository.findAll();
-
         // seed movie table
         String[] statuses = {"active", "draft", "archived"};
-        /*
-            MovieEntity movie1 = new MovieEntity();
-            movie1.setTitle("Avatar");
-            movie1.setLanguage("English");
-            //movie.setDirector("Director");
-            movie1.setPgRating("PG-13");
-            movie1.setDurationInMinutes(120);
-            //movie.setWriters(Arrays.asList("Writer 1", "Writer 2"));
-            //movie.setActors(Arrays.asList("Actor 1", "Actor 2"));
-            //movie.setImdbRating(7.5 + (i % 2) * 0.5);
-            //movie.setRottenTomatoesRating(85 + (i % 2) * 5);
-            movie1.setSynopsis("A sample synopsis for the movie.");
-            movie1.setTrailerUrl("http://example.com/trailer");
-            //movie.setCoverPhotoId(UUID.randomUUID());
-            movie1.setStatus("active");
-            movie1.setCreatedAt(LocalDateTime.now());
-            movie1.setUpdatedAt(LocalDateTime.now());
-            movie1.setGenreEntities(List.of(crudGenreRepository.findByName("Action")));
-
-            crudMovieRepository.save(movie1);
-        */
 
         MovieEntity movie1 = new MovieEntity();
         movie1.setTitle("Avatar");
@@ -418,7 +396,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie21.setPgRating("R");
         movie21.setDurationInMinutes(98);
         movie21.setSynopsis("Bosnian and Serbian soldiers find themselves trapped in no man's land during the Bosnian War.");
-        movie21.setTrailerUrl("https://example.com/nomansland");
+        movie21.setTrailerUrl("https://www.youtube.com/watch?v=nP3ofimxD7Q");
         movie21.setStatus("active");
         movie21.setCreatedAt(LocalDateTime.now());
         movie21.setUpdatedAt(LocalDateTime.now());
@@ -431,7 +409,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie22.setPgRating("PG-13");
         movie22.setDurationInMinutes(107);
         movie22.setSynopsis("A single mother struggles to raise her daughter in post-war Sarajevo while hiding a painful secret.");
-        movie22.setTrailerUrl("https://example.com/grbavica");
+        movie22.setTrailerUrl("hhttps://www.youtube.com/watch?v=hQiMvSdLk_4");
         movie22.setStatus("active");
         movie22.setCreatedAt(LocalDateTime.now());
         movie22.setUpdatedAt(LocalDateTime.now());
@@ -444,7 +422,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie23.setPgRating("R");
         movie23.setDurationInMinutes(101);
         movie23.setSynopsis("A UN translator tries to save her family during the Srebrenica massacre.");
-        movie23.setTrailerUrl("https://example.com/quovadisaida");
+        movie23.setTrailerUrl("https://www.youtube.com/watch?v=ErLD8P4VUjY");
         movie23.setStatus("active");
         movie23.setCreatedAt(LocalDateTime.now());
         movie23.setUpdatedAt(LocalDateTime.now());
@@ -457,7 +435,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie24.setPgRating("PG-13");
         movie24.setDurationInMinutes(110);
         movie24.setSynopsis("A poet in Sarajevo shelters two orphans during the siege of the city.");
-        movie24.setTrailerUrl("https://example.com/perfectcircle");
+        movie24.setTrailerUrl("https://www.youtube.com/watch?v=0GFyJlptAWY");
         movie24.setStatus("active");
         movie24.setCreatedAt(LocalDateTime.now());
         movie24.setUpdatedAt(LocalDateTime.now());
@@ -470,7 +448,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie25.setPgRating("PG-13");
         movie25.setDurationInMinutes(75);
         movie25.setSynopsis("A poor Roma family faces a medical crisis and struggles for survival.");
-        movie25.setTrailerUrl("https://example.com/ironpicker");
+        movie25.setTrailerUrl("https://www.youtube.com/watch?v=KzSbjPjEUBg");
         movie25.setStatus("active");
         movie25.setCreatedAt(LocalDateTime.now());
         movie25.setUpdatedAt(LocalDateTime.now());
@@ -478,12 +456,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudMovieRepository.save(movie25);
 
         MovieEntity movie26 = new MovieEntity();
-        movie26.setTitle("Tesko je biti fin");
+        movie26.setTitle("It's hard to be nice");
         movie26.setLanguage("Bosnian");
         movie26.setPgRating("R");
         movie26.setDurationInMinutes(102);
         movie26.setSynopsis("Fudo, a Sarajevo taxi driver, tries to change his life and go straight. But turning away from crime in post-war Bosnia proves difficult.");
-        movie26.setTrailerUrl("https://example.com/its-hard-to-be-nice");
+        movie26.setTrailerUrl("https://www.youtube.com/watch?v=-Kwh2EDIcN4");
         movie26.setStatus("active");
         movie26.setCreatedAt(LocalDateTime.now());
         movie26.setUpdatedAt(LocalDateTime.now());
@@ -491,12 +469,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudMovieRepository.save(movie26);
 
         MovieEntity movie27 = new MovieEntity();
-        movie27.setTitle("Zlatna dolina");
+        movie27.setTitle("Summer in golden walley");
         movie27.setLanguage("Bosnian");
         movie27.setPgRating("PG-13");
         movie27.setDurationInMinutes(91);
         movie27.setSynopsis("A group of friends in Bosnia decides to pursue quick wealth and excitement, getting tangled in the complex world of crime.");
-        movie27.setTrailerUrl("https://example.com/golden-valley");
+        movie27.setTrailerUrl("https://www.youtube.com/watch?v=UieYbSsqQC0");
         movie27.setStatus("active");
         movie27.setCreatedAt(LocalDateTime.now());
         movie27.setUpdatedAt(LocalDateTime.now());
@@ -634,7 +612,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         projection.setStartDate(LocalDate.now().plusDays(3));
         projection.setEndDate(projection.getStartDate().plusDays(13));
         projection.setHallEntity(crudHallRepository.findByName("Hall 1"));
-        projection.setMovieEntity(crudMovieRepository.findByTitle("Tesko je biti fin"));
+        projection.setMovieEntity(crudMovieRepository.findByTitle("It's hard to be nice"));
         projection.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
         projection.setCreatedAt(LocalDateTime.now());
         projection.setUpdatedAt(LocalDateTime.now());
@@ -644,8 +622,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         ProjectionEntity projection1 = new ProjectionEntity();
         projection1.setHallEntity(crudHallRepository.findByName("Hall 1"));
-        projection1.setStartDate(LocalDate.now().plusDays(14));
-        projection1.setEndDate(LocalDate.now().plusDays(24));
+        projection1.setStartDate(LocalDate.now().plusDays(1));
+        projection1.setEndDate(LocalDate.now().plusDays(11));
         projection1.setMovieEntity(crudMovieRepository.findByTitle("Avatar"));
         projection1.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
         projection1.setStatus("upcoming");
@@ -806,6 +784,170 @@ public class DatabaseInitializer implements CommandLineRunner {
         projection15.setCreatedAt(LocalDateTime.now());
         projection15.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection15);
+
+        // seed photo table
+        PhotoEntity photo1 = new PhotoEntity();
+        photo1.setEntityType("movie");
+        photo1.setRefEntityId(crudMovieRepository.findByTitle("Avatar").getId());
+        photo1.setUrl("https://www.usmagazine.com/wp-content/uploads/2022/07/James-Cameron-Warns-Avatar-2-Is-3-Hours-Its-OK-Get-Up-Go-Pee.jpg?quality=86&strip=all");
+        crudPhotoRepository.save(photo1);
+
+        PhotoEntity photo2 = new PhotoEntity();
+        photo2.setEntityType("movie");
+        photo2.setRefEntityId(crudMovieRepository.findByTitle("Inception").getId());
+        photo2.setUrl("https://nextbestpicture-com.b-cdn.net/wp-content/uploads/2024/04/Inception.jpg");
+        crudPhotoRepository.save(photo2);
+
+        PhotoEntity photo3 = new PhotoEntity();
+        photo3.setEntityType("movie");
+        photo3.setRefEntityId(crudMovieRepository.findByTitle("Titanic").getId());
+        photo3.setUrl("https://www.reddit.com/media?url=https%3A%2F%2Fpreview.redd.it%2Fx7j3qgrlh3z11.jpg%3Fwidth%3D1080%26crop%3Dsmart%26auto%3Dwebp%26s%3D47e0c2b18967057dda38f9e8b8bf03b42fa9ecee");
+        crudPhotoRepository.save(photo3);
+
+        PhotoEntity photo4 = new PhotoEntity();
+        photo4.setEntityType("movie");
+        photo4.setRefEntityId(crudMovieRepository.findByTitle("The Dark Knight").getId());
+        photo4.setUrl("https://www.prime1studio.com/on/demandware.static/-/Sites-p1s-master-catalog/default/dwe65eb6a7/images/HDMMDC-02/media/hdmmdc-02_a19.jpg");
+        crudPhotoRepository.save(photo4);
+
+        PhotoEntity photo5 = new PhotoEntity();
+        photo5.setEntityType("movie");
+        photo5.setRefEntityId(crudMovieRepository.findByTitle("The Matrix").getId());
+        photo5.setUrl("https://storage.googleapis.com/pod_public/1300/106922.jpg");
+        crudPhotoRepository.save(photo5);
+
+        PhotoEntity photo6 = new PhotoEntity();
+        photo6.setEntityType("movie");
+        photo6.setRefEntityId(crudMovieRepository.findByTitle("Interstellar").getId());
+        photo6.setUrl("https://www.seacoastonline.com/gcdn/authoring/2014/11/07/NPOH/ghows-SO-00f35d1e-def9-4ba8-9155-d936bed5f192-b9e187d3.jpeg?width=660&height=413&fit=crop&format=pjpg&auto=webp");
+        crudPhotoRepository.save(photo6);
+
+        PhotoEntity photo7 = new PhotoEntity();
+        photo7.setEntityType("movie");
+        photo7.setRefEntityId(crudMovieRepository.findByTitle("Gladiator").getId());
+        photo7.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/0*TxZdqJf0MQ2mdL9p.jpg");
+        crudPhotoRepository.save(photo7);
+
+        PhotoEntity photo8 = new PhotoEntity();
+        photo8.setEntityType("movie");
+        photo8.setRefEntityId(crudMovieRepository.findByTitle("The Godfather").getId());
+        photo8.setUrl("https://jerseymanmagazine.com/wp-content/uploads/2022/04/The-Godfather-e1648766305891-900x600.jpg");
+        crudPhotoRepository.save(photo8);
+
+        PhotoEntity photo9 = new PhotoEntity();
+        photo9.setEntityType("movie");
+        photo9.setRefEntityId(crudMovieRepository.findByTitle("Pulp Fiction").getId());
+        photo9.setUrl("https://www.closeup-shop.com/media/oart_0/oart_p/oart_13731/thumbs/1277574_4609821.jpg");
+        crudPhotoRepository.save(photo9);
+
+        PhotoEntity photo10 = new PhotoEntity();
+        photo10.setEntityType("movie");
+        photo10.setRefEntityId(crudMovieRepository.findByTitle("Schindler's List").getId());
+        photo10.setUrl("https://goldendiscs.ie/cdn/shop/products/817sLmprCSL._AC_SY445.jpg?v=1690429826");
+        crudPhotoRepository.save(photo10);
+
+        PhotoEntity photo11 = new PhotoEntity();
+        photo11.setEntityType("movie");
+        photo11.setRefEntityId(crudMovieRepository.findByTitle("Fight Club").getId());
+        photo11.setUrl("https://static.wikia.nocookie.net/listofdeaths/images/2/26/Fight_Club.jpg/revision/latest?cb=20220911154126");
+        crudPhotoRepository.save(photo11);
+
+        PhotoEntity photo12 = new PhotoEntity();
+        photo12.setEntityType("movie");
+        photo12.setRefEntityId(crudMovieRepository.findByTitle("Forrest Gump").getId());
+        photo12.setUrl("https://ntvb.tmsimg.com/assets/p15829_v_h8_aw.jpg?w=1280&h=720");
+        crudPhotoRepository.save(photo12);
+
+        PhotoEntity photo13 = new PhotoEntity();
+        photo13.setEntityType("movie");
+        photo13.setRefEntityId(crudMovieRepository.findByTitle("The Lion King").getId());
+        photo13.setUrl("https://m.media-amazon.com/images/I/51UjjVDiEDL._SX342_SY445_.jpg");
+        crudPhotoRepository.save(photo13);
+
+        PhotoEntity photo14 = new PhotoEntity();
+        photo14.setEntityType("movie");
+        photo14.setRefEntityId(crudMovieRepository.findByTitle("Saving Private Ryan").getId());
+        photo14.setUrl("https://www.soundandvision.com/images/styles/600_wide/public/110722_director%27s_intent_saving_pvt_ryan_promo.png");
+        crudPhotoRepository.save(photo14);
+
+        PhotoEntity photo15 = new PhotoEntity();
+        photo15.setEntityType("movie");
+        photo15.setRefEntityId(crudMovieRepository.findByTitle("The Shawshank Redemption").getId());
+        photo15.setUrl("https://static1.srcdn.com/wordpress/wp-content/uploads/2023/12/red-and-andy-in-shawshank-redemption.jpg?q=70&fit=crop&w=1140&h=&dpr=1");
+        crudPhotoRepository.save(photo15);
+
+        PhotoEntity photo16 = new PhotoEntity();
+        photo16.setEntityType("movie");
+        photo16.setRefEntityId(crudMovieRepository.findByTitle("The Green Mile").getId());
+        photo16.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/1*oVTrOMrJv9FwP2WecfEG-g.png");
+        crudPhotoRepository.save(photo16);
+
+        PhotoEntity photo17 = new PhotoEntity();
+        photo17.setEntityType("movie");
+        photo17.setRefEntityId(crudMovieRepository.findByTitle("The Avengers").getId());
+        photo17.setUrl("https://cdn.marvel.com/content/1x/avengersendgame_lob_crd_05.jpg");
+        crudPhotoRepository.save(photo17);
+
+        PhotoEntity photo18 = new PhotoEntity();
+        photo18.setEntityType("movie");
+        photo18.setRefEntityId(crudMovieRepository.findByTitle("Jurassic Park").getId());
+        photo18.setUrl("https://m.media-amazon.com/images/I/61W7iD5+XKL._SX342_SY445_.jpg");
+        crudPhotoRepository.save(photo18);
+
+        PhotoEntity photo19 = new PhotoEntity();
+        photo19.setEntityType("movie");
+        photo19.setRefEntityId(crudMovieRepository.findByTitle("The Silence of the Lambs").getId());
+        photo19.setUrl("https://images.bauerhosting.com/legacy/media/6026/a037/4ef6/302f/a23a/5c22/sotl-3.jpg?ar=16%3A9&fit=crop&crop=top&auto=format&w=992&q=80");
+        crudPhotoRepository.save(photo19);
+
+        PhotoEntity photo20 = new PhotoEntity();
+        photo20.setEntityType("movie");
+        photo20.setRefEntityId(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring").getId());
+        photo20.setUrl("https://images.cdn.prd.api.discomax.com/2023/05/05/be192083-0dfc-3df5-bba2-67725ab6b0fc.jpeg?f=jpg&q=75&w=1280&w=1200");
+        crudPhotoRepository.save(photo20);
+
+        PhotoEntity photo21 = new PhotoEntity();
+        photo21.setEntityType("movie");
+        photo21.setRefEntityId(crudMovieRepository.findByTitle("No Man's Land").getId());
+        photo21.setUrl("https://upload.wikimedia.org/wikipedia/sr/3/3a/Nicija_zemlja.jpg");
+        crudPhotoRepository.save(photo21);
+
+        PhotoEntity photo22 = new PhotoEntity();
+        photo22.setEntityType("movie");
+        photo22.setRefEntityId(crudMovieRepository.findByTitle("Grbavica").getId());
+        photo22.setUrl("https://upload.wikimedia.org/wikipedia/bs/5/56/Grbavica_poster.jpg");
+        crudPhotoRepository.save(photo22);
+
+        PhotoEntity photo23 = new PhotoEntity();
+        photo23.setEntityType("movie");
+        photo23.setRefEntityId(crudMovieRepository.findByTitle("Quo Vadis, Aida?").getId());
+        photo23.setUrl("https://pad.mymovies.it/filmclub/2020/07/230/locandina.jpg");
+        crudPhotoRepository.save(photo23);
+
+        PhotoEntity photo24 = new PhotoEntity();
+        photo24.setEntityType("movie");
+        photo24.setRefEntityId(crudMovieRepository.findByTitle("The Perfect Circle").getId());
+        photo24.setUrl("https://avaz.ba/media/2022/07/19/1867142/adis-film.jpg");
+        crudPhotoRepository.save(photo24);
+
+        PhotoEntity photo25 = new PhotoEntity();
+        photo25.setEntityType("movie");
+        photo25.setRefEntityId(crudMovieRepository.findByTitle("An Episode in the Life of an Iron Picker").getId());
+        photo25.setUrl("https://upload.wikimedia.org/wikipedia/bs/e/e6/Epizoda_u_%C5%BEivotu_bera%C4%8Da_%C5%BEeljeza.jpg");
+        crudPhotoRepository.save(photo25);
+
+        PhotoEntity photo26 = new PhotoEntity();
+        photo26.setEntityType("movie");
+        photo26.setRefEntityId(crudMovieRepository.findByTitle("It's hard to be nice").getId());
+        photo26.setUrl("https://3.bp.blogspot.com/-9Qc3LcjZ3wA/VFJGtny62cI/AAAAAAAAB5c/Wu7DXAW37AE/s1600/tesko-je-biti-fin.jpg");
+        crudPhotoRepository.save(photo26);
+
+        PhotoEntity photo27 = new PhotoEntity();
+        photo27.setEntityType("movie");
+        photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in golden walley").getId());
+        photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
+        crudPhotoRepository.save(photo27);
+
 
 
         System.out.println("Database seeded successfully");
