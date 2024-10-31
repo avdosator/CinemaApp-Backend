@@ -22,6 +22,6 @@ public class VenueController {
 
     @GetMapping
     public List<Venue> getAllVenues() {
-        return venueService.findAllCities();
+        return venueService.findAllVenues();
     }
 }
