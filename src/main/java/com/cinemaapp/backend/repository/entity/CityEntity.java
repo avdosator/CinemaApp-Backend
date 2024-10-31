@@ -109,12 +109,12 @@ public class CityEntity {
 
     // add missing after UserEntity and VenueEntity toDomainModel implementation
     public City toDomainModel() {
-        List<User> users = (this.userEntities == null ? Collections.emptyList() : this.userEntities.stream()
-                .map(UserEntity::toDomainModel)
-                .toList());
-        List<Venue> venues = (this.venueEntities == null ? Collections.emptyList() : this.venueEntities.stream()
-                .map(VenueEntity::toDomainModel)
-                .toList());
+//        List<User> users = (this.userEntities == null ? Collections.emptyList() : this.userEntities.stream()
+//                .map(UserEntity::toDomainModel)
+//                .toList());
+//        List<Venue> venues = (this.venueEntities == null ? Collections.emptyList() : this.venueEntities.stream()
+//                .map(VenueEntity::toDomainModel)
+//                .toList());
 
         return City.builder()
                 .id(this.id)
@@ -122,7 +122,7 @@ public class CityEntity {
                 .postalCode(this.postalCode)
                 .country(this.country)
                 //.users(users)
-                .venues(venues)
+                //.venues(venues)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

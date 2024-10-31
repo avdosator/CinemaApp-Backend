@@ -118,7 +118,6 @@ public class VenueEntity {
         this.updatedAt = updatedAt;
     }
 
-    // add halls after their implementation
     public Venue toDomainModel() {
         List<Hall> halls = (this.hallEntities == null ? Collections.emptyList() :
                 this.hallEntities.stream()

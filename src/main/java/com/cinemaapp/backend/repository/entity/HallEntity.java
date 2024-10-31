@@ -109,10 +109,10 @@ public class HallEntity {
     }
 
     public Hall toDomainModel() {
-        List<Projection> projections = (this.projectionEntities == null ?
-                Collections.emptyList() : this.projectionEntities.stream()
-                .map(ProjectionEntity::toDomainModel)
-                .toList());
+//        List<Projection> projections = (this.projectionEntities == null ?
+//                Collections.emptyList() : this.projectionEntities.stream()
+//                .map(ProjectionEntity::toDomainModel)
+//                .toList());
         List<Seat> seats = (this.projectionEntities == null ? Collections.emptyList() : this.seatEntities.stream()
                 .map(SeatEntity::toDomainModel)
                 .toList());
@@ -120,8 +120,8 @@ public class HallEntity {
         return Hall.builder()
                 .id(this.id)
                 .name(this.name)
-                .venue(this.venueEntity.toDomainModel())
-                .projections(projections)
+                //.venue(this.venueEntity.toDomainModel())
+                //.projections(projections)
                 //.seats(seats)
                 //.totalSeats(this.totalSeats)
                 .createdAt(this.createdAt)

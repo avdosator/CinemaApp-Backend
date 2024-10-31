@@ -481,7 +481,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie27.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Thriller")));
         crudMovieRepository.save(movie27);
 
-
         // seed venue table
         VenueEntity venue1 = new VenueEntity();
         venue1.setName("Cinebh: Cineplexx");
@@ -601,9 +600,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         hall7.setCreatedAt(LocalDateTime.now());
         hall7.setUpdatedAt(LocalDateTime.now());
         crudHallRepository.save(hall7);
-
-
-        List<MovieEntity> allMovies = crudMovieRepository.findAll();
 
         // Seed projections
         String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:30"};
@@ -947,8 +943,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in golden walley").getId());
         photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
         crudPhotoRepository.save(photo27);
-
-
 
         System.out.println("Database seeded successfully");
     }
