@@ -31,10 +31,10 @@ public class CityEntity {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.MERGE)
     private List<UserEntity> userEntities;
 
-    @OneToMany(mappedBy = "cityEntity")
+    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<VenueEntity> venueEntities;
 
     @Column(name = "created_at")
