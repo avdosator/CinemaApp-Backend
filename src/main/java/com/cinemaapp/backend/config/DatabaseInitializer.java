@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
@@ -21,18 +22,21 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final CrudMovieRepository crudMovieRepository;
     private final CrudUserRepository crudUserRepository;
     private final CrudProjectionRepository crudProjectionRepository;
+    private final CrudHallRepository crudHallRepository;
 
 
     @Autowired
     public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
                                CrudVenueRepository crudVenueRepository, CrudMovieRepository crudMovieRepository,
-                               CrudUserRepository crudUserRepository, CrudProjectionRepository crudProjectionRepository) {
+                               CrudUserRepository crudUserRepository, CrudProjectionRepository crudProjectionRepository,
+                               CrudHallRepository crudHallRepository) {
         this.crudCityRepository = crudCityRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
         this.crudMovieRepository = crudMovieRepository;
         this.crudUserRepository = crudUserRepository;
         this.crudProjectionRepository = crudProjectionRepository;
+        this.crudHallRepository = crudHallRepository;
     }
 
     @Override
@@ -474,7 +478,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudMovieRepository.save(movie25);
 
         MovieEntity movie26 = new MovieEntity();
-        movie26.setTitle("Teško je biti fin");
+        movie26.setTitle("Tesko je biti fin");
         movie26.setLanguage("Bosnian");
         movie26.setPgRating("R");
         movie26.setDurationInMinutes(102);
@@ -499,35 +503,310 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie27.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Thriller")));
         crudMovieRepository.save(movie27);
 
+
+        // seed venue table
+        VenueEntity venue1 = new VenueEntity();
+        venue1.setName("Cinebh: Cineplexx");
+        venue1.setStreet("Example Street");
+        venue1.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue1.setCityEntity(crudCityRepository.findByName("Sarajevo"));
+        venue1.setPhone("+38733-123-456");
+        venue1.setCreatedAt(LocalDateTime.now());
+        venue1.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue1);
+
+        HallEntity hall1 = new HallEntity();
+        hall1.setName("Hall 1");
+        hall1.setVenueEntity(crudVenueRepository.findByName("Cinebh: Cineplexx"));
+        hall1.setCreatedAt(LocalDateTime.now());
+        hall1.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall1);
+
+        VenueEntity venue2 = new VenueEntity();
+        venue2.setName("Cinemacity Sarajevo");
+        venue2.setStreet("Maršala Tita");
+        venue2.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue2.setCityEntity(crudCityRepository.findByName("Sarajevo"));
+        venue2.setPhone("+38733-321-654");
+        venue2.setCreatedAt(LocalDateTime.now());
+        venue2.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue2);
+
+        HallEntity hall2 = new HallEntity();
+        hall2.setName("Hall 2");
+        hall2.setVenueEntity(crudVenueRepository.findByName("Cinemacity Sarajevo"));
+        hall2.setCreatedAt(LocalDateTime.now());
+        hall2.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall2);
+
+        VenueEntity venue3 = new VenueEntity();
+        venue3.setName("Mostar Cinema");
+        venue3.setStreet("Kralja Tomislava");
+        venue3.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue3.setCityEntity(crudCityRepository.findByName("Mostar"));
+        venue3.setPhone("+38736-456-789");
+        venue3.setCreatedAt(LocalDateTime.now());
+        venue3.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue3);
+
+        HallEntity hall3 = new HallEntity();
+        hall3.setName("Hall 3");
+        hall3.setVenueEntity(crudVenueRepository.findByName("Mostar Cinema"));
+        hall3.setCreatedAt(LocalDateTime.now());
+        hall3.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall3);
+
+        VenueEntity venue4 = new VenueEntity();
+        venue4.setName("Sarajevo Film Center");
+        venue4.setStreet("Obala Kulina Bana");
+        venue4.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue4.setCityEntity(crudCityRepository.findByName("Sarajevo"));
+        venue4.setPhone("+38733-654-321");
+        venue4.setCreatedAt(LocalDateTime.now());
+        venue4.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue4);
+
+        HallEntity hall4 = new HallEntity();
+        hall4.setName("Hall 4");
+        hall4.setVenueEntity(crudVenueRepository.findByName("Sarajevo Film Center"));
+        hall4.setCreatedAt(LocalDateTime.now());
+        hall4.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall4);
+
+        VenueEntity venue5 = new VenueEntity();
+        venue5.setName("Multiplex Mostar");
+        venue5.setStreet("Stjepana Radića");
+        venue5.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue5.setCityEntity(crudCityRepository.findByName("Mostar"));
+        venue5.setPhone("+38736-987-654");
+        venue5.setCreatedAt(LocalDateTime.now());
+        venue5.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue5);
+
+        HallEntity hall5 = new HallEntity();
+        hall5.setName("Hall 5");
+        hall5.setVenueEntity(crudVenueRepository.findByName("Multiplex Mostar"));
+        hall5.setCreatedAt(LocalDateTime.now());
+        hall5.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall5);
+
+        VenueEntity venue6 = new VenueEntity();
+        venue6.setName("CineStar Sarajevo");
+        venue6.setStreet("Džemala Bijedića");
+        venue6.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue6.setCityEntity(crudCityRepository.findByName("Sarajevo"));
+        venue6.setPhone("+38733-111-222");
+        venue6.setCreatedAt(LocalDateTime.now());
+        venue6.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue6);
+
+        HallEntity hall6 = new HallEntity();
+        hall6.setName("Hall 6");
+        hall6.setVenueEntity(crudVenueRepository.findByName("CineStar Sarajevo"));
+        hall6.setCreatedAt(LocalDateTime.now());
+        hall6.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall6);
+
+        VenueEntity venue7 = new VenueEntity();
+        venue7.setName("Cinema City Mostar");
+        venue7.setStreet("Kardinala Stepinca");
+        venue7.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue7.setCityEntity(crudCityRepository.findByName("Mostar"));
+        venue7.setPhone("+38736-333-444");
+        venue7.setCreatedAt(LocalDateTime.now());
+        venue7.setUpdatedAt(LocalDateTime.now());
+        crudVenueRepository.save(venue7);
+
+        HallEntity hall7 = new HallEntity();
+        hall7.setName("Hall 7");
+        hall7.setVenueEntity(crudVenueRepository.findByName("Cinema City Mostar"));
+        hall7.setCreatedAt(LocalDateTime.now());
+        hall7.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(hall7);
+
+
         List<MovieEntity> allMovies = crudMovieRepository.findAll();
 
         // Seed projections
-        List<ProjectionEntity> projections = new ArrayList<>();
-        for (int i = 0; i < allMovies.size(); i++) {
-            MovieEntity movie = allMovies.get(i);
-            ProjectionEntity projection = new ProjectionEntity();
-            projection.setMovieEntity(movie);
-            projection.setStatus(i < allMovies.size() / 2 ? "active" : "upcoming"); // Half active, half upcoming
+        String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:30"};
 
-            projections.add(projection);
-        }
+        ProjectionEntity projection = new ProjectionEntity();
+        projection.setStartDate(LocalDate.now().plusDays(3));
+        projection.setEndDate(projection.getStartDate().plusDays(13));
+        projection.setHallEntity(crudHallRepository.findByName("Hall 1"));
+        projection.setMovieEntity(crudMovieRepository.findByTitle("Tesko je biti fin"));
+        projection.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
+        projection.setCreatedAt(LocalDateTime.now());
+        projection.setUpdatedAt(LocalDateTime.now());
+        projection.setStatus("active");
 
-        // Save projections
-        crudProjectionRepository.saveAll(projections);
+        crudProjectionRepository.save(projection);
 
-        // seed venue table
-        for (int i = 1; i <= 6; i++) {
-            VenueEntity venue = new VenueEntity();
-            venue.setName("Sarajevo Venue " + i);
-            venue.setStreet("Example Street");
-            venue.setStreetNumber(String.valueOf(i));
-            venue.setCityEntity(sarajevo);
-            venue.setPhone("987-654-3210");
-            venue.setCreatedAt(LocalDateTime.now());
-            venue.setUpdatedAt(LocalDateTime.now());
+        ProjectionEntity projection1 = new ProjectionEntity();
+        projection1.setHallEntity(crudHallRepository.findByName("Hall 1"));
+        projection1.setStartDate(LocalDate.now().plusDays(14));
+        projection1.setEndDate(LocalDate.now().plusDays(24));
+        projection1.setMovieEntity(crudMovieRepository.findByTitle("Avatar"));
+        projection1.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
+        projection1.setStatus("upcoming");
+        projection1.setCreatedAt(LocalDateTime.now());
+        projection1.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection1);
 
-            crudVenueRepository.save(venue);
-        }
+        ProjectionEntity projection2 = new ProjectionEntity();
+        projection2.setHallEntity(crudHallRepository.findByName("Hall 2"));
+        projection2.setStartDate(LocalDate.now().plusDays(1));
+        projection2.setEndDate(LocalDate.now().plusDays(11));
+        projection2.setMovieEntity(crudMovieRepository.findByTitle("Inception"));
+        projection2.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
+        projection2.setStatus("active");
+        projection2.setCreatedAt(LocalDateTime.now());
+        projection2.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection2);
+
+        ProjectionEntity projection3 = new ProjectionEntity();
+        projection3.setHallEntity(crudHallRepository.findByName("Hall 3"));
+        projection3.setStartDate(LocalDate.now().plusDays(7));
+        projection3.setEndDate(LocalDate.now().plusDays(17));
+        projection3.setMovieEntity(crudMovieRepository.findByTitle("Titanic"));
+        projection3.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4], startTimes[5]});
+        projection3.setStatus("active");
+        projection3.setCreatedAt(LocalDateTime.now());
+        projection3.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection3);
+
+        ProjectionEntity projection4 = new ProjectionEntity();
+        projection4.setHallEntity(crudHallRepository.findByName("Hall 4"));
+        projection4.setStartDate(LocalDate.now().plusDays(9));
+        projection4.setEndDate(LocalDate.now().plusDays(19));
+        projection4.setMovieEntity(crudMovieRepository.findByTitle("The Dark Knight"));
+        projection4.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[5]});
+        projection4.setStatus("active");
+        projection4.setCreatedAt(LocalDateTime.now());
+        projection4.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection4);
+
+        ProjectionEntity projection5 = new ProjectionEntity();
+        projection5.setHallEntity(crudHallRepository.findByName("Hall 5"));
+        projection5.setStartDate(LocalDate.now().plusDays(0));
+        projection5.setEndDate(LocalDate.now().plusDays(10));
+        projection5.setMovieEntity(crudMovieRepository.findByTitle("The Matrix"));
+        projection5.setStartTime(new String[]{startTimes[2], startTimes[3], startTimes[4]});
+        projection5.setStatus("active");
+        projection5.setCreatedAt(LocalDateTime.now());
+        projection5.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection5);
+
+        ProjectionEntity projection6 = new ProjectionEntity();
+        projection6.setHallEntity(crudHallRepository.findByName("Hall 6"));
+        projection6.setStartDate(LocalDate.now().plusDays(11));
+        projection6.setEndDate(LocalDate.now().plusDays(21));
+        projection6.setMovieEntity(crudMovieRepository.findByTitle("Interstellar"));
+        projection6.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[5]});
+        projection6.setStatus("upcoming");
+        projection6.setCreatedAt(LocalDateTime.now());
+        projection6.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection6);
+
+        ProjectionEntity projection7 = new ProjectionEntity();
+        projection7.setHallEntity(crudHallRepository.findByName("Hall 7"));
+        projection7.setStartDate(LocalDate.now().plusDays(15));
+        projection7.setEndDate(LocalDate.now().plusDays(25));
+        projection7.setMovieEntity(crudMovieRepository.findByTitle("Gladiator"));
+        projection7.setStartTime(new String[]{startTimes[2], startTimes[3], startTimes[4]});
+        projection7.setStatus("upcoming");
+        projection7.setCreatedAt(LocalDateTime.now());
+        projection7.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection7);
+
+        ProjectionEntity projection8 = new ProjectionEntity();
+        projection8.setHallEntity(crudHallRepository.findByName("Hall 1"));
+        projection8.setStartDate(LocalDate.now().plusDays(1));
+        projection8.setEndDate(LocalDate.now().plusDays(11));
+        projection8.setMovieEntity(crudMovieRepository.findByTitle("The Godfather"));
+        projection8.setStartTime(new String[]{startTimes[5]});
+        projection8.setStatus("active");
+        projection8.setCreatedAt(LocalDateTime.now());
+        projection8.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection8);
+
+        ProjectionEntity projection9 = new ProjectionEntity();
+        projection9.setHallEntity(crudHallRepository.findByName("Hall 2"));
+        projection9.setStartDate(LocalDate.now().plusDays(12));
+        projection9.setEndDate(LocalDate.now().plusDays(22));
+        projection9.setMovieEntity(crudMovieRepository.findByTitle("Pulp Fiction"));
+        projection9.setStartTime(new String[]{startTimes[2], startTimes[3], startTimes[4], startTimes[5]});
+        projection9.setStatus("upcoming");
+        projection9.setCreatedAt(LocalDateTime.now());
+        projection9.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection9);
+
+        ProjectionEntity projection10 = new ProjectionEntity();
+        projection10.setHallEntity(crudHallRepository.findByName("Hall 3"));
+        projection10.setStartDate(LocalDate.now().plusDays(1));
+        projection10.setEndDate(LocalDate.now().plusDays(5));
+        projection10.setMovieEntity(crudMovieRepository.findByTitle("Schindler's List"));
+        projection10.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3]});
+        projection10.setStatus("active");
+        projection10.setCreatedAt(LocalDateTime.now());
+        projection10.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection10);
+
+        ProjectionEntity projection11 = new ProjectionEntity();
+        projection11.setHallEntity(crudHallRepository.findByName("Hall 4"));
+        projection11.setStartDate(LocalDate.now().plusDays(0));
+        projection11.setEndDate(LocalDate.now().plusDays(9));
+        projection11.setMovieEntity(crudMovieRepository.findByTitle("Fight Club"));
+        projection11.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[4]});
+        projection11.setStatus("active");
+        projection11.setCreatedAt(LocalDateTime.now());
+        projection11.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection11);
+
+        ProjectionEntity projection12 = new ProjectionEntity();
+        projection12.setHallEntity(crudHallRepository.findByName("Hall 5"));
+        projection12.setStartDate(LocalDate.now().plusDays(10));
+        projection12.setEndDate(LocalDate.now().plusDays(20));
+        projection12.setMovieEntity(crudMovieRepository.findByTitle("Forrest Gump"));
+        projection12.setStartTime(new String[]{startTimes[3], startTimes[4], startTimes[5]});
+        projection12.setStatus("upcoming");
+        projection12.setCreatedAt(LocalDateTime.now());
+        projection12.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection12);
+
+        ProjectionEntity projection13 = new ProjectionEntity();
+        projection13.setHallEntity(crudHallRepository.findByName("Hall 6"));
+        projection13.setStartDate(LocalDate.now().plusDays(0));
+        projection13.setEndDate(LocalDate.now().plusDays(10));
+        projection13.setMovieEntity(crudMovieRepository.findByTitle("The Lion King"));
+        projection13.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4], startTimes[5]});
+        projection13.setStatus("active");
+        projection13.setCreatedAt(LocalDateTime.now());
+        projection13.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection13);
+
+        ProjectionEntity projection14 = new ProjectionEntity();
+        projection14.setHallEntity(crudHallRepository.findByName("Hall 7"));
+        projection14.setStartDate(LocalDate.now().plusDays(1));
+        projection14.setEndDate(LocalDate.now().plusDays(11));
+        projection14.setMovieEntity(crudMovieRepository.findByTitle("Saving Private Ryan"));
+        projection14.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
+        projection14.setStatus("active");
+        projection14.setCreatedAt(LocalDateTime.now());
+        projection14.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection14);
+
+        ProjectionEntity projection15 = new ProjectionEntity();
+        projection15.setHallEntity(crudHallRepository.findByName("Hall 1"));
+        projection15.setStartDate(LocalDate.now().plusDays(13));
+        projection15.setEndDate(LocalDate.now().plusDays(23));
+        projection15.setMovieEntity(crudMovieRepository.findByTitle("The Shawshank Redemption"));
+        projection15.setStartTime(new String[]{startTimes[5]});
+        projection15.setStatus("upcoming");
+        projection15.setCreatedAt(LocalDateTime.now());
+        projection15.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection15);
+
 
         System.out.println("Database seeded successfully");
     }
