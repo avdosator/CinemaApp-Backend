@@ -20,7 +20,7 @@ public class VenueController {
     }
 
     @GetMapping
-    public Page<Venue> getAllVenues(@ModelAttribute SearchVenuesRequest searchVenuesRequest) {
-        return venueService.findAllVenues(searchVenuesRequest);
+    public Page<Venue> getVenues(@ModelAttribute SearchVenuesRequest searchVenuesRequest) {
+        return venueService.findVenues(searchVenuesRequest);
     }
 }

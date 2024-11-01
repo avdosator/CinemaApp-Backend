@@ -17,8 +17,9 @@ public class VenueServiceImpl implements VenueService {
     public VenueServiceImpl(VenueRepository venueRepository) {
         this.venueRepository = venueRepository;
     }
+
     @Override
-    public Page<Venue> findAllVenues(SearchVenuesRequest searchVenuesRequest) {
-        return venueRepository.findAllVenues(searchVenuesRequest);
+    public Page<Venue> findVenues(SearchVenuesRequest searchVenuesRequest) {
+        return venueRepository.findVenues(searchVenuesRequest);
     }
 }

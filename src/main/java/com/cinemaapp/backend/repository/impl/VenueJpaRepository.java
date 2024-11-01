@@ -10,7 +10,6 @@ import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
@@ -25,16 +24,10 @@ public class VenueJpaRepository implements VenueRepository {
     }
 
     @Override
-    public Page<Venue> findAllVenues(SearchVenuesRequest searchVenuesRequest) {
-        Pageable pageable =  PageRequest.of(searchVenuesRequest.getPage(), searchVenuesRequest.getSize());
-        org.springframework.data.domain.Page<VenueEntity> venueEntities = crudVenueRepository.findAll(pageable);
-        return PageConverter.convertToPage(venueEntities, VenueEntity::toDomainModel);
-    }
-
-    @Override
-    public Page<Venue> findVenuesByCityName(String cityName) {
-        Specification<VenueEntity> specification = VenueSpecification.hasCityName(cityName);
-        SearchVenuesRequest searchVenuesRequest = new SearchVenuesRequest();
+    public Page<Venue> findVenues(SearchVenuesRequest searchVenuesRequest) {
+        Specification<VenueEntity> specification = Specification.where(
+                VenueSpecification.hasCityName(searchVenuesRequest.getCity())
+        );
         org.springframework.data.domain.Page<VenueEntity> venueEntities = crudVenueRepository.findAll(
                 specification, PageRequest.of(searchVenuesRequest.getPage(), searchVenuesRequest.getSize())
         );
