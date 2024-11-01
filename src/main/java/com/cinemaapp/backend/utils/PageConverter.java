@@ -12,7 +12,7 @@ public class PageConverter {
             org.springframework.data.domain.Page<E> springPage,
             Function<E, D> toDomainModelConverter
     ) {
-        Page<D> page = new Page<D>();
+        Page<D> page = new Page<>();
         page.setPageNumber(springPage.getNumber());
         page.setPageSize(springPage.getSize());
         page.setTotalElements(springPage.getNumberOfElements());

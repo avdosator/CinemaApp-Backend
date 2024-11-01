@@ -121,8 +121,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         GenreEntity sciFi = new GenreEntity();
         sciFi.setName("Sci-Fi");
-        adventure.setCreatedAt(LocalDateTime.now());
-        adventure.setUpdatedAt(LocalDateTime.now());
+        sciFi.setCreatedAt(LocalDateTime.now());
+        sciFi.setUpdatedAt(LocalDateTime.now());
         genres.add(sciFi);
 
         crudGenreRepository.saveAll(genres);
