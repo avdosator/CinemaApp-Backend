@@ -1,10 +1,10 @@
 package com.cinemaapp.backend.repository;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.domain.model.Venue;
-
-import java.util.List;
+import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
 
 public interface VenueRepository {
 
-    List<Venue> findAllVenues();
+    Page<Venue> findAllVenues(SearchVenuesRequest searchVenuesRequest);
 }

@@ -1,14 +1,16 @@
 package com.cinemaapp.backend.repository.impl;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.VenueRepository;
 import com.cinemaapp.backend.repository.crud.CrudVenueRepository;
 import com.cinemaapp.backend.repository.entity.VenueEntity;
 import com.cinemaapp.backend.service.domain.model.Venue;
+import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
+import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class VenueJpaRepository implements VenueRepository {
@@ -21,12 +23,9 @@ public class VenueJpaRepository implements VenueRepository {
     }
 
     @Override
-    public List<Venue> findAllVenues() {
-        List<VenueEntity> venueEntities = crudVenueRepository.findAll();
-        List<Venue> venues = new ArrayList<>();
-        for (VenueEntity venueEntity : venueEntities) {
-            venues.add(venueEntity.toDomainModel());
-        }
-        return venues;
+    public Page<Venue> findAllVenues(SearchVenuesRequest searchVenuesRequest) {
+        Pageable pageable =  PageRequest.of(searchVenuesRequest.getPage(), searchVenuesRequest.getSize());
+        org.springframework.data.domain.Page<VenueEntity> venueEntities = crudVenueRepository.findAll(pageable);
+        return PageConverter.convertToPage(venueEntities, VenueEntity::toDomainModel);
     }
 }
