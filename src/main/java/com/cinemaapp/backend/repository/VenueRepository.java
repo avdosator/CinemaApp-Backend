@@ -7,4 +7,5 @@ import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
 public interface VenueRepository {
 
     Page<Venue> findAllVenues(SearchVenuesRequest searchVenuesRequest);
+    Page<Venue> findVenuesByCityName(String cityName);
 }
