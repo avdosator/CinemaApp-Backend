@@ -31,10 +31,10 @@ public class CityEntity {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.MERGE)
     private List<UserEntity> userEntities;
 
-    @OneToMany(mappedBy = "cityEntity")
+    @OneToMany(mappedBy = "cityEntity", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<VenueEntity> venueEntities;
 
     @Column(name = "created_at")
@@ -109,20 +109,20 @@ public class CityEntity {
 
     // add missing after UserEntity and VenueEntity toDomainModel implementation
     public City toDomainModel() {
-        List<User> users = (this.userEntities == null ? Collections.emptyList() : this.userEntities.stream()
-                .map(UserEntity::toDomainModel)
-                .toList());
-        List<Venue> venues = (this.venueEntities == null ? Collections.emptyList() : this.venueEntities.stream()
-                .map(VenueEntity::toDomainModel)
-                .toList());
+//        List<User> users = (this.userEntities == null ? Collections.emptyList() : this.userEntities.stream()
+//                .map(UserEntity::toDomainModel)
+//                .toList());
+//        List<Venue> venues = (this.venueEntities == null ? Collections.emptyList() : this.venueEntities.stream()
+//                .map(VenueEntity::toDomainModel)
+//                .toList());
 
         return City.builder()
                 .id(this.id)
                 .name(this.name)
                 .postalCode(this.postalCode)
                 .country(this.country)
-                .users(users)
-                .venues(venues)
+                //.users(users)
+                //.venues(venues)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

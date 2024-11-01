@@ -34,7 +34,7 @@ public class VenueEntity {
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private CityEntity cityEntity;
 
-    @OneToMany(mappedBy = "venueEntity")
+    @OneToMany(mappedBy = "venueEntity", cascade = CascadeType.MERGE)
     private List<HallEntity> hallEntities;
 
     @Column(name = "phone")
@@ -118,7 +118,6 @@ public class VenueEntity {
         this.updatedAt = updatedAt;
     }
 
-    // add halls after their implementation
     public Venue toDomainModel() {
         List<Hall> halls = (this.hallEntities == null ? Collections.emptyList() :
                 this.hallEntities.stream()
