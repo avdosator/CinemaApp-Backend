@@ -1,7 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Hall;
-import com.cinemaapp.backend.service.domain.model.Projection;
 import com.cinemaapp.backend.service.domain.model.Seat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
