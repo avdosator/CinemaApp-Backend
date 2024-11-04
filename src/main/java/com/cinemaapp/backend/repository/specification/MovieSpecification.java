@@ -24,27 +24,18 @@ public class MovieSpecification {
         };
     }
 
-//    public static Specification<MovieEntity> hasProjectionWithinDateRange(LocalDate startDate, LocalDate endDate) {
-//        return (root, query, criteriaBuilder) -> {
-//            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-//            if (startDate == null || endDate == null) {
-//                return null;
-//            }
-//            return criteriaBuilder.and(
-//                    criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate),
-//                    criteriaBuilder.lessThanOrEqualTo(projections.get("endDate"), endDate)
-//            );
-//        };
-//    }
-
     public static Specification<MovieEntity> hasProjectionStartingWithinRange(LocalDate startDate, LocalDate endDate) {
         return (root, query, criteriaBuilder) -> {
             if (startDate == null) {
                 return null;
             }
+
+            // use distinct if some movie has more than one projection
             if (query != null) {
                 query.distinct(true);
             }
+
+            // if endDate is not provided return movies with upcoming projections -> startDate(today + 10 days or more)
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
             if (endDate == null) {
                 return criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate);
