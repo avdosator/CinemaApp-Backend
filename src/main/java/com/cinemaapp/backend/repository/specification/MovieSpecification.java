@@ -24,16 +24,32 @@ public class MovieSpecification {
         };
     }
 
-    public static Specification<MovieEntity> hasProjectionWithinDateRange(LocalDate startDate, LocalDate endDate) {
+//    public static Specification<MovieEntity> hasProjectionWithinDateRange(LocalDate startDate, LocalDate endDate) {
+//        return (root, query, criteriaBuilder) -> {
+//            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+//            if (startDate == null || endDate == null) {
+//                return null;
+//            }
+//            return criteriaBuilder.and(
+//                    criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate),
+//                    criteriaBuilder.lessThanOrEqualTo(projections.get("endDate"), endDate)
+//            );
+//        };
+//    }
+
+    public static Specification<MovieEntity> hasProjectionStartingWithinRange(LocalDate startDate, LocalDate endDate) {
         return (root, query, criteriaBuilder) -> {
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            if (startDate == null || endDate == null) {
+            if (startDate == null) {
                 return null;
             }
-            return criteriaBuilder.and(
-                    criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate),
-                    criteriaBuilder.lessThanOrEqualTo(projections.get("endDate"), endDate)
-            );
+            if (query != null) {
+                query.distinct(true);
+            }
+            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+            if (endDate == null) {
+                return criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate);
+            }
+            return criteriaBuilder.between(projections.get("startDate"), startDate, endDate);
         };
     }
 
