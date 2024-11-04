@@ -37,6 +37,15 @@ public class MovieSpecification {
         };
     }
 
+    public static Specification<MovieEntity> hasTitleContaining(String title) {
+        return (root, query, criteriaBuilder) -> {
+            if (title == null || title.isEmpty()) {
+                return null;
+            }
+            return criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + title.toLowerCase() + "%");
+        };
+    }
+
     public static Specification<MovieEntity> hasGenre(UUID genreId) {
         return (root, query, criteriaBuilder) -> {
             if (genreId == null) {
