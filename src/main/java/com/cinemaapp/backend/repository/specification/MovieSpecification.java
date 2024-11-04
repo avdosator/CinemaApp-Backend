@@ -90,4 +90,14 @@ public class MovieSpecification {
             return criteriaBuilder.isMember(projectionTime, projections.get("startTime"));
         };
     }
+
+    public static Specification<MovieEntity> hasProjectionOnDate(LocalDate date) {
+        return (root, query, criteriaBuilder) -> {
+            if (date == null) {
+                return null; // Skip this filter if date is not provided
+            }
+            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+            return criteriaBuilder.equal(projections.get("startDate"), date);
+        };
+    }
 }

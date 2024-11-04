@@ -25,15 +25,26 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
-    public Page<Movie> findAllMovies(SearchMoviesRequest searchMoviesRequest) {
-        Pageable pageable = PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize());
-        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(pageable);
+    public Page<Movie> findMovies(SearchMoviesRequest searchMoviesRequest) {
+        Specification<MovieEntity> specification = Specification
+                .where(MovieSpecification.hasProjectionWithinDateRange(searchMoviesRequest.getStartDate(), searchMoviesRequest.getEndDate()))
+                .and(MovieSpecification.hasTitleContaining(searchMoviesRequest.getTitle()))
+                .and(MovieSpecification.hasProjectionInCity(searchMoviesRequest.getCity()))
+                .and(MovieSpecification.hasProjectionInVenue(searchMoviesRequest.getVenue()))
+                .and(MovieSpecification.hasGenre(searchMoviesRequest.getGenre()))
+                .and(MovieSpecification.hasProjectionWithTime(searchMoviesRequest.getProjectionTime()))
+                .and(MovieSpecification.hasProjectionOnDate(searchMoviesRequest.getDate()));
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
+        );
         return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
     }
 
     @Override
-    public Page<Movie> findAllActiveMovies(SearchMoviesRequest searchMoviesRequest) {
+    public Page<Movie> findAllActiveMovies() {
         Specification<MovieEntity> specification = MovieSpecification.hasActiveProjection();
+        SearchMoviesRequest searchMoviesRequest = new SearchMoviesRequest();
+        searchMoviesRequest.setStatus("active");
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
         );
