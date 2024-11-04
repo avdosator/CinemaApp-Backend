@@ -10,9 +10,10 @@ import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 
 @Repository
 public class MovieJpaRepository implements MovieRepository {
@@ -42,22 +43,17 @@ public class MovieJpaRepository implements MovieRepository {
 
     @Override
     public Page<Movie> findAllActiveMovies() {
-        Specification<MovieEntity> specification = MovieSpecification.hasActiveProjection();
         SearchMoviesRequest searchMoviesRequest = new SearchMoviesRequest();
-        searchMoviesRequest.setStatus("active");
-        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
-                specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
-        );
-        return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        searchMoviesRequest.setStartDate(LocalDate.now());
+        searchMoviesRequest.setEndDate(LocalDate.now().plusDays(9));
+        return this.findMovies(searchMoviesRequest);
     }
 
     @Override
-    public Page<Movie> findAllUpcomingMovies(SearchMoviesRequest searchMoviesRequest) {
-        Specification<MovieEntity> specification = MovieSpecification.hasUpcomingProjection();
-        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
-                specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
-        );
-
-        return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+    public Page<Movie> findAllUpcomingMovies() {
+        SearchMoviesRequest searchMoviesRequest = new SearchMoviesRequest();
+        searchMoviesRequest.setStartDate(LocalDate.now().plusDays(10));
+        searchMoviesRequest.setEndDate(LocalDate.now().plusDays(100));
+        return this.findMovies(searchMoviesRequest);
     }
 }
