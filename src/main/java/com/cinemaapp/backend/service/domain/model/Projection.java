@@ -9,7 +9,7 @@ public class Projection {
 
     private final UUID id;
     private final Hall hall;
-    private final Movie movie;
+    private final UUID movieId;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String[] startTime;
@@ -19,12 +19,12 @@ public class Projection {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public Projection(UUID id, Hall hall, Movie movie, LocalDate startDate, LocalDate endDate, String[] startTime,
+    public Projection(UUID id, Hall hall, UUID movieId, LocalDate startDate, LocalDate endDate, String[] startTime,
                       int availableSeats, String status, List<SeatReservation> seatReservations,
                       LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.hall = hall;
-        this.movie = movie;
+        this.movieId = movieId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
@@ -43,8 +43,8 @@ public class Projection {
         return hall;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public UUID getMovieId() {
+        return movieId;
     }
 
     public LocalDate getStartDate() {
@@ -86,7 +86,7 @@ public class Projection {
     public static class ProjectionBuilder {
         private UUID id;
         private Hall hall;
-        private Movie movie;
+        private UUID movieId;
         private LocalDate startDate;
         private LocalDate endDate;
         private String[] startTime;
@@ -109,8 +109,8 @@ public class Projection {
             return this;
         }
 
-        public ProjectionBuilder movie(Movie movie) {
-            this.movie = movie;
+        public ProjectionBuilder movie(UUID movieId) {
+            this.movieId = movieId;
             return this;
         }
 
@@ -158,7 +158,7 @@ public class Projection {
             return new Projection(
                     this.id,
                     this.hall,
-                    this.movie,
+                    this.movieId,
                     this.startDate,
                     this.endDate,
                     this.startTime,

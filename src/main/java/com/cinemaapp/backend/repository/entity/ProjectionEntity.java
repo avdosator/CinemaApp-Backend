@@ -149,7 +149,7 @@ public class ProjectionEntity {
         return Projection.builder()
                 .id(this.id)
                 .hall(this.hallEntity.toDomainModel())
-                .movie(this.movieEntity.toDomainModel())
+                .movie(this.movieEntity.getId())
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .startTime(this.startTime)

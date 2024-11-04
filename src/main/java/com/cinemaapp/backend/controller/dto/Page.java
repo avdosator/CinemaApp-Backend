@@ -55,5 +55,7 @@ public class Page<T> {
         return content.isEmpty();
     }
 
-    public boolean isLast() { return pageNumber == totalPages; }
+    public boolean isLast() {
+        return pageNumber == totalPages - 1;
+    }
 }
