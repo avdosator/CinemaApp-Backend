@@ -8,8 +8,6 @@ import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -21,17 +19,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<Movie> findAllMovies(SearchMoviesRequest searchMoviesRequest) {
-        return movieRepository.findAllMovies(searchMoviesRequest);
+    public Page<Movie> findMovies(SearchMoviesRequest searchMoviesRequest) {
+        return movieRepository.findMovies(searchMoviesRequest);
     }
 
     @Override
-    public Page<Movie> findAllActiveMovies(SearchMoviesRequest searchMoviesRequest) {
-        return movieRepository.findAllActiveMovies(searchMoviesRequest);
+    public Page<Movie> findAllActiveMovies() {
+        return movieRepository.findAllActiveMovies();
     }
 
     @Override
-    public Page<Movie> findAllUpcomingMovies(SearchMoviesRequest searchMoviesRequest) {
-        return movieRepository.findAllUpcomingMovies(searchMoviesRequest);
+    public Page<Movie> findAllUpcomingMovies() {
+        return movieRepository.findAllUpcomingMovies();
     }
 }
