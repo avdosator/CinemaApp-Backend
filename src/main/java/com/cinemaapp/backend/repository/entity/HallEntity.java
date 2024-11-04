@@ -112,9 +112,9 @@ public class HallEntity {
 //                Collections.emptyList() : this.projectionEntities.stream()
 //                .map(ProjectionEntity::toDomainModel)
 //                .toList());
-        List<Seat> seats = (this.projectionEntities == null ? Collections.emptyList() : this.seatEntities.stream()
-                .map(SeatEntity::toDomainModel)
-                .toList());
+//        List<Seat> seats = (this.projectionEntities == null ? Collections.emptyList() : this.seatEntities.stream()
+//                .map(SeatEntity::toDomainModel)
+//                .toList());
 
         return Hall.builder()
                 .id(this.id)

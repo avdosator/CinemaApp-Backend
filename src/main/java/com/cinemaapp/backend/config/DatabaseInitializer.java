@@ -469,7 +469,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudMovieRepository.save(movie26);
 
         MovieEntity movie27 = new MovieEntity();
-        movie27.setTitle("Summer in golden walley");
+        movie27.setTitle("Summer in Golden Walley");
         movie27.setLanguage("Bosnian");
         movie27.setPgRating("PG-13");
         movie27.setDurationInMinutes(91);
@@ -781,6 +781,94 @@ public class DatabaseInitializer implements CommandLineRunner {
         projection15.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection15);
 
+        ProjectionEntity projection16 = new ProjectionEntity();
+        projection16.setHallEntity(crudHallRepository.findByName("Hall 7"));
+        projection16.setStartDate(LocalDate.now().plusDays(5));
+        projection16.setEndDate(LocalDate.now().plusDays(12));
+        projection16.setMovieEntity(crudMovieRepository.findByTitle("The Silence of the Lambs"));
+        projection16.setStartTime(new String[]{startTimes[0]});
+        projection16.setStatus("active");
+        projection16.setCreatedAt(LocalDateTime.now());
+        projection16.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection16);
+
+        ProjectionEntity projection17 = new ProjectionEntity();
+        projection17.setHallEntity(crudHallRepository.findByName("Hall 4"));
+        projection17.setStartDate(LocalDate.now().plusDays(2));
+        projection17.setEndDate(LocalDate.now().plusDays(11));
+        projection17.setMovieEntity(crudMovieRepository.findByTitle("Grbavica"));
+        projection17.setStartTime(new String[]{startTimes[5], startTimes[2]});
+        projection17.setStatus("active");
+        projection17.setCreatedAt(LocalDateTime.now());
+        projection17.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection17);
+
+        ProjectionEntity projection18 = new ProjectionEntity();
+        projection18.setHallEntity(crudHallRepository.findByName("Hall 2"));
+        projection18.setStartDate(LocalDate.now().plusDays(3));
+        projection18.setEndDate(LocalDate.now().plusDays(10));
+        projection18.setMovieEntity(crudMovieRepository.findByTitle("The Perfect Circle"));
+        projection18.setStartTime(new String[]{ startTimes[3], startTimes[5]});
+        projection18.setStatus("active");
+        projection18.setCreatedAt(LocalDateTime.now());
+        projection18.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection18);
+
+        ProjectionEntity projection19 = new ProjectionEntity();
+        projection19.setHallEntity(crudHallRepository.findByName("Hall 6"));
+        projection19.setStartDate(LocalDate.now().plusDays(7));
+        projection19.setEndDate(LocalDate.now().plusDays(15));
+        projection19.setMovieEntity(crudMovieRepository.findByTitle("Green Mile"));
+        projection19.setStartTime(new String[]{startTimes[5]});
+        projection19.setStatus("active");
+        projection19.setCreatedAt(LocalDateTime.now());
+        projection19.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection19);
+
+        ProjectionEntity projection20 = new ProjectionEntity();
+        projection20.setHallEntity(crudHallRepository.findByName("Hall 3"));
+        projection20.setStartDate(LocalDate.now().plusDays(2));
+        projection20.setEndDate(LocalDate.now().plusDays(10));
+        projection20.setMovieEntity(crudMovieRepository.findByTitle("Summer in Golden Walley"));
+        projection20.setStartTime(new String[]{startTimes[5]});
+        projection20.setStatus("active");
+        projection20.setCreatedAt(LocalDateTime.now());
+        projection20.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection20);
+
+        ProjectionEntity projection21 = new ProjectionEntity();
+        projection21.setHallEntity(crudHallRepository.findByName("Hall 5"));
+        projection21.setStartDate(LocalDate.now().plusDays(1));
+        projection21.setEndDate(LocalDate.now().plusDays(5));
+        projection21.setMovieEntity(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring"));
+        projection21.setStartTime(new String[]{ startTimes[4], startTimes[5]});
+        projection21.setStatus("active");
+        projection21.setCreatedAt(LocalDateTime.now());
+        projection21.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection21);
+
+        ProjectionEntity projection22 = new ProjectionEntity();
+        projection22.setHallEntity(crudHallRepository.findByName("Hall 2"));
+        projection22.setStartDate(LocalDate.now().plusDays(3));
+        projection22.setEndDate(LocalDate.now().plusDays(12));
+        projection22.setMovieEntity(crudMovieRepository.findByTitle("Jurassic Park"));
+        projection22.setStartTime(new String[]{ startTimes[0], startTimes[5]});
+        projection22.setStatus("active");
+        projection22.setCreatedAt(LocalDateTime.now());
+        projection22.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection22);
+
+        ProjectionEntity projection23 = new ProjectionEntity();
+        projection23.setHallEntity(crudHallRepository.findByName("Hall 7"));
+        projection23.setStartDate(LocalDate.now().plusDays(5));
+        projection23.setEndDate(LocalDate.now().plusDays(15));
+        projection23.setMovieEntity(crudMovieRepository.findByTitle("The Shawshank Redemption"));
+        projection23.setStartTime(new String[]{startTimes[4]});
+        projection23.setStatus("active");
+        projection23.setCreatedAt(LocalDateTime.now());
+        projection23.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(projection23);
+
         // seed photo table
         PhotoEntity photo1 = new PhotoEntity();
         photo1.setEntityType("movie");
@@ -940,7 +1028,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         PhotoEntity photo27 = new PhotoEntity();
         photo27.setEntityType("movie");
-        photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in golden walley").getId());
+        photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in Golden Walley").getId());
         photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
         crudPhotoRepository.save(photo27);
 
