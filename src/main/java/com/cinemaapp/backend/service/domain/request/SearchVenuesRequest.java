@@ -1,10 +1,12 @@
 package com.cinemaapp.backend.service.domain.request;
 
+import java.util.UUID;
+
 public class SearchVenuesRequest {
 
     private int page = 0;
     private int size = 100;
-    private String city;
+    private UUID city;
 
     public int getPage() {
         return page;
@@ -22,11 +24,11 @@ public class SearchVenuesRequest {
         this.size = size;
     }
 
-    public String getCity() {
+    public UUID getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(UUID city) {
         this.city = city;
     }
 }
