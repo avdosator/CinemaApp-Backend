@@ -2,6 +2,7 @@ package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Genre;
 import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.model.Photo;
 import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -71,6 +72,10 @@ public class MovieEntity {
 
     @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "entity_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<PhotoEntity> photoEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -214,6 +219,14 @@ public class MovieEntity {
         this.createdAt = createdAt;
     }
 
+    public List<PhotoEntity> getPhotoEntities() {
+        return photoEntities;
+    }
+
+    public void setPhotoEntities(List<PhotoEntity> photoEntities) {
+        this.photoEntities = photoEntities;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -229,6 +242,11 @@ public class MovieEntity {
         List<Projection> projections = (this.projectionEntities == null ?
                 Collections.emptyList() : this.projectionEntities.stream()
                 .map(ProjectionEntity::toDomainModel)
+                .toList());
+
+        List<Photo> photos = (this.photoEntities == null ?
+                Collections.emptyList() : this.photoEntities.stream()
+                .map(PhotoEntity::toDomainModel)
                 .toList());
 
         return Movie.builder()
@@ -248,6 +266,7 @@ public class MovieEntity {
                 //.status(this.status)
                 .genres(genres)
                 .projections(projections)
+                .photos(photos)
                 //.createdAt(this.createdAt)
                 //.updatedAt(this.updatedAt)
                 .build();

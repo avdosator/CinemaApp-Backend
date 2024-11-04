@@ -22,13 +22,14 @@ public class Movie {
     private final String status;
     private final List<Genre> genres;
     private final List<Projection> projections;
+    private final List<Photo> photos;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes,
           List<String> writers, List<String> actors, double imdbRating, double rottenTomatoesRating, String synopsis,
           String trailerUrl, UUID coverPhotoId, String status, List<Genre> genres, List<Projection> projections,
-          LocalDateTime createdAt, LocalDateTime updatedAt) {
+          List<Photo> photos, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.language = language;
@@ -45,6 +46,7 @@ public class Movie {
         this.status = status;
         this.genres = genres;
         this.projections = projections;
+        this.photos = photos;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -113,6 +115,10 @@ public class Movie {
         return projections;
     }
 
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -142,6 +148,7 @@ public class Movie {
         private String status;
         private List<Genre> genres;
         private List<Projection> projections;
+        private List<Photo> photos;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
@@ -228,6 +235,11 @@ public class Movie {
             return this;
         }
 
+        public MovieBuilder photos(List<Photo> photos) {
+            this.photos = photos;
+            return this;
+        }
+
         public MovieBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
@@ -256,6 +268,7 @@ public class Movie {
                     this.status,
                     this.genres,
                     this.projections,
+                    this.photos,
                     this.createdAt,
                     this.updatedAt
             );
