@@ -19,7 +19,7 @@ public class ProjectionController {
         this.projectionService = projectionService;
     }
 
-    @GetMapping("/starts")
+    @GetMapping("/start-times")
     public List<String> getAllProjectionTimes() {
         return projectionService.findAllProjectionTimes();
     }
