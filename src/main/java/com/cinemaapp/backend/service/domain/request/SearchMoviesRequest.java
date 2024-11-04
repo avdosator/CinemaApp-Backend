@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.service.domain.request;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class SearchMoviesRequest {
 
@@ -11,9 +12,9 @@ public class SearchMoviesRequest {
     private LocalDate endDate = null;
     private LocalDate date = null;
     private String title = "";
-    private String city = "";
-    private String venue = "";
-    private String genre = "";
+    private UUID city = null;
+    private UUID venue = null;
+    private UUID genre = null;
     private String projectionTime = "";
 
     public int getPage() {
@@ -72,27 +73,27 @@ public class SearchMoviesRequest {
         this.title = title;
     }
 
-    public String getCity() {
+    public UUID getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(UUID city) {
         this.city = city;
     }
 
-    public String getVenue() {
+    public UUID getVenue() {
         return venue;
     }
 
-    public void setVenue(String venue) {
+    public void setVenue(UUID venue) {
         this.venue = venue;
     }
 
-    public String getGenre() {
+    public UUID getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(UUID genre) {
         this.genre = genre;
     }
 
