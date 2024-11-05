@@ -885,7 +885,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo3 = new PhotoEntity();
         photo3.setEntityType("movie");
         photo3.setRefEntityId(crudMovieRepository.findByTitle("Titanic").getId());
-        photo3.setUrl("https://www.reddit.com/media?url=https%3A%2F%2Fpreview.redd.it%2Fx7j3qgrlh3z11.jpg%3Fwidth%3D1080%26crop%3Dsmart%26auto%3Dwebp%26s%3D47e0c2b18967057dda38f9e8b8bf03b42fa9ecee");
+        photo3.setUrl("https://i0.wp.com/awardswatch.com/wp-content/uploads/2023/02/Screenshot-2023-02-13-at-8.04.06-AM.png?resize=768%2C445&ssl=1");
         crudPhotoRepository.save(photo3);
 
         PhotoEntity photo4 = new PhotoEntity();
