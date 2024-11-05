@@ -88,13 +88,13 @@ public class MovieSpecification {
         };
     }
 
-    public static Specification<MovieEntity> hasProjectionWithTime(String projectionTime) {
+    public static Specification<MovieEntity> hasProjectionWithTime(String time) {
         return (root, query, criteriaBuilder) -> {
-            if (projectionTime == null || projectionTime.isEmpty()) {
+            if (time == null || time.isEmpty()) {
                 return null; // Skip this filter if projectionTime is not provided
             }
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            return criteriaBuilder.isMember(projectionTime, projections.get("startTime"));
+            return criteriaBuilder.like(projections.get("startTimeString"), "%" + time + "%");
         };
     }
 

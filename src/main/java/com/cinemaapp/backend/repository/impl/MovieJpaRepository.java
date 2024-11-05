@@ -33,7 +33,7 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasProjectionInCity(searchMoviesRequest.getCity()))
                 .and(MovieSpecification.hasProjectionInVenue(searchMoviesRequest.getVenue()))
                 .and(MovieSpecification.hasGenre(searchMoviesRequest.getGenre()))
-                .and(MovieSpecification.hasProjectionWithTime(searchMoviesRequest.getProjectionTime()))
+                .and(MovieSpecification.hasProjectionWithTime(searchMoviesRequest.getTime()))
                 .and(MovieSpecification.hasProjectionOnDate(searchMoviesRequest.getDate()));
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())

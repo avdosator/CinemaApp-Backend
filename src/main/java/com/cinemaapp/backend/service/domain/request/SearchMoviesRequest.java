@@ -15,7 +15,7 @@ public class SearchMoviesRequest {
     private UUID city = null;
     private UUID venue = null;
     private UUID genre = null;
-    private String projectionTime = "";
+    private String time = "";
 
     public int getPage() {
         return page;
@@ -97,11 +97,11 @@ public class SearchMoviesRequest {
         this.genre = genre;
     }
 
-    public String getProjectionTime() {
-        return projectionTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setProjectionTime(String projectionTime) {
-        this.projectionTime = projectionTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 }

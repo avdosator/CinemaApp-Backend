@@ -4,6 +4,7 @@ import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,6 +37,9 @@ public class ProjectionEntity {
 
     @Column(name = "start_time")
     private String[] startTime;  // It will represent start times of all projections for specific hall/venue -> "19:00"
+
+    @Formula("array_to_string(start_time, ',')")
+    private String startTimeString;
 
     @Column(name = "available_seats")
     private int availableSeats;
@@ -106,6 +110,10 @@ public class ProjectionEntity {
 
     public void setAvailableSeats(int availableSeats) {
         this.availableSeats = availableSeats;
+    }
+
+    public String getStartTimeString() {
+        return startTimeString;
     }
 
     public String getStatus() {
