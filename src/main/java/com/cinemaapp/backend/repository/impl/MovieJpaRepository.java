@@ -45,6 +45,17 @@ public class MovieJpaRepository implements MovieRepository {
     @Override
     public Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         Specification<MovieEntity> specification = Specification
-                .where()
+                .where(MovieSpecification.hasUpcomingProjectionsInRange(
+                        searchUpcomingMoviesRequest.getStartDate(),
+                        searchUpcomingMoviesRequest.getEndDate()))
+                .and(MovieSpecification.hasTitleContaining(searchUpcomingMoviesRequest.getTitle()))
+                .and(MovieSpecification.hasProjectionInCity(searchUpcomingMoviesRequest.getCity()))
+                .and(MovieSpecification.hasProjectionInVenue(searchUpcomingMoviesRequest.getVenue()))
+                .and(MovieSpecification.hasGenre(searchUpcomingMoviesRequest.getGenre()));
+
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(), searchUpcomingMoviesRequest.getSize())
+        );
+        return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
     }
 }

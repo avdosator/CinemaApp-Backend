@@ -31,6 +31,25 @@ public class MovieSpecification {
         };
     }
 
+    public static Specification<MovieEntity> hasUpcomingProjectionsInRange(LocalDate startDate, LocalDate endDate) {
+        return (root, query, criteriaBuilder) -> {
+
+            // use distinct if some movie has more than one projection
+            if (query != null) {
+                query.distinct(true);
+            }
+
+            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+            if (startDate == null && endDate == null) {
+                return criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now());
+            }
+            return criteriaBuilder.and(
+                    criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now()),
+                    criteriaBuilder.between(projections.get("startDate"), startDate, endDate)
+            );
+        };
+    }
+
     public static Specification<MovieEntity> hasTitleContaining(String title) {
         return (root, query, criteriaBuilder) -> {
             if (title == null || title.isEmpty()) {
@@ -84,14 +103,4 @@ public class MovieSpecification {
             return criteriaBuilder.like(projections.get("startTimeString"), "%" + time + "%");
         };
     }
-
-    /*public static Specification<MovieEntity> hasProjectionOnDate(LocalDate date) {
-        return (root, query, criteriaBuilder) -> {
-            if (date == null) {
-                return null; // Skip this filter if date is not provided
-            }
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            return criteriaBuilder.equal(projections.get("startDate"), date);
-        };
-    }*/
 }
