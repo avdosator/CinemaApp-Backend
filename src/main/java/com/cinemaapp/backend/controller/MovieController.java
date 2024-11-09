@@ -19,18 +19,13 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping
-    public Page<Movie> getAllMovies(@ModelAttribute SearchMoviesRequest searchMoviesRequest) {
-        return movieService.findMovies(searchMoviesRequest);
-    }
-
     @GetMapping("/active")
-    public Page<Movie> getAllActiveMovies() {
-        return movieService.findAllActiveMovies();
+    public Page<Movie> getActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest) {
+        return movieService.findActiveMovies(searchActiveMoviesRequest);
     }
 
     @GetMapping("/upcoming")
-    public Page<Movie> getAllUpcomingMovies() {
-        return movieService.findAllUpcomingMovies();
+    public Page<Movie> getUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
+        return movieService.findUpcomingMovies(searchUpcomingMoviesRequest);
     }
 }
