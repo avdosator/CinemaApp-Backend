@@ -5,8 +5,9 @@ import com.cinemaapp.backend.repository.crud.CrudMovieRepository;
 import com.cinemaapp.backend.repository.entity.MovieEntity;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
-import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.controller.dto.Page;
+import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,33 +27,24 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
-    public Page<Movie> findMovies(SearchMoviesRequest searchMoviesRequest) {
+    public Page<Movie> findActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest) {
         Specification<MovieEntity> specification = Specification
-                .where(MovieSpecification.hasCurrentlyShowingProjections(searchMoviesRequest.getStartDate(), searchMoviesRequest.getEndDate()))
-                .and(MovieSpecification.hasTitleContaining(searchMoviesRequest.getTitle()))
-                .and(MovieSpecification.hasProjectionInCity(searchMoviesRequest.getCity()))
-                .and(MovieSpecification.hasProjectionInVenue(searchMoviesRequest.getVenue()))
-                .and(MovieSpecification.hasGenre(searchMoviesRequest.getGenre()))
-                .and(MovieSpecification.hasProjectionWithTime(searchMoviesRequest.getTime()))
-                .and(MovieSpecification.hasProjectionOnDate(searchMoviesRequest.getDate()));
+                .where(MovieSpecification.hasCurrentlyShowingProjectionsUpTo(searchActiveMoviesRequest.getSelectedDate()))
+                .and(MovieSpecification.hasTitleContaining(searchActiveMoviesRequest.getTitle()))
+                .and(MovieSpecification.hasProjectionInCity(searchActiveMoviesRequest.getCity()))
+                .and(MovieSpecification.hasProjectionInVenue(searchActiveMoviesRequest.getVenue()))
+                .and(MovieSpecification.hasGenre(searchActiveMoviesRequest.getGenre()))
+                .and(MovieSpecification.hasProjectionWithTime(searchActiveMoviesRequest.getTime()));
+
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
-                specification, PageRequest.of(searchMoviesRequest.getPage(), searchMoviesRequest.getSize())
+                specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
         );
         return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
     }
 
     @Override
-    public Page<Movie> findAllActiveMovies() {
-        SearchMoviesRequest searchMoviesRequest = new SearchMoviesRequest();
-        searchMoviesRequest.setStartDate(LocalDate.now());
-        searchMoviesRequest.setEndDate(LocalDate.now().plusDays(9));
-        return this.findMovies(searchMoviesRequest);
-    }
-
-    @Override
-    public Page<Movie> findAllUpcomingMovies() {
-        SearchMoviesRequest searchMoviesRequest = new SearchMoviesRequest();
-        searchMoviesRequest.setStartDate(LocalDate.now().plusDays(10));
-        return this.findMovies(searchMoviesRequest);
+    public Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
+        Specification<MovieEntity> specification = Specification
+                .where()
     }
 }

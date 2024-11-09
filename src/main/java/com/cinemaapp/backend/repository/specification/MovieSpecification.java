@@ -9,26 +9,8 @@ import java.util.UUID;
 
 public class MovieSpecification {
 
-    public static Specification<MovieEntity> hasActiveProjection() {
+    public static Specification<MovieEntity> hasCurrentlyShowingProjectionsUpTo(LocalDate selectedDate) {
         return (root, query, criteriaBuilder) -> {
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            // Check if any projection has status "active"
-            return criteriaBuilder.equal(projections.get("status"), "active");
-        };
-    }
-
-    public static Specification<MovieEntity> hasUpcomingProjection() {
-        return (root, query, criteriaBuilder) -> {
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            return criteriaBuilder.equal(projections.get("status"), "upcoming");
-        };
-    }
-
-    public static Specification<MovieEntity> hasCurrentlyShowingProjections(LocalDate selectedDate) {
-        return (root, query, criteriaBuilder) -> {
-            if (selectedDate == null) {
-                return null;
-            }
 
             // use distinct if some movie has more than one projection
             if (query != null) {
@@ -36,6 +18,12 @@ public class MovieSpecification {
             }
 
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+            if (selectedDate == null) {
+                return criteriaBuilder.and(
+                        criteriaBuilder.lessThan(projections.get("startDate"), LocalDate.now()),
+                        criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), LocalDate.now())
+                );
+            }
             return criteriaBuilder.and(
                     criteriaBuilder.lessThan(projections.get("startDate"), LocalDate.now()),
                     criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), selectedDate)
@@ -97,7 +85,7 @@ public class MovieSpecification {
         };
     }
 
-    public static Specification<MovieEntity> hasProjectionOnDate(LocalDate date) {
+    /*public static Specification<MovieEntity> hasProjectionOnDate(LocalDate date) {
         return (root, query, criteriaBuilder) -> {
             if (date == null) {
                 return null; // Skip this filter if date is not provided
@@ -105,5 +93,5 @@ public class MovieSpecification {
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
             return criteriaBuilder.equal(projections.get("startDate"), date);
         };
-    }
+    }*/
 }
