@@ -24,9 +24,9 @@ public class MovieSpecification {
         };
     }
 
-    public static Specification<MovieEntity> hasProjectionStartingWithinRange(LocalDate startDate, LocalDate endDate) {
+    public static Specification<MovieEntity> hasCurrentlyShowingProjections(LocalDate selectedDate) {
         return (root, query, criteriaBuilder) -> {
-            if (startDate == null) {
+            if (selectedDate == null) {
                 return null;
             }
 
@@ -35,12 +35,11 @@ public class MovieSpecification {
                 query.distinct(true);
             }
 
-            // if endDate is not provided return movies with upcoming projections -> startDate(today + 10 days or more)
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            if (endDate == null) {
-                return criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate);
-            }
-            return criteriaBuilder.between(projections.get("startDate"), startDate, endDate);
+            return criteriaBuilder.and(
+                    criteriaBuilder.lessThan(projections.get("startDate"), LocalDate.now()),
+                    criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), selectedDate)
+            );
         };
     }
 
