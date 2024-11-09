@@ -3,7 +3,8 @@ package com.cinemaapp.backend.controller;
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
-import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,12 @@ public class MovieController {
     }
 
     @GetMapping("/active")
-    public Page<Movie> getActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest) {
+    public Page<Movie> getActiveMovies(@ModelAttribute SearchActiveMoviesRequest searchActiveMoviesRequest) {
         return movieService.findActiveMovies(searchActiveMoviesRequest);
     }
 
     @GetMapping("/upcoming")
-    public Page<Movie> getUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
+    public Page<Movie> getUpcomingMovies(@ModelAttribute SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         return movieService.findUpcomingMovies(searchUpcomingMoviesRequest);
     }
 }
