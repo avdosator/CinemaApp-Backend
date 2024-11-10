@@ -2,7 +2,9 @@ package com.cinemaapp.backend.repository.impl;
 
 import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.repository.crud.CrudMovieRepository;
+import com.cinemaapp.backend.repository.crud.CrudPhotoRepository;
 import com.cinemaapp.backend.repository.entity.MovieEntity;
+import com.cinemaapp.backend.repository.entity.PhotoEntity;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
@@ -14,14 +16,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class MovieJpaRepository implements MovieRepository {
 
     private final CrudMovieRepository crudMovieRepository;
+    private final CrudPhotoRepository crudPhotoRepository;
 
     @Autowired
-    public MovieJpaRepository(CrudMovieRepository crudMovieRepository) {
+    public MovieJpaRepository(CrudMovieRepository crudMovieRepository, CrudPhotoRepository crudPhotoRepository) {
         this.crudMovieRepository = crudMovieRepository;
+        this.crudPhotoRepository = crudPhotoRepository;
     }
 
     @Override
@@ -37,7 +43,13 @@ public class MovieJpaRepository implements MovieRepository {
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
         );
-        return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+
+//        for(MovieEntity movieEntity : movieEntities.getContent()) {
+//            movieEntity.
+//        }
+
+        Page<Movie> moviesPage =  PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        return moviesPage;
     }
 
     @Override
