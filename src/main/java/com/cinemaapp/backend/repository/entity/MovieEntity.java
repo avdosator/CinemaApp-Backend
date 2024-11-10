@@ -39,10 +39,10 @@ public class MovieEntity {
     private int durationInMinutes;
 
     @Column(name = "writers")
-    private List<String> writers;
+    private String[] writers;
 
     @Column(name = "actors")
-    private List<String> actors;
+    private String[] actors;
 
     @Column(name = "imdb_rating")
     private double imdbRating;
@@ -131,19 +131,19 @@ public class MovieEntity {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public List<String> getWriters() {
+    public String[] getWriters() {
         return writers;
     }
 
-    public void setWriters(List<String> writers) {
+    public void setWriters(String[] writers) {
         this.writers = writers;
     }
 
-    public List<String> getActors() {
+    public String[] getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(String[] actors) {
         this.actors = actors;
     }
 
