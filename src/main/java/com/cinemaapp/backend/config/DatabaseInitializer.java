@@ -1660,241 +1660,241 @@ public class DatabaseInitializer implements CommandLineRunner {
         photo1.setEntityType("movie");
         photo1.setRefEntityId(crudMovieRepository.findByTitle("Avatar").getId());
         photo1.setUrl("https://www.usmagazine.com/wp-content/uploads/2022/07/James-Cameron-Warns-Avatar-2-Is-3-Hours-Its-OK-Get-Up-Go-Pee.jpg?quality=86&strip=all");
-        crudPhotoRepository.save(photo1);
+        movie1.setCoverPhotoId(crudPhotoRepository.save(photo1).getId());
 
         PhotoEntity photo2 = new PhotoEntity();
         photo2.setEntityType("movie");
         photo2.setRefEntityId(crudMovieRepository.findByTitle("Inception").getId());
         photo2.setUrl("https://nextbestpicture-com.b-cdn.net/wp-content/uploads/2024/04/Inception.jpg");
-        crudPhotoRepository.save(photo2);
+        movie2.setCoverPhotoId(crudPhotoRepository.save(photo2).getId());
 
         PhotoEntity photo3 = new PhotoEntity();
         photo3.setEntityType("movie");
         photo3.setRefEntityId(crudMovieRepository.findByTitle("Titanic").getId());
         photo3.setUrl("https://i0.wp.com/awardswatch.com/wp-content/uploads/2023/02/Screenshot-2023-02-13-at-8.04.06-AM.png?resize=768%2C445&ssl=1");
-        crudPhotoRepository.save(photo3);
+        movie3.setCoverPhotoId(crudPhotoRepository.save(photo3).getId());
 
         PhotoEntity photo4 = new PhotoEntity();
         photo4.setEntityType("movie");
         photo4.setRefEntityId(crudMovieRepository.findByTitle("The Dark Knight").getId());
         photo4.setUrl("https://www.prime1studio.com/on/demandware.static/-/Sites-p1s-master-catalog/default/dwe65eb6a7/images/HDMMDC-02/media/hdmmdc-02_a19.jpg");
-        crudPhotoRepository.save(photo4);
+        movie4.setCoverPhotoId(crudPhotoRepository.save(photo4).getId());
 
         PhotoEntity photo5 = new PhotoEntity();
         photo5.setEntityType("movie");
         photo5.setRefEntityId(crudMovieRepository.findByTitle("The Matrix").getId());
         photo5.setUrl("https://storage.googleapis.com/pod_public/1300/106922.jpg");
-        crudPhotoRepository.save(photo5);
+        movie5.setCoverPhotoId(crudPhotoRepository.save(photo5).getId());
 
         PhotoEntity photo6 = new PhotoEntity();
         photo6.setEntityType("movie");
         photo6.setRefEntityId(crudMovieRepository.findByTitle("Interstellar").getId());
         photo6.setUrl("https://www.seacoastonline.com/gcdn/authoring/2014/11/07/NPOH/ghows-SO-00f35d1e-def9-4ba8-9155-d936bed5f192-b9e187d3.jpeg?width=660&height=413&fit=crop&format=pjpg&auto=webp");
-        crudPhotoRepository.save(photo6);
+        movie6.setCoverPhotoId(crudPhotoRepository.save(photo6).getId());
 
         PhotoEntity photo7 = new PhotoEntity();
         photo7.setEntityType("movie");
         photo7.setRefEntityId(crudMovieRepository.findByTitle("Gladiator").getId());
         photo7.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/0*TxZdqJf0MQ2mdL9p.jpg");
-        crudPhotoRepository.save(photo7);
+        movie7.setCoverPhotoId(crudPhotoRepository.save(photo7).getId());
 
         PhotoEntity photo8 = new PhotoEntity();
         photo8.setEntityType("movie");
         photo8.setRefEntityId(crudMovieRepository.findByTitle("The Godfather").getId());
         photo8.setUrl("https://jerseymanmagazine.com/wp-content/uploads/2022/04/The-Godfather-e1648766305891-900x600.jpg");
-        crudPhotoRepository.save(photo8);
+        movie8.setCoverPhotoId(crudPhotoRepository.save(photo8).getId());
 
         PhotoEntity photo9 = new PhotoEntity();
         photo9.setEntityType("movie");
         photo9.setRefEntityId(crudMovieRepository.findByTitle("Pulp Fiction").getId());
         photo9.setUrl("https://www.closeup-shop.com/media/oart_0/oart_p/oart_13731/thumbs/1277574_4609821.jpg");
-        crudPhotoRepository.save(photo9);
+        movie9.setCoverPhotoId(crudPhotoRepository.save(photo9).getId());
 
         PhotoEntity photo10 = new PhotoEntity();
         photo10.setEntityType("movie");
         photo10.setRefEntityId(crudMovieRepository.findByTitle("Schindler's List").getId());
         photo10.setUrl("https://goldendiscs.ie/cdn/shop/products/817sLmprCSL._AC_SY445.jpg?v=1690429826");
-        crudPhotoRepository.save(photo10);
+        movie10.setCoverPhotoId(crudPhotoRepository.save(photo10).getId());
 
         PhotoEntity photo11 = new PhotoEntity();
         photo11.setEntityType("movie");
         photo11.setRefEntityId(crudMovieRepository.findByTitle("Fight Club").getId());
         photo11.setUrl("https://static.wikia.nocookie.net/listofdeaths/images/2/26/Fight_Club.jpg/revision/latest?cb=20220911154126");
-        crudPhotoRepository.save(photo11);
+        movie11.setCoverPhotoId(crudPhotoRepository.save(photo11).getId());
 
         PhotoEntity photo12 = new PhotoEntity();
         photo12.setEntityType("movie");
         photo12.setRefEntityId(crudMovieRepository.findByTitle("Forrest Gump").getId());
         photo12.setUrl("https://ntvb.tmsimg.com/assets/p15829_v_h8_aw.jpg?w=1280&h=720");
-        crudPhotoRepository.save(photo12);
+        movie12.setCoverPhotoId(crudPhotoRepository.save(photo12).getId());
 
         PhotoEntity photo13 = new PhotoEntity();
         photo13.setEntityType("movie");
         photo13.setRefEntityId(crudMovieRepository.findByTitle("The Lion King").getId());
         photo13.setUrl("https://m.media-amazon.com/images/I/51UjjVDiEDL._SX342_SY445_.jpg");
-        crudPhotoRepository.save(photo13);
+        movie13.setCoverPhotoId(crudPhotoRepository.save(photo13).getId());
 
         PhotoEntity photo14 = new PhotoEntity();
         photo14.setEntityType("movie");
         photo14.setRefEntityId(crudMovieRepository.findByTitle("Saving Private Ryan").getId());
         photo14.setUrl("https://www.soundandvision.com/images/styles/600_wide/public/110722_director%27s_intent_saving_pvt_ryan_promo.png");
-        crudPhotoRepository.save(photo14);
+        movie14.setCoverPhotoId(crudPhotoRepository.save(photo14).getId());
 
         PhotoEntity photo15 = new PhotoEntity();
         photo15.setEntityType("movie");
         photo15.setRefEntityId(crudMovieRepository.findByTitle("The Shawshank Redemption").getId());
         photo15.setUrl("https://static1.srcdn.com/wordpress/wp-content/uploads/2023/12/red-and-andy-in-shawshank-redemption.jpg?q=70&fit=crop&w=1140&h=&dpr=1");
-        crudPhotoRepository.save(photo15);
+        movie15.setCoverPhotoId(crudPhotoRepository.save(photo15).getId());
 
         PhotoEntity photo16 = new PhotoEntity();
         photo16.setEntityType("movie");
         photo16.setRefEntityId(crudMovieRepository.findByTitle("The Green Mile").getId());
         photo16.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/1*oVTrOMrJv9FwP2WecfEG-g.png");
-        crudPhotoRepository.save(photo16);
+        movie16.setCoverPhotoId(crudPhotoRepository.save(photo16).getId());
 
         PhotoEntity photo17 = new PhotoEntity();
         photo17.setEntityType("movie");
         photo17.setRefEntityId(crudMovieRepository.findByTitle("The Avengers").getId());
         photo17.setUrl("https://cdn.marvel.com/content/1x/avengersendgame_lob_crd_05.jpg");
-        crudPhotoRepository.save(photo17);
+        movie17.setCoverPhotoId(crudPhotoRepository.save(photo17).getId());
 
         PhotoEntity photo18 = new PhotoEntity();
         photo18.setEntityType("movie");
         photo18.setRefEntityId(crudMovieRepository.findByTitle("Jurassic Park").getId());
         photo18.setUrl("https://m.media-amazon.com/images/I/61W7iD5+XKL._SX342_SY445_.jpg");
-        crudPhotoRepository.save(photo18);
+        movie18.setCoverPhotoId(crudPhotoRepository.save(photo18).getId());
 
         PhotoEntity photo19 = new PhotoEntity();
         photo19.setEntityType("movie");
         photo19.setRefEntityId(crudMovieRepository.findByTitle("The Silence of the Lambs").getId());
         photo19.setUrl("https://images.bauerhosting.com/legacy/media/6026/a037/4ef6/302f/a23a/5c22/sotl-3.jpg?ar=16%3A9&fit=crop&crop=top&auto=format&w=992&q=80");
-        crudPhotoRepository.save(photo19);
+        movie19.setCoverPhotoId(crudPhotoRepository.save(photo19).getId());
 
         PhotoEntity photo20 = new PhotoEntity();
         photo20.setEntityType("movie");
         photo20.setRefEntityId(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring").getId());
         photo20.setUrl("https://images.cdn.prd.api.discomax.com/2023/05/05/be192083-0dfc-3df5-bba2-67725ab6b0fc.jpeg?f=jpg&q=75&w=1280&w=1200");
-        crudPhotoRepository.save(photo20);
+        movie20.setCoverPhotoId(crudPhotoRepository.save(photo20).getId());
 
         PhotoEntity photo21 = new PhotoEntity();
         photo21.setEntityType("movie");
         photo21.setRefEntityId(crudMovieRepository.findByTitle("No Man's Land").getId());
         photo21.setUrl("https://upload.wikimedia.org/wikipedia/sr/3/3a/Nicija_zemlja.jpg");
-        crudPhotoRepository.save(photo21);
+        movie21.setCoverPhotoId(crudPhotoRepository.save(photo21).getId());
 
         PhotoEntity photo22 = new PhotoEntity();
         photo22.setEntityType("movie");
         photo22.setRefEntityId(crudMovieRepository.findByTitle("Grbavica").getId());
         photo22.setUrl("https://upload.wikimedia.org/wikipedia/bs/5/56/Grbavica_poster.jpg");
-        crudPhotoRepository.save(photo22);
+        movie22.setCoverPhotoId(crudPhotoRepository.save(photo22).getId());
 
         PhotoEntity photo23 = new PhotoEntity();
         photo23.setEntityType("movie");
         photo23.setRefEntityId(crudMovieRepository.findByTitle("Quo Vadis, Aida?").getId());
         photo23.setUrl("https://pad.mymovies.it/filmclub/2020/07/230/locandina.jpg");
-        crudPhotoRepository.save(photo23);
+        movie23.setCoverPhotoId(crudPhotoRepository.save(photo23).getId());
 
         PhotoEntity photo24 = new PhotoEntity();
         photo24.setEntityType("movie");
         photo24.setRefEntityId(crudMovieRepository.findByTitle("The Perfect Circle").getId());
         photo24.setUrl("https://avaz.ba/media/2022/07/19/1867142/adis-film.jpg");
-        crudPhotoRepository.save(photo24);
+        movie24.setCoverPhotoId(crudPhotoRepository.save(photo24).getId());
 
         PhotoEntity photo25 = new PhotoEntity();
         photo25.setEntityType("movie");
         photo25.setRefEntityId(crudMovieRepository.findByTitle("An Episode in the Life of an Iron Picker").getId());
         photo25.setUrl("https://upload.wikimedia.org/wikipedia/bs/e/e6/Epizoda_u_%C5%BEivotu_bera%C4%8Da_%C5%BEeljeza.jpg");
-        crudPhotoRepository.save(photo25);
+        movie25.setCoverPhotoId(crudPhotoRepository.save(photo25).getId());
 
         PhotoEntity photo26 = new PhotoEntity();
         photo26.setEntityType("movie");
         photo26.setRefEntityId(crudMovieRepository.findByTitle("It's hard to be nice").getId());
         photo26.setUrl("https://3.bp.blogspot.com/-9Qc3LcjZ3wA/VFJGtny62cI/AAAAAAAAB5c/Wu7DXAW37AE/s1600/tesko-je-biti-fin.jpg");
-        crudPhotoRepository.save(photo26);
+        movie26.setCoverPhotoId(crudPhotoRepository.save(photo26).getId());
 
         PhotoEntity photo27 = new PhotoEntity();
         photo27.setEntityType("movie");
         photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in Golden Valley").getId());
         photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
-        crudPhotoRepository.save(photo27);
+        movie27.setCoverPhotoId(crudPhotoRepository.save(photo27).getId());
 
         PhotoEntity photo28 = new PhotoEntity();
         photo28.setEntityType("movie");
         photo28.setRefEntityId(crudMovieRepository.findByTitle("Parasite").getId());
         photo28.setUrl("https://media.newyorker.com/photos/5da4a5c756dcd400082a63ba/master/w_1920,c_limit/Brody-Parasite.jpg");
-        crudPhotoRepository.save(photo28);
+        movie28.setCoverPhotoId(crudPhotoRepository.save(photo28).getId());
 
         PhotoEntity photo29 = new PhotoEntity();
         photo29.setEntityType("movie");
         photo29.setRefEntityId(crudMovieRepository.findByTitle("Spirited Away").getId());
         photo29.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/1*64vCXnQ-7nWnEY4FgpCuiQ.jpeg");
-        crudPhotoRepository.save(photo29);
+        movie29.setCoverPhotoId(crudPhotoRepository.save(photo29).getId());
 
         PhotoEntity photo30 = new PhotoEntity();
         photo30.setEntityType("movie");
         photo30.setRefEntityId(crudMovieRepository.findByTitle("The Pianist").getId());
         photo30.setUrl("https://filmforum.org/do-not-enter-or-modify-or-erase/client-uploads/_1000w/THE_PIANIST_slideshow_1.png");
-        crudPhotoRepository.save(photo30);
+        movie30.setCoverPhotoId(crudPhotoRepository.save(photo30).getId());
 
         PhotoEntity photo31 = new PhotoEntity();
         photo31.setEntityType("movie");
         photo31.setRefEntityId(crudMovieRepository.findByTitle("Coco").getId());
         photo31.setUrl("https://positionpapers.ie/wp-content/uploads/2017/11/coco-disney-pixar.jpg");
-        crudPhotoRepository.save(photo31);
+        movie31.setCoverPhotoId(crudPhotoRepository.save(photo31).getId());
 
         PhotoEntity photo32 = new PhotoEntity();
         photo32.setEntityType("movie");
         photo32.setRefEntityId(crudMovieRepository.findByTitle("The Grand Budapest Hotel").getId());
         photo32.setUrl("https://www.rogerebert.com/wp-content/uploads/2024/07/The-Grand-Budapest-Hotel.jpg");
-        crudPhotoRepository.save(photo32);
+        movie32.setCoverPhotoId(crudPhotoRepository.save(photo32).getId());
 
         PhotoEntity photo33 = new PhotoEntity();
         photo33.setEntityType("movie");
         photo33.setRefEntityId(crudMovieRepository.findByTitle("Whiplash").getId());
         photo33.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/0*b92aG7V12Hgq23MD.jpg");
-        crudPhotoRepository.save(photo33);
+        movie33.setCoverPhotoId(crudPhotoRepository.save(photo33).getId());
 
         PhotoEntity photo34 = new PhotoEntity();
         photo34.setEntityType("movie");
         photo34.setRefEntityId(crudMovieRepository.findByTitle("The Intouchables").getId());
         photo34.setUrl("https://theobjectivestandard.com/wp-content/uploads/2013/05/Review-The-Intouchables-2048x1216.jpeg");
-        crudPhotoRepository.save(photo34);
+        movie34.setCoverPhotoId(crudPhotoRepository.save(photo34).getId());
 
         PhotoEntity photo35 = new PhotoEntity();
         photo35.setEntityType("movie");
         photo35.setRefEntityId(crudMovieRepository.findByTitle("Mad Max: Fury Road").getId());
         photo35.setUrl("https://media.newyorker.com/photos/59096da5ebe912338a3769c0/master/w_1920,c_limit/Brody-Mad-Max-2.jpg");
-        crudPhotoRepository.save(photo35);
+        movie35.setCoverPhotoId(crudPhotoRepository.save(photo35).getId());
 
         PhotoEntity photo36 = new PhotoEntity();
         photo36.setEntityType("movie");
         photo36.setRefEntityId(crudMovieRepository.findByTitle("Inside Out").getId());
         photo36.setUrl("https://img-cdn.inc.com/image/upload/f_webp,c_fit,w_828,q_auto/images/panoramic/inside-out-2-inc_541857_pgzat8.jpg");
-        crudPhotoRepository.save(photo36);
+        movie36.setCoverPhotoId(crudPhotoRepository.save(photo36).getId());
 
         PhotoEntity photo37 = new PhotoEntity();
         photo37.setEntityType("movie");
         photo37.setRefEntityId(crudMovieRepository.findByTitle("The Revenant").getId());
         photo37.setUrl("https://d13jj08vfqimqg.cloudfront.net/uploads/article/header_marquee/4553/large_the-revenant.jpg");
-        crudPhotoRepository.save(photo37);
+        movie37.setCoverPhotoId(crudPhotoRepository.save(photo37).getId());
 
         PhotoEntity photo38 = new PhotoEntity();
         photo38.setEntityType("movie");
         photo38.setRefEntityId(crudMovieRepository.findByTitle("Her").getId());
         photo38.setUrl("https://miro.medium.com/v2/resize:fit:3840/format:webp/1*UblqmBcsbdhQovCRmmRJbQ.jpeg");
-        crudPhotoRepository.save(photo38);
+        movie38.setCoverPhotoId(crudPhotoRepository.save(photo38).getId());
 
         PhotoEntity photo39 = new PhotoEntity();
         photo39.setEntityType("movie");
         photo39.setRefEntityId(crudMovieRepository.findByTitle("La La Land").getId());
         photo39.setUrl("https://www.eskimotv.net/imgsizer/img/cover-images/la-la-land-2016-cover-image.jpg?h=466&m=crop&v=Xtmy1g&w=994&s=b%27QhcmPsdxusCS075UDdaGqdmY6DQ%27");
-        crudPhotoRepository.save(photo39);
+        movie39.setCoverPhotoId(crudPhotoRepository.save(photo39).getId());
 
         PhotoEntity photo40 = new PhotoEntity();
         photo40.setEntityType("movie");
         photo40.setRefEntityId(crudMovieRepository.findByTitle("Moonlight").getId());
         photo40.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/1*rP32E2FlEUvD55sn-9D8Dg.png");
-        crudPhotoRepository.save(photo40);
+        movie40.setCoverPhotoId(crudPhotoRepository.save(photo40).getId());
 
         System.out.println("Database seeded successfully");
     }
