@@ -1655,8 +1655,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudProjectionRepository.save(moonlightProjection);
 
 
-
-
         // seed photo table
         PhotoEntity photo1 = new PhotoEntity();
         photo1.setEntityType("movie");
@@ -1819,6 +1817,84 @@ public class DatabaseInitializer implements CommandLineRunner {
         photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in Golden Valley").getId());
         photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
         crudPhotoRepository.save(photo27);
+
+        PhotoEntity photo28 = new PhotoEntity();
+        photo28.setEntityType("movie");
+        photo28.setRefEntityId(crudMovieRepository.findByTitle("Parasite").getId());
+        photo28.setUrl("https://media.newyorker.com/photos/5da4a5c756dcd400082a63ba/master/w_1920,c_limit/Brody-Parasite.jpg");
+        crudPhotoRepository.save(photo28);
+
+        PhotoEntity photo29 = new PhotoEntity();
+        photo29.setEntityType("movie");
+        photo29.setRefEntityId(crudMovieRepository.findByTitle("Spirited Away").getId());
+        photo29.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/1*64vCXnQ-7nWnEY4FgpCuiQ.jpeg");
+        crudPhotoRepository.save(photo29);
+
+        PhotoEntity photo30 = new PhotoEntity();
+        photo30.setEntityType("movie");
+        photo30.setRefEntityId(crudMovieRepository.findByTitle("The Pianist").getId());
+        photo30.setUrl("https://filmforum.org/do-not-enter-or-modify-or-erase/client-uploads/_1000w/THE_PIANIST_slideshow_1.png");
+        crudPhotoRepository.save(photo30);
+
+        PhotoEntity photo31 = new PhotoEntity();
+        photo31.setEntityType("movie");
+        photo31.setRefEntityId(crudMovieRepository.findByTitle("Coco").getId());
+        photo31.setUrl("https://positionpapers.ie/wp-content/uploads/2017/11/coco-disney-pixar.jpg");
+        crudPhotoRepository.save(photo31);
+
+        PhotoEntity photo32 = new PhotoEntity();
+        photo32.setEntityType("movie");
+        photo32.setRefEntityId(crudMovieRepository.findByTitle("The Grand Budapest Hotel").getId());
+        photo32.setUrl("https://www.rogerebert.com/wp-content/uploads/2024/07/The-Grand-Budapest-Hotel.jpg");
+        crudPhotoRepository.save(photo32);
+
+        PhotoEntity photo33 = new PhotoEntity();
+        photo33.setEntityType("movie");
+        photo33.setRefEntityId(crudMovieRepository.findByTitle("Whiplash").getId());
+        photo33.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/0*b92aG7V12Hgq23MD.jpg");
+        crudPhotoRepository.save(photo33);
+
+        PhotoEntity photo34 = new PhotoEntity();
+        photo34.setEntityType("movie");
+        photo34.setRefEntityId(crudMovieRepository.findByTitle("The Intouchables").getId());
+        photo34.setUrl("https://theobjectivestandard.com/wp-content/uploads/2013/05/Review-The-Intouchables-2048x1216.jpeg");
+        crudPhotoRepository.save(photo34);
+
+        PhotoEntity photo35 = new PhotoEntity();
+        photo35.setEntityType("movie");
+        photo35.setRefEntityId(crudMovieRepository.findByTitle("Mad Max: Fury Road").getId());
+        photo35.setUrl("https://media.newyorker.com/photos/59096da5ebe912338a3769c0/master/w_1920,c_limit/Brody-Mad-Max-2.jpg");
+        crudPhotoRepository.save(photo35);
+
+        PhotoEntity photo36 = new PhotoEntity();
+        photo36.setEntityType("movie");
+        photo36.setRefEntityId(crudMovieRepository.findByTitle("Inside Out").getId());
+        photo36.setUrl("https://img-cdn.inc.com/image/upload/f_webp,c_fit,w_828,q_auto/images/panoramic/inside-out-2-inc_541857_pgzat8.jpg");
+        crudPhotoRepository.save(photo36);
+
+        PhotoEntity photo37 = new PhotoEntity();
+        photo37.setEntityType("movie");
+        photo37.setRefEntityId(crudMovieRepository.findByTitle("The Revenant").getId());
+        photo37.setUrl("https://d13jj08vfqimqg.cloudfront.net/uploads/article/header_marquee/4553/large_the-revenant.jpg");
+        crudPhotoRepository.save(photo37);
+
+        PhotoEntity photo38 = new PhotoEntity();
+        photo38.setEntityType("movie");
+        photo38.setRefEntityId(crudMovieRepository.findByTitle("Her").getId());
+        photo38.setUrl("https://miro.medium.com/v2/resize:fit:3840/format:webp/1*UblqmBcsbdhQovCRmmRJbQ.jpeg");
+        crudPhotoRepository.save(photo38);
+
+        PhotoEntity photo39 = new PhotoEntity();
+        photo39.setEntityType("movie");
+        photo39.setRefEntityId(crudMovieRepository.findByTitle("La La Land").getId());
+        photo39.setUrl("https://www.eskimotv.net/imgsizer/img/cover-images/la-la-land-2016-cover-image.jpg?h=466&m=crop&v=Xtmy1g&w=994&s=b%27QhcmPsdxusCS075UDdaGqdmY6DQ%27");
+        crudPhotoRepository.save(photo39);
+
+        PhotoEntity photo40 = new PhotoEntity();
+        photo40.setEntityType("movie");
+        photo40.setRefEntityId(crudMovieRepository.findByTitle("Moonlight").getId());
+        photo40.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/1*rP32E2FlEUvD55sn-9D8Dg.png");
+        crudPhotoRepository.save(photo40);
 
         System.out.println("Database seeded successfully");
     }
