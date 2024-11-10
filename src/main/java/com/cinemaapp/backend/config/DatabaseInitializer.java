@@ -796,7 +796,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie29.setStatus("active");
         movie29.setCreatedAt(LocalDateTime.now());
         movie29.setUpdatedAt(LocalDateTime.now());
-        movie29.setGenreEntities(List.of(crudGenreRepository.findByName("Fantasy"), crudGenreRepository.findByName("Adventure")));
+        movie29.setGenreEntities(List.of(crudGenreRepository.findByName("Sci-Fi"), crudGenreRepository.findByName("Adventure")));
         crudMovieRepository.save(movie29);
 
         MovieEntity movie30 = new MovieEntity();
@@ -819,7 +819,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie30.setStatus("active");
         movie30.setCreatedAt(LocalDateTime.now());
         movie30.setUpdatedAt(LocalDateTime.now());
-        movie30.setGenreEntities(List.of(crudGenreRepository.findByName("Biography"), crudGenreRepository.findByName("Drama")));
+        movie30.setGenreEntities(List.of(crudGenreRepository.findByName("Action"), crudGenreRepository.findByName("Drama")));
         crudMovieRepository.save(movie30);
 
         MovieEntity movie31 = new MovieEntity();
@@ -842,7 +842,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie31.setStatus("active");
         movie31.setCreatedAt(LocalDateTime.now());
         movie31.setUpdatedAt(LocalDateTime.now());
-        movie31.setGenreEntities(List.of(crudGenreRepository.findByName("Animation"), crudGenreRepository.findByName("Family")));
+        movie31.setGenreEntities(List.of(crudGenreRepository.findByName("Action")));
         crudMovieRepository.save(movie31);
 
         MovieEntity movie32 = new MovieEntity();
@@ -888,7 +888,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie33.setStatus("active");
         movie33.setCreatedAt(LocalDateTime.now());
         movie33.setUpdatedAt(LocalDateTime.now());
-        movie33.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Music")));
+        movie33.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Sci-Fi")));
         crudMovieRepository.save(movie33);
 
         MovieEntity movie34 = new MovieEntity();
@@ -911,7 +911,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie34.setStatus("active");
         movie34.setCreatedAt(LocalDateTime.now());
         movie34.setUpdatedAt(LocalDateTime.now());
-        movie34.setGenreEntities(List.of(crudGenreRepository.findByName("Biography"), crudGenreRepository.findByName("Comedy")));
+        movie34.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Comedy")));
         crudMovieRepository.save(movie34);
 
         MovieEntity movie35 = new MovieEntity();
@@ -957,7 +957,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie36.setStatus("active");
         movie36.setCreatedAt(LocalDateTime.now());
         movie36.setUpdatedAt(LocalDateTime.now());
-        movie36.setGenreEntities(List.of(crudGenreRepository.findByName("Animation"), crudGenreRepository.findByName("Family")));
+        movie36.setGenreEntities(List.of(crudGenreRepository.findByName("Thriller")));
         crudMovieRepository.save(movie36);
 
         MovieEntity movie37 = new MovieEntity();
@@ -1003,7 +1003,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie38.setStatus("active");
         movie38.setCreatedAt(LocalDateTime.now());
         movie38.setUpdatedAt(LocalDateTime.now());
-        movie38.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Romance")));
+        movie38.setGenreEntities(List.of(crudGenreRepository.findByName("Drama")));
         crudMovieRepository.save(movie38);
 
         MovieEntity movie39 = new MovieEntity();
@@ -1026,7 +1026,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie39.setStatus("active");
         movie39.setCreatedAt(LocalDateTime.now());
         movie39.setUpdatedAt(LocalDateTime.now());
-        movie39.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Musical")));
+        movie39.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Thriller")));
         crudMovieRepository.save(movie39);
 
         MovieEntity movie40 = new MovieEntity();
