@@ -731,7 +731,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudMovieRepository.save(movie26);
 
         MovieEntity movie27 = new MovieEntity();
-        movie27.setTitle("Summer in Golden Walley");
+        movie27.setTitle("Summer in Golden Valley");
         movie27.setLanguage("Bosnian");
         movie27.setDirector("Srđan Vuletić");
         movie27.setPgRating("PG-13");
@@ -1063,12 +1063,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue1.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue1);
 
-        HallEntity hall1 = new HallEntity();
-        hall1.setName("Hall 1");
-        hall1.setVenueEntity(crudVenueRepository.findByName("Cineplexx Sarajevo"));
-        hall1.setCreatedAt(LocalDateTime.now());
-        hall1.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall1);
+        HallEntity cineplexxSarajevoHall = new HallEntity();
+        cineplexxSarajevoHall.setName("Hall 1");
+        cineplexxSarajevoHall.setVenueEntity(crudVenueRepository.findByName("Cineplexx Sarajevo"));
+        cineplexxSarajevoHall.setCreatedAt(LocalDateTime.now());
+        cineplexxSarajevoHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(cineplexxSarajevoHall);
 
         VenueEntity venue2 = new VenueEntity();
         venue2.setName("Cinema City Sarajevo");
@@ -1080,12 +1080,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue2.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue2);
 
-        HallEntity hall2 = new HallEntity();
-        hall2.setName("Hall 1");
-        hall2.setVenueEntity(crudVenueRepository.findByName("Cinema City Sarajevo"));
-        hall2.setCreatedAt(LocalDateTime.now());
-        hall2.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall2);
+        HallEntity cinemaCitySarajevoHall = new HallEntity();
+        cinemaCitySarajevoHall.setName("Hall 1");
+        cinemaCitySarajevoHall.setVenueEntity(crudVenueRepository.findByName("Cinema City Sarajevo"));
+        cinemaCitySarajevoHall.setCreatedAt(LocalDateTime.now());
+        cinemaCitySarajevoHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(cinemaCitySarajevoHall);
 
         VenueEntity venue3 = new VenueEntity();
         venue3.setName("Mostar Cinema");
@@ -1097,12 +1097,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue3.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue3);
 
-        HallEntity hall3 = new HallEntity();
-        hall3.setName("Hall 1");
-        hall3.setVenueEntity(crudVenueRepository.findByName("Mostar Cinema"));
-        hall3.setCreatedAt(LocalDateTime.now());
-        hall3.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall3);
+        HallEntity mostarCinemaHall = new HallEntity();
+        mostarCinemaHall.setName("Hall 1");
+        mostarCinemaHall.setVenueEntity(crudVenueRepository.findByName("Mostar Cinema"));
+        mostarCinemaHall.setCreatedAt(LocalDateTime.now());
+        mostarCinemaHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(mostarCinemaHall);
 
         VenueEntity venue4 = new VenueEntity();
         venue4.setName("Sarajevo Film Center");
@@ -1114,12 +1114,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue4.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue4);
 
-        HallEntity hall4 = new HallEntity();
-        hall4.setName("Hall 1");
-        hall4.setVenueEntity(crudVenueRepository.findByName("Sarajevo Film Center"));
-        hall4.setCreatedAt(LocalDateTime.now());
-        hall4.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall4);
+        HallEntity sarajevoFilmCenterHall = new HallEntity();
+        sarajevoFilmCenterHall.setName("Hall 1");
+        sarajevoFilmCenterHall.setVenueEntity(crudVenueRepository.findByName("Sarajevo Film Center"));
+        sarajevoFilmCenterHall.setCreatedAt(LocalDateTime.now());
+        sarajevoFilmCenterHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(sarajevoFilmCenterHall);
 
         VenueEntity venue5 = new VenueEntity();
         venue5.setName("Multiplex Mostar");
@@ -1131,12 +1131,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue5.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue5);
 
-        HallEntity hall5 = new HallEntity();
-        hall5.setName("Hall 5");
-        hall5.setVenueEntity(crudVenueRepository.findByName("Multiplex Mostar"));
-        hall5.setCreatedAt(LocalDateTime.now());
-        hall5.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall5);
+        HallEntity multiplexMostarHall = new HallEntity();
+        multiplexMostarHall.setName("Hall 1");
+        multiplexMostarHall.setVenueEntity(crudVenueRepository.findByName("Multiplex Mostar"));
+        multiplexMostarHall.setCreatedAt(LocalDateTime.now());
+        multiplexMostarHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(multiplexMostarHall);
 
         VenueEntity venue6 = new VenueEntity();
         venue6.setName("CineStar Sarajevo");
@@ -1148,12 +1148,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue6.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue6);
 
-        HallEntity hall6 = new HallEntity();
-        hall6.setName("Hall 6");
-        hall6.setVenueEntity(crudVenueRepository.findByName("CineStar Sarajevo"));
-        hall6.setCreatedAt(LocalDateTime.now());
-        hall6.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall6);
+        HallEntity cinestarSarajevoHall = new HallEntity();
+        cinestarSarajevoHall.setName("Hall 1");
+        cinestarSarajevoHall.setVenueEntity(crudVenueRepository.findByName("CineStar Sarajevo"));
+        cinestarSarajevoHall.setCreatedAt(LocalDateTime.now());
+        cinestarSarajevoHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(cinestarSarajevoHall);
 
         VenueEntity venue7 = new VenueEntity();
         venue7.setName("Cinema City Mostar");
@@ -1165,280 +1165,497 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue7.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue7);
 
-        HallEntity hall7 = new HallEntity();
-        hall7.setName("Hall 7");
-        hall7.setVenueEntity(crudVenueRepository.findByName("Cinema City Mostar"));
-        hall7.setCreatedAt(LocalDateTime.now());
-        hall7.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(hall7);
+        HallEntity cinemaCityMostarHall = new HallEntity();
+        cinemaCityMostarHall.setName("Hall 1");
+        cinemaCityMostarHall.setVenueEntity(crudVenueRepository.findByName("Cinema City Mostar"));
+        cinemaCityMostarHall.setCreatedAt(LocalDateTime.now());
+        cinemaCityMostarHall.setUpdatedAt(LocalDateTime.now());
+        crudHallRepository.save(cinemaCityMostarHall);
 
         // Seed projections
-        String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:30"};
+        String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:50"};
 
-        ProjectionEntity projection = new ProjectionEntity();
-        projection.setStartDate(LocalDate.now().plusDays(3));
-        projection.setEndDate(projection.getStartDate().plusDays(13));
-        projection.setHallEntity(crudHallRepository.findByName("Hall 1"));
-        projection.setMovieEntity(crudMovieRepository.findByTitle("It's hard to be nice"));
-        projection.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
-        projection.setCreatedAt(LocalDateTime.now());
-        projection.setUpdatedAt(LocalDateTime.now());
-        projection.setStatus("active");
-
-        crudProjectionRepository.save(projection);
-
+        // Active Projection for "Avatar" at Cineplexx Sarajevo
         ProjectionEntity projection1 = new ProjectionEntity();
-        projection1.setHallEntity(crudHallRepository.findByName("Hall 1"));
-        projection1.setStartDate(LocalDate.now().plusDays(1));
-        projection1.setEndDate(LocalDate.now().plusDays(11));
         projection1.setMovieEntity(crudMovieRepository.findByTitle("Avatar"));
-        projection1.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
-        projection1.setStatus("upcoming");
+        projection1.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        projection1.setStartDate(LocalDate.now().minusDays(5));
+        projection1.setEndDate(LocalDate.now().plusDays(5));
+        projection1.setStartTime(new String[]{startTimes[0], startTimes[1]});
+        projection1.setStatus("active");
         projection1.setCreatedAt(LocalDateTime.now());
         projection1.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection1);
 
+        // Active Projection for "Inception" at Cinema City Sarajevo
         ProjectionEntity projection2 = new ProjectionEntity();
-        projection2.setHallEntity(crudHallRepository.findByName("Hall 2"));
-        projection2.setStartDate(LocalDate.now().plusDays(1));
-        projection2.setEndDate(LocalDate.now().plusDays(11));
         projection2.setMovieEntity(crudMovieRepository.findByTitle("Inception"));
-        projection2.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
+        projection2.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
+        projection2.setStartDate(LocalDate.now().minusDays(4));
+        projection2.setEndDate(LocalDate.now().plusDays(6));
+        projection2.setStartTime(new String[]{startTimes[1], startTimes[2]});
         projection2.setStatus("active");
         projection2.setCreatedAt(LocalDateTime.now());
         projection2.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection2);
 
+        // Active Projection for "Titanic" at Mostar Cinema
         ProjectionEntity projection3 = new ProjectionEntity();
-        projection3.setHallEntity(crudHallRepository.findByName("Hall 3"));
-        projection3.setStartDate(LocalDate.now().plusDays(7));
-        projection3.setEndDate(LocalDate.now().plusDays(17));
         projection3.setMovieEntity(crudMovieRepository.findByTitle("Titanic"));
-        projection3.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4], startTimes[5]});
+        projection3.setHallEntity(crudVenueRepository.findByName("Mostar Cinema").getHallEntities().get(0));
+        projection3.setStartDate(LocalDate.now().minusDays(3));
+        projection3.setEndDate(LocalDate.now().plusDays(7));
+        projection3.setStartTime(new String[]{startTimes[2], startTimes[3]});
         projection3.setStatus("active");
         projection3.setCreatedAt(LocalDateTime.now());
         projection3.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection3);
 
+        // Active Projection for "The Dark Knight" at Sarajevo Film Center
         ProjectionEntity projection4 = new ProjectionEntity();
-        projection4.setHallEntity(crudHallRepository.findByName("Hall 4"));
-        projection4.setStartDate(LocalDate.now().plusDays(9));
-        projection4.setEndDate(LocalDate.now().plusDays(19));
         projection4.setMovieEntity(crudMovieRepository.findByTitle("The Dark Knight"));
-        projection4.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[5]});
+        projection4.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        projection4.setStartDate(LocalDate.now().minusDays(2));
+        projection4.setEndDate(LocalDate.now().plusDays(8));
+        projection4.setStartTime(new String[]{startTimes[3], startTimes[4]});
         projection4.setStatus("active");
         projection4.setCreatedAt(LocalDateTime.now());
         projection4.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection4);
 
+        // Active Projection for "The Matrix" at Multiplex Mostar
         ProjectionEntity projection5 = new ProjectionEntity();
-        projection5.setHallEntity(crudHallRepository.findByName("Hall 5"));
-        projection5.setStartDate(LocalDate.now().plusDays(0));
-        projection5.setEndDate(LocalDate.now().plusDays(10));
         projection5.setMovieEntity(crudMovieRepository.findByTitle("The Matrix"));
-        projection5.setStartTime(new String[]{startTimes[2], startTimes[3], startTimes[4]});
+        projection5.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        projection5.setStartDate(LocalDate.now().minusDays(1));
+        projection5.setEndDate(LocalDate.now().plusDays(9));
+        projection5.setStartTime(new String[]{startTimes[4], startTimes[5]});
         projection5.setStatus("active");
         projection5.setCreatedAt(LocalDateTime.now());
         projection5.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(projection5);
 
-        ProjectionEntity projection6 = new ProjectionEntity();
-        projection6.setHallEntity(crudHallRepository.findByName("Hall 6"));
-        projection6.setStartDate(LocalDate.now().plusDays(11));
-        projection6.setEndDate(LocalDate.now().plusDays(21));
-        projection6.setMovieEntity(crudMovieRepository.findByTitle("Interstellar"));
-        projection6.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[5]});
-        projection6.setStatus("upcoming");
-        projection6.setCreatedAt(LocalDateTime.now());
-        projection6.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection6);
+        // Active Projection for "Interstellar" at CineStar Sarajevo
+        ProjectionEntity interstellarProjection = new ProjectionEntity();
+        interstellarProjection.setMovieEntity(crudMovieRepository.findByTitle("Interstellar"));
+        interstellarProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
+        interstellarProjection.setStartDate(LocalDate.now().minusDays(5));
+        interstellarProjection.setEndDate(LocalDate.now().plusDays(5));
+        interstellarProjection.setStartTime(new String[]{startTimes[0], startTimes[2]}); // Using 14:00, 18:00
+        interstellarProjection.setStatus("active");
+        interstellarProjection.setCreatedAt(LocalDateTime.now());
+        interstellarProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(interstellarProjection);
 
-        ProjectionEntity projection7 = new ProjectionEntity();
-        projection7.setHallEntity(crudHallRepository.findByName("Hall 7"));
-        projection7.setStartDate(LocalDate.now().plusDays(15));
-        projection7.setEndDate(LocalDate.now().plusDays(25));
-        projection7.setMovieEntity(crudMovieRepository.findByTitle("Gladiator"));
-        projection7.setStartTime(new String[]{startTimes[2], startTimes[3], startTimes[4]});
-        projection7.setStatus("upcoming");
-        projection7.setCreatedAt(LocalDateTime.now());
-        projection7.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection7);
+        // Active Projection for "Gladiator" at Multiplex Mostar
+        ProjectionEntity gladiatorProjection = new ProjectionEntity();
+        gladiatorProjection.setMovieEntity(crudMovieRepository.findByTitle("Gladiator"));
+        gladiatorProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        gladiatorProjection.setStartDate(LocalDate.now().minusDays(4));
+        gladiatorProjection.setEndDate(LocalDate.now().plusDays(6));
+        gladiatorProjection.setStartTime(new String[]{startTimes[1], startTimes[3]}); // Using 16:00, 20:00
+        gladiatorProjection.setStatus("active");
+        gladiatorProjection.setCreatedAt(LocalDateTime.now());
+        gladiatorProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(gladiatorProjection);
 
-        ProjectionEntity projection8 = new ProjectionEntity();
-        projection8.setHallEntity(crudHallRepository.findByName("Hall 1"));
-        projection8.setStartDate(LocalDate.now().plusDays(1));
-        projection8.setEndDate(LocalDate.now().plusDays(11));
-        projection8.setMovieEntity(crudMovieRepository.findByTitle("The Godfather"));
-        projection8.setStartTime(new String[]{startTimes[5]});
-        projection8.setStatus("active");
-        projection8.setCreatedAt(LocalDateTime.now());
-        projection8.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection8);
+        // Active Projection for "The Godfather" at Cinema City Mostar
+        ProjectionEntity godfatherProjection = new ProjectionEntity();
+        godfatherProjection.setMovieEntity(crudMovieRepository.findByTitle("The Godfather"));
+        godfatherProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Mostar").getHallEntities().get(0));
+        godfatherProjection.setStartDate(LocalDate.now().minusDays(3));
+        godfatherProjection.setEndDate(LocalDate.now().plusDays(7));
+        godfatherProjection.setStartTime(new String[]{startTimes[2], startTimes[4]}); // Using 18:00, 22:15
+        godfatherProjection.setStatus("active");
+        godfatherProjection.setCreatedAt(LocalDateTime.now());
+        godfatherProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(godfatherProjection);
 
-        ProjectionEntity projection9 = new ProjectionEntity();
-        projection9.setHallEntity(crudHallRepository.findByName("Hall 2"));
-        projection9.setStartDate(LocalDate.now().plusDays(12));
-        projection9.setEndDate(LocalDate.now().plusDays(22));
-        projection9.setMovieEntity(crudMovieRepository.findByTitle("Pulp Fiction"));
-        projection9.setStartTime(new String[]{startTimes[2], startTimes[3], startTimes[4], startTimes[5]});
-        projection9.setStatus("upcoming");
-        projection9.setCreatedAt(LocalDateTime.now());
-        projection9.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection9);
+        // Active Projection for "Pulp Fiction" at Sarajevo Film Center
+        ProjectionEntity pulpFictionProjection = new ProjectionEntity();
+        pulpFictionProjection.setMovieEntity(crudMovieRepository.findByTitle("Pulp Fiction"));
+        pulpFictionProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        pulpFictionProjection.setStartDate(LocalDate.now().minusDays(2));
+        pulpFictionProjection.setEndDate(LocalDate.now().plusDays(8));
+        pulpFictionProjection.setStartTime(new String[]{startTimes[3], startTimes[5]}); // Using 20:00, 23:50
+        pulpFictionProjection.setStatus("active");
+        pulpFictionProjection.setCreatedAt(LocalDateTime.now());
+        pulpFictionProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(pulpFictionProjection);
 
-        ProjectionEntity projection10 = new ProjectionEntity();
-        projection10.setHallEntity(crudHallRepository.findByName("Hall 3"));
-        projection10.setStartDate(LocalDate.now().plusDays(1));
-        projection10.setEndDate(LocalDate.now().plusDays(5));
-        projection10.setMovieEntity(crudMovieRepository.findByTitle("Schindler's List"));
-        projection10.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3]});
-        projection10.setStatus("active");
-        projection10.setCreatedAt(LocalDateTime.now());
-        projection10.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection10);
+        // Active Projection for "Schindler's List" at Cineplexx Sarajevo
+        ProjectionEntity schindlersListProjection = new ProjectionEntity();
+        schindlersListProjection.setMovieEntity(crudMovieRepository.findByTitle("Schindler's List"));
+        schindlersListProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        schindlersListProjection.setStartDate(LocalDate.now().minusDays(1));
+        schindlersListProjection.setEndDate(LocalDate.now().plusDays(9));
+        schindlersListProjection.setStartTime(new String[]{startTimes[4], startTimes[0]}); // Using 22:15, 14:00
+        schindlersListProjection.setStatus("active");
+        schindlersListProjection.setCreatedAt(LocalDateTime.now());
+        schindlersListProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(schindlersListProjection);
 
-        ProjectionEntity projection11 = new ProjectionEntity();
-        projection11.setHallEntity(crudHallRepository.findByName("Hall 4"));
-        projection11.setStartDate(LocalDate.now().plusDays(0));
-        projection11.setEndDate(LocalDate.now().plusDays(9));
-        projection11.setMovieEntity(crudMovieRepository.findByTitle("Fight Club"));
-        projection11.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[4]});
-        projection11.setStatus("active");
-        projection11.setCreatedAt(LocalDateTime.now());
-        projection11.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection11);
+        // Active Projection for "Fight Club" at Cinema City Sarajevo
+        ProjectionEntity fightClubProjection = new ProjectionEntity();
+        fightClubProjection.setMovieEntity(crudMovieRepository.findByTitle("Fight Club"));
+        fightClubProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
+        fightClubProjection.setStartDate(LocalDate.now().minusDays(5));
+        fightClubProjection.setEndDate(LocalDate.now().plusDays(5));
+        fightClubProjection.setStartTime(new String[]{startTimes[0], startTimes[1]});
+        fightClubProjection.setStatus("active");
+        fightClubProjection.setCreatedAt(LocalDateTime.now());
+        fightClubProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(fightClubProjection);
 
-        ProjectionEntity projection12 = new ProjectionEntity();
-        projection12.setHallEntity(crudHallRepository.findByName("Hall 5"));
-        projection12.setStartDate(LocalDate.now().plusDays(10));
-        projection12.setEndDate(LocalDate.now().plusDays(20));
-        projection12.setMovieEntity(crudMovieRepository.findByTitle("Forrest Gump"));
-        projection12.setStartTime(new String[]{startTimes[3], startTimes[4], startTimes[5]});
-        projection12.setStatus("upcoming");
-        projection12.setCreatedAt(LocalDateTime.now());
-        projection12.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection12);
+        // Active Projection for "Forrest Gump" at Mostar Cinema
+        ProjectionEntity forrestGumpProjection = new ProjectionEntity();
+        forrestGumpProjection.setMovieEntity(crudMovieRepository.findByTitle("Forrest Gump"));
+        forrestGumpProjection.setHallEntity(crudVenueRepository.findByName("Mostar Cinema").getHallEntities().get(0));
+        forrestGumpProjection.setStartDate(LocalDate.now().minusDays(4));
+        forrestGumpProjection.setEndDate(LocalDate.now().plusDays(6));
+        forrestGumpProjection.setStartTime(new String[]{startTimes[1], startTimes[2]});
+        forrestGumpProjection.setStatus("active");
+        forrestGumpProjection.setCreatedAt(LocalDateTime.now());
+        forrestGumpProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(forrestGumpProjection);
 
-        ProjectionEntity projection13 = new ProjectionEntity();
-        projection13.setHallEntity(crudHallRepository.findByName("Hall 6"));
-        projection13.setStartDate(LocalDate.now().plusDays(0));
-        projection13.setEndDate(LocalDate.now().plusDays(10));
-        projection13.setMovieEntity(crudMovieRepository.findByTitle("The Lion King"));
-        projection13.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4], startTimes[5]});
-        projection13.setStatus("active");
-        projection13.setCreatedAt(LocalDateTime.now());
-        projection13.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection13);
+        // Active Projection for "The Lion King" at Cineplexx Sarajevo
+        ProjectionEntity lionKingProjection = new ProjectionEntity();
+        lionKingProjection.setMovieEntity(crudMovieRepository.findByTitle("The Lion King"));
+        lionKingProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        lionKingProjection.setStartDate(LocalDate.now().minusDays(3));
+        lionKingProjection.setEndDate(LocalDate.now().plusDays(7));
+        lionKingProjection.setStartTime(new String[]{startTimes[2], startTimes[3]});
+        lionKingProjection.setStatus("active");
+        lionKingProjection.setCreatedAt(LocalDateTime.now());
+        lionKingProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(lionKingProjection);
 
-        ProjectionEntity projection14 = new ProjectionEntity();
-        projection14.setHallEntity(crudHallRepository.findByName("Hall 7"));
-        projection14.setStartDate(LocalDate.now().plusDays(1));
-        projection14.setEndDate(LocalDate.now().plusDays(11));
-        projection14.setMovieEntity(crudMovieRepository.findByTitle("Saving Private Ryan"));
-        projection14.setStartTime(new String[]{startTimes[1], startTimes[2], startTimes[3], startTimes[4]});
-        projection14.setStatus("active");
-        projection14.setCreatedAt(LocalDateTime.now());
-        projection14.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection14);
+        // Active Projection for "Saving Private Ryan" at Sarajevo Film Center
+        ProjectionEntity savingPrivateRyanProjection = new ProjectionEntity();
+        savingPrivateRyanProjection.setMovieEntity(crudMovieRepository.findByTitle("Saving Private Ryan"));
+        savingPrivateRyanProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        savingPrivateRyanProjection.setStartDate(LocalDate.now().minusDays(2));
+        savingPrivateRyanProjection.setEndDate(LocalDate.now().plusDays(8));
+        savingPrivateRyanProjection.setStartTime(new String[]{startTimes[3], startTimes[4]});
+        savingPrivateRyanProjection.setStatus("active");
+        savingPrivateRyanProjection.setCreatedAt(LocalDateTime.now());
+        savingPrivateRyanProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(savingPrivateRyanProjection);
 
-        ProjectionEntity projection15 = new ProjectionEntity();
-        projection15.setHallEntity(crudHallRepository.findByName("Hall 1"));
-        projection15.setStartDate(LocalDate.now().plusDays(13));
-        projection15.setEndDate(LocalDate.now().plusDays(23));
-        projection15.setMovieEntity(crudMovieRepository.findByTitle("The Shawshank Redemption"));
-        projection15.setStartTime(new String[]{startTimes[5]});
-        projection15.setStatus("upcoming");
-        projection15.setCreatedAt(LocalDateTime.now());
-        projection15.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection15);
+        // Active Projection for "The Shawshank Redemption" at Multiplex Mostar
+        ProjectionEntity shawshankRedemptionProjection = new ProjectionEntity();
+        shawshankRedemptionProjection.setMovieEntity(crudMovieRepository.findByTitle("The Shawshank Redemption"));
+        shawshankRedemptionProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        shawshankRedemptionProjection.setStartDate(LocalDate.now().minusDays(1));
+        shawshankRedemptionProjection.setEndDate(LocalDate.now().plusDays(9));
+        shawshankRedemptionProjection.setStartTime(new String[]{startTimes[4], startTimes[5]});
+        shawshankRedemptionProjection.setStatus("active");
+        shawshankRedemptionProjection.setCreatedAt(LocalDateTime.now());
+        shawshankRedemptionProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(shawshankRedemptionProjection);
 
-        ProjectionEntity projection16 = new ProjectionEntity();
-        projection16.setHallEntity(crudHallRepository.findByName("Hall 7"));
-        projection16.setStartDate(LocalDate.now().plusDays(5));
-        projection16.setEndDate(LocalDate.now().plusDays(12));
-        projection16.setMovieEntity(crudMovieRepository.findByTitle("The Silence of the Lambs"));
-        projection16.setStartTime(new String[]{startTimes[0]});
-        projection16.setStatus("active");
-        projection16.setCreatedAt(LocalDateTime.now());
-        projection16.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection16);
+        // Active Projection for "The Green Mile" at CineStar Sarajevo
+        ProjectionEntity greenMileProjection = new ProjectionEntity();
+        greenMileProjection.setMovieEntity(crudMovieRepository.findByTitle("The Green Mile"));
+        greenMileProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
+        greenMileProjection.setStartDate(LocalDate.now().minusDays(5));
+        greenMileProjection.setEndDate(LocalDate.now().plusDays(5));
+        greenMileProjection.setStartTime(new String[]{startTimes[0], startTimes[2]});
+        greenMileProjection.setStatus("active");
+        greenMileProjection.setCreatedAt(LocalDateTime.now());
+        greenMileProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(greenMileProjection);
 
-        ProjectionEntity projection17 = new ProjectionEntity();
-        projection17.setHallEntity(crudHallRepository.findByName("Hall 4"));
-        projection17.setStartDate(LocalDate.now().plusDays(2));
-        projection17.setEndDate(LocalDate.now().plusDays(11));
-        projection17.setMovieEntity(crudMovieRepository.findByTitle("Grbavica"));
-        projection17.setStartTime(new String[]{startTimes[5], startTimes[2]});
-        projection17.setStatus("active");
-        projection17.setCreatedAt(LocalDateTime.now());
-        projection17.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection17);
+        // Active Projection for "The Avengers" at Multiplex Mostar
+        ProjectionEntity avengersProjection = new ProjectionEntity();
+        avengersProjection.setMovieEntity(crudMovieRepository.findByTitle("The Avengers"));
+        avengersProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        avengersProjection.setStartDate(LocalDate.now().minusDays(4));
+        avengersProjection.setEndDate(LocalDate.now().plusDays(6));
+        avengersProjection.setStartTime(new String[]{startTimes[1], startTimes[3]});
+        avengersProjection.setStatus("active");
+        avengersProjection.setCreatedAt(LocalDateTime.now());
+        avengersProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(avengersProjection);
 
-        ProjectionEntity projection18 = new ProjectionEntity();
-        projection18.setHallEntity(crudHallRepository.findByName("Hall 2"));
-        projection18.setStartDate(LocalDate.now().plusDays(3));
-        projection18.setEndDate(LocalDate.now().plusDays(10));
-        projection18.setMovieEntity(crudMovieRepository.findByTitle("The Perfect Circle"));
-        projection18.setStartTime(new String[]{startTimes[3], startTimes[5]});
-        projection18.setStatus("active");
-        projection18.setCreatedAt(LocalDateTime.now());
-        projection18.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection18);
+        // Active Projection for "Jurassic Park" at Cinema City Mostar
+        ProjectionEntity jurassicParkProjection = new ProjectionEntity();
+        jurassicParkProjection.setMovieEntity(crudMovieRepository.findByTitle("Jurassic Park"));
+        jurassicParkProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Mostar").getHallEntities().get(0));
+        jurassicParkProjection.setStartDate(LocalDate.now().minusDays(3));
+        jurassicParkProjection.setEndDate(LocalDate.now().plusDays(7));
+        jurassicParkProjection.setStartTime(new String[]{startTimes[2], startTimes[4]});
+        jurassicParkProjection.setStatus("active");
+        jurassicParkProjection.setCreatedAt(LocalDateTime.now());
+        jurassicParkProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(jurassicParkProjection);
 
-        ProjectionEntity projection19 = new ProjectionEntity();
-        projection19.setHallEntity(crudHallRepository.findByName("Hall 6"));
-        projection19.setStartDate(LocalDate.now().plusDays(7));
-        projection19.setEndDate(LocalDate.now().plusDays(15));
-        projection19.setMovieEntity(crudMovieRepository.findByTitle("Green Mile"));
-        projection19.setStartTime(new String[]{startTimes[5]});
-        projection19.setStatus("active");
-        projection19.setCreatedAt(LocalDateTime.now());
-        projection19.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection19);
+        // Active Projection for "The Silence of the Lambs" at Sarajevo Film Center
+        ProjectionEntity silenceOfLambsProjection = new ProjectionEntity();
+        silenceOfLambsProjection.setMovieEntity(crudMovieRepository.findByTitle("The Silence of the Lambs"));
+        silenceOfLambsProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        silenceOfLambsProjection.setStartDate(LocalDate.now().minusDays(2));
+        silenceOfLambsProjection.setEndDate(LocalDate.now().plusDays(8));
+        silenceOfLambsProjection.setStartTime(new String[]{startTimes[3], startTimes[5]});
+        silenceOfLambsProjection.setStatus("active");
+        silenceOfLambsProjection.setCreatedAt(LocalDateTime.now());
+        silenceOfLambsProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(silenceOfLambsProjection);
 
-        ProjectionEntity projection20 = new ProjectionEntity();
-        projection20.setHallEntity(crudHallRepository.findByName("Hall 3"));
-        projection20.setStartDate(LocalDate.now().plusDays(2));
-        projection20.setEndDate(LocalDate.now().plusDays(10));
-        projection20.setMovieEntity(crudMovieRepository.findByTitle("Summer in Golden Walley"));
-        projection20.setStartTime(new String[]{startTimes[5]});
-        projection20.setStatus("active");
-        projection20.setCreatedAt(LocalDateTime.now());
-        projection20.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection20);
+        // Active Projection for "The Lord of the Rings: The Fellowship of the Ring" at Cineplexx Sarajevo
+        ProjectionEntity lotrFellowshipProjection = new ProjectionEntity();
+        lotrFellowshipProjection.setMovieEntity(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring"));
+        lotrFellowshipProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        lotrFellowshipProjection.setStartDate(LocalDate.now().minusDays(1));
+        lotrFellowshipProjection.setEndDate(LocalDate.now().plusDays(9));
+        lotrFellowshipProjection.setStartTime(new String[]{startTimes[4], startTimes[0]});
+        lotrFellowshipProjection.setStatus("active");
+        lotrFellowshipProjection.setCreatedAt(LocalDateTime.now());
+        lotrFellowshipProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(lotrFellowshipProjection);
 
-        ProjectionEntity projection21 = new ProjectionEntity();
-        projection21.setHallEntity(crudHallRepository.findByName("Hall 5"));
-        projection21.setStartDate(LocalDate.now().plusDays(1));
-        projection21.setEndDate(LocalDate.now().plusDays(5));
-        projection21.setMovieEntity(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring"));
-        projection21.setStartTime(new String[]{startTimes[4], startTimes[5]});
-        projection21.setStatus("active");
-        projection21.setCreatedAt(LocalDateTime.now());
-        projection21.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection21);
+        // Upcoming Projection for "No Man's Land" at Cinema City Sarajevo
+        ProjectionEntity noMansLandProjection = new ProjectionEntity();
+        noMansLandProjection.setMovieEntity(crudMovieRepository.findByTitle("No Man's Land"));
+        noMansLandProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
+        noMansLandProjection.setStartDate(LocalDate.now().plusDays(5));
+        noMansLandProjection.setEndDate(LocalDate.now().plusDays(10));
+        noMansLandProjection.setStartTime(new String[]{startTimes[0], startTimes[1]});
+        noMansLandProjection.setStatus("upcoming");
+        noMansLandProjection.setCreatedAt(LocalDateTime.now());
+        noMansLandProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(noMansLandProjection);
 
-        ProjectionEntity projection22 = new ProjectionEntity();
-        projection22.setHallEntity(crudHallRepository.findByName("Hall 2"));
-        projection22.setStartDate(LocalDate.now().plusDays(3));
-        projection22.setEndDate(LocalDate.now().plusDays(12));
-        projection22.setMovieEntity(crudMovieRepository.findByTitle("Jurassic Park"));
-        projection22.setStartTime(new String[]{startTimes[0], startTimes[5]});
-        projection22.setStatus("active");
-        projection22.setCreatedAt(LocalDateTime.now());
-        projection22.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection22);
+        // Upcoming Projection for "Grbavica" at Mostar Cinema
+        ProjectionEntity grbavicaProjection = new ProjectionEntity();
+        grbavicaProjection.setMovieEntity(crudMovieRepository.findByTitle("Grbavica"));
+        grbavicaProjection.setHallEntity(crudVenueRepository.findByName("Mostar Cinema").getHallEntities().get(0));
+        grbavicaProjection.setStartDate(LocalDate.now().plusDays(4));
+        grbavicaProjection.setEndDate(LocalDate.now().plusDays(14));
+        grbavicaProjection.setStartTime(new String[]{startTimes[1], startTimes[2]});
+        grbavicaProjection.setStatus("upcoming");
+        grbavicaProjection.setCreatedAt(LocalDateTime.now());
+        grbavicaProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(grbavicaProjection);
 
-        ProjectionEntity projection23 = new ProjectionEntity();
-        projection23.setHallEntity(crudHallRepository.findByName("Hall 7"));
-        projection23.setStartDate(LocalDate.now().plusDays(5));
-        projection23.setEndDate(LocalDate.now().plusDays(15));
-        projection23.setMovieEntity(crudMovieRepository.findByTitle("The Shawshank Redemption"));
-        projection23.setStartTime(new String[]{startTimes[4]});
-        projection23.setStatus("active");
-        projection23.setCreatedAt(LocalDateTime.now());
-        projection23.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(projection23);
+        // Upcoming Projection for "Quo Vadis, Aida?" at Cineplexx Sarajevo
+        ProjectionEntity quoVadisAidaProjection = new ProjectionEntity();
+        quoVadisAidaProjection.setMovieEntity(crudMovieRepository.findByTitle("Quo Vadis, Aida?"));
+        quoVadisAidaProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        quoVadisAidaProjection.setStartDate(LocalDate.now().plusDays(3));
+        quoVadisAidaProjection.setEndDate(LocalDate.now().plusDays(13));
+        quoVadisAidaProjection.setStartTime(new String[]{startTimes[2], startTimes[3]});
+        quoVadisAidaProjection.setStatus("upcoming");
+        quoVadisAidaProjection.setCreatedAt(LocalDateTime.now());
+        quoVadisAidaProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(quoVadisAidaProjection);
+
+        // Upcoming Projection for "The Perfect Circle" at Sarajevo Film Center
+        ProjectionEntity perfectCircleProjection = new ProjectionEntity();
+        perfectCircleProjection.setMovieEntity(crudMovieRepository.findByTitle("The Perfect Circle"));
+        perfectCircleProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        perfectCircleProjection.setStartDate(LocalDate.now().plusDays(2));
+        perfectCircleProjection.setEndDate(LocalDate.now().plusDays(12));
+        perfectCircleProjection.setStartTime(new String[]{startTimes[3], startTimes[5]});
+        perfectCircleProjection.setStatus("upcoming");
+        perfectCircleProjection.setCreatedAt(LocalDateTime.now());
+        perfectCircleProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(perfectCircleProjection);
+
+        // Upcoming Projection for "An Episode in the Life of an Iron Picker" at Multiplex Mostar
+        ProjectionEntity ironPickerProjection = new ProjectionEntity();
+        ironPickerProjection.setMovieEntity(crudMovieRepository.findByTitle("An Episode in the Life of an Iron Picker"));
+        ironPickerProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        ironPickerProjection.setStartDate(LocalDate.now().plusDays(1));
+        ironPickerProjection.setEndDate(LocalDate.now().plusDays(11));
+        ironPickerProjection.setStartTime(new String[]{startTimes[4], startTimes[0]});
+        ironPickerProjection.setStatus("upcoming");
+        ironPickerProjection.setCreatedAt(LocalDateTime.now());
+        ironPickerProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(ironPickerProjection);
+
+        // Upcoming Projection for "It's hard to be nice" at CineStar Sarajevo
+        ProjectionEntity hardToBeNiceProjection = new ProjectionEntity();
+        hardToBeNiceProjection.setMovieEntity(crudMovieRepository.findByTitle("It's hard to be nice"));
+        hardToBeNiceProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
+        hardToBeNiceProjection.setStartDate(LocalDate.now().plusDays(15));
+        hardToBeNiceProjection.setEndDate(LocalDate.now().plusDays(25));
+        hardToBeNiceProjection.setStartTime(new String[]{startTimes[0], startTimes[2]});
+        hardToBeNiceProjection.setStatus("upcoming");
+        hardToBeNiceProjection.setCreatedAt(LocalDateTime.now());
+        hardToBeNiceProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(hardToBeNiceProjection);
+
+        // Upcoming Projection for "Summer in Golden Valley" at Multiplex Mostar
+        ProjectionEntity summerGoldenValleyProjection = new ProjectionEntity();
+        summerGoldenValleyProjection.setMovieEntity(crudMovieRepository.findByTitle("Summer in Golden Valley"));
+        summerGoldenValleyProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        summerGoldenValleyProjection.setStartDate(LocalDate.now().plusDays(9));
+        summerGoldenValleyProjection.setEndDate(LocalDate.now().plusDays(19));
+        summerGoldenValleyProjection.setStartTime(new String[]{startTimes[1], startTimes[3]});
+        summerGoldenValleyProjection.setStatus("upcoming");
+        summerGoldenValleyProjection.setCreatedAt(LocalDateTime.now());
+        summerGoldenValleyProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(summerGoldenValleyProjection);
+
+        // Upcoming Projection for "Parasite" at Cinema City Sarajevo
+        ProjectionEntity parasiteProjection = new ProjectionEntity();
+        parasiteProjection.setMovieEntity(crudMovieRepository.findByTitle("Parasite"));
+        parasiteProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
+        parasiteProjection.setStartDate(LocalDate.now().plusDays(8));
+        parasiteProjection.setEndDate(LocalDate.now().plusDays(18));
+        parasiteProjection.setStartTime(new String[]{startTimes[2], startTimes[4]});
+        parasiteProjection.setStatus("upcoming");
+        parasiteProjection.setCreatedAt(LocalDateTime.now());
+        parasiteProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(parasiteProjection);
+
+        // Upcoming Projection for "Spirited Away" at Sarajevo Film Center
+        ProjectionEntity spiritedAwayProjection = new ProjectionEntity();
+        spiritedAwayProjection.setMovieEntity(crudMovieRepository.findByTitle("Spirited Away"));
+        spiritedAwayProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        spiritedAwayProjection.setStartDate(LocalDate.now().plusDays(2));
+        spiritedAwayProjection.setEndDate(LocalDate.now().plusDays(12));
+        spiritedAwayProjection.setStartTime(new String[]{startTimes[3], startTimes[5]});
+        spiritedAwayProjection.setStatus("upcoming");
+        spiritedAwayProjection.setCreatedAt(LocalDateTime.now());
+        spiritedAwayProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(spiritedAwayProjection);
+
+        // Upcoming Projection for "The Pianist" at Cineplexx Sarajevo
+        ProjectionEntity pianistProjection = new ProjectionEntity();
+        pianistProjection.setMovieEntity(crudMovieRepository.findByTitle("The Pianist"));
+        pianistProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        pianistProjection.setStartDate(LocalDate.now().plusDays(15));
+        pianistProjection.setEndDate(LocalDate.now().plusDays(25));
+        pianistProjection.setStartTime(new String[]{startTimes[4], startTimes[0]});
+        pianistProjection.setStatus("upcoming");
+        pianistProjection.setCreatedAt(LocalDateTime.now());
+        pianistProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(pianistProjection);
+
+        ProjectionEntity cocoProjection = new ProjectionEntity();
+        cocoProjection.setMovieEntity(crudMovieRepository.findByTitle("Coco"));
+        cocoProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        cocoProjection.setStartDate(LocalDate.now().plusDays(10));
+        cocoProjection.setEndDate(LocalDate.now().plusDays(20));
+        cocoProjection.setStartTime(new String[]{startTimes[0], startTimes[2], startTimes[4]});
+        cocoProjection.setStatus("upcoming");
+        cocoProjection.setCreatedAt(LocalDateTime.now());
+        cocoProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(cocoProjection);
+
+        // Upcoming Projection for "The Grand Budapest Hotel" at Sarajevo Film Center
+        ProjectionEntity grandBudapestProjection = new ProjectionEntity();
+        grandBudapestProjection.setMovieEntity(crudMovieRepository.findByTitle("The Grand Budapest Hotel"));
+        grandBudapestProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        grandBudapestProjection.setStartDate(LocalDate.now().plusDays(12));
+        grandBudapestProjection.setEndDate(LocalDate.now().plusDays(22));
+        grandBudapestProjection.setStartTime(new String[]{startTimes[1], startTimes[3]});
+        grandBudapestProjection.setStatus("upcoming");
+        grandBudapestProjection.setCreatedAt(LocalDateTime.now());
+        grandBudapestProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(grandBudapestProjection);
+
+        // Upcoming Projection for "Whiplash" at Multiplex Mostar
+        ProjectionEntity whiplashProjection = new ProjectionEntity();
+        whiplashProjection.setMovieEntity(crudMovieRepository.findByTitle("Whiplash"));
+        whiplashProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        whiplashProjection.setStartDate(LocalDate.now().plusDays(8));
+        whiplashProjection.setEndDate(LocalDate.now().plusDays(18));
+        whiplashProjection.setStartTime(new String[]{startTimes[2], startTimes[4], startTimes[5]});
+        whiplashProjection.setStatus("upcoming");
+        whiplashProjection.setCreatedAt(LocalDateTime.now());
+        whiplashProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(whiplashProjection);
+
+        // Upcoming Projection for "The Intouchables" at Cinema City Sarajevo
+        ProjectionEntity intouchablesProjection = new ProjectionEntity();
+        intouchablesProjection.setMovieEntity(crudMovieRepository.findByTitle("The Intouchables"));
+        intouchablesProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
+        intouchablesProjection.setStartDate(LocalDate.now().plusDays(7));
+        intouchablesProjection.setEndDate(LocalDate.now().plusDays(17));
+        intouchablesProjection.setStartTime(new String[]{startTimes[3], startTimes[5]});
+        intouchablesProjection.setStatus("upcoming");
+        intouchablesProjection.setCreatedAt(LocalDateTime.now());
+        intouchablesProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(intouchablesProjection);
+
+        // Upcoming Projection for "Mad Max: Fury Road" at CineStar Sarajevo
+        ProjectionEntity madMaxProjection = new ProjectionEntity();
+        madMaxProjection.setMovieEntity(crudMovieRepository.findByTitle("Mad Max: Fury Road"));
+        madMaxProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
+        madMaxProjection.setStartDate(LocalDate.now().plusDays(6));
+        madMaxProjection.setEndDate(LocalDate.now().plusDays(16));
+        madMaxProjection.setStartTime(new String[]{startTimes[0], startTimes[2], startTimes[4]});
+        madMaxProjection.setStatus("upcoming");
+        madMaxProjection.setCreatedAt(LocalDateTime.now());
+        madMaxProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(madMaxProjection);
+
+        // Upcoming Projection for "Inside Out" at Cineplexx Sarajevo
+        ProjectionEntity insideOutProjection = new ProjectionEntity();
+        insideOutProjection.setMovieEntity(crudMovieRepository.findByTitle("Inside Out"));
+        insideOutProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
+        insideOutProjection.setStartDate(LocalDate.now().plusDays(4));
+        insideOutProjection.setEndDate(LocalDate.now().plusDays(14));
+        insideOutProjection.setStartTime(new String[]{startTimes[0], startTimes[2], startTimes[4]});
+        insideOutProjection.setStatus("upcoming");
+        insideOutProjection.setCreatedAt(LocalDateTime.now());
+        insideOutProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(insideOutProjection);
+
+        // Upcoming Projection for "The Revenant" at Sarajevo Film Center
+        ProjectionEntity revenantProjection = new ProjectionEntity();
+        revenantProjection.setMovieEntity(crudMovieRepository.findByTitle("The Revenant"));
+        revenantProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
+        revenantProjection.setStartDate(LocalDate.now().plusDays(6));
+        revenantProjection.setEndDate(LocalDate.now().plusDays(16));
+        revenantProjection.setStartTime(new String[]{startTimes[1], startTimes[3]});
+        revenantProjection.setStatus("upcoming");
+        revenantProjection.setCreatedAt(LocalDateTime.now());
+        revenantProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(revenantProjection);
+
+        // Upcoming Projection for "Her" at Cinema City Sarajevo
+        ProjectionEntity herProjection = new ProjectionEntity();
+        herProjection.setMovieEntity(crudMovieRepository.findByTitle("Her"));
+        herProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
+        herProjection.setStartDate(LocalDate.now().plusDays(8));
+        herProjection.setEndDate(LocalDate.now().plusDays(18));
+        herProjection.setStartTime(new String[]{startTimes[2], startTimes[4], startTimes[5]});
+        herProjection.setStatus("upcoming");
+        herProjection.setCreatedAt(LocalDateTime.now());
+        herProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(herProjection);
+
+        // Upcoming Projection for "La La Land" at Multiplex Mostar
+        ProjectionEntity laLaLandProjection = new ProjectionEntity();
+        laLaLandProjection.setMovieEntity(crudMovieRepository.findByTitle("La La Land"));
+        laLaLandProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
+        laLaLandProjection.setStartDate(LocalDate.now().plusDays(7));
+        laLaLandProjection.setEndDate(LocalDate.now().plusDays(17));
+        laLaLandProjection.setStartTime(new String[]{startTimes[3], startTimes[5]});
+        laLaLandProjection.setStatus("upcoming");
+        laLaLandProjection.setCreatedAt(LocalDateTime.now());
+        laLaLandProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(laLaLandProjection);
+
+        // Upcoming Projection for "Moonlight" at CineStar Sarajevo
+        ProjectionEntity moonlightProjection = new ProjectionEntity();
+        moonlightProjection.setMovieEntity(crudMovieRepository.findByTitle("Moonlight"));
+        moonlightProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
+        moonlightProjection.setStartDate(LocalDate.now().plusDays(9));
+        moonlightProjection.setEndDate(LocalDate.now().plusDays(19));
+        moonlightProjection.setStartTime(new String[]{startTimes[0], startTimes[2]});
+        moonlightProjection.setStatus("upcoming");
+        moonlightProjection.setCreatedAt(LocalDateTime.now());
+        moonlightProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(moonlightProjection);
+
+
+
 
         // seed photo table
         PhotoEntity photo1 = new PhotoEntity();
@@ -1599,7 +1816,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         PhotoEntity photo27 = new PhotoEntity();
         photo27.setEntityType("movie");
-        photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in Golden Walley").getId());
+        photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in Golden Valley").getId());
         photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
         crudPhotoRepository.save(photo27);
 
