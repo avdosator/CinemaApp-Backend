@@ -1063,6 +1063,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue1.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue1);
 
+        PhotoEntity cineplexxSarajevo = new PhotoEntity();
+        cineplexxSarajevo.setEntityType("venue");
+        cineplexxSarajevo.setRefEntityId(crudVenueRepository.findByName("Cineplexx Sarajevo").getId());
+        cineplexxSarajevo.setUrl("https://s3proxygw.cineplexx.at/pimcore-bosnia-prod/assets/_default_upload_bucket/gr2.jpg");
+        crudPhotoRepository.save(cineplexxSarajevo);
+
         HallEntity cineplexxSarajevoHall = new HallEntity();
         cineplexxSarajevoHall.setName("Hall 1");
         cineplexxSarajevoHall.setVenueEntity(crudVenueRepository.findByName("Cineplexx Sarajevo"));
@@ -1079,6 +1085,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue2.setCreatedAt(LocalDateTime.now());
         venue2.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue2);
+
+        PhotoEntity cinemaCitySarajevo = new PhotoEntity();
+        cinemaCitySarajevo.setEntityType("venue");
+        cinemaCitySarajevo.setRefEntityId(crudVenueRepository.findByName("Cinema City Sarajevo").getId());
+        cinemaCitySarajevo.setUrl("https://www.sarajevo.ba/media/article/1178/original/kina36719.jpg");
+        crudPhotoRepository.save(cinemaCitySarajevo);
 
         HallEntity cinemaCitySarajevoHall = new HallEntity();
         cinemaCitySarajevoHall.setName("Hall 1");
@@ -1097,6 +1109,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue3.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue3);
 
+        PhotoEntity mostarCinema = new PhotoEntity();
+        mostarCinema.setEntityType("venue");
+        mostarCinema.setRefEntityId(crudVenueRepository.findByName("Mostar Cinema").getId());
+        mostarCinema.setUrl("https://www.hercegbosna.org/slike_upload/20120322/velicina1/herceg_bosna201203221035220.jpg");
+        crudPhotoRepository.save(mostarCinema);
+
         HallEntity mostarCinemaHall = new HallEntity();
         mostarCinemaHall.setName("Hall 1");
         mostarCinemaHall.setVenueEntity(crudVenueRepository.findByName("Mostar Cinema"));
@@ -1107,12 +1125,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         VenueEntity venue4 = new VenueEntity();
         venue4.setName("Sarajevo Film Center");
         venue4.setStreet("Obala Kulina Bana");
-        venue4.setStreetNumber(String.valueOf(Math.round(66)));
+        venue4.setStreetNumber(String.valueOf(66));
         venue4.setCityEntity(crudCityRepository.findByName("Sarajevo"));
         venue4.setPhone("+38733-654-321");
         venue4.setCreatedAt(LocalDateTime.now());
         venue4.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue4);
+
+        PhotoEntity sarajevoFilmCenter = new PhotoEntity();
+        sarajevoFilmCenter.setEntityType("venue");
+        sarajevoFilmCenter.setRefEntityId(crudVenueRepository.findByName("Sarajevo Film Center").getId());
+        sarajevoFilmCenter.setUrl("https://img.etimg.com/thumb/msid-104359417,width-650,height-488,imgsize-54656,resizemode-75/cinema-halls1.jpg");
+        crudPhotoRepository.save(sarajevoFilmCenter);
 
         HallEntity sarajevoFilmCenterHall = new HallEntity();
         sarajevoFilmCenterHall.setName("Hall 1");
@@ -1131,6 +1155,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue5.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue5);
 
+        PhotoEntity multiplexMostar = new PhotoEntity();
+        multiplexMostar.setEntityType("venue");
+        multiplexMostar.setRefEntityId(crudVenueRepository.findByName("Multiplex Mostar").getId());
+        multiplexMostar.setUrl("https://jubitz.com/wp-content/uploads/2023/12/Edited.-Inside-Cinema.png");
+        crudPhotoRepository.save(multiplexMostar);
+
         HallEntity multiplexMostarHall = new HallEntity();
         multiplexMostarHall.setName("Hall 1");
         multiplexMostarHall.setVenueEntity(crudVenueRepository.findByName("Multiplex Mostar"));
@@ -1147,6 +1177,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue6.setCreatedAt(LocalDateTime.now());
         venue6.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue6);
+
+        PhotoEntity cinestarSarajevo = new PhotoEntity();
+        cinestarSarajevo.setEntityType("venue");
+        cinestarSarajevo.setRefEntityId(crudVenueRepository.findByName("CineStar Sarajevo").getId());
+        cinestarSarajevo.setUrl("https://n1info.ba/wp-content/uploads/2020/10/cinestar-1-318893-1024x576.jpeg");
+        crudPhotoRepository.save(cinestarSarajevo);
 
         HallEntity cinestarSarajevoHall = new HallEntity();
         cinestarSarajevoHall.setName("Hall 1");
@@ -1165,12 +1201,19 @@ public class DatabaseInitializer implements CommandLineRunner {
         venue7.setUpdatedAt(LocalDateTime.now());
         crudVenueRepository.save(venue7);
 
+        PhotoEntity cinemaCityMostar = new PhotoEntity();
+        cinemaCityMostar.setEntityType("venue");
+        cinemaCityMostar.setRefEntityId(crudVenueRepository.findByName("Cinema City Mostar").getId());
+        cinemaCityMostar.setUrl("https://m.smedata.sk/api-media/media/image/spectator/3/88/8852203/8852203_1200x.jpg?rev=3");
+        crudPhotoRepository.save(cinemaCityMostar);
+
         HallEntity cinemaCityMostarHall = new HallEntity();
         cinemaCityMostarHall.setName("Hall 1");
         cinemaCityMostarHall.setVenueEntity(crudVenueRepository.findByName("Cinema City Mostar"));
         cinemaCityMostarHall.setCreatedAt(LocalDateTime.now());
         cinemaCityMostarHall.setUpdatedAt(LocalDateTime.now());
         crudHallRepository.save(cinemaCityMostarHall);
+
 
         // Seed projections
         String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:50"};

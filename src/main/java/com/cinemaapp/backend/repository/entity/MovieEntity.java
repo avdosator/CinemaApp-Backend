@@ -262,7 +262,7 @@ public class MovieEntity {
                 //.rottenTomatoesRating(this.rottenTomatoesRating)
                 .synopsis(this.synopsis)
                 .trailerUrl(this.trailerUrl)
-                //.coverPhotoId(this.coverPhotoId)
+                .coverPhotoId(this.coverPhotoId)
                 //.status(this.status)
                 .genres(genres)
                 .projections(projections)
