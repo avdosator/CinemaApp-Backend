@@ -133,8 +133,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie1 = new MovieEntity();
         movie1.setTitle("Avatar");
         movie1.setLanguage("English");
+        movie1.setDirector("James Cameron");
         movie1.setPgRating("PG-13");
         movie1.setDurationInMinutes(162);
+        movie1.setWriters(new String[]{"James Cameron"});
+        movie1.setActors(new String[]{
+                "Sam Worthington/Jake Sully",
+                "Zoe Saldana/Neytiri",
+                "Sigourney Weaver/Dr. Grace",
+                "Stephen Lang/Colonel",
+                "Giovanni Ribisi/Parker",
+                "Michelle Rodriguez/Trudy"
+        });
         movie1.setSynopsis("A paraplegic Marine dispatched to the moon Pandora becomes torn between following his orders and protecting the world he feels is his home.");
         movie1.setTrailerUrl("https://www.youtube.com/watch?v=d9MyW72ELq0");
         movie1.setStatus("active");
@@ -143,11 +153,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie1.setGenreEntities(List.of(crudGenreRepository.findByName("Adventure")));
         crudMovieRepository.save(movie1);
 
+
         MovieEntity movie2 = new MovieEntity();
         movie2.setTitle("Inception");
         movie2.setLanguage("English");
+        movie2.setDirector("Christopher Nolan");
         movie2.setPgRating("PG-13");
         movie2.setDurationInMinutes(148);
+        movie2.setWriters(new String[]{"Christopher Nolan"});
+        movie2.setActors(new String[]{
+                "Leonardo DiCaprio/Dom",
+                "Joseph Gordon-Levitt/Arthur",
+                "Ellen Page/Ariadne",
+                "Tom Hardy/Eames",
+                "Ken Watanabe/Saito",
+                "Cillian Murphy/Robert"
+        });
         movie2.setSynopsis("A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.");
         movie2.setTrailerUrl("https://www.youtube.com/watch?v=YoHD9XEInc0");
         movie2.setStatus("active");
@@ -159,8 +180,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie3 = new MovieEntity();
         movie3.setTitle("Titanic");
         movie3.setLanguage("English");
+        movie3.setDirector("James Cameron");
         movie3.setPgRating("PG-13");
         movie3.setDurationInMinutes(195);
+        movie3.setWriters(new String[]{"James Cameron"});
+        movie3.setActors(new String[]{
+                "Leonardo DiCaprio/Jack",
+                "Kate Winslet/Rose",
+                "Billy Zane/Cal",
+                "Kathy Bates/Molly",
+                "Frances Fisher/Ruth",
+                "Danny Nucci/Fabrizio"
+        });
         movie3.setSynopsis("A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.");
         movie3.setTrailerUrl("https://www.youtube.com/watch?v=kVrqfYjkTdQ");
         movie3.setStatus("active");
@@ -172,8 +203,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie4 = new MovieEntity();
         movie4.setTitle("The Dark Knight");
         movie4.setLanguage("English");
+        movie4.setDirector("Christopher Nolan");
         movie4.setPgRating("PG-13");
         movie4.setDurationInMinutes(152);
+        movie4.setWriters(new String[]{"Jonathan Nolan", "Christopher Nolan", "David S. Goyer"});
+        movie4.setActors(new String[]{
+                "Christian Bale/Bruce",
+                "Heath Ledger/Joker",
+                "Aaron Eckhart/Harvey",
+                "Michael Caine/Alfred",
+                "Maggie Gyllenhaal/Rachel",
+                "Gary Oldman/Jim"
+        });
         movie4.setSynopsis("When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.");
         movie4.setTrailerUrl("https://www.youtube.com/watch?v=EXeTwQWrcwY");
         movie4.setStatus("active");
@@ -185,8 +226,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie5 = new MovieEntity();
         movie5.setTitle("The Matrix");
         movie5.setLanguage("English");
+        movie5.setDirector("The Wachowskis");
         movie5.setPgRating("R");
         movie5.setDurationInMinutes(136);
+        movie5.setWriters(new String[]{"Lana Wachowski", "Lilly Wachowski"});
+        movie5.setActors(new String[]{
+                "Keanu Reeves/Neo",
+                "Laurence Fishburne/Morpheus",
+                "Carrie-Anne Moss/Trinity",
+                "Hugo Weaving/Smith",
+                "Gloria Foster/The Oracle",
+                "Joe Pantoliano/Cypher"
+        });
         movie5.setSynopsis("A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.");
         movie5.setTrailerUrl("https://www.youtube.com/watch?v=vKQi3bBA1y8");
         movie5.setStatus("active");
@@ -198,8 +249,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie6 = new MovieEntity();
         movie6.setTitle("Interstellar");
         movie6.setLanguage("English");
+        movie6.setDirector("Christopher Nolan");
         movie6.setPgRating("PG-13");
         movie6.setDurationInMinutes(169);
+        movie6.setWriters(new String[]{"Jonathan Nolan", "Christopher Nolan"});
+        movie6.setActors(new String[]{
+                "Matthew McConaughey/Cooper",
+                "Anne Hathaway/Brand",
+                "Jessica Chastain/Murph",
+                "Michael Caine/Brand",
+                "Casey Affleck/Tom",
+                "Mackenzie Foy/Murph"
+        });
         movie6.setSynopsis("A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.");
         movie6.setTrailerUrl("https://www.youtube.com/watch?v=2LqzF5WauAw");
         movie6.setStatus("active");
@@ -211,8 +272,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie7 = new MovieEntity();
         movie7.setTitle("Gladiator");
         movie7.setLanguage("English");
+        movie7.setDirector("Ridley Scott");
         movie7.setPgRating("R");
         movie7.setDurationInMinutes(155);
+        movie7.setWriters(new String[]{"David Franzoni", "John Logan", "William Nicholson"});
+        movie7.setActors(new String[]{
+                "Russell Crowe/Maximus",
+                "Joaquin Phoenix/Commodus",
+                "Connie Nielsen/Lucilla",
+                "Oliver Reed/Proximo",
+                "Derek Jacobi/Gracchus",
+                "Djimon Hounsou/Juba"
+        });
         movie7.setSynopsis("A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.");
         movie7.setTrailerUrl("https://www.youtube.com/watch?v=P5ieIbInFpg");
         movie7.setStatus("active");
@@ -224,8 +295,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie8 = new MovieEntity();
         movie8.setTitle("The Godfather");
         movie8.setLanguage("English");
+        movie8.setDirector("Francis Ford Coppola");
         movie8.setPgRating("R");
         movie8.setDurationInMinutes(175);
+        movie8.setWriters(new String[]{"Mario Puzo", "Francis Ford Coppola"});
+        movie8.setActors(new String[]{
+                "Marlon Brando/Vito",
+                "Al Pacino/Michael",
+                "James Caan/Sonny",
+                "Richard S. Castellano/Clemenza",
+                "Robert Duvall/Tom",
+                "Diane Keaton/Kay"
+        });
         movie8.setSynopsis("The aging patriarch of an organized crime dynasty transfers control of his empire to his reluctant son.");
         movie8.setTrailerUrl("https://www.youtube.com/watch?v=UaVTIH8mujA");
         movie8.setStatus("active");
@@ -237,8 +318,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie9 = new MovieEntity();
         movie9.setTitle("Pulp Fiction");
         movie9.setLanguage("English");
+        movie9.setDirector("Quentin Tarantino");
         movie9.setPgRating("R");
         movie9.setDurationInMinutes(154);
+        movie9.setWriters(new String[]{"Quentin Tarantino", "Roger Avary"});
+        movie9.setActors(new String[]{
+                "John Travolta/Vincent",
+                "Uma Thurman/Mia",
+                "Samuel L. Jackson/Jules",
+                "Bruce Willis/Butch",
+                "Ving Rhames/Marsellus",
+                "Harvey Keitel/Winston"
+        });
         movie9.setSynopsis("The lives of two mob hitmen, a boxer, a gangster, and his wife intertwine in four tales of violence and redemption.");
         movie9.setTrailerUrl("https://www.youtube.com/watch?v=tGpTpVyI_OQ");
         movie9.setStatus("active");
@@ -250,8 +341,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie10 = new MovieEntity();
         movie10.setTitle("Schindler's List");
         movie10.setLanguage("English");
+        movie10.setDirector("Steven Spielberg");
         movie10.setPgRating("R");
         movie10.setDurationInMinutes(195);
+        movie10.setWriters(new String[]{"Steven Zaillian"});
+        movie10.setActors(new String[]{
+                "Liam Neeson/Oskar",
+                "Ralph Fiennes/Amon",
+                "Ben Kingsley/Itzhak",
+                "Caroline Goodall/Emilie",
+                "Jonathan Sagall/Poldek",
+                "Embeth Davidtz/Helen"
+        });
         movie10.setSynopsis("In German-occupied Poland during World War II, industrialist Oskar Schindler saves the lives of more than a thousand Jews by employing them in his factories.");
         movie10.setTrailerUrl("https://www.youtube.com/watch?v=mxphAlJID9U");
         movie10.setStatus("active");
@@ -263,8 +364,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie11 = new MovieEntity();
         movie11.setTitle("Fight Club");
         movie11.setLanguage("English");
+        movie11.setDirector("David Fincher");
         movie11.setPgRating("R");
         movie11.setDurationInMinutes(139);
+        movie11.setWriters(new String[]{"Jim Uhls", "Chuck Palahniuk"});
+        movie11.setActors(new String[]{
+                "Brad Pitt/Tyler",
+                "Edward Norton/Narrator",
+                "Helena Carter/Marla",
+                "Meat Loaf/Robert",
+                "Jared Leto/Angel Face",
+                "Zach Grenier/Richard"
+        });
         movie11.setSynopsis("An insomniac office worker and a soapmaker form an underground fight club that evolves into something much more.");
         movie11.setTrailerUrl("https://www.youtube.com/watch?v=BdJKm16Co6M");
         movie11.setStatus("active");
@@ -276,8 +387,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie12 = new MovieEntity();
         movie12.setTitle("Forrest Gump");
         movie12.setLanguage("English");
+        movie12.setDirector("Robert Zemeckis");
         movie12.setPgRating("PG-13");
         movie12.setDurationInMinutes(142);
+        movie12.setWriters(new String[]{"Winston Groom", "Eric Roth"});
+        movie12.setActors(new String[]{
+                "Tom Hanks/Forrest",
+                "Robin Wright/Jenny",
+                "Gary Sinise/Dan",
+                "Sally Field/Mrs. Gump",
+                "Mykelti Williamson/Bubba",
+                "Michael Conner Humphreys/Young Forrest"
+        });
         movie12.setSynopsis("The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of a man with a low IQ.");
         movie12.setTrailerUrl("https://www.youtube.com/watch?v=bLvqoHBptj");
         movie12.setStatus("active");
@@ -289,8 +410,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie13 = new MovieEntity();
         movie13.setTitle("The Lion King");
         movie13.setLanguage("English");
+        movie13.setDirector("Roger Allers");
         movie13.setPgRating("G");
         movie13.setDurationInMinutes(88);
+        movie13.setWriters(new String[]{"Irene Mecchi", "Jonathan Roberts", "Linda Woolverton"});
+        movie13.setActors(new String[]{
+                "Matthew Broderick/Simba",
+                "Jeremy Irons/Scar",
+                "James Earl Jones/Mufasa",
+                "Moira Kelly/Nala",
+                "Rowan Atkinson/Zazu",
+                "Whoopi Goldberg/Shenzi"
+        });
         movie13.setSynopsis("Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.");
         movie13.setTrailerUrl("https://www.youtube.com/watch?v=o17MF9vnabg");
         movie13.setStatus("active");
@@ -302,8 +433,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie14 = new MovieEntity();
         movie14.setTitle("Saving Private Ryan");
         movie14.setLanguage("English");
+        movie14.setDirector("Steven Spielberg");
         movie14.setPgRating("R");
         movie14.setDurationInMinutes(169);
+        movie14.setWriters(new String[]{"Robert Rodat"});
+        movie14.setActors(new String[]{
+                "Tom Hanks/John",
+                "Matt Damon/James",
+                "Tom Sizemore/Mike",
+                "Edward Burns/Richard",
+                "Barry Pepper/Daniel",
+                "Giovanni Ribisi/Irwin"
+        });
         movie14.setSynopsis("Following the Normandy Landings, a group of U.S. soldiers go behind enemy lines to retrieve a paratrooper whose brothers have been killed in action.");
         movie14.setTrailerUrl("https://www.youtube.com/watch?v=9CiW_DgxCnQ");
         movie14.setStatus("active");
@@ -315,8 +456,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie15 = new MovieEntity();
         movie15.setTitle("The Shawshank Redemption");
         movie15.setLanguage("English");
+        movie15.setDirector("Frank Darabont");
         movie15.setPgRating("R");
         movie15.setDurationInMinutes(142);
+        movie15.setWriters(new String[]{"Stephen King", "Frank Darabont"});
+        movie15.setActors(new String[]{
+                "Tim Robbins/Andy",
+                "Morgan Freeman/Red",
+                "Bob Gunton/Norton",
+                "William Sadler/Heywood",
+                "Clancy Brown/Hadley",
+                "Gil Bellows/Tommy"
+        });
         movie15.setSynopsis("Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.");
         movie15.setTrailerUrl("https://www.youtube.com/watch?v=PLl99DlL6b4");
         movie15.setStatus("active");
@@ -328,8 +479,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie16 = new MovieEntity();
         movie16.setTitle("The Green Mile");
         movie16.setLanguage("English");
+        movie16.setDirector("Frank Darabont");
         movie16.setPgRating("R");
         movie16.setDurationInMinutes(189);
+        movie16.setWriters(new String[]{"Stephen King", "Frank Darabont"});
+        movie16.setActors(new String[]{
+                "Tom Hanks/Paul",
+                "Michael Duncan/John",
+                "David Morse/Brutal",
+                "Bonnie Hunt/Jan",
+                "James Cromwell/Hal",
+                "Doug Hutchison/Percy"
+        });
         movie16.setSynopsis("The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder and rape, yet who has a mysterious gift.");
         movie16.setTrailerUrl("https://www.youtube.com/watch?v=Ki4haFrqSrw");
         movie16.setStatus("active");
@@ -341,8 +502,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie17 = new MovieEntity();
         movie17.setTitle("The Avengers");
         movie17.setLanguage("English");
+        movie17.setDirector("Joss Whedon");
         movie17.setPgRating("PG-13");
         movie17.setDurationInMinutes(143);
+        movie17.setWriters(new String[]{"Joss Whedon", "Zak Penn"});
+        movie17.setActors(new String[]{
+                "Robert Downey Jr./Iron Man",
+                "Chris Evans/Cpt. America",
+                "Mark Ruffalo/Bruce",
+                "Chris Hemsworth/Thor",
+                "Scarlett Johansson/Black Widow",
+                "Jeremy Renner/Hawkeye"
+        });
         movie17.setSynopsis("Earth's mightiest heroes must come together and learn to fight as a team to stop the mischievous Loki and his alien army from enslaving humanity.");
         movie17.setTrailerUrl("https://www.youtube.com/watch?v=eOrNdBpGMv8s");
         movie17.setStatus("active");
@@ -354,8 +525,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie18 = new MovieEntity();
         movie18.setTitle("Jurassic Park");
         movie18.setLanguage("English");
+        movie18.setDirector("Steven Spielberg");
         movie18.setPgRating("PG-13");
         movie18.setDurationInMinutes(127);
+        movie18.setWriters(new String[]{"Michael Crichton", "David Koepp"});
+        movie18.setActors(new String[]{
+                "Sam Neill/Alan",
+                "Laura Dern/Ellie",
+                "Jeff Goldblum/Ian",
+                "Richard Attenborough/John",
+                "Bob Peck/Robert",
+                "Martin Ferrero/Donald"
+        });
         movie18.setSynopsis("A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.");
         movie18.setTrailerUrl("https://www.youtube.com/watch?v=RFinNxS5KN4");
         movie18.setStatus("active");
@@ -367,8 +548,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie19 = new MovieEntity();
         movie19.setTitle("The Silence of the Lambs");
         movie19.setLanguage("English");
+        movie19.setDirector("Jonathan Demme");
         movie19.setPgRating("R");
         movie19.setDurationInMinutes(118);
+        movie19.setWriters(new String[]{"Thomas Harris", "Ted Tally"});
+        movie19.setActors(new String[]{
+                "Jodie Foster/Clarice",
+                "Anthony Hopkins/Hannibal",
+                "Scott Glenn/Jack",
+                "Ted Levine/Jame",
+                "Anthony Heald/Frederick",
+                "Brooke Smith/Catherine"
+        });
         movie19.setSynopsis("A young F.B.I. cadet must receive the help of an incarcerated and manipulative cannibal killer to catch another serial killer, a madman who skins his victims.");
         movie19.setTrailerUrl("https://www.youtube.com/watch?v=W6Mm8Sbe__o");
         movie19.setStatus("active");
@@ -380,8 +571,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie20 = new MovieEntity();
         movie20.setTitle("The Lord of the Rings: The Fellowship of the Ring");
         movie20.setLanguage("English");
+        movie20.setDirector("Peter Jackson");
         movie20.setPgRating("PG-13");
         movie20.setDurationInMinutes(178);
+        movie20.setWriters(new String[]{"J.R.R. Tolkien", "Fran Walsh", "Philippa Boyens", "Peter Jackson"});
+        movie20.setActors(new String[]{
+                "Elijah Wood/Frodo",
+                "Ian McKellen/Gandalf",
+                "Viggo Mortensen/Aragorn",
+                "Sean Astin/Samwise",
+                "Orlando Bloom/Legolas",
+                "John Rhys-Davies/Gimli"
+        });
         movie20.setSynopsis("A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.");
         movie20.setTrailerUrl("https://www.youtube.com/watch?v=r5X-hFf6Bwo");
         movie20.setStatus("active");
@@ -390,11 +591,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie20.setGenreEntities(List.of(crudGenreRepository.findByName("Adventure"), crudGenreRepository.findByName("Action")));
         crudMovieRepository.save(movie20);
 
+
         MovieEntity movie21 = new MovieEntity();
         movie21.setTitle("No Man's Land");
         movie21.setLanguage("Bosnian");
+        movie21.setDirector("Danis Tanović");
         movie21.setPgRating("R");
         movie21.setDurationInMinutes(98);
+        movie21.setWriters(new String[]{"Danis Tanović"});
+        movie21.setActors(new String[]{
+                "Branko Đurić/Čiki",
+                "Rene Bitorajac/Nino",
+                "Filip Šovagović/Cera",
+                "Georges Siatidis/Marchand",
+                "Katrin Cartlidge/Jane",
+                "Simon Callow/Soft"
+        });
         movie21.setSynopsis("Bosnian and Serbian soldiers find themselves trapped in no man's land during the Bosnian War.");
         movie21.setTrailerUrl("https://www.youtube.com/watch?v=nP3ofimxD7Q");
         movie21.setStatus("active");
@@ -406,8 +618,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie22 = new MovieEntity();
         movie22.setTitle("Grbavica");
         movie22.setLanguage("Bosnian");
+        movie22.setDirector("Jasmila Žbanić");
         movie22.setPgRating("PG-13");
         movie22.setDurationInMinutes(107);
+        movie22.setWriters(new String[]{"Jasmila Žbanić"});
+        movie22.setActors(new String[]{
+                "Mirjana Karanović/Esma",
+                "Luna Mijović/Sara",
+                "Leon Lučev/Pelikan",
+                "Kenan Ćatić/Samil",
+                "Dejan Aćimović/Cengo",
+                "Jasna Beri/Rabija"
+        });
         movie22.setSynopsis("A single mother struggles to raise her daughter in post-war Sarajevo while hiding a painful secret.");
         movie22.setTrailerUrl("hhttps://www.youtube.com/watch?v=hQiMvSdLk_4");
         movie22.setStatus("active");
@@ -419,8 +641,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie23 = new MovieEntity();
         movie23.setTitle("Quo Vadis, Aida?");
         movie23.setLanguage("Bosnian");
+        movie23.setDirector("Jasmila Žbanić");
         movie23.setPgRating("R");
         movie23.setDurationInMinutes(101);
+        movie23.setWriters(new String[]{"Jasmila Žbanić"});
+        movie23.setActors(new String[]{
+                "Jasna Đuričić/Aida",
+                "Izudin Bajrović/Nihad",
+                "Boris Ler/Hamid",
+                "Dino Bajrović/Sejo",
+                "Johan Heldenbergh/Thor",
+                "Raymond Thiry/General"
+        });
         movie23.setSynopsis("A UN translator tries to save her family during the Srebrenica massacre.");
         movie23.setTrailerUrl("https://www.youtube.com/watch?v=ErLD8P4VUjY");
         movie23.setStatus("active");
@@ -432,8 +664,17 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie24 = new MovieEntity();
         movie24.setTitle("The Perfect Circle");
         movie24.setLanguage("Bosnian");
+        movie24.setDirector("Ademir Kenović");
         movie24.setPgRating("PG-13");
         movie24.setDurationInMinutes(110);
+        movie24.setActors(new String[]{
+                "Josip Pejaković/Hamza",
+                "Almedin Leleta/Adis",
+                "Alma Terzić/Azra",
+                "Jasna Diklić/Wife",
+                "Dragan Marinković/Dado",
+                "Minka Muftić/Ruža"
+        });
         movie24.setSynopsis("A poet in Sarajevo shelters two orphans during the siege of the city.");
         movie24.setTrailerUrl("https://www.youtube.com/watch?v=0GFyJlptAWY");
         movie24.setStatus("active");
@@ -441,12 +682,23 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie24.setUpdatedAt(LocalDateTime.now());
         movie24.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("War")));
         crudMovieRepository.save(movie24);
+        movie24.setWriters(new String[]{"Abdulah Sidran", "Ademir Kenović"});
 
         MovieEntity movie25 = new MovieEntity();
         movie25.setTitle("An Episode in the Life of an Iron Picker");
         movie25.setLanguage("Bosnian");
+        movie25.setDirector("Danis Tanović");
         movie25.setPgRating("PG-13");
         movie25.setDurationInMinutes(75);
+        movie25.setWriters(new String[]{"Danis Tanović"});
+        movie25.setActors(new String[]{
+                "Nazif Mujić/Nazif",
+                "Senada Alimanović/Senada",
+                "Šemsa Mujić/Šemsa",
+                "Sandra Mujić/Sandra",
+                "Elvedin Mrkonjić/Elvedin",
+                "Ivica Mrkonjić/Ivica"
+        });
         movie25.setSynopsis("A poor Roma family faces a medical crisis and struggles for survival.");
         movie25.setTrailerUrl("https://www.youtube.com/watch?v=KzSbjPjEUBg");
         movie25.setStatus("active");
@@ -460,6 +712,16 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie26.setLanguage("Bosnian");
         movie26.setPgRating("R");
         movie26.setDurationInMinutes(102);
+        movie26.setWriters(new String[]{"Srđan Vuletić"});
+        movie26.setActors(new String[]{
+                "Saša Petrović/Fudo",
+                "Daria Lorenci/Dolina",
+                "Emir Hadžihafizbegović/Aleksandar",
+                "Zana Marjanović/Kanita",
+                "Aleksandar Seksan/Ratko",
+                "Mirsad Tuka/Rosko"
+        });
+        movie26.setDirector("Srđan Vuletić");
         movie26.setSynopsis("Fudo, a Sarajevo taxi driver, tries to change his life and go straight. But turning away from crime in post-war Bosnia proves difficult.");
         movie26.setTrailerUrl("https://www.youtube.com/watch?v=-Kwh2EDIcN4");
         movie26.setStatus("active");
@@ -471,8 +733,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         MovieEntity movie27 = new MovieEntity();
         movie27.setTitle("Summer in Golden Walley");
         movie27.setLanguage("Bosnian");
+        movie27.setDirector("Srđan Vuletić");
         movie27.setPgRating("PG-13");
         movie27.setDurationInMinutes(91);
+        movie27.setWriters(new String[]{"Srđan Vuletić"});
+        movie27.setActors(new String[]{
+                "Haris Sijarić/Fikret",
+                "Svetozar Cvetković/Ramiz",
+                "Kemal Ćebo/Tiki",
+                "Zana Marjanović/Sara",
+                "Aleksandar Seksan/Cico",
+                "Admir Glamočak/Klupa"
+        });
         movie27.setSynopsis("A group of friends in Bosnia decides to pursue quick wealth and excitement, getting tangled in the complex world of crime.");
         movie27.setTrailerUrl("https://www.youtube.com/watch?v=UieYbSsqQC0");
         movie27.setStatus("active");
@@ -481,11 +753,310 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie27.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Thriller")));
         crudMovieRepository.save(movie27);
 
+        MovieEntity movie28 = new MovieEntity();
+        movie28.setTitle("Parasite");
+        movie28.setLanguage("Korean");
+        movie28.setDirector("Bong Joon-ho");
+        movie28.setPgRating("R");
+        movie28.setDurationInMinutes(132);
+        movie28.setWriters(new String[]{"Bong Joon-ho", "Han Jin-won"});
+        movie28.setActors(new String[]{
+                "Song Kang-ho/Ki-taek",
+                "Lee Sun-kyun/Mr. Park",
+                "Cho Yeo-jeong/Yeon-kyo",
+                "Choi Woo-shik/Ki-woo",
+                "Park So-dam/Ki-jung",
+                "Jang Hye-jin/Chung-sook"
+        });
+        movie28.setSynopsis("A poor family schemes to become employed by a wealthy family by infiltrating their household.");
+        movie28.setTrailerUrl("https://www.youtube.com/watch?v=5xH0HfJHsaY");
+        movie28.setStatus("active");
+        movie28.setCreatedAt(LocalDateTime.now());
+        movie28.setUpdatedAt(LocalDateTime.now());
+        movie28.setGenreEntities(List.of(crudGenreRepository.findByName("Thriller"), crudGenreRepository.findByName("Drama")));
+        crudMovieRepository.save(movie28);
+
+        MovieEntity movie29 = new MovieEntity();
+        movie29.setTitle("Spirited Away");
+        movie29.setLanguage("Japanese");
+        movie29.setDirector("Hayao Miyazaki");
+        movie29.setPgRating("PG");
+        movie29.setDurationInMinutes(125);
+        movie29.setWriters(new String[]{"Hayao Miyazaki"});
+        movie29.setActors(new String[]{
+                "Rumi Hiiragi/Chihiro",
+                "Miyu Irino/Haku",
+                "Mari Natsuki/Yubaba",
+                "Takashi Naito/Father",
+                "Yasuko Sawaguchi/Mother",
+                "Tatsuya Gashuin/Kamaji"
+        });
+        movie29.setSynopsis("A young girl becomes trapped in a strange world of spirits and must find her way out.");
+        movie29.setTrailerUrl("https://www.youtube.com/watch?v=ByXuk9QqQkk");
+        movie29.setStatus("active");
+        movie29.setCreatedAt(LocalDateTime.now());
+        movie29.setUpdatedAt(LocalDateTime.now());
+        movie29.setGenreEntities(List.of(crudGenreRepository.findByName("Fantasy"), crudGenreRepository.findByName("Adventure")));
+        crudMovieRepository.save(movie29);
+
+        MovieEntity movie30 = new MovieEntity();
+        movie30.setTitle("The Pianist");
+        movie30.setLanguage("English");
+        movie30.setDirector("Roman Polanski");
+        movie30.setPgRating("R");
+        movie30.setDurationInMinutes(150);
+        movie30.setWriters(new String[]{"Ronald Harwood"});
+        movie30.setActors(new String[]{
+                "Adrien Brody/Władysław",
+                "Thomas Kretschmann/Wilm",
+                "Frank Finlay/Father",
+                "Maureen Lipman/Mother",
+                "Emilia Fox/Dorota",
+                "Ed Stoppard/Henryk"
+        });
+        movie30.setSynopsis("A Polish Jewish musician struggles to survive the destruction of the Warsaw ghetto in World War II.");
+        movie30.setTrailerUrl("https://www.youtube.com/watch?v=u_jE7-6Uv7E");
+        movie30.setStatus("active");
+        movie30.setCreatedAt(LocalDateTime.now());
+        movie30.setUpdatedAt(LocalDateTime.now());
+        movie30.setGenreEntities(List.of(crudGenreRepository.findByName("Biography"), crudGenreRepository.findByName("Drama")));
+        crudMovieRepository.save(movie30);
+
+        MovieEntity movie31 = new MovieEntity();
+        movie31.setTitle("Coco");
+        movie31.setLanguage("English");
+        movie31.setDirector("Lee Unkrich");
+        movie31.setPgRating("PG");
+        movie31.setDurationInMinutes(105);
+        movie31.setWriters(new String[]{"Adrian Molina", "Matthew Aldrich"});
+        movie31.setActors(new String[]{
+                "Anthony Gonzalez/Miguel",
+                "Gael Garcia Bernal/Hector",
+                "Benjamin Bratt/Ernesto",
+                "Alanna Ubach/Mama",
+                "Renee Victor/Abuelita",
+                "Ana Ofelia Murguia/Imelda"
+        });
+        movie31.setSynopsis("A boy accidentally travels to the Land of the Dead to seek help to restore his family's love of music.");
+        movie31.setTrailerUrl("https://www.youtube.com/watch?v=Ga6RYejo6Hk");
+        movie31.setStatus("active");
+        movie31.setCreatedAt(LocalDateTime.now());
+        movie31.setUpdatedAt(LocalDateTime.now());
+        movie31.setGenreEntities(List.of(crudGenreRepository.findByName("Animation"), crudGenreRepository.findByName("Family")));
+        crudMovieRepository.save(movie31);
+
+        MovieEntity movie32 = new MovieEntity();
+        movie32.setTitle("The Grand Budapest Hotel");
+        movie32.setLanguage("English");
+        movie32.setDirector("Wes Anderson");
+        movie32.setPgRating("R");
+        movie32.setDurationInMinutes(99);
+        movie32.setWriters(new String[]{"Wes Anderson"});
+        movie32.setActors(new String[]{
+                "Ralph Fiennes/Monsieur",
+                "F. Murray Abraham/Zero",
+                "Mathieu Amalric/Serge",
+                "Adrien Brody/Dmitri",
+                "Willem Dafoe/J.G.",
+                "Saoirse Ronan/Agatha"
+        });
+        movie32.setSynopsis("A writer encounters the owner of an aging hotel and hears his tale of adventure.");
+        movie32.setTrailerUrl("https://www.youtube.com/watch?v=1Fg5iWmQjwk");
+        movie32.setStatus("active");
+        movie32.setCreatedAt(LocalDateTime.now());
+        movie32.setUpdatedAt(LocalDateTime.now());
+        movie32.setGenreEntities(List.of(crudGenreRepository.findByName("Comedy"), crudGenreRepository.findByName("Drama")));
+        crudMovieRepository.save(movie32);
+
+        MovieEntity movie33 = new MovieEntity();
+        movie33.setTitle("Whiplash");
+        movie33.setLanguage("English");
+        movie33.setDirector("Damien Chazelle");
+        movie33.setPgRating("R");
+        movie33.setDurationInMinutes(106);
+        movie33.setWriters(new String[]{"Damien Chazelle"});
+        movie33.setActors(new String[]{
+                "Miles Teller/Andrew",
+                "J.K. Simmons/Fletcher",
+                "Paul Reiser/Jim",
+                "Melissa Benoist/Nicole",
+                "Austin Stowell/Ryan",
+                "Nate Lang/Carl"
+        });
+        movie33.setSynopsis("A young drummer's ambitious pursuit of perfection brings him face to face with a demanding instructor.");
+        movie33.setTrailerUrl("https://www.youtube.com/watch?v=7d_jQycdQGo");
+        movie33.setStatus("active");
+        movie33.setCreatedAt(LocalDateTime.now());
+        movie33.setUpdatedAt(LocalDateTime.now());
+        movie33.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Music")));
+        crudMovieRepository.save(movie33);
+
+        MovieEntity movie34 = new MovieEntity();
+        movie34.setTitle("The Intouchables");
+        movie34.setLanguage("French");
+        movie34.setDirector("Olivier Nakache, Eric Toledano");
+        movie34.setPgRating("R");
+        movie34.setDurationInMinutes(112);
+        movie34.setWriters(new String[]{"Olivier Nakache", "Eric Toledano"});
+        movie34.setActors(new String[]{
+                "François Cluzet/Philippe",
+                "Omar Sy/Driss",
+                "Anne Le Ny/Yvonne",
+                "Audrey Fleurot/Magalie",
+                "Alba Gaïa Bellugi/Elisa",
+                "Cyril Mendy/Adama"
+        });
+        movie34.setSynopsis("After a paragliding accident, an aristocrat hires a young man from the projects to be his caregiver.");
+        movie34.setTrailerUrl("https://www.youtube.com/watch?v=34WIbmXkewU");
+        movie34.setStatus("active");
+        movie34.setCreatedAt(LocalDateTime.now());
+        movie34.setUpdatedAt(LocalDateTime.now());
+        movie34.setGenreEntities(List.of(crudGenreRepository.findByName("Biography"), crudGenreRepository.findByName("Comedy")));
+        crudMovieRepository.save(movie34);
+
+        MovieEntity movie35 = new MovieEntity();
+        movie35.setTitle("Mad Max: Fury Road");
+        movie35.setLanguage("English");
+        movie35.setDirector("George Miller");
+        movie35.setPgRating("R");
+        movie35.setDurationInMinutes(120);
+        movie35.setWriters(new String[]{"George Miller", "Brendan McCarthy", "Nico Lathouris"});
+        movie35.setActors(new String[]{
+                "Tom Hardy/Max",
+                "Charlize Theron/Furiosa",
+                "Nicholas Hoult/Nux",
+                "Hugh Keays/Immortan",
+                "Josh Helman/Slit",
+                "Nathan Jones/Rictus"
+        });
+        movie35.setSynopsis("In a post-apocalyptic wasteland, a woman rebels against a tyrant in search of her homeland.");
+        movie35.setTrailerUrl("https://www.youtube.com/watch?v=hEJnMQG9ev8");
+        movie35.setStatus("active");
+        movie35.setCreatedAt(LocalDateTime.now());
+        movie35.setUpdatedAt(LocalDateTime.now());
+        movie35.setGenreEntities(List.of(crudGenreRepository.findByName("Action"), crudGenreRepository.findByName("Adventure")));
+        crudMovieRepository.save(movie35);
+
+        MovieEntity movie36 = new MovieEntity();
+        movie36.setTitle("Inside Out");
+        movie36.setLanguage("English");
+        movie36.setDirector("Pete Docter");
+        movie36.setPgRating("PG");
+        movie36.setDurationInMinutes(95);
+        movie36.setWriters(new String[]{"Pete Docter", "Meg LeFauve", "Josh Cooley"});
+        movie36.setActors(new String[]{
+                "Amy Poehler/Joy",
+                "Phyllis Smith/Sadness",
+                "Richard Kind/Bing Bong",
+                "Bill Hader/Fear",
+                "Lewis Black/Anger",
+                "Mindy Kaling/Disgust"
+        });
+        movie36.setSynopsis("After young Riley is uprooted from her Midwest life, her emotions struggle to adjust.");
+        movie36.setTrailerUrl("https://www.youtube.com/watch?v=yRUAzGQ3nSY");
+        movie36.setStatus("active");
+        movie36.setCreatedAt(LocalDateTime.now());
+        movie36.setUpdatedAt(LocalDateTime.now());
+        movie36.setGenreEntities(List.of(crudGenreRepository.findByName("Animation"), crudGenreRepository.findByName("Family")));
+        crudMovieRepository.save(movie36);
+
+        MovieEntity movie37 = new MovieEntity();
+        movie37.setTitle("The Revenant");
+        movie37.setLanguage("English");
+        movie37.setDirector("Alejandro González Iñárritu");
+        movie37.setPgRating("R");
+        movie37.setDurationInMinutes(156);
+        movie37.setWriters(new String[]{"Mark L. Smith", "Alejandro González Iñárritu"});
+        movie37.setActors(new String[]{
+                "Leonardo DiCaprio/Hugh",
+                "Tom Hardy/Fitzgerald",
+                "Domhnall Gleeson/Captain",
+                "Will Poulter/Bridger",
+                "Forrest Goodluck/Hawk",
+                "Paul Anderson/Anderson"
+        });
+        movie37.setSynopsis("A frontiersman fights for survival after being left for dead by his hunting team.");
+        movie37.setTrailerUrl("https://www.youtube.com/watch?v=LoebZZ8K5N0");
+        movie37.setStatus("active");
+        movie37.setCreatedAt(LocalDateTime.now());
+        movie37.setUpdatedAt(LocalDateTime.now());
+        movie37.setGenreEntities(List.of(crudGenreRepository.findByName("Action"), crudGenreRepository.findByName("Adventure")));
+        crudMovieRepository.save(movie37);
+
+        MovieEntity movie38 = new MovieEntity();
+        movie38.setTitle("Her");
+        movie38.setLanguage("English");
+        movie38.setDirector("Spike Jonze");
+        movie38.setPgRating("R");
+        movie38.setDurationInMinutes(126);
+        movie38.setWriters(new String[]{"Spike Jonze"});
+        movie38.setActors(new String[]{
+                "Joaquin Phoenix/Theodore",
+                "Scarlett Johansson/Samantha",
+                "Amy Adams/Amy",
+                "Rooney Mara/Catherine",
+                "Olivia Wilde/Blind",
+                "Chris Pratt/Paul"
+        });
+        movie38.setSynopsis("In a near future, a lonely writer develops an unlikely relationship with an operating system.");
+        movie38.setTrailerUrl("https://www.youtube.com/watch?v=ne6p6MfLBxc");
+        movie38.setStatus("active");
+        movie38.setCreatedAt(LocalDateTime.now());
+        movie38.setUpdatedAt(LocalDateTime.now());
+        movie38.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Romance")));
+        crudMovieRepository.save(movie38);
+
+        MovieEntity movie39 = new MovieEntity();
+        movie39.setTitle("La La Land");
+        movie39.setLanguage("English");
+        movie39.setDirector("Damien Chazelle");
+        movie39.setPgRating("PG-13");
+        movie39.setDurationInMinutes(128);
+        movie39.setWriters(new String[]{"Damien Chazelle"});
+        movie39.setActors(new String[]{
+                "Ryan Gosling/Sebastian",
+                "Emma Stone/Mia",
+                "John Legend/Keith",
+                "Rosemarie DeWitt/Laura",
+                "J.K. Simmons/Bill",
+                "Amiee Conn/Lisa"
+        });
+        movie39.setSynopsis("While navigating their careers in Los Angeles, a pianist and an actress fall in love.");
+        movie39.setTrailerUrl("https://www.youtube.com/watch?v=0pdqf4P9MB8");
+        movie39.setStatus("active");
+        movie39.setCreatedAt(LocalDateTime.now());
+        movie39.setUpdatedAt(LocalDateTime.now());
+        movie39.setGenreEntities(List.of(crudGenreRepository.findByName("Drama"), crudGenreRepository.findByName("Musical")));
+        crudMovieRepository.save(movie39);
+
+        MovieEntity movie40 = new MovieEntity();
+        movie40.setTitle("Moonlight");
+        movie40.setLanguage("English");
+        movie40.setDirector("Barry Jenkins");
+        movie40.setPgRating("R");
+        movie40.setDurationInMinutes(111);
+        movie40.setWriters(new String[]{"Barry Jenkins", "Tarell Alvin McCraney"});
+        movie40.setActors(new String[]{
+                "Trevante Rhodes/Chiron",
+                "Ashton Sanders/Teen",
+                "Alex R. Hibbert/Little",
+                "Naomie Harris/Paula",
+                "Janelle Monáe/Teresa",
+                "Mahershala Ali/Juan"
+        });
+        movie40.setSynopsis("A young African-American man grapples with his identity and sexuality while growing up.");
+        movie40.setTrailerUrl("https://www.youtube.com/watch?v=9NJj12tJzqc");
+        movie40.setStatus("active");
+        movie40.setCreatedAt(LocalDateTime.now());
+        movie40.setUpdatedAt(LocalDateTime.now());
+        movie40.setGenreEntities(List.of(crudGenreRepository.findByName("Drama")));
+        crudMovieRepository.save(movie40);
+
         // seed venue table
         VenueEntity venue1 = new VenueEntity();
-        venue1.setName("Cinebh: Cineplexx");
-        venue1.setStreet("Example Street");
-        venue1.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue1.setName("Cineplexx Sarajevo");
+        venue1.setStreet("Zmaja od Bosne");
+        venue1.setStreetNumber(String.valueOf(4));
         venue1.setCityEntity(crudCityRepository.findByName("Sarajevo"));
         venue1.setPhone("+38733-123-456");
         venue1.setCreatedAt(LocalDateTime.now());
@@ -494,15 +1065,15 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         HallEntity hall1 = new HallEntity();
         hall1.setName("Hall 1");
-        hall1.setVenueEntity(crudVenueRepository.findByName("Cinebh: Cineplexx"));
+        hall1.setVenueEntity(crudVenueRepository.findByName("Cineplexx Sarajevo"));
         hall1.setCreatedAt(LocalDateTime.now());
         hall1.setUpdatedAt(LocalDateTime.now());
         crudHallRepository.save(hall1);
 
         VenueEntity venue2 = new VenueEntity();
-        venue2.setName("Cinemacity Sarajevo");
+        venue2.setName("Cinema City Sarajevo");
         venue2.setStreet("Maršala Tita");
-        venue2.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue2.setStreetNumber(String.valueOf(10));
         venue2.setCityEntity(crudCityRepository.findByName("Sarajevo"));
         venue2.setPhone("+38733-321-654");
         venue2.setCreatedAt(LocalDateTime.now());
@@ -510,8 +1081,8 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudVenueRepository.save(venue2);
 
         HallEntity hall2 = new HallEntity();
-        hall2.setName("Hall 2");
-        hall2.setVenueEntity(crudVenueRepository.findByName("Cinemacity Sarajevo"));
+        hall2.setName("Hall 1");
+        hall2.setVenueEntity(crudVenueRepository.findByName("Cinema City Sarajevo"));
         hall2.setCreatedAt(LocalDateTime.now());
         hall2.setUpdatedAt(LocalDateTime.now());
         crudHallRepository.save(hall2);
@@ -519,7 +1090,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         VenueEntity venue3 = new VenueEntity();
         venue3.setName("Mostar Cinema");
         venue3.setStreet("Kralja Tomislava");
-        venue3.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue3.setStreetNumber(String.valueOf(25));
         venue3.setCityEntity(crudCityRepository.findByName("Mostar"));
         venue3.setPhone("+38736-456-789");
         venue3.setCreatedAt(LocalDateTime.now());
@@ -527,7 +1098,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudVenueRepository.save(venue3);
 
         HallEntity hall3 = new HallEntity();
-        hall3.setName("Hall 3");
+        hall3.setName("Hall 1");
         hall3.setVenueEntity(crudVenueRepository.findByName("Mostar Cinema"));
         hall3.setCreatedAt(LocalDateTime.now());
         hall3.setUpdatedAt(LocalDateTime.now());
@@ -536,7 +1107,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         VenueEntity venue4 = new VenueEntity();
         venue4.setName("Sarajevo Film Center");
         venue4.setStreet("Obala Kulina Bana");
-        venue4.setStreetNumber(String.valueOf(Math.round(Math.random() * 50)));
+        venue4.setStreetNumber(String.valueOf(Math.round(66)));
         venue4.setCityEntity(crudCityRepository.findByName("Sarajevo"));
         venue4.setPhone("+38733-654-321");
         venue4.setCreatedAt(LocalDateTime.now());
@@ -544,7 +1115,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudVenueRepository.save(venue4);
 
         HallEntity hall4 = new HallEntity();
-        hall4.setName("Hall 4");
+        hall4.setName("Hall 1");
         hall4.setVenueEntity(crudVenueRepository.findByName("Sarajevo Film Center"));
         hall4.setCreatedAt(LocalDateTime.now());
         hall4.setUpdatedAt(LocalDateTime.now());
@@ -808,7 +1379,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         projection18.setStartDate(LocalDate.now().plusDays(3));
         projection18.setEndDate(LocalDate.now().plusDays(10));
         projection18.setMovieEntity(crudMovieRepository.findByTitle("The Perfect Circle"));
-        projection18.setStartTime(new String[]{ startTimes[3], startTimes[5]});
+        projection18.setStartTime(new String[]{startTimes[3], startTimes[5]});
         projection18.setStatus("active");
         projection18.setCreatedAt(LocalDateTime.now());
         projection18.setUpdatedAt(LocalDateTime.now());
@@ -841,7 +1412,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         projection21.setStartDate(LocalDate.now().plusDays(1));
         projection21.setEndDate(LocalDate.now().plusDays(5));
         projection21.setMovieEntity(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring"));
-        projection21.setStartTime(new String[]{ startTimes[4], startTimes[5]});
+        projection21.setStartTime(new String[]{startTimes[4], startTimes[5]});
         projection21.setStatus("active");
         projection21.setCreatedAt(LocalDateTime.now());
         projection21.setUpdatedAt(LocalDateTime.now());
@@ -852,7 +1423,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         projection22.setStartDate(LocalDate.now().plusDays(3));
         projection22.setEndDate(LocalDate.now().plusDays(12));
         projection22.setMovieEntity(crudMovieRepository.findByTitle("Jurassic Park"));
-        projection22.setStartTime(new String[]{ startTimes[0], startTimes[5]});
+        projection22.setStartTime(new String[]{startTimes[0], startTimes[5]});
         projection22.setStatus("active");
         projection22.setCreatedAt(LocalDateTime.now());
         projection22.setUpdatedAt(LocalDateTime.now());
