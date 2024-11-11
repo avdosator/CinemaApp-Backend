@@ -7,6 +7,7 @@ import com.cinemaapp.backend.repository.entity.MovieEntity;
 import com.cinemaapp.backend.repository.entity.PhotoEntity;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.model.Photo;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -44,12 +46,7 @@ public class MovieJpaRepository implements MovieRepository {
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
         );
 
-//        for(MovieEntity movieEntity : movieEntities.getContent()) {
-//            movieEntity.
-//        }
-
-        Page<Movie> moviesPage =  PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
-        return moviesPage;
+        return this.setPhotos(PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel));
     }
 
     @Override
@@ -66,6 +63,19 @@ public class MovieJpaRepository implements MovieRepository {
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(), searchUpcomingMoviesRequest.getSize())
         );
-        return PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        return this.setPhotos(PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel));
+    }
+
+    // find photos for every movie
+    private Page<Movie> setPhotos(Page<Movie> moviesPage) {
+        for (Movie movie : moviesPage.getContent()) {
+            List<PhotoEntity> moviePhotoEntities = crudPhotoRepository.findByRefEntityId(movie.getId());
+            List<Photo> moviePhotos = new ArrayList<>();
+            for (PhotoEntity photo : moviePhotoEntities) {
+                moviePhotos.add(photo.toDomainModel());
+            }
+            movie.setPhotos(moviePhotos);
+        }
+        return moviesPage;
     }
 }

@@ -22,7 +22,7 @@ public class Movie {
     private final String status;
     private final List<Genre> genres;
     private final List<Projection> projections;
-    private final List<Photo> photos;
+    private List<Photo> photos;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
@@ -117,6 +117,10 @@ public class Movie {
 
     public List<Photo> getPhotos() {
         return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 
     public LocalDateTime getCreatedAt() {
