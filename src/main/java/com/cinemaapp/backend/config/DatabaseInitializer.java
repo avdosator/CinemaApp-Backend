@@ -1758,7 +1758,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo9 = new PhotoEntity();
         photo9.setEntityType("movie");
         photo9.setRefEntityId(crudMovieRepository.findByTitle("Pulp Fiction").getId());
-        photo9.setUrl("https://www.closeup-shop.com/media/oart_0/oart_p/oart_13731/thumbs/1277574_4609821.jpg");
+        photo9.setUrl("https://media.wired.com/photos/59323e2a52d99d6b984dd3f4/master/w_1920,c_limit/Pulp-Fiction.jpg");
         movie9.setCoverPhotoId(crudPhotoRepository.save(photo9).getId());
         crudMovieRepository.save(movie9);
 
@@ -1772,7 +1772,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo11 = new PhotoEntity();
         photo11.setEntityType("movie");
         photo11.setRefEntityId(crudMovieRepository.findByTitle("Fight Club").getId());
-        photo11.setUrl("https://static.wikia.nocookie.net/listofdeaths/images/2/26/Fight_Club.jpg/revision/latest?cb=20220911154126");
+        photo11.setUrl("https://media.newyorker.com/photos/5dbafcc91b4a6700085a7a9b/master/w_1920,c_limit/Baker-FightClub.jpg");
         movie11.setCoverPhotoId(crudPhotoRepository.save(photo11).getId());
         crudMovieRepository.save(movie11);
 
