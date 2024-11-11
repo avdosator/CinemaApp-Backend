@@ -20,12 +20,12 @@ public class MovieSpecification {
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
             if (selectedDate == null) {
                 return criteriaBuilder.and(
-                        criteriaBuilder.lessThan(projections.get("startDate"), LocalDate.now()),
+                        criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), LocalDate.now()),
                         criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), LocalDate.now())
                 );
             }
             return criteriaBuilder.and(
-                    criteriaBuilder.lessThan(projections.get("startDate"), LocalDate.now()),
+                    criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), LocalDate.now()),
                     criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), selectedDate)
             );
         };
