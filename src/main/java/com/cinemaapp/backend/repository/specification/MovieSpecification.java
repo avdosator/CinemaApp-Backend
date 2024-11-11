@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class MovieSpecification {
 
-    public static Specification<MovieEntity> hasCurrentlyShowingProjectionsUpTo(LocalDate selectedDate) {
+    public static Specification<MovieEntity> hasCurrentlyShowingProjectionsUpTo(LocalDate date) {
         return (root, query, criteriaBuilder) -> {
 
             // use distinct if some movie has more than one projection
@@ -18,7 +18,7 @@ public class MovieSpecification {
             }
 
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            if (selectedDate == null) {
+            if (date == null) {
                 return criteriaBuilder.and(
                         criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), LocalDate.now()),
                         criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), LocalDate.now())
@@ -26,7 +26,7 @@ public class MovieSpecification {
             }
             return criteriaBuilder.and(
                     criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), LocalDate.now()),
-                    criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), selectedDate)
+                    criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), date)
             );
         };
     }

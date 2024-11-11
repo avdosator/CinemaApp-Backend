@@ -7,7 +7,7 @@ public class SearchActiveMoviesRequest {
 
     private int page = 0;
     private int size = 1000;
-    private LocalDate selectedDate = null;
+    private LocalDate date = null;
     private String title = "";
     private UUID city = null;
     private UUID venue = null;
@@ -30,12 +30,12 @@ public class SearchActiveMoviesRequest {
         this.size = size;
     }
 
-    public LocalDate getSelectedDate() {
-        return selectedDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setSelectedDate(LocalDate selectedDate) {
-        this.selectedDate = selectedDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getTitle() {

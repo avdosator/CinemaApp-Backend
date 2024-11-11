@@ -35,7 +35,7 @@ public class MovieJpaRepository implements MovieRepository {
     @Override
     public Page<Movie> findActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest) {
         Specification<MovieEntity> specification = Specification
-                .where(MovieSpecification.hasCurrentlyShowingProjectionsUpTo(searchActiveMoviesRequest.getSelectedDate()))
+                .where(MovieSpecification.hasCurrentlyShowingProjectionsUpTo(searchActiveMoviesRequest.getDate()))
                 .and(MovieSpecification.hasTitleContaining(searchActiveMoviesRequest.getTitle()))
                 .and(MovieSpecification.hasProjectionInCity(searchActiveMoviesRequest.getCity()))
                 .and(MovieSpecification.hasProjectionInVenue(searchActiveMoviesRequest.getVenue()))
