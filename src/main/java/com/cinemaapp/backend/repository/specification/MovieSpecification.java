@@ -43,6 +43,14 @@ public class MovieSpecification {
             if (startDate == null && endDate == null) {
                 return criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now());
             }
+
+            // startDate can't be before today because upcoming movies are ones that start tomorrow or later
+            if (startDate != null && (startDate.isBefore(LocalDate.now()) && startDate.isEqual(LocalDate.now()))) {
+                return criteriaBuilder.and(
+                        criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now()),
+                        criteriaBuilder.between(projections.get("startDate"), LocalDate.now(), endDate)
+                );
+            }
             return criteriaBuilder.and(
                     criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now()),
                     criteriaBuilder.between(projections.get("startDate"), startDate, endDate)
