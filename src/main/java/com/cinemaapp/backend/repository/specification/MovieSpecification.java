@@ -44,16 +44,24 @@ public class MovieSpecification {
                 return criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now());
             }
 
-            // startDate can't be before today because upcoming movies are ones that start tomorrow or later
-            if (startDate != null && (startDate.isBefore(LocalDate.now()) && startDate.isEqual(LocalDate.now()))) {
-                return criteriaBuilder.and(
-                        criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now()),
-                        criteriaBuilder.between(projections.get("startDate"), LocalDate.now(), endDate)
-                );
-            }
             return criteriaBuilder.and(
+                    // Ensure projections start after today
                     criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now()),
-                    criteriaBuilder.between(projections.get("startDate"), startDate, endDate)
+
+                    // Check for any overlap with the date range
+                    criteriaBuilder.or(
+                            // 1. Projection starts within the range
+                            criteriaBuilder.between(projections.get("startDate"), startDate, endDate),
+
+                            // 2. Projection ends within the range
+                            criteriaBuilder.between(projections.get("endDate"), startDate, endDate),
+
+                            // 3. Projection fully encompasses the range
+                            criteriaBuilder.and(
+                                    criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), startDate),
+                                    criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), endDate)
+                            )
+                    )
             );
         };
     }
