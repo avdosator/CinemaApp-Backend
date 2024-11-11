@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface CrudPhotoRepository extends JpaRepository<PhotoEntity, UUID> {
     List<PhotoEntity> findByRefEntityId(UUID entityId);
+    PhotoEntity findPhotoByRefEntityId(UUID entityId);
 }
