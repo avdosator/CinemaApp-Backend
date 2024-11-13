@@ -1835,6 +1835,25 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie8.setCoverPhotoId(crudPhotoRepository.save(photo8).getId());
         crudMovieRepository.save(movie8);
 
+        PhotoEntity photo8a = new PhotoEntity();
+        photo8a.setEntityType("movie");
+        photo8a.setRefEntityId(crudMovieRepository.findByTitle("The Godfather").getId());
+        photo8a.setUrl("https://hips.hearstapps.com/hmg-prod/images/marlon-brando-receives-a-message-in-a-scene-from-the-film-news-photo-1578505030.jpg?crop=0.844xw:0.941xh;0.0862xw,0.0297xh&resize=980:*");
+        crudPhotoRepository.save(photo8a);
+
+        PhotoEntity photo8b = new PhotoEntity();
+        photo8b.setEntityType("movie");
+        photo8b.setRefEntityId(crudMovieRepository.findByTitle("The Godfather").getId());
+        photo8b.setUrl("https://i.guim.co.uk/img/media/a3472a9f15061211c479699cde33148982384cf3/0_156_2274_1364/master/2274.jpg?width=400&dpr=2&s=none&crop=none");
+        crudPhotoRepository.save(photo8b);
+
+        PhotoEntity photo8c = new PhotoEntity();
+        photo8c.setEntityType("movie");
+        photo8c.setRefEntityId(crudMovieRepository.findByTitle("The Godfather").getId());
+        photo8c.setUrl("https://static1.srcdn.com/wordpress/wp-content/uploads/2024/02/marlon-brando-in-the-godfather.jpeg?q=70&fit=crop&w=1140&h=&dpr=1");
+        crudPhotoRepository.save(photo8c);
+
+
         PhotoEntity photo9 = new PhotoEntity();
         photo9.setEntityType("movie");
         photo9.setRefEntityId(crudMovieRepository.findByTitle("Pulp Fiction").getId());
@@ -1877,6 +1896,13 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie14.setCoverPhotoId(crudPhotoRepository.save(photo14).getId());
         crudMovieRepository.save(movie14);
 
+        PhotoEntity photo14a = new PhotoEntity();
+        photo14a.setEntityType("movie");
+        photo14a.setRefEntityId(crudMovieRepository.findByTitle("Saving Private Ryan").getId());
+        photo14a.setUrl("https://i0.wp.com/thekonews.org/wp-content/uploads/2019/12/saving-private-ryan2.jpeg?w=720&ssl=1");
+        crudPhotoRepository.save(photo14a);
+
+
         PhotoEntity photo15 = new PhotoEntity();
         photo15.setEntityType("movie");
         photo15.setRefEntityId(crudMovieRepository.findByTitle("The Shawshank Redemption").getId());
@@ -1911,6 +1937,18 @@ public class DatabaseInitializer implements CommandLineRunner {
         photo19.setUrl("https://images.bauerhosting.com/legacy/media/6026/a037/4ef6/302f/a23a/5c22/sotl-3.jpg?ar=16%3A9&fit=crop&crop=top&auto=format&w=992&q=80");
         movie19.setCoverPhotoId(crudPhotoRepository.save(photo19).getId());
         crudMovieRepository.save(movie19);
+
+        PhotoEntity photo19a = new PhotoEntity();
+        photo19a.setEntityType("movie");
+        photo19a.setRefEntityId(crudMovieRepository.findByTitle("The Silence of the Lambs").getId());
+        photo19a.setUrl("https://www.womansworld.com/wp-content/uploads/2024/05/the-silence-of-the-lambs_a63a59cf.jpg?w=1200&h=675&crop=1&quality=86&strip=all");
+        crudPhotoRepository.save(photo19a);
+
+        PhotoEntity photo19b = new PhotoEntity();
+        photo19b.setEntityType("movie");
+        photo19b.setRefEntityId(crudMovieRepository.findByTitle("The Silence of the Lambs").getId());
+        photo19b.setUrl("https://static1.srcdn.com/wordpress/wp-content/uploads/2024/10/imagery-from-the-silence-of-the-lambs.jpg?q=70&fit=crop&w=1140&h=&dpr=1");
+        crudPhotoRepository.save(photo19b);
 
         PhotoEntity photo20 = new PhotoEntity();
         photo20.setEntityType("movie");
@@ -2002,6 +2040,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         photo32.setUrl("https://www.rogerebert.com/wp-content/uploads/2024/07/The-Grand-Budapest-Hotel.jpg");
         movie32.setCoverPhotoId(crudPhotoRepository.save(photo32).getId());
         crudMovieRepository.save(movie32);
+
+        PhotoEntity photo32a = new PhotoEntity();
+        photo32a.setEntityType("movie");
+        photo32a.setRefEntityId(crudMovieRepository.findByTitle("The Grand Budapest Hotel").getId());
+        photo32a.setUrl("https://media.vanityfair.com/photos/53165b4aaf91042e2000002d/master/w_1920,c_limit/grand-budapest-hotel-review.jpg");
+        crudPhotoRepository.save(photo32a);
 
         PhotoEntity photo33 = new PhotoEntity();
         photo33.setEntityType("movie");
