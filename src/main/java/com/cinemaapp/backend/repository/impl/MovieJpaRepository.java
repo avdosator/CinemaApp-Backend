@@ -19,7 +19,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class MovieJpaRepository implements MovieRepository {
@@ -46,8 +48,10 @@ public class MovieJpaRepository implements MovieRepository {
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
         );
-
-        return this.setPhotos(PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel));
+        Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        List<PhotoEntity> allPhotos = crudPhotoRepository.findAll();
+        movies = mapPhotosToMovies(movies, allPhotos);
+        return movies;
     }
 
     @Override
@@ -64,25 +68,37 @@ public class MovieJpaRepository implements MovieRepository {
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(), searchUpcomingMoviesRequest.getSize())
         );
-        return this.setPhotos(PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel));
+
+        Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        List<PhotoEntity> allPhotos = crudPhotoRepository.findAll();
+        movies = mapPhotosToMovies(movies, allPhotos);
+        return movies;
     }
 
     @Override
     public Movie findById(UUID id) {
         MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
-        return movieEntity.toDomainModel();
+        Movie movie = movieEntity.toDomainModel();
+        List<PhotoEntity> photoEntities = crudPhotoRepository.findByRefEntityId(movieEntity.getId());
+        List<Photo> moviePhotos = new ArrayList<>();
+        for (PhotoEntity photoEntity : photoEntities) {
+            moviePhotos.add(photoEntity.toDomainModel());
+        }
+        movie.setPhotos(moviePhotos);
+        return movie;
     }
 
-    // find photos for every movie
-    private Page<Movie> setPhotos(Page<Movie> moviesPage) {
-        for (Movie movie : moviesPage.getContent()) {
-            List<PhotoEntity> moviePhotoEntities = crudPhotoRepository.findByRefEntityId(movie.getId());
-            List<Photo> moviePhotos = new ArrayList<>();
-            for (PhotoEntity photo : moviePhotoEntities) {
-                moviePhotos.add(photo.toDomainModel());
-            }
+    public Page<Movie> mapPhotosToMovies(Page<Movie> movies, List<PhotoEntity> allPhotos) {
+        // Convert PhotoEntity to Photo and group them by refEntityId in a Map
+        Map<UUID, List<Photo>> photosByMovieId = allPhotos.stream()
+                .map(PhotoEntity::toDomainModel)
+                .collect(Collectors.groupingBy(Photo::getRefEntityId));
+
+        // Assign photos to each movie by fetching from the map
+        for (Movie movie : movies.getContent()) {
+            List<Photo> moviePhotos = photosByMovieId.getOrDefault(movie.getId(), new ArrayList<>());
             movie.setPhotos(moviePhotos);
         }
-        return moviesPage;
+        return movies;
     }
 }
