@@ -16,6 +16,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Repository
 public class VenueJpaRepository implements VenueRepository {
 
@@ -36,14 +41,22 @@ public class VenueJpaRepository implements VenueRepository {
         org.springframework.data.domain.Page<VenueEntity> venueEntities = crudVenueRepository.findAll(
                 specification, PageRequest.of(searchVenuesRequest.getPage(), searchVenuesRequest.getSize())
         );
-        return this.setPhotos(PageConverter.convertToPage(venueEntities, VenueEntity::toDomainModel));
-    }
+        Page<Venue> venuePage = PageConverter.convertToPage(venueEntities, VenueEntity::toDomainModel);
 
-    private Page<Venue> setPhotos(Page<Venue> venuePage) {
+        // Collect Venue IDs from the page content
+        List<UUID> venueIds = venuePage.getContent().stream()
+                .map(Venue::getId)
+                .collect(Collectors.toList());
+
+        List<PhotoEntity> venuePhotos = crudPhotoRepository.findAllByRefEntityIdIn(venueIds);
+
+        // Map each Venue ID to its corresponding Photo
+        Map<UUID, Photo> photosByVenueId = venuePhotos.stream()
+                .collect(Collectors.toMap(PhotoEntity::getRefEntityId, PhotoEntity::toDomainModel));
+
+        //  Assign the photo to each venue in the page
         for (Venue venue : venuePage.getContent()) {
-            PhotoEntity venuePhotoEntity = crudPhotoRepository.findPhotoByRefEntityId(venue.getId());
-            Photo photo = venuePhotoEntity.toDomainModel();
-            venue.setPhoto(photo);
+            venue.setPhoto(photosByVenueId.get(venue.getId()));
         }
         return venuePage;
     }
