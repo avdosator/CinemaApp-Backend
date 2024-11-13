@@ -9,6 +9,8 @@ import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -27,5 +29,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         return movieRepository.findUpcomingMovies(searchUpcomingMoviesRequest);
+    }
+
+    @Override
+    public Movie findById(UUID id) {
+        return movieRepository.findById(id);
     }
 }

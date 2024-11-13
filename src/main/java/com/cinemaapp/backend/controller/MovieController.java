@@ -8,6 +8,8 @@ import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/movies")
 @ControllerAdvice
@@ -28,5 +30,10 @@ public class MovieController {
     @GetMapping("/upcoming")
     public Page<Movie> getUpcomingMovies(@ModelAttribute SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         return movieService.findUpcomingMovies(searchUpcomingMoviesRequest);
+    }
+
+    @GetMapping("/{id}")
+    public Movie getMovieById(@PathVariable UUID id) {
+        return movieService.findById(id);
     }
 }

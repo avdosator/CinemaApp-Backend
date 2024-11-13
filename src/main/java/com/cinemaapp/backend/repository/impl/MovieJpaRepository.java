@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class MovieJpaRepository implements MovieRepository {
@@ -64,6 +65,12 @@ public class MovieJpaRepository implements MovieRepository {
                 specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(), searchUpcomingMoviesRequest.getSize())
         );
         return this.setPhotos(PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel));
+    }
+
+    @Override
+    public Movie findById(UUID id) {
+        MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
+        return movieEntity.toDomainModel();
     }
 
     // find photos for every movie
