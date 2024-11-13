@@ -9,38 +9,60 @@ import java.util.UUID;
 
 public class MovieSpecification {
 
-    public static Specification<MovieEntity> hasActiveProjection() {
+    public static Specification<MovieEntity> hasCurrentlyShowingProjectionsUpTo(LocalDate date) {
         return (root, query, criteriaBuilder) -> {
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            // Check if any projection has status "active"
-            return criteriaBuilder.equal(projections.get("status"), "active");
-        };
-    }
-
-    public static Specification<MovieEntity> hasUpcomingProjection() {
-        return (root, query, criteriaBuilder) -> {
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            return criteriaBuilder.equal(projections.get("status"), "upcoming");
-        };
-    }
-
-    public static Specification<MovieEntity> hasProjectionStartingWithinRange(LocalDate startDate, LocalDate endDate) {
-        return (root, query, criteriaBuilder) -> {
-            if (startDate == null) {
-                return null;
-            }
 
             // use distinct if some movie has more than one projection
             if (query != null) {
                 query.distinct(true);
             }
 
-            // if endDate is not provided return movies with upcoming projections -> startDate(today + 10 days or more)
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            if (endDate == null) {
-                return criteriaBuilder.greaterThanOrEqualTo(projections.get("startDate"), startDate);
+            if (date == null) {
+                return criteriaBuilder.and(
+                        criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), LocalDate.now()),
+                        criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), LocalDate.now())
+                );
             }
-            return criteriaBuilder.between(projections.get("startDate"), startDate, endDate);
+            return criteriaBuilder.and(
+                    criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), LocalDate.now()),
+                    criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), date)
+            );
+        };
+    }
+
+    public static Specification<MovieEntity> hasUpcomingProjectionsInRange(LocalDate startDate, LocalDate endDate) {
+        return (root, query, criteriaBuilder) -> {
+
+            // use distinct if some movie has more than one projection
+            if (query != null) {
+                query.distinct(true);
+            }
+
+            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
+            if (startDate == null && endDate == null) {
+                return criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now());
+            }
+
+            return criteriaBuilder.and(
+                    // Ensure projections start after today
+                    criteriaBuilder.greaterThan(projections.get("startDate"), LocalDate.now()),
+
+                    // Check for any overlap with the date range
+                    criteriaBuilder.or(
+                            // 1. Projection starts within the range
+                            criteriaBuilder.between(projections.get("startDate"), startDate, endDate),
+
+                            // 2. Projection ends within the range
+                            criteriaBuilder.between(projections.get("endDate"), startDate, endDate),
+
+                            // 3. Projection fully encompasses the range
+                            criteriaBuilder.and(
+                                    criteriaBuilder.lessThanOrEqualTo(projections.get("startDate"), startDate),
+                                    criteriaBuilder.greaterThanOrEqualTo(projections.get("endDate"), endDate)
+                            )
+                    )
+            );
         };
     }
 
@@ -95,16 +117,6 @@ public class MovieSpecification {
             }
             Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
             return criteriaBuilder.like(projections.get("startTimeString"), "%" + time + "%");
-        };
-    }
-
-    public static Specification<MovieEntity> hasProjectionOnDate(LocalDate date) {
-        return (root, query, criteriaBuilder) -> {
-            if (date == null) {
-                return null; // Skip this filter if date is not provided
-            }
-            Join<MovieEntity, ProjectionEntity> projections = root.join("projectionEntities");
-            return criteriaBuilder.equal(projections.get("startDate"), date);
         };
     }
 }

@@ -13,10 +13,12 @@ public class Venue {
     private final City city;
     private final List<Hall> halls;
     private final String phone;
+    private Photo photo;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public Venue(UUID id, String name, String street, String streetNumber, City city, List<Hall> halls, String phone, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Venue(UUID id, String name, String street, String streetNumber, City city, List<Hall> halls, String phone,
+                 LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.street = street;
@@ -54,6 +56,14 @@ public class Venue {
 
     public String getPhone() {
         return phone;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
     public LocalDateTime getCreatedAt() {

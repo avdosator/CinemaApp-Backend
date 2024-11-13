@@ -3,13 +3,10 @@ package com.cinemaapp.backend.service.domain.request;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class SearchMoviesRequest {
+public class SearchActiveMoviesRequest {
 
     private int page = 0;
     private int size = 1000;
-    private String status = "";
-    private LocalDate startDate = null;
-    private LocalDate endDate = null;
     private LocalDate date = null;
     private String title = "";
     private UUID city = null;
@@ -31,30 +28,6 @@ public class SearchMoviesRequest {
 
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
     }
 
     public LocalDate getDate() {

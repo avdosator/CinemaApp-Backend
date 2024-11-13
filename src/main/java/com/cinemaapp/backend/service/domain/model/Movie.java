@@ -12,8 +12,8 @@ public class Movie {
     private final String director;
     private final String pgRating;
     private final int durationInMinutes;
-    private final List<String> writers;
-    private final List<String> actors;
+    private final String[] writers;
+    private final String[] actors;
     private final double imdbRating;
     private final double rottenTomatoesRating;
     private final String synopsis;
@@ -22,12 +22,12 @@ public class Movie {
     private final String status;
     private final List<Genre> genres;
     private final List<Projection> projections;
-    private final List<Photo> photos;
+    private List<Photo> photos;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes,
-          List<String> writers, List<String> actors, double imdbRating, double rottenTomatoesRating, String synopsis,
+          String[] writers, String[] actors, double imdbRating, double rottenTomatoesRating, String synopsis,
           String trailerUrl, UUID coverPhotoId, String status, List<Genre> genres, List<Projection> projections,
           List<Photo> photos, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
@@ -75,11 +75,11 @@ public class Movie {
         return durationInMinutes;
     }
 
-    public List<String> getWriters() {
+    public String[] getWriters() {
         return writers;
     }
 
-    public List<String> getActors() {
+    public String[] getActors() {
         return actors;
     }
 
@@ -119,6 +119,10 @@ public class Movie {
         return photos;
     }
 
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -138,8 +142,8 @@ public class Movie {
         private String director;
         private String pgRating;
         private int durationInMinutes;
-        private List<String> writers;
-        private List<String> actors;
+        private String[] writers;
+        private String[] actors;
         private double imdbRating;
         private double rottenTomatoesRating;
         private String synopsis;
@@ -185,12 +189,12 @@ public class Movie {
             return this;
         }
 
-        public MovieBuilder writers(List<String> writers) {
+        public MovieBuilder writers(String[] writers) {
             this.writers = writers;
             return this;
         }
 
-        public MovieBuilder actors(List<String> actors) {
+        public MovieBuilder actors(String[] actors) {
             this.actors = actors;
             return this;
         }

@@ -2,7 +2,6 @@ package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Genre;
 import com.cinemaapp.backend.service.domain.model.Movie;
-import com.cinemaapp.backend.service.domain.model.Photo;
 import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -39,10 +38,10 @@ public class MovieEntity {
     private int durationInMinutes;
 
     @Column(name = "writers")
-    private List<String> writers;
+    private String[] writers;
 
     @Column(name = "actors")
-    private List<String> actors;
+    private String[] actors;
 
     @Column(name = "imdb_rating")
     private double imdbRating;
@@ -72,10 +71,6 @@ public class MovieEntity {
 
     @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "entity_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private List<PhotoEntity> photoEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -131,19 +126,19 @@ public class MovieEntity {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public List<String> getWriters() {
+    public String[] getWriters() {
         return writers;
     }
 
-    public void setWriters(List<String> writers) {
+    public void setWriters(String[] writers) {
         this.writers = writers;
     }
 
-    public List<String> getActors() {
+    public String[] getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(String[] actors) {
         this.actors = actors;
     }
 
@@ -219,14 +214,6 @@ public class MovieEntity {
         this.createdAt = createdAt;
     }
 
-    public List<PhotoEntity> getPhotoEntities() {
-        return photoEntities;
-    }
-
-    public void setPhotoEntities(List<PhotoEntity> photoEntities) {
-        this.photoEntities = photoEntities;
-    }
-
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -244,11 +231,6 @@ public class MovieEntity {
                 .map(ProjectionEntity::toDomainModel)
                 .toList());
 
-        List<Photo> photos = (this.photoEntities == null ?
-                Collections.emptyList() : this.photoEntities.stream()
-                .map(PhotoEntity::toDomainModel)
-                .toList());
-
         return Movie.builder()
                 .id(this.id)
                 .title(this.title)
@@ -256,17 +238,17 @@ public class MovieEntity {
                 .director(this.director)
                 .pgRating(this.pgRating)
                 .durationInMinutes(this.durationInMinutes)
-                //.writers(this.writers)
-                //.actors(this.actors)
-                //.imdbRating(this.imdbRating)
-                //.rottenTomatoesRating(this.rottenTomatoesRating)
+                .writers(this.writers)
+                .actors(this.actors)
+                .imdbRating(this.imdbRating)
+                .rottenTomatoesRating(this.rottenTomatoesRating)
                 .synopsis(this.synopsis)
-                //.trailerUrl(this.trailerUrl)
-                //.coverPhotoId(this.coverPhotoId)
+                .trailerUrl(this.trailerUrl)
+                .coverPhotoId(this.coverPhotoId)
                 //.status(this.status)
                 .genres(genres)
                 .projections(projections)
-                .photos(photos)
+                //.photos(photos)
                 //.createdAt(this.createdAt)
                 //.updatedAt(this.updatedAt)
                 .build();

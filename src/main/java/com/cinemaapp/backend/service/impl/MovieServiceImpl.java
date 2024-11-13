@@ -4,9 +4,12 @@ import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
-import com.cinemaapp.backend.service.domain.request.SearchMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -19,17 +22,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<Movie> findMovies(SearchMoviesRequest searchMoviesRequest) {
-        return movieRepository.findMovies(searchMoviesRequest);
+    public Page<Movie> findActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest) {
+        return movieRepository.findActiveMovies(searchActiveMoviesRequest);
     }
 
     @Override
-    public Page<Movie> findAllActiveMovies() {
-        return movieRepository.findAllActiveMovies();
+    public Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
+        return movieRepository.findUpcomingMovies(searchUpcomingMoviesRequest);
     }
 
     @Override
-    public Page<Movie> findAllUpcomingMovies() {
-        return movieRepository.findAllUpcomingMovies();
+    public Movie findById(UUID id) {
+        return movieRepository.findById(id);
     }
 }
