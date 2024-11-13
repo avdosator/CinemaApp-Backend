@@ -8,6 +8,7 @@ import com.cinemaapp.backend.repository.entity.PhotoEntity;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.Photo;
+import com.cinemaapp.backend.service.domain.model.Venue;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
@@ -49,7 +50,10 @@ public class MovieJpaRepository implements MovieRepository {
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
         );
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
-        List<PhotoEntity> allPhotos = crudPhotoRepository.findAll();
+        List<UUID> movieIds = movies.getContent().stream()
+                .map(Movie::getId)
+                .toList();
+        List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
         movies = mapPhotosToMovies(movies, allPhotos);
         return movies;
     }
@@ -70,7 +74,12 @@ public class MovieJpaRepository implements MovieRepository {
         );
 
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
-        List<PhotoEntity> allPhotos = crudPhotoRepository.findAll();
+
+        // Collect Venue IDs from the page content
+        List<UUID> movieIds = movies.getContent().stream()
+                .map(Movie::getId)
+                .toList();
+        List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
         movies = mapPhotosToMovies(movies, allPhotos);
         return movies;
     }
