@@ -145,6 +145,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Giovanni Ribisi/Parker",
                 "Michelle Rodriguez/Trudy"
         });
+        movie1.setImdbRating(7.9);
+        movie1.setRottenTomatoesRating(7.9);
         movie1.setSynopsis("A paraplegic Marine dispatched to the moon Pandora becomes torn between following his orders and protecting the world he feels is his home.");
         movie1.setTrailerUrl("https://www.youtube.com/watch?v=d9MyW72ELq0");
         movie1.setStatus("active");
@@ -169,6 +171,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Ken Watanabe/Saito",
                 "Cillian Murphy/Robert"
         });
+        movie2.setImdbRating(8.8);
+        movie2.setRottenTomatoesRating(8.8);
         movie2.setSynopsis("A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.");
         movie2.setTrailerUrl("https://www.youtube.com/watch?v=YoHD9XEInc0");
         movie2.setStatus("active");
@@ -192,6 +196,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Frances Fisher/Ruth",
                 "Danny Nucci/Fabrizio"
         });
+        movie3.setImdbRating(7.9);
+        movie3.setRottenTomatoesRating(7.9);
         movie3.setSynopsis("A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.");
         movie3.setTrailerUrl("https://www.youtube.com/watch?v=kVrqfYjkTdQ");
         movie3.setStatus("active");
@@ -215,6 +221,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Maggie Gyllenhaal/Rachel",
                 "Gary Oldman/Jim"
         });
+        movie4.setImdbRating(9.0);
+        movie4.setRottenTomatoesRating(9.0);
         movie4.setSynopsis("When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.");
         movie4.setTrailerUrl("https://www.youtube.com/watch?v=EXeTwQWrcwY");
         movie4.setStatus("active");
@@ -238,6 +246,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Gloria Foster/The Oracle",
                 "Joe Pantoliano/Cypher"
         });
+        movie5.setImdbRating(8.7);
+        movie5.setRottenTomatoesRating(8.7);
         movie5.setSynopsis("A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.");
         movie5.setTrailerUrl("https://www.youtube.com/watch?v=vKQi3bBA1y8");
         movie5.setStatus("active");
@@ -261,6 +271,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Casey Affleck/Tom",
                 "Mackenzie Foy/Murph"
         });
+        movie6.setImdbRating(8.6);
+        movie6.setRottenTomatoesRating(8.6);
         movie6.setSynopsis("A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.");
         movie6.setTrailerUrl("https://www.youtube.com/watch?v=2LqzF5WauAw");
         movie6.setStatus("active");
@@ -284,6 +296,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Derek Jacobi/Gracchus",
                 "Djimon Hounsou/Juba"
         });
+        movie7.setImdbRating(8.5);
+        movie7.setRottenTomatoesRating(8.5);
         movie7.setSynopsis("A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.");
         movie7.setTrailerUrl("https://www.youtube.com/watch?v=P5ieIbInFpg");
         movie7.setStatus("active");
@@ -307,6 +321,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Robert Duvall/Tom",
                 "Diane Keaton/Kay"
         });
+        movie8.setImdbRating(9.2);
+        movie8.setRottenTomatoesRating(9.2);
         movie8.setSynopsis("The aging patriarch of an organized crime dynasty transfers control of his empire to his reluctant son.");
         movie8.setTrailerUrl("https://www.youtube.com/watch?v=UaVTIH8mujA");
         movie8.setStatus("active");
@@ -330,6 +346,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Ving Rhames/Marsellus",
                 "Harvey Keitel/Winston"
         });
+        movie9.setImdbRating(8.9);
+        movie9.setRottenTomatoesRating(8.9);
         movie9.setSynopsis("The lives of two mob hitmen, a boxer, a gangster, and his wife intertwine in four tales of violence and redemption.");
         movie9.setTrailerUrl("https://www.youtube.com/watch?v=tGpTpVyI_OQ");
         movie9.setStatus("active");
@@ -353,6 +371,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Jonathan Sagall/Poldek",
                 "Embeth Davidtz/Helen"
         });
+        movie10.setImdbRating(9.0);
+        movie10.setRottenTomatoesRating(9.0);
         movie10.setSynopsis("In German-occupied Poland during World War II, industrialist Oskar Schindler saves the lives of more than a thousand Jews by employing them in his factories.");
         movie10.setTrailerUrl("https://www.youtube.com/watch?v=mxphAlJID9U");
         movie10.setStatus("active");
@@ -376,6 +396,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Jared Leto/Angel Face",
                 "Zach Grenier/Richard"
         });
+        movie11.setImdbRating(8.8);
+        movie11.setRottenTomatoesRating(8.8);
         movie11.setSynopsis("An insomniac office worker and a soapmaker form an underground fight club that evolves into something much more.");
         movie11.setTrailerUrl("https://www.youtube.com/watch?v=BdJKm16Co6M");
         movie11.setStatus("active");
@@ -399,6 +421,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Mykelti Williamson/Bubba",
                 "Michael Conner Humphreys/Young Forrest"
         });
+        movie12.setImdbRating(8.8);
+        movie12.setRottenTomatoesRating(8.8);
         movie12.setSynopsis("The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of a man with a low IQ.");
         movie12.setTrailerUrl("https://www.youtube.com/watch?v=bLvqoHBptj");
         movie12.setStatus("active");
@@ -422,6 +446,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Rowan Atkinson/Zazu",
                 "Whoopi Goldberg/Shenzi"
         });
+        movie13.setImdbRating(8.5);
+        movie13.setRottenTomatoesRating(8.5);
         movie13.setSynopsis("Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.");
         movie13.setTrailerUrl("https://www.youtube.com/watch?v=o17MF9vnabg");
         movie13.setStatus("active");
@@ -445,6 +471,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Barry Pepper/Daniel",
                 "Giovanni Ribisi/Irwin"
         });
+        movie14.setImdbRating(8.6);
+        movie14.setRottenTomatoesRating(8.6);
         movie14.setSynopsis("Following the Normandy Landings, a group of U.S. soldiers go behind enemy lines to retrieve a paratrooper whose brothers have been killed in action.");
         movie14.setTrailerUrl("https://www.youtube.com/watch?v=9CiW_DgxCnQ");
         movie14.setStatus("active");
@@ -468,6 +496,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Clancy Brown/Hadley",
                 "Gil Bellows/Tommy"
         });
+        movie15.setImdbRating(9.3);
+        movie15.setRottenTomatoesRating(9.3);
         movie15.setSynopsis("Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.");
         movie15.setTrailerUrl("https://www.youtube.com/watch?v=PLl99DlL6b4");
         movie15.setStatus("active");
@@ -491,6 +521,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "James Cromwell/Hal",
                 "Doug Hutchison/Percy"
         });
+        movie16.setImdbRating(8.6);
+        movie16.setRottenTomatoesRating(8.6);
         movie16.setSynopsis("The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder and rape, yet who has a mysterious gift.");
         movie16.setTrailerUrl("https://www.youtube.com/watch?v=Ki4haFrqSrw");
         movie16.setStatus("active");
@@ -514,6 +546,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Scarlett Johansson/Black Widow",
                 "Jeremy Renner/Hawkeye"
         });
+        movie17.setImdbRating(8.0);
+        movie17.setRottenTomatoesRating(8.0);
         movie17.setSynopsis("Earth's mightiest heroes must come together and learn to fight as a team to stop the mischievous Loki and his alien army from enslaving humanity.");
         movie17.setTrailerUrl("https://www.youtube.com/watch?v=eOrNdBpGMv8s");
         movie17.setStatus("active");
@@ -537,6 +571,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Bob Peck/Robert",
                 "Martin Ferrero/Donald"
         });
+        movie18.setImdbRating(8.2);
+        movie18.setRottenTomatoesRating(8.2);
         movie18.setSynopsis("A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.");
         movie18.setTrailerUrl("https://www.youtube.com/watch?v=RFinNxS5KN4");
         movie18.setStatus("active");
@@ -560,6 +596,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Anthony Heald/Frederick",
                 "Brooke Smith/Catherine"
         });
+        movie19.setImdbRating(8.6);
+        movie19.setRottenTomatoesRating(8.6);
         movie19.setSynopsis("A young F.B.I. cadet must receive the help of an incarcerated and manipulative cannibal killer to catch another serial killer, a madman who skins his victims.");
         movie19.setTrailerUrl("https://www.youtube.com/watch?v=W6Mm8Sbe__o");
         movie19.setStatus("active");
@@ -583,6 +621,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Orlando Bloom/Legolas",
                 "John Rhys-Davies/Gimli"
         });
+        movie20.setImdbRating(8.8);
+        movie20.setRottenTomatoesRating(8.8);
         movie20.setSynopsis("A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.");
         movie20.setTrailerUrl("https://www.youtube.com/watch?v=r5X-hFf6Bwo");
         movie20.setStatus("active");
@@ -607,6 +647,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Katrin Cartlidge/Jane",
                 "Simon Callow/Soft"
         });
+        movie21.setImdbRating(7.9);
+        movie21.setRottenTomatoesRating(7.9);
         movie21.setSynopsis("Bosnian and Serbian soldiers find themselves trapped in no man's land during the Bosnian War.");
         movie21.setTrailerUrl("https://www.youtube.com/watch?v=nP3ofimxD7Q");
         movie21.setStatus("active");
@@ -630,6 +672,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Dejan Aćimović/Cengo",
                 "Jasna Beri/Rabija"
         });
+        movie22.setImdbRating(8.0);
+        movie22.setRottenTomatoesRating(8.0);
         movie22.setSynopsis("A single mother struggles to raise her daughter in post-war Sarajevo while hiding a painful secret.");
         movie22.setTrailerUrl("hhttps://www.youtube.com/watch?v=hQiMvSdLk_4");
         movie22.setStatus("active");
@@ -653,6 +697,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Johan Heldenbergh/Thor",
                 "Raymond Thiry/General"
         });
+        movie23.setImdbRating(7.9);
+        movie23.setRottenTomatoesRating(7.9);
         movie23.setSynopsis("A UN translator tries to save her family during the Srebrenica massacre.");
         movie23.setTrailerUrl("https://www.youtube.com/watch?v=ErLD8P4VUjY");
         movie23.setStatus("active");
@@ -675,6 +721,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Dragan Marinković/Dado",
                 "Minka Muftić/Ruža"
         });
+        movie24.setImdbRating(8.1);
+        movie24.setRottenTomatoesRating(8.1);
         movie24.setSynopsis("A poet in Sarajevo shelters two orphans during the siege of the city.");
         movie24.setTrailerUrl("https://www.youtube.com/watch?v=0GFyJlptAWY");
         movie24.setStatus("active");
@@ -699,6 +747,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Elvedin Mrkonjić/Elvedin",
                 "Ivica Mrkonjić/Ivica"
         });
+        movie25.setImdbRating(6.8);
+        movie25.setRottenTomatoesRating(6.8);
         movie25.setSynopsis("A poor Roma family faces a medical crisis and struggles for survival.");
         movie25.setTrailerUrl("https://www.youtube.com/watch?v=KzSbjPjEUBg");
         movie25.setStatus("active");
@@ -721,6 +771,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Aleksandar Seksan/Ratko",
                 "Mirsad Tuka/Rosko"
         });
+        movie26.setImdbRating(6.8);
+        movie26.setRottenTomatoesRating(6.8);
         movie26.setDirector("Srđan Vuletić");
         movie26.setSynopsis("Fudo, a Sarajevo taxi driver, tries to change his life and go straight. But turning away from crime in post-war Bosnia proves difficult.");
         movie26.setTrailerUrl("https://www.youtube.com/watch?v=-Kwh2EDIcN4");
@@ -745,6 +797,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Aleksandar Seksan/Cico",
                 "Admir Glamočak/Klupa"
         });
+        movie27.setImdbRating(7.1);
+        movie27.setRottenTomatoesRating(7.1);
         movie27.setSynopsis("A group of friends in Bosnia decides to pursue quick wealth and excitement, getting tangled in the complex world of crime.");
         movie27.setTrailerUrl("https://www.youtube.com/watch?v=UieYbSsqQC0");
         movie27.setStatus("active");
@@ -768,6 +822,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Park So-dam/Ki-jung",
                 "Jang Hye-jin/Chung-sook"
         });
+        movie28.setImdbRating(8.5);
+        movie28.setRottenTomatoesRating(8.5);
         movie28.setSynopsis("A poor family schemes to become employed by a wealthy family by infiltrating their household.");
         movie28.setTrailerUrl("https://www.youtube.com/watch?v=5xH0HfJHsaY");
         movie28.setStatus("active");
@@ -791,6 +847,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Yasuko Sawaguchi/Mother",
                 "Tatsuya Gashuin/Kamaji"
         });
+        movie29.setImdbRating(8.6);
+        movie29.setRottenTomatoesRating(8.6);
         movie29.setSynopsis("A young girl becomes trapped in a strange world of spirits and must find her way out.");
         movie29.setTrailerUrl("https://www.youtube.com/watch?v=ByXuk9QqQkk");
         movie29.setStatus("active");
@@ -814,6 +872,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Emilia Fox/Dorota",
                 "Ed Stoppard/Henryk"
         });
+        movie30.setImdbRating(8.5);
+        movie30.setRottenTomatoesRating(8.5);
         movie30.setSynopsis("A Polish Jewish musician struggles to survive the destruction of the Warsaw ghetto in World War II.");
         movie30.setTrailerUrl("https://www.youtube.com/watch?v=u_jE7-6Uv7E");
         movie30.setStatus("active");
@@ -837,6 +897,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Renee Victor/Abuelita",
                 "Ana Ofelia Murguia/Imelda"
         });
+        movie31.setImdbRating(8.4);
+        movie31.setRottenTomatoesRating(8.4);
         movie31.setSynopsis("A boy accidentally travels to the Land of the Dead to seek help to restore his family's love of music.");
         movie31.setTrailerUrl("https://www.youtube.com/watch?v=Ga6RYejo6Hk");
         movie31.setStatus("active");
@@ -860,6 +922,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Willem Dafoe/J.G.",
                 "Saoirse Ronan/Agatha"
         });
+        movie32.setImdbRating(8.1);
+        movie32.setRottenTomatoesRating(8.1);
         movie32.setSynopsis("A writer encounters the owner of an aging hotel and hears his tale of adventure.");
         movie32.setTrailerUrl("https://www.youtube.com/watch?v=1Fg5iWmQjwk");
         movie32.setStatus("active");
@@ -883,6 +947,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Austin Stowell/Ryan",
                 "Nate Lang/Carl"
         });
+        movie33.setImdbRating(8.5);
+        movie33.setRottenTomatoesRating(8.5);
         movie33.setSynopsis("A young drummer's ambitious pursuit of perfection brings him face to face with a demanding instructor.");
         movie33.setTrailerUrl("https://www.youtube.com/watch?v=7d_jQycdQGo");
         movie33.setStatus("active");
@@ -906,6 +972,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Alba Gaïa Bellugi/Elisa",
                 "Cyril Mendy/Adama"
         });
+        movie34.setImdbRating(8.5);
+        movie34.setRottenTomatoesRating(8.5);
         movie34.setSynopsis("After a paragliding accident, an aristocrat hires a young man from the projects to be his caregiver.");
         movie34.setTrailerUrl("https://www.youtube.com/watch?v=34WIbmXkewU");
         movie34.setStatus("active");
@@ -929,6 +997,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Josh Helman/Slit",
                 "Nathan Jones/Rictus"
         });
+        movie35.setImdbRating(8.1);
+        movie35.setRottenTomatoesRating(8.1);
         movie35.setSynopsis("In a post-apocalyptic wasteland, a woman rebels against a tyrant in search of her homeland.");
         movie35.setTrailerUrl("https://www.youtube.com/watch?v=hEJnMQG9ev8");
         movie35.setStatus("active");
@@ -952,6 +1022,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Lewis Black/Anger",
                 "Mindy Kaling/Disgust"
         });
+        movie36.setImdbRating(8.1);
+        movie36.setRottenTomatoesRating(8.1);
         movie36.setSynopsis("After young Riley is uprooted from her Midwest life, her emotions struggle to adjust.");
         movie36.setTrailerUrl("https://www.youtube.com/watch?v=yRUAzGQ3nSY");
         movie36.setStatus("active");
@@ -975,6 +1047,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Forrest Goodluck/Hawk",
                 "Paul Anderson/Anderson"
         });
+        movie37.setImdbRating(8.0);
+        movie37.setRottenTomatoesRating(8.0);
         movie37.setSynopsis("A frontiersman fights for survival after being left for dead by his hunting team.");
         movie37.setTrailerUrl("https://www.youtube.com/watch?v=LoebZZ8K5N0");
         movie37.setStatus("active");
@@ -998,6 +1072,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Olivia Wilde/Blind",
                 "Chris Pratt/Paul"
         });
+        movie38.setImdbRating(8.0);
+        movie38.setRottenTomatoesRating(8.0);
         movie38.setSynopsis("In a near future, a lonely writer develops an unlikely relationship with an operating system.");
         movie38.setTrailerUrl("https://www.youtube.com/watch?v=ne6p6MfLBxc");
         movie38.setStatus("active");
@@ -1021,6 +1097,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "J.K. Simmons/Bill",
                 "Amiee Conn/Lisa"
         });
+        movie39.setImdbRating(8.0);
+        movie39.setRottenTomatoesRating(8.0);
         movie39.setSynopsis("While navigating their careers in Los Angeles, a pianist and an actress fall in love.");
         movie39.setTrailerUrl("https://www.youtube.com/watch?v=0pdqf4P9MB8");
         movie39.setStatus("active");
@@ -1044,6 +1122,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Janelle Monáe/Teresa",
                 "Mahershala Ali/Juan"
         });
+        movie40.setImdbRating(7.4);
+        movie40.setRottenTomatoesRating(7.4);
         movie40.setSynopsis("A young African-American man grapples with his identity and sexuality while growing up.");
         movie40.setTrailerUrl("https://www.youtube.com/watch?v=9NJj12tJzqc");
         movie40.setStatus("active");

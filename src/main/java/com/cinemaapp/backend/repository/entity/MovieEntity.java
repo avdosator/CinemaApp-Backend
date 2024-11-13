@@ -2,7 +2,6 @@ package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Genre;
 import com.cinemaapp.backend.service.domain.model.Movie;
-import com.cinemaapp.backend.service.domain.model.Photo;
 import com.cinemaapp.backend.service.domain.model.Projection;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -72,8 +71,6 @@ public class MovieEntity {
 
     @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
-
-//    private List<PhotoEntity> photoEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -243,8 +240,8 @@ public class MovieEntity {
                 .durationInMinutes(this.durationInMinutes)
                 .writers(this.writers)
                 .actors(this.actors)
-                //.imdbRating(this.imdbRating)
-                //.rottenTomatoesRating(this.rottenTomatoesRating)
+                .imdbRating(this.imdbRating)
+                .rottenTomatoesRating(this.rottenTomatoesRating)
                 .synopsis(this.synopsis)
                 .trailerUrl(this.trailerUrl)
                 .coverPhotoId(this.coverPhotoId)
