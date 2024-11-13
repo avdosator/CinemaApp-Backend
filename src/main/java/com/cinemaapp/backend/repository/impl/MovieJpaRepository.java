@@ -49,12 +49,9 @@ public class MovieJpaRepository implements MovieRepository {
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
         );
+
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
-        List<UUID> movieIds = movies.getContent().stream()
-                .map(Movie::getId)
-                .toList();
-        List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
-        movies = mapPhotosToMovies(movies, allPhotos);
+        movies = mapPhotosToMovies(movies);
         return movies;
     }
 
@@ -74,13 +71,7 @@ public class MovieJpaRepository implements MovieRepository {
         );
 
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
-
-        // Collect Venue IDs from the page content
-        List<UUID> movieIds = movies.getContent().stream()
-                .map(Movie::getId)
-                .toList();
-        List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
-        movies = mapPhotosToMovies(movies, allPhotos);
+        movies = mapPhotosToMovies(movies);
         return movies;
     }
 
@@ -97,7 +88,15 @@ public class MovieJpaRepository implements MovieRepository {
         return movie;
     }
 
-    public Page<Movie> mapPhotosToMovies(Page<Movie> movies, List<PhotoEntity> allPhotos) {
+    public Page<Movie> mapPhotosToMovies(Page<Movie> movies) {
+
+        // Collect Movie IDs from the page content
+        List<UUID> movieIds = movies.getContent().stream()
+                .map(Movie::getId)
+                .toList();
+
+        List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
+
         // Convert PhotoEntity to Photo and group them by refEntityId in a Map
         Map<UUID, List<Photo>> photosByMovieId = allPhotos.stream()
                 .map(PhotoEntity::toDomainModel)
