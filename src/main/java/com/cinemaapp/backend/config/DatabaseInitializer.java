@@ -482,7 +482,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudMovieRepository.save(movie14);
 
         MovieEntity movie15 = new MovieEntity();
-        movie15.setTitle("The Shawshank Redemption");
+        movie15.setTitle("Shawshank Redemption");
         movie15.setLanguage("English");
         movie15.setDirector("Frank Darabont");
         movie15.setPgRating("R");
@@ -1466,9 +1466,9 @@ public class DatabaseInitializer implements CommandLineRunner {
         savingPrivateRyanProjection.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(savingPrivateRyanProjection);
 
-        // Active Projection for "The Shawshank Redemption" at Multiplex Mostar
+        // Active Projection for "Shawshank Redemption" at Multiplex Mostar
         ProjectionEntity shawshankRedemptionProjection = new ProjectionEntity();
-        shawshankRedemptionProjection.setMovieEntity(crudMovieRepository.findByTitle("The Shawshank Redemption"));
+        shawshankRedemptionProjection.setMovieEntity(crudMovieRepository.findByTitle("Shawshank Redemption"));
         shawshankRedemptionProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
         shawshankRedemptionProjection.setStartDate(LocalDate.now().minusDays(1));
         shawshankRedemptionProjection.setEndDate(LocalDate.now().plusDays(9));
@@ -1831,7 +1831,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo8 = new PhotoEntity();
         photo8.setEntityType("movie");
         photo8.setRefEntityId(crudMovieRepository.findByTitle("The Godfather").getId());
-        photo8.setUrl("https://jerseymanmagazine.com/wp-content/uploads/2022/04/The-Godfather-e1648766305891-900x600.jpg");
+        photo8.setUrl("https://m.media-amazon.com/images/I/41+HJCUl3EL._SY300_.jpg");
         movie8.setCoverPhotoId(crudPhotoRepository.save(photo8).getId());
         crudMovieRepository.save(movie8);
 
@@ -1878,7 +1878,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo12 = new PhotoEntity();
         photo12.setEntityType("movie");
         photo12.setRefEntityId(crudMovieRepository.findByTitle("Forrest Gump").getId());
-        photo12.setUrl("https://ntvb.tmsimg.com/assets/p15829_v_h8_aw.jpg?w=1280&h=720");
+        photo12.setUrl("https://learnwithspringreader.com/wp-content/uploads/2023/08/forrest-gump1.jpg?w=300");
         movie12.setCoverPhotoId(crudPhotoRepository.save(photo12).getId());
         crudMovieRepository.save(movie12);
 
@@ -1905,8 +1905,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         PhotoEntity photo15 = new PhotoEntity();
         photo15.setEntityType("movie");
-        photo15.setRefEntityId(crudMovieRepository.findByTitle("The Shawshank Redemption").getId());
-        photo15.setUrl("https://static1.srcdn.com/wordpress/wp-content/uploads/2023/12/red-and-andy-in-shawshank-redemption.jpg?q=70&fit=crop&w=1140&h=&dpr=1");
+        photo15.setRefEntityId(crudMovieRepository.findByTitle("Shawshank Redemption").getId());
+        photo15.setUrl("https://musicimage.xboxlive.com/catalog/video.movie.8D6KGWZL5LM1/image?locale=en-ca&mode=crop&purposes=BoxArt&q=90&h=287&w=270&format=jpg");
         movie15.setCoverPhotoId(crudPhotoRepository.save(photo15).getId());
         crudMovieRepository.save(movie15);
 
@@ -1934,7 +1934,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo19 = new PhotoEntity();
         photo19.setEntityType("movie");
         photo19.setRefEntityId(crudMovieRepository.findByTitle("The Silence of the Lambs").getId());
-        photo19.setUrl("https://images.bauerhosting.com/legacy/media/6026/a037/4ef6/302f/a23a/5c22/sotl-3.jpg?ar=16%3A9&fit=crop&crop=top&auto=format&w=992&q=80");
+        photo19.setUrl("https://play-lh.googleusercontent.com/8Zyaxu-u4c_mfuC37GPGRUqiuTDLDjthcXY3NU6THy_nOvzG82zIBX9QkVe44UPNvcU=w240-h480-rw");
         movie19.setCoverPhotoId(crudPhotoRepository.save(photo19).getId());
         crudMovieRepository.save(movie19);
 
@@ -1981,7 +1981,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo24 = new PhotoEntity();
         photo24.setEntityType("movie");
         photo24.setRefEntityId(crudMovieRepository.findByTitle("The Perfect Circle").getId());
-        photo24.setUrl("https://avaz.ba/media/2022/07/19/1867142/adis-film.jpg");
+        photo24.setUrl("https://image.tmdb.org/t/p/w600_and_h900_bestv2/nz817P2e8wS7JPIiY5QyKv5myCz.jpg");
         movie24.setCoverPhotoId(crudPhotoRepository.save(photo24).getId());
         crudMovieRepository.save(movie24);
 
@@ -2002,7 +2002,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo27 = new PhotoEntity();
         photo27.setEntityType("movie");
         photo27.setRefEntityId(crudMovieRepository.findByTitle("Summer in Golden Valley").getId());
-        photo27.setUrl("https://www.filmofil.ba/images/content/photo-gallery/Ljeto_u_zlatnoj_dolini_21674920786.jpg");
+        photo27.setUrl("https://mojtv.hr/thumbs/sa/450/0/images/b443efbe-52b6-44ea-bc84-53e512eb8539.jpg.jpg");
         movie27.setCoverPhotoId(crudPhotoRepository.save(photo27).getId());
         crudMovieRepository.save(movie27);
 
@@ -2050,14 +2050,14 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo33 = new PhotoEntity();
         photo33.setEntityType("movie");
         photo33.setRefEntityId(crudMovieRepository.findByTitle("Whiplash").getId());
-        photo33.setUrl("https://miro.medium.com/v2/resize:fit:828/format:webp/0*b92aG7V12Hgq23MD.jpg");
+        photo33.setUrl("https://play-lh.googleusercontent.com/fCn_UmRfVvj-YSU0KRUQ3pztA3UDcZ3ClMwxifI7UJ-bFo7ToB5n_OxoGKmgMzuGNjBoHixs0b6yGA-jBvzz=w300-h380-rw");
         movie33.setCoverPhotoId(crudPhotoRepository.save(photo33).getId());
         crudMovieRepository.save(movie33);
 
         PhotoEntity photo34 = new PhotoEntity();
         photo34.setEntityType("movie");
         photo34.setRefEntityId(crudMovieRepository.findByTitle("The Intouchables").getId());
-        photo34.setUrl("https://theobjectivestandard.com/wp-content/uploads/2013/05/Review-The-Intouchables-2048x1216.jpeg");
+        photo34.setUrl("https://static.tvtropes.org/pmwiki/pub/images/image_0482.jpeg");
         movie34.setCoverPhotoId(crudPhotoRepository.save(photo34).getId());
         crudMovieRepository.save(movie34);
 
