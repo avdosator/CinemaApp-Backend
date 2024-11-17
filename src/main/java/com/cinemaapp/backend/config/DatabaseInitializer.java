@@ -424,7 +424,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie12.setImdbRating(8.8);
         movie12.setRottenTomatoesRating(8.8);
         movie12.setSynopsis("The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of a man with a low IQ.");
-        movie12.setTrailerUrl("https://www.youtube.com/watch?v=bLvqoHBptj");
+        movie12.setTrailerUrl("https://www.youtube.com/watch?v=bLvqoHBptjg");
         movie12.setStatus("active");
         movie12.setCreatedAt(LocalDateTime.now());
         movie12.setUpdatedAt(LocalDateTime.now());
@@ -549,7 +549,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie17.setImdbRating(8.0);
         movie17.setRottenTomatoesRating(8.0);
         movie17.setSynopsis("Earth's mightiest heroes must come together and learn to fight as a team to stop the mischievous Loki and his alien army from enslaving humanity.");
-        movie17.setTrailerUrl("https://www.youtube.com/watch?v=eOrNdBpGMv8s");
+        movie17.setTrailerUrl("https://www.youtube.com/watch?v=hIR8Ar-Z4hw");
         movie17.setStatus("active");
         movie17.setCreatedAt(LocalDateTime.now());
         movie17.setUpdatedAt(LocalDateTime.now());
@@ -675,7 +675,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         movie22.setImdbRating(8.0);
         movie22.setRottenTomatoesRating(8.0);
         movie22.setSynopsis("A single mother struggles to raise her daughter in post-war Sarajevo while hiding a painful secret.");
-        movie22.setTrailerUrl("hhttps://www.youtube.com/watch?v=hQiMvSdLk_4");
+        movie22.setTrailerUrl("https://www.youtube.com/watch?v=hQiMvSdLk_4");
         movie22.setStatus("active");
         movie22.setCreatedAt(LocalDateTime.now());
         movie22.setUpdatedAt(LocalDateTime.now());
