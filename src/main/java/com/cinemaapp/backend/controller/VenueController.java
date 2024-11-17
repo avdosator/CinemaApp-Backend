@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/venues")
 @ControllerAdvice
-@Tag(name = "Movies", description = "Endpoints for managing movies")
+@Tag(name = "Venues", description = "Endpoints for managing venues")
 public class VenueController {
 
     private final VenueService venueService;
