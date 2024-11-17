@@ -1871,14 +1871,14 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo11 = new PhotoEntity();
         photo11.setEntityType("movie");
         photo11.setRefEntityId(crudMovieRepository.findByTitle("Fight Club").getId());
-        photo11.setUrl("https://media.newyorker.com/photos/5dbafcc91b4a6700085a7a9b/master/w_1920,c_limit/Baker-FightClub.jpg");
+        photo11.setUrl("https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/39473745-05b4-4448-9b80-7b607a3c5269/david-finchers-fight-club-is-getting-a-4k-remaster-for-films-25th-anniversary.jpg?format=1500w");
         movie11.setCoverPhotoId(crudPhotoRepository.save(photo11).getId());
         crudMovieRepository.save(movie11);
 
         PhotoEntity photo12 = new PhotoEntity();
         photo12.setEntityType("movie");
         photo12.setRefEntityId(crudMovieRepository.findByTitle("Forrest Gump").getId());
-        photo12.setUrl("https://learnwithspringreader.com/wp-content/uploads/2023/08/forrest-gump1.jpg?w=300");
+        photo12.setUrl("https://streamcoimg-a.akamaihd.net/000/232/6675/2326675-Banner-L1-5ba55d746daca1230782fbcf3efcf3c8.jpeg?preferredFormat=image/webp&resize=1920px:*&quality=85");
         movie12.setCoverPhotoId(crudPhotoRepository.save(photo12).getId());
         crudMovieRepository.save(movie12);
 
