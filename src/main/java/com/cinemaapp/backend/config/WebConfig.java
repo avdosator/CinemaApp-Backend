@@ -19,7 +19,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        //.allowedOrigins("http://localhost:5173") TO DO - specify appropriate ui origin
+                        //.allowedOrigins("http://localhost:5173") TO DO - specify appropriate UI origin (local and on railway)
                         .allowedOriginPatterns("*") // only in development
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "OPTIONS")
                         .allowedHeaders("*")
