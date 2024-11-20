@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.RefreshToken;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -73,14 +74,14 @@ public class RefreshTokenEntity {
         this.createdAt = createdAt;
     }
 
-//    public RefreshToken toDomainModel() {
-//        return RefreshToken.builder()
-//                .id(this.id)
-//                .tokenHash(this.tokenHash)
-//                .user(this.user.toDomainModel())
-//                .expiryDate(this.expiryDate)
-//                .createdAt(this.createdAt)
-//                .build();
-//    }
+    public RefreshToken toDomainModel() {
+        return RefreshToken.builder()
+                .id(this.id)
+                .tokenHash(this.tokenHash)
+                .user(this.userEntity.toDomainModel())
+                .expiration(this.expiration)
+                .createdAt(this.createdAt)
+                .build();
+    }
 
 }
