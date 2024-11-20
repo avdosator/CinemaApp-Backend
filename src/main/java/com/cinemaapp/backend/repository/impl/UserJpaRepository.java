@@ -6,16 +6,22 @@ import com.cinemaapp.backend.repository.entity.UserEntity;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Repository
 public class UserJpaRepository implements UserRepository {
 
     private final CrudUserRepository crudUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserJpaRepository(CrudUserRepository crudUserRepository) {
+    public UserJpaRepository(CrudUserRepository crudUserRepository, PasswordEncoder passwordEncoder) {
         this.crudUserRepository = crudUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,6 +32,13 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public User createUser(CreateUserRequest createUserRequest) {
-        return null;
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(createUserRequest.getEmail());
+        userEntity.setPasswordHash(passwordEncoder.encode(createUserRequest.getPassword()));
+        userEntity.setRole("ROLE_USER");
+        userEntity.setCreatedAt(LocalDateTime.now());
+        userEntity.setUpdatedAt(LocalDateTime.now());
+        UserEntity savedUserEntity = crudUserRepository.save(userEntity);
+        return userEntity.toDomainModel();
     }
 }
