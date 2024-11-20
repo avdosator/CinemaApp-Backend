@@ -6,4 +6,5 @@ import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 public interface UserService {
 
     User createUser(CreateUserRequest createUserRequest);
+    User authenticate(CreateUserRequest createUserRequest);
 }
