@@ -9,6 +9,5 @@ import java.util.UUID;
 public interface CrudRefreshTokenRepository extends JpaRepository<RefreshTokenEntity, UUID> {
 
     Optional<RefreshTokenEntity> findByTokenHash(String tokenHash);
-
     void deleteByTokenHash(String tokenHash);
 }
