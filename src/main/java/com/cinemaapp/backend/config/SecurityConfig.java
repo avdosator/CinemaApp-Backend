@@ -48,17 +48,6 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    /* I am not sure do I need this Bean
-        @Primary
-        @Bean
-        public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
-
-            DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(passwordEncoder());
-            authProvider.setUserDetailsService(userDetailsService);
-            return authProvider;
-        }
-    */
-    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
