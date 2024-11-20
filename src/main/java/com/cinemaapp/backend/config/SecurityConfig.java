@@ -19,8 +19,8 @@ public class SecurityConfig {
 
     @Bean
     UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> {
-            final User user = userRepository.findByUsername(username);
+        return email -> {
+            final User user = userRepository.findByEmail(email);
             return new CustomUserDetails(user);
         };
     }
