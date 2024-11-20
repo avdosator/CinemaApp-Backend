@@ -53,7 +53,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // disabled in development
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() // Allow all requests to all endpoints in development
+                        .anyRequest().permitAll() // Allow all requests to all endpoints in development (This need to be changed, based on app needs)
                 );
 
         return http.build();
