@@ -7,6 +7,6 @@ import java.util.UUID;
 public interface RefreshTokenRepository {
 
     String createRefreshToken(UUID userId);
-    RefreshToken validateToken(String token);
+    RefreshToken validateToken(String token, UUID userId);
     void deleteToken(String token);
 }

@@ -41,7 +41,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public RefreshTokenResponse refreshJwt(String token) {
-        RefreshToken refreshToken = refreshTokenRepository.validateToken(token);
+        User currentUser = UserUtils.getCurrentUser();
+        RefreshToken refreshToken = refreshTokenRepository.validateToken(token, currentUser.getId());
 
         if (refreshToken.getExpiration().isBefore(LocalDateTime.now())) {
             throw new TokenExpiredException("Refresh token has expired!");

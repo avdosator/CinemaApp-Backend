@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -46,14 +47,16 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
         refreshTokenEntity.setExpiration(LocalDateTime.now().plusDays(TOKEN_DURATION));
         refreshTokenEntity.setCreatedAt(LocalDateTime.now());
         crudRefreshTokenRepository.save(refreshTokenEntity);
-
         return token;
     }
 
     @Override
-    public RefreshToken validateToken(String token) {
-        RefreshTokenEntity refreshTokenEntity = crudRefreshTokenRepository.findByTokenHash(passwordEncoder.encode(token)).orElseThrow();
-        return refreshTokenEntity.toDomainModel();
+    public RefreshToken validateToken(String token, UUID userId) {
+        return crudRefreshTokenRepository.findByUserEntity_Id(userId).stream()
+                .filter(entity -> passwordEncoder.matches(token, entity.getTokenHash()))
+                .findFirst()
+                .map(RefreshTokenEntity::toDomainModel)
+                .orElseThrow(() -> new RuntimeException("Invalid or expired refresh token!"));
     }
 
     @Override

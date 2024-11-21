@@ -5,10 +5,10 @@ import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.RefreshTokenRequest;
 import com.cinemaapp.backend.service.domain.response.LoginResponse;
 import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public RefreshTokenResponse refreshJwt(@RequestBody @Size(min = 88, max = 88) String refreshToken) {
-        return refreshTokenService.refreshJwt(refreshToken);
+    public RefreshTokenResponse refreshJwt(@RequestBody RefreshTokenRequest refreshToken) {
+        return refreshTokenService.refreshJwt(refreshToken.getRefreshToken());
     }
 }
