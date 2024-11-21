@@ -21,4 +21,13 @@ public class GlobalExceptionHandler {
         );
         return errors; // Spring will automatically serialize this into JSON
     }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Map<String, String> handleTokenExpiredException(TokenExpiredException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Unauthorized");
+        response.put("message", ex.getMessage());
+        return response; // This will return a 401 response with the error details
+    }
 }
