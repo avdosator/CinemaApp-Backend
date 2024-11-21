@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -69,7 +67,9 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // disabled in development
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/auth/refresh-token").authenticated()
                         .anyRequest().permitAll() // Allow all requests to all endpoints in development (This need to be changed, based on app needs)
+
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
                 //.authenticationProvider(authenticationProvider);

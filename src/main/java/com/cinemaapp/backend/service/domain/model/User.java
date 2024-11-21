@@ -1,7 +1,6 @@
 package com.cinemaapp.backend.service.domain.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 public class User {
