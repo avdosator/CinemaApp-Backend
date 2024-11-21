@@ -30,4 +30,14 @@ public class GlobalExceptionHandler {
         response.put("message", ex.getMessage());
         return response; // This will return a 401 response with the error details
     }
+
+    @ExceptionHandler(TokenNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleTokenNotFoundException(TokenNotFoundException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Not Found");
+        response.put("message", ex.getMessage());
+        return response; // Returns a 404 response with error details
+    }
+
 }
