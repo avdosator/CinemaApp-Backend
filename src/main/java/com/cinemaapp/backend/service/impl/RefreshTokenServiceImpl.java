@@ -10,11 +10,11 @@ import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
 import com.cinemaapp.backend.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class RefreshTokenServiceImpl implements RefreshTokenService {
@@ -34,9 +34,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public String createRefreshToken() {
-        User user = UserUtils.getCurrentUser();
-        return refreshTokenRepository.createRefreshToken(user.getId());
+    public String createRefreshToken(UUID userId) {
+        return refreshTokenRepository.createRefreshToken(userId);
     }
 
     @Override
@@ -49,8 +48,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         }
         CustomUserDetails customUserDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(refreshToken.getUser().getEmail());
         String jwt = jwtService.generateToken(customUserDetails);
-        return new RefreshTokenResponse(jwt, jwtService.getExpirationTime());
 
+        return new RefreshTokenResponse(jwt, jwtService.getExpirationTime());
     }
 
     @Override
