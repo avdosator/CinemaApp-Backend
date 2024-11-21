@@ -45,9 +45,9 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
         refreshTokenEntity.setUserEntity(crudUserRepository.findById(userId).orElseThrow());
         refreshTokenEntity.setExpiration(LocalDateTime.now().plusDays(TOKEN_DURATION));
         refreshTokenEntity.setCreatedAt(LocalDateTime.now());
-        RefreshTokenEntity createdRefreshTokenEntity = crudRefreshTokenRepository.save(refreshTokenEntity);
+        crudRefreshTokenRepository.save(refreshTokenEntity);
 
-        return createdRefreshTokenEntity.getTokenHash();
+        return token;
     }
 
     @Override

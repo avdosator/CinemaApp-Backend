@@ -4,6 +4,7 @@ public class LoginResponse {
 
     private String jwt;
     private long expiresIn;
+    private String refreshToken;
 
     public String getJwt() {
         return jwt;
@@ -19,5 +20,13 @@ public class LoginResponse {
 
     public void setExpiresIn(long expiresIn) {
         this.expiresIn = expiresIn;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
