@@ -1,10 +1,10 @@
 package com.cinemaapp.backend.service;
 
-import com.cinemaapp.backend.service.domain.model.RefreshToken;
+import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
 
 public interface RefreshTokenService {
 
     String createRefreshToken();
-    RefreshToken validateToken(String token);
+    RefreshTokenResponse refreshJwt(String token);
     void deleteToken(String token);
 }

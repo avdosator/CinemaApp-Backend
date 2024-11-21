@@ -52,7 +52,8 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
 
     @Override
     public RefreshToken validateToken(String token) {
-        return null;
+        RefreshTokenEntity refreshTokenEntity = crudRefreshTokenRepository.findByTokenHash(passwordEncoder.encode(token)).orElseThrow();
+        return refreshTokenEntity.toDomainModel();
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import com.cinemaapp.backend.service.domain.response.LoginResponse;
+import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,7 +51,10 @@ public class UserController {
         return loginResponse;
     }
 
-
+    @PostMapping("/refresh-token")
+    public RefreshTokenResponse refreshJwt(@RequestBody String refreshToken) {
+        refreshTokenService.refreshJwt(refreshToken);
+    }
 
 
 }

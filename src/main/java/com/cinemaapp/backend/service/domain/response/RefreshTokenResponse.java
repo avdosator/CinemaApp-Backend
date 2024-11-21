@@ -5,6 +5,14 @@ public class RefreshTokenResponse {
     private String jwt;
     private long expiresIn;
 
+    public RefreshTokenResponse() {
+    }
+
+    public RefreshTokenResponse(String jwt, long expiresIn) {
+        this.jwt = jwt;
+        this.expiresIn = expiresIn;
+    }
+
     public String getJwt() {
         return jwt;
     }
