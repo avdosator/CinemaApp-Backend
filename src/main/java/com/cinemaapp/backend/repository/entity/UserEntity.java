@@ -166,18 +166,6 @@ public class UserEntity {
 
     // add payments and reservations after their implementation
     public User toDomainModel() {
-        List<Payment> payments = (this.paymentEntities == null ? Collections.emptyList() :
-                this.paymentEntities.stream()
-                        .map(PaymentEntity::toDomainModel)
-                        .toList());
-        List<Reservation> reservations = (this.reservationEntities == null ? Collections.emptyList() :
-                this.reservationEntities.stream()
-                        .map(ReservationEntity::toDomainModel)
-                        .toList());
-        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ? Collections.emptyList() :
-                this.seatReservationEntities.stream()
-                        .map(SeatReservationEntity::toDomainModel)
-                        .toList());
 
         return User.builder()
                 .id(this.id)
@@ -187,9 +175,6 @@ public class UserEntity {
                 .passwordHash(this.passwordHash)
                 //.phone(this.phone)
                 //.city(this.cityEntity.toDomainModel())
-                .payments(payments)
-                .reservations(reservations)
-                .seatReservations(seatReservations)
                 .role(this.role)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)

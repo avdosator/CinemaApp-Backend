@@ -13,15 +13,11 @@ public class User {
     private final String passwordHash;
     private final String phone;
     private final City city;
-    private final List<Payment> payments;
-    private final List<Reservation> reservations;
-    private final List<SeatReservation> seatReservations;
     private final String role;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     public User(UUID id, String firstName, String lastName, String email, String passwordHash, String phone, City city,
-                List<Payment> payments, List<Reservation> reservations, List<SeatReservation> seatReservations,
                 String role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.firstName = firstName;
@@ -30,9 +26,6 @@ public class User {
         this.passwordHash = passwordHash;
         this.phone = phone;
         this.city = city;
-        this.payments = payments;
-        this.reservations = reservations;
-        this.seatReservations = seatReservations;
         this.role = role;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -66,18 +59,6 @@ public class User {
         return city;
     }
 
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public List<SeatReservation> getSeatReservations() {
-        return seatReservations;
-    }
-
     public String getRole() {
         return role;
     }
@@ -102,9 +83,6 @@ public class User {
         private String passwordHash;
         private String phone;
         private City city;
-        private List<Payment> payments;
-        private List<Reservation> reservations;
-        private List<SeatReservation> seatReservations;
         private String role;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
@@ -147,21 +125,6 @@ public class User {
             return this;
         }
 
-        public UserBuilder payments(List<Payment> payments) {
-            this.payments = payments;
-            return this;
-        }
-
-        public UserBuilder reservations(List<Reservation> reservations) {
-            this.reservations = reservations;
-            return this;
-        }
-
-        public UserBuilder seatReservations(List<SeatReservation> seatReservations) {
-            this.seatReservations = seatReservations;
-            return this;
-        }
-
         public UserBuilder role(String role) {
             this.role = role;
             return this;
@@ -186,9 +149,6 @@ public class User {
                     this.passwordHash,
                     this.phone,
                     this.city,
-                    this.payments,
-                    this.reservations,
-                    this.seatReservations,
                     this.role,
                     this.createdAt,
                     this.updatedAt
