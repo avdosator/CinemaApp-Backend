@@ -1,7 +1,9 @@
 package com.cinemaapp.backend.service.domain.request;
 
-public class LogoutRequest {
+import jakarta.validation.constraints.Size;
 
+public class LogoutRequest {
+    @Size(min = 88, max = 88)
     private String refreshToken;
 
     public String getRefreshToken() {

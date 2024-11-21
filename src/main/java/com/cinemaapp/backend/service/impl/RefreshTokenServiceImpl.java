@@ -54,6 +54,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public void deleteToken(String token) {
-
+        User currentUser = UserUtils.getCurrentUser();
+        refreshTokenRepository.deleteToken(token, currentUser.getId());
     }
 }

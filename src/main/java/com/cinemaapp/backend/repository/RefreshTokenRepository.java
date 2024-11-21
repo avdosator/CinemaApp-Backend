@@ -8,5 +8,5 @@ public interface RefreshTokenRepository {
 
     String createRefreshToken(UUID userId);
     RefreshToken validateToken(String token, UUID userId);
-    void deleteToken(String token);
+    void deleteToken(String token, UUID userId);
 }

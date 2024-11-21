@@ -5,13 +5,18 @@ import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.LogoutRequest;
 import com.cinemaapp.backend.service.domain.request.RefreshTokenRequest;
 import com.cinemaapp.backend.service.domain.response.LoginResponse;
 import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -44,6 +49,12 @@ public class AuthController {
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
         loginResponse.setRefreshToken(refreshToken);
         return loginResponse;
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@Valid @RequestBody LogoutRequest logoutRequest) {
+        refreshTokenService.deleteToken(logoutRequest.getRefreshToken());
+        return ResponseEntity.ok("token deleted");
     }
 
     @PostMapping("/refresh-token")
