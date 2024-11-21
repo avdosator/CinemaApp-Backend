@@ -37,7 +37,7 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
     public String createRefreshToken(UUID userId) {
         byte[] randomBytes = new byte[TOKEN_LENGTH];
         new SecureRandom().nextBytes(randomBytes);
-        String token = Base64.getUrlEncoder().encodeToString(randomBytes);
+        String token = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
         String tokenHash = passwordEncoder.encode(token);
 
         RefreshTokenEntity refreshTokenEntity = new RefreshTokenEntity();
