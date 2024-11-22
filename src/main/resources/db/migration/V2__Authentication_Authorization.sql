@@ -18,5 +18,4 @@ CREATE TABLE password_reset (
     reset_code VARCHAR(4) NOT NULL,
     expiration_time TIMESTAMP NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_password_reset_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

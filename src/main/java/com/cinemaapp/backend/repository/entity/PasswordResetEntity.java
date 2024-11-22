@@ -17,9 +17,8 @@ public class PasswordResetEntity {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UserEntity userEntity;
+    @Column(name = "user_id")
+    private UUID userId;
 
     @Column(name = "reset_code", nullable = false, length = 4)
     private String resetCode;
