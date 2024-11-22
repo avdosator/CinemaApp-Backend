@@ -58,7 +58,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public RefreshTokenResponse refreshJwt(@RequestBody RefreshTokenRequest refreshToken) {
+    public RefreshTokenResponse refreshJwt(@Valid @RequestBody RefreshTokenRequest refreshToken) {
         return refreshTokenService.refreshJwt(refreshToken.getRefreshToken());
     }
 }

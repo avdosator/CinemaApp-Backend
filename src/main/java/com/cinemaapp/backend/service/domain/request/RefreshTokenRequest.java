@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Size;
 
 public class RefreshTokenRequest {
 
-    @Size(min = 88, max = 88)
+    @Size(min = 86, max = 86)
     private String refreshToken;
 
     public String getRefreshToken() {
