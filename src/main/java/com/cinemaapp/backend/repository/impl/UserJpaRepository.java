@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Repository
@@ -26,8 +25,8 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public User findByEmail(String email) {
-        UserEntity userEntity = crudUserRepository.findByEmail(email).orElseThrow();
-        return userEntity.toDomainModel();
+        UserEntity userEntity = crudUserRepository.findByEmail(email).orElse(null);
+        return userEntity != null ? userEntity.toDomainModel() : null;
     }
 
     @Override
@@ -39,6 +38,6 @@ public class UserJpaRepository implements UserRepository {
         userEntity.setCreatedAt(LocalDateTime.now());
         userEntity.setUpdatedAt(LocalDateTime.now());
         UserEntity savedUserEntity = crudUserRepository.save(userEntity);
-        return userEntity.toDomainModel();
+        return savedUserEntity.toDomainModel();
     }
 }
