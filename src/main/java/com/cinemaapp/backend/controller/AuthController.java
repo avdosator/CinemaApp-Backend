@@ -1,10 +1,12 @@
 package com.cinemaapp.backend.controller;
 
 import com.cinemaapp.backend.service.JwtService;
+import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.ForgotPasswordRequest;
 import com.cinemaapp.backend.service.domain.request.LogoutRequest;
 import com.cinemaapp.backend.service.domain.request.RefreshTokenRequest;
 import com.cinemaapp.backend.service.domain.response.LoginResponse;
@@ -26,17 +28,20 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final RefreshTokenService refreshTokenService;
+    private final PasswordResetService passwordResetService;
 
     @Autowired
     public AuthController(UserService userService,
                           JwtService jwtService,
                           UserDetailsService userDetailsService,
-                          RefreshTokenService refreshTokenService
+                          RefreshTokenService refreshTokenService,
+                          PasswordResetService passwordResetService
     ) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
         this.refreshTokenService = refreshTokenService;
+        this.passwordResetService = passwordResetService;
     }
 
     @PostMapping("/login")
@@ -60,5 +65,11 @@ public class AuthController {
     @PostMapping("/refresh-token")
     public RefreshTokenResponse refreshJwt(@Valid @RequestBody RefreshTokenRequest refreshToken) {
         return refreshTokenService.refreshJwt(refreshToken.getRefreshToken());
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        passwordResetService.validateEmailForPasswordReset(request.getEmail());
+        return ResponseEntity.ok("Reset code sent to your email.");
     }
 }
