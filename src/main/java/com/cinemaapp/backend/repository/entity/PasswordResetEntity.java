@@ -10,7 +10,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "password_reset")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PasswordReset {
+public class PasswordResetEntity {
 
     @Id
     @Column(name = "id")
@@ -19,7 +19,7 @@ public class PasswordReset {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UserEntity user;
+    private UserEntity userEntity;
 
     @Column(name = "reset_code", nullable = false, length = 4)
     private String resetCode;
