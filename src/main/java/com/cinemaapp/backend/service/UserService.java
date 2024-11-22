@@ -7,4 +7,5 @@ public interface UserService {
 
     User createUser(CreateUserRequest createUserRequest);
     User authenticate(CreateUserRequest createUserRequest);
+    User findByEmail(String email);
 }
