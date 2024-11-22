@@ -20,7 +20,7 @@ public class RefreshTokenCleanupTask {
     @Scheduled(cron = "0 0 0 * * ?") // Runs daily at midnight (job will start at 0 second, 0 minute and 0 hour every day)
     public void cleanExpiredTokens() {
         LocalDateTime now = LocalDateTime.now();
-        int deletedCount = crudRefreshTokenRepository.deleteExpiredTokens(now);
+        int deletedCount = crudRefreshTokenRepository.deleteByExpirationBefore(now);
         System.out.println("Deleted " + deletedCount + " expired refresh tokens.");
     }
 }
