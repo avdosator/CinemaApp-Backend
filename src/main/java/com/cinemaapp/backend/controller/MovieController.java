@@ -5,6 +5,9 @@ import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/movies")
 @ControllerAdvice
+@Tag(name = "Movies", description = "Endpoints for managing movies")
 public class MovieController {
 
     private final MovieService movieService;
@@ -22,18 +26,27 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    @Operation(summary = "Get active movies", description = "Retrieve a paginated list of currently active movies.")
     @GetMapping("/active")
-    public Page<Movie> getActiveMovies(@ModelAttribute SearchActiveMoviesRequest searchActiveMoviesRequest) {
+    public Page<Movie> getActiveMovies(
+            @Parameter(description = "Search criteria for active movies")
+            @ModelAttribute SearchActiveMoviesRequest searchActiveMoviesRequest) {
         return movieService.findActiveMovies(searchActiveMoviesRequest);
     }
 
+    @Operation(summary = "Get upcoming movies", description = "Retrieve a paginated list of upcoming movies.")
     @GetMapping("/upcoming")
-    public Page<Movie> getUpcomingMovies(@ModelAttribute SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
+    public Page<Movie> getUpcomingMovies(
+            @Parameter(description = "Search criteria for upcoming movies")
+            @ModelAttribute SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         return movieService.findUpcomingMovies(searchUpcomingMoviesRequest);
     }
 
+    @Operation(summary = "Get movie by ID", description = "Retrieve a movie by its unique identifier.")
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable UUID id) {
+    public Movie getMovieById(
+            @Parameter(description = "Unique identifier of the movie")
+            @PathVariable UUID id) {
         return movieService.findById(id);
     }
 }

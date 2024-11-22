@@ -15,6 +15,7 @@ import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
@@ -47,7 +48,10 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasProjectionWithTime(searchActiveMoviesRequest.getTime()));
 
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
-                specification, PageRequest.of(searchActiveMoviesRequest.getPage(), searchActiveMoviesRequest.getSize())
+                specification, PageRequest.of(searchActiveMoviesRequest.getPage(),
+                        searchActiveMoviesRequest.getSize(),
+                        Sort.by(Sort.Direction.ASC, "title")
+                )
         );
 
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
@@ -67,7 +71,10 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasGenre(searchUpcomingMoviesRequest.getGenre()));
 
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
-                specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(), searchUpcomingMoviesRequest.getSize())
+                specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(),
+                        searchUpcomingMoviesRequest.getSize(),
+                        Sort.by(Sort.Direction.ASC, "title")
+                )
         );
 
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);

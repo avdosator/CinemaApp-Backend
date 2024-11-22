@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class WebConfig {
 
-    public String[] allowedHeaders = {"Authorization", "Content-Type", "Accept"};
+    //public String[] allowedHeaders = {"Authorization", "Content-Type", "Accept"};
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -19,10 +19,10 @@ public class WebConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        //.allowedOrigins("http://localhost:5173")
+                        //.allowedOrigins("http://localhost:5173") TO DO - specify appropriate UI origin (local and on railway)
                         .allowedOriginPatterns("*") // only in development
-                        .allowedMethods("GET", "POST", "PUT", "PATCH")
-                        .allowedHeaders(allowedHeaders)
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "OPTIONS")
+                        .allowedHeaders("*")
                         .allowCredentials(true);
             }
         };
