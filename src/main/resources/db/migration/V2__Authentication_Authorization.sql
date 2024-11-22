@@ -11,3 +11,11 @@ CREATE TABLE refresh_token (
 
 CREATE INDEX idx_refresh_token_users ON refresh_token(user_id);
 CREATE UNIQUE INDEX idx_refresh_token_token_hash ON refresh_token(token_hash);
+
+CREATE TABLE password_reset (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL,
+    reset_code VARCHAR(4) NOT NULL,
+    expiration_time TIMESTAMP NOT NULL,
+    CONSTRAINT fk_password_reset_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
