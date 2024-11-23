@@ -30,7 +30,6 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         // Generate string from 0000 to 9999
         SecureRandom secureRandom = new SecureRandom();
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
-
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
     }
 }
