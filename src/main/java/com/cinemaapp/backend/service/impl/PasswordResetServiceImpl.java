@@ -22,14 +22,38 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public void initiatePasswordReset(String email) {
+    public String initiatePasswordReset(String email) {
+
         User user = userService.findByEmail(email);
-        if (user == null) {
-            throw new IllegalArgumentException("User with this email does not exist.");
-        }
+
         // Generate string from 0000 to 9999
         SecureRandom secureRandom = new SecureRandom();
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
+
+        String maskedEmail = maskEmail(user.getEmail());
+        return "We have sent code to your email " + maskedEmail + ". Please, enter the code below to verify.";
+    }
+
+    public String maskEmail(String email) {
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("Invalid email format.");
+        }
+
+        String[] parts = email.split("@");
+        String localPart = parts[0];
+        String domain = parts[1];
+
+        if (localPart.length() < 3) {
+            // For very short local parts, mask the middle entirely
+            return localPart.charAt(0) + "*".repeat(localPart.length() - 1) + "@" + domain;
+        }
+
+        // Mask all characters except the first and last
+        String maskedLocal = localPart.charAt(0)
+                + "*".repeat(localPart.length() - 2)
+                + localPart.charAt(localPart.length() - 1);
+
+        return maskedLocal + "@" + domain;
     }
 }

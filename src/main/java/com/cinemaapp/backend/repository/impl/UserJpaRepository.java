@@ -25,8 +25,12 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public User findByEmail(String email) {
-        UserEntity userEntity = crudUserRepository.findByEmail(email).orElse(null);
-        return userEntity != null ? userEntity.toDomainModel() : null;
+        UserEntity userEntity = crudUserRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " does not exist."));
+        return userEntity.toDomainModel();
+
+        // Maybe we should return Optional<User> and handle presence of it in service layer
+        /*return crudUserRepository.findByEmail(email).map(UserEntity::toDomainModel);*/
     }
 
     @Override
