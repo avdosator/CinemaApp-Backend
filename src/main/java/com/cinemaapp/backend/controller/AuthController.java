@@ -5,14 +5,12 @@ import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
-import com.cinemaapp.backend.service.domain.request.ForgotPasswordRequest;
-import com.cinemaapp.backend.service.domain.request.LogoutRequest;
-import com.cinemaapp.backend.service.domain.request.RefreshTokenRequest;
+import com.cinemaapp.backend.service.domain.request.*;
 import com.cinemaapp.backend.service.domain.response.LoginResponse;
 import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,5 +69,15 @@ public class AuthController {
     public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         String response = passwordResetService.initiatePasswordReset(request.getEmail());
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/verify-reset-code")
+    public ResponseEntity<String> verifyResetCode(@Valid @RequestBody VerifyResetCodeRequest verifyResetCodeRequest) {
+        boolean isValid = passwordResetService.verifyResetCode(verifyResetCodeRequest);
+        if (isValid) {
+            return ResponseEntity.ok("Code is valid");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired reset code");
+        }
     }
 }
