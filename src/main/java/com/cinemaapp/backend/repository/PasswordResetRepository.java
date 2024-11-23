@@ -4,5 +4,5 @@ import java.util.UUID;
 
 public interface PasswordResetRepository {
 
-    void saveResetCode(String resetCode, UUID userId);
+    String saveResetCode(String resetCode, UUID userId);
 }

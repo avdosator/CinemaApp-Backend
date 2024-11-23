@@ -20,12 +20,13 @@ public class PasswordResetJpaRepository implements PasswordResetRepository {
     }
 
     @Override
-    public void saveResetCode(String resetCode, UUID userId) {
+    public String saveResetCode(String resetCode, UUID userId) {
         PasswordResetEntity passwordResetEntity = new PasswordResetEntity();
         passwordResetEntity.setResetCode(resetCode);
         passwordResetEntity.setUserId(userId);
         passwordResetEntity.setExpirationTime(LocalDateTime.now().plusMinutes(10));
         passwordResetEntity.setCreatedAt(LocalDateTime.now());
-        crudPasswordResetRepository.save(passwordResetEntity);
+        PasswordResetEntity savedEntity = crudPasswordResetRepository.save(passwordResetEntity);
+        return savedEntity.getResetCode();
     }
 }
