@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.service.impl;
 
 import com.cinemaapp.backend.repository.PasswordResetRepository;
+import com.cinemaapp.backend.service.EmailService;
 import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
@@ -14,11 +15,15 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     private final UserService userService;
     private final PasswordResetRepository passwordResetRepository;
+    private final EmailService emailService;
 
     @Autowired
-    public PasswordResetServiceImpl(UserService userService, PasswordResetRepository passwordResetRepository) {
+    public PasswordResetServiceImpl(UserService userService,
+                                    PasswordResetRepository passwordResetRepository,
+                                    EmailService emailService) {
         this.userService = userService;
         this.passwordResetRepository = passwordResetRepository;
+        this.emailService = emailService;
     }
 
     @Override
@@ -30,7 +35,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         SecureRandom secureRandom = new SecureRandom();
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
-
+        String emailBody = "Your code for password reset is: " + savedResetCode;
+        String emailResponse = emailService.sendEmail(user.getEmail(), "Password reset code", emailBody);
+        if (emailResponse != "Email sent!") {
+            return emailResponse;
+        }
         String maskedEmail = maskEmail(user.getEmail());
         return "We have sent code to your email " + maskedEmail + ". Please, enter the code below to verify.";
     }
