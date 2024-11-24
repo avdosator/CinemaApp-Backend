@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -32,8 +33,16 @@ public class PasswordResetJpaRepository implements PasswordResetRepository {
 
     @Override
     public boolean verifyResetCode(String resetCode, UUID userId) {
-        return crudPasswordResetRepository.findByResetCodeAndUserId(resetCode, userId)
-                .map(entity -> entity.getExpirationTime().isAfter(LocalDateTime.now()))
-                .orElse(false);
+        Optional<PasswordResetEntity> optionalResetEntity =
+                crudPasswordResetRepository.findByResetCodeAndUserId(resetCode, userId);
+
+        if (optionalResetEntity.isPresent()) {
+            PasswordResetEntity entity = optionalResetEntity.get();
+            if (entity.getExpirationTime().isAfter(LocalDateTime.now())) {
+                crudPasswordResetRepository.delete(entity); // Delete immediately after validation
+                return true; // Validation successful
+            }
+        }
+        return false; // Code is invalid or expired
     }
 }
