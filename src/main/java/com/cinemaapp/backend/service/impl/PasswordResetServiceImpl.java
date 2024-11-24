@@ -36,8 +36,18 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         SecureRandom secureRandom = new SecureRandom();
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
-        String emailBody = "Your code for password reset is: " + savedResetCode;
-        String emailResponse = emailService.sendEmail(user.getEmail(), "Password reset code", emailBody);
+        //String emailBody = "Your code for password reset is: " + savedResetCode + ". It will be valid 10 minutes from now.";
+        String emailBody = """
+                <html>
+                    <body>
+                        <p>Dear User,</p>
+                        <p>Your code for password reset is: <strong>%s</strong>. It will be valid for 10 minutes from now.</p>
+                        <p>If you didn’t request this, please ignore this email.</p><br>
+                        <p>Best regards,<br><br>Cinema App</p>
+                    </body>
+                </html>
+                """.formatted(savedResetCode);
+        String emailResponse = emailService.sendEmail(user.getEmail(), "Password Reset Code", emailBody);
         if (emailResponse != "Email sent!") {
             return emailResponse;
         }
