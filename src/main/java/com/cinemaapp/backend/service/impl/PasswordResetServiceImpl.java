@@ -5,6 +5,7 @@ import com.cinemaapp.backend.service.EmailService;
 import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.request.VerifyResetCodeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,12 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         }
         String maskedEmail = maskEmail(user.getEmail());
         return "We have sent code to your email " + maskedEmail + ". Please, enter the code below to verify.";
+    }
+
+    @Override
+    public boolean verifyResetCode(VerifyResetCodeRequest verifyResetCodeRequest) {
+        User user = userService.findByEmail(verifyResetCodeRequest.getEmail());
+        return passwordResetRepository.verifyResetCode(verifyResetCodeRequest.getResetCode(), user.getId());
     }
 
     public String maskEmail(String email) {

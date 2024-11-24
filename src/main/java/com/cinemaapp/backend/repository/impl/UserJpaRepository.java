@@ -29,8 +29,10 @@ public class UserJpaRepository implements UserRepository {
                 .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " does not exist."));
         return userEntity.toDomainModel();
 
-        // Maybe we should return Optional<User> and handle presence of it in service layer
-        /*return crudUserRepository.findByEmail(email).map(UserEntity::toDomainModel);*/
+        // Is this better solution because it is normal to not find user by email so null is maybe better than exception
+        /*return crudUserRepository.findByEmail(email)
+                .map(UserEntity::toDomainModel)
+                .orElse(null);*/
     }
 
     @Override
