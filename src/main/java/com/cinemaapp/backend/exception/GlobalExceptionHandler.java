@@ -40,4 +40,13 @@ public class GlobalExceptionHandler {
         return response; // Returns a 404 response with error details
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleInvalidCredentials(InvalidCredentialsException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Bad Request");
+        response.put("message", ex.getMessage());
+        return response;
+    }
+
 }

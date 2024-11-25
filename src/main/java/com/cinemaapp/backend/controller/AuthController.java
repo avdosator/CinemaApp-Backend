@@ -48,6 +48,7 @@ public class AuthController {
         String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getEmail()));
         String refreshToken = refreshTokenService.createRefreshToken(authenticatedUser.getId());
         LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setUser(authenticatedUser);
         loginResponse.setJwt(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
         loginResponse.setRefreshToken(refreshToken);
