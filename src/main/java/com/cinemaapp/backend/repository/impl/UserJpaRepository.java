@@ -4,6 +4,7 @@ import com.cinemaapp.backend.repository.UserRepository;
 import com.cinemaapp.backend.repository.crud.CrudUserRepository;
 import com.cinemaapp.backend.repository.entity.UserEntity;
 import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.request.ChangePasswordRequest;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,5 +46,14 @@ public class UserJpaRepository implements UserRepository {
         userEntity.setUpdatedAt(LocalDateTime.now());
         UserEntity savedUserEntity = crudUserRepository.save(userEntity);
         return savedUserEntity.toDomainModel();
+    }
+
+    @Override
+    public User changePassword(ChangePasswordRequest changePasswordRequest) {
+        UserEntity userEntity = crudUserRepository.findByEmail(changePasswordRequest.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email"));
+        userEntity.setPasswordHash(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+        UserEntity updatedUser = crudUserRepository.save(userEntity);
+        return updatedUser.toDomainModel();
     }
 }
