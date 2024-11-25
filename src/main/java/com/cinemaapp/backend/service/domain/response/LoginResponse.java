@@ -1,10 +1,17 @@
 package com.cinemaapp.backend.service.domain.response;
 
+import com.cinemaapp.backend.service.domain.model.User;
+
 public class LoginResponse {
 
+    private User user;
     private String jwt;
     private long expiresIn;
     private String refreshToken;
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 
     public String getJwt() {
         return jwt;
