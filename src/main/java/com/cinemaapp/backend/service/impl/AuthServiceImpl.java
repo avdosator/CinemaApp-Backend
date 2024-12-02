@@ -2,6 +2,7 @@ package com.cinemaapp.backend.service;
 
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.response.LoginResponse;
+import com.cinemaapp.backend.service.domain.response.SignUpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class AuthService {
     public LoginResponse authenticateAndLogin(User authenticatedUser) {
         String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getEmail()));
         String refreshToken = refreshTokenService.createRefreshToken(authenticatedUser.getId());
+
+        SignUpResponse signUpResponse ) new SignUpResponse()
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setUser(authenticatedUser);
         loginResponse.setJwt(jwtToken);
