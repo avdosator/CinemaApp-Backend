@@ -1,4 +1,4 @@
-package com.cinemaapp.backend.service.domain.response;
+package com.cinemaapp.backend.service.domain.response.auth;
 
 public class RefreshTokenResponse {
 

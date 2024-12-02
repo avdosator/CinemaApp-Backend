@@ -1,4 +1,4 @@
-package com.cinemaapp.backend.service.domain.request;
+package com.cinemaapp.backend.service.domain.request.auth;
 
 import jakarta.validation.constraints.Email;
 

@@ -1,6 +1,6 @@
 package com.cinemaapp.backend.service;
 
-import com.cinemaapp.backend.service.domain.request.VerifyResetCodeRequest;
+import com.cinemaapp.backend.service.domain.request.auth.VerifyResetCodeRequest;
 
 public interface PasswordResetService {
 

@@ -1,6 +1,6 @@
 package com.cinemaapp.backend.service;
 
-import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
+import com.cinemaapp.backend.service.domain.response.auth.RefreshTokenResponse;
 
 import java.util.UUID;
 

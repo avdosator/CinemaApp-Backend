@@ -2,9 +2,10 @@ package com.cinemaapp.backend.controller;
 
 import com.cinemaapp.backend.service.*;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.request.*;
-import com.cinemaapp.backend.service.domain.response.LoginResponse;
-import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
+import com.cinemaapp.backend.service.domain.request.auth.*;
+import com.cinemaapp.backend.service.domain.response.auth.RefreshTokenResponse;
+import com.cinemaapp.backend.service.domain.response.auth.LoginResponse;
+import com.cinemaapp.backend.service.impl.AuthServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,18 +28,18 @@ public class AuthController {
     public AuthController(UserService userService,
                           RefreshTokenService refreshTokenService,
                           PasswordResetService passwordResetService,
-                          AuthService authService
+                          AuthServiceImpl authServiceImpl
     ) {
         this.userService = userService;
         this.refreshTokenService = refreshTokenService;
         this.passwordResetService = passwordResetService;
-        this.authService = authService;
+        this.authService = authServiceImpl;
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@Valid @RequestBody CreateUserRequest createUserRequest) {
-        User authenticatedUser = userService.authenticate(createUserRequest);
-        return authService.authenticateAndLogin(authenticatedUser);
+    public LoginResponse login(@Valid @RequestBody AuthRequest authRequest) {
+        User authenticatedUser = userService.authenticate(authRequest);
+        return authService.authenticateAndLogin(authenticatedUser, authRequest.getRememberMe());
     }
 
     @PostMapping("/logout")

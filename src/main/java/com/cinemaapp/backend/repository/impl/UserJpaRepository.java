@@ -4,7 +4,7 @@ import com.cinemaapp.backend.repository.UserRepository;
 import com.cinemaapp.backend.repository.crud.CrudUserRepository;
 import com.cinemaapp.backend.repository.entity.UserEntity;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.request.ChangePasswordRequest;
+import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

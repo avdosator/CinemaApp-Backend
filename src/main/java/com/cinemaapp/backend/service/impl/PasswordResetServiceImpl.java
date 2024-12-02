@@ -5,7 +5,7 @@ import com.cinemaapp.backend.service.EmailService;
 import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.request.VerifyResetCodeRequest;
+import com.cinemaapp.backend.service.domain.request.auth.VerifyResetCodeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

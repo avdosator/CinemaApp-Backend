@@ -7,7 +7,7 @@ import com.cinemaapp.backend.service.JwtService;
 import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.domain.model.RefreshToken;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.response.RefreshTokenResponse;
+import com.cinemaapp.backend.service.domain.response.auth.RefreshTokenResponse;
 import com.cinemaapp.backend.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

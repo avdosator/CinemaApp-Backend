@@ -20,7 +20,7 @@ import java.util.UUID;
 public class RefreshTokenJpaRepository implements RefreshTokenRepository {
 
     private static final int TOKEN_LENGTH = 64;
-    private static final int TOKEN_DURATION = 14; //days
+    private static final int TOKEN_DURATION = 30; //days
 
     private final CrudRefreshTokenRepository crudRefreshTokenRepository;
     private final CrudUserRepository crudUserRepository;
@@ -57,7 +57,7 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
                 .filter(entity -> passwordEncoder.matches(token, entity.getTokenHash()))
                 .findFirst()
                 .map(RefreshTokenEntity::toDomainModel)
-                .orElseThrow(() -> new RuntimeException("Invalid or expired refresh token!"));
+                .orElseThrow(() -> new TokenNotFoundException("Invalid or expired refresh token!"));
     }
 
     @Override

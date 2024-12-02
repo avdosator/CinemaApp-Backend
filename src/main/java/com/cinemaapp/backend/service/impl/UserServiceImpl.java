@@ -4,7 +4,8 @@ import com.cinemaapp.backend.exception.InvalidCredentialsException;
 import com.cinemaapp.backend.repository.UserRepository;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.request.ChangePasswordRequest;
+import com.cinemaapp.backend.service.domain.request.auth.AuthRequest;
+import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,18 +31,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authenticate(CreateUserRequest createUserRequest) {
+    public User authenticate(AuthRequest authRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            createUserRequest.getEmail(),
-                            createUserRequest.getPassword()
+                            authRequest.getEmail(),
+                            authRequest.getPassword()
                     ));
         } catch (AuthenticationException e) {
             throw new InvalidCredentialsException("Invalid email or password, please try again.");
         }
 
-        return userRepository.findByEmail(createUserRequest.getEmail());
+        return userRepository.findByEmail(authRequest.getEmail());
     }
 
     @Override
