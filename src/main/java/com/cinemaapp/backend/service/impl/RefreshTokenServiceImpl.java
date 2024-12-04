@@ -7,6 +7,7 @@ import com.cinemaapp.backend.service.JwtService;
 import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.domain.model.RefreshToken;
 import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.request.auth.RefreshTokenRequest;
 import com.cinemaapp.backend.service.domain.response.auth.RefreshTokenResponse;
 import com.cinemaapp.backend.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public RefreshTokenResponse refreshJwt(String token) {
-        User currentUser = UserUtils.getCurrentUser();
-        RefreshToken refreshToken = refreshTokenRepository.validateToken(token, currentUser.getId());
+    public RefreshTokenResponse refreshJwt(RefreshTokenRequest refreshTokenRequest) {
+        RefreshToken refreshToken = refreshTokenRepository.validateToken(
+                refreshTokenRequest.getRefreshToken(), refreshTokenRequest.getUserId()
+        );
 
         if (refreshToken.getExpiration().isBefore(LocalDateTime.now())) {
             throw new TokenExpiredException("Refresh token has expired!");
