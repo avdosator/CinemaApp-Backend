@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Repository
 public class UserJpaRepository implements UserRepository {
@@ -34,6 +35,13 @@ public class UserJpaRepository implements UserRepository {
         /*return crudUserRepository.findByEmail(email)
                 .map(UserEntity::toDomainModel)
                 .orElse(null);*/
+    }
+
+    @Override
+    public User findById(UUID id) {
+        UserEntity userEntity = crudUserRepository.findById(id).
+                orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist."));
+        return userEntity.toDomainModel();
     }
 
     @Override
