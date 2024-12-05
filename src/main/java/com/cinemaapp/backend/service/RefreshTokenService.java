@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.service;
 
+import com.cinemaapp.backend.service.domain.request.auth.LogoutRequest;
 import com.cinemaapp.backend.service.domain.request.auth.RefreshTokenRequest;
 import com.cinemaapp.backend.service.domain.response.auth.RefreshTokenResponse;
 
@@ -9,5 +10,5 @@ public interface RefreshTokenService {
 
     String createRefreshToken(UUID userId);
     RefreshTokenResponse refreshJwt(RefreshTokenRequest refreshTokenRequest);
-    void deleteToken(String token);
+    void deleteToken(LogoutRequest logoutRequest);
 }

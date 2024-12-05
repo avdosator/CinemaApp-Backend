@@ -6,10 +6,9 @@ import com.cinemaapp.backend.repository.RefreshTokenRepository;
 import com.cinemaapp.backend.service.JwtService;
 import com.cinemaapp.backend.service.RefreshTokenService;
 import com.cinemaapp.backend.service.domain.model.RefreshToken;
-import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.request.auth.LogoutRequest;
 import com.cinemaapp.backend.service.domain.request.auth.RefreshTokenRequest;
 import com.cinemaapp.backend.service.domain.response.auth.RefreshTokenResponse;
-import com.cinemaapp.backend.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -55,8 +54,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public void deleteToken(String token) {
-        User currentUser = UserUtils.getCurrentUser();
-        refreshTokenRepository.deleteToken(token, currentUser.getId());
+    public void deleteToken(LogoutRequest logoutRequest) {
+        refreshTokenRepository.deleteToken(logoutRequest);
     }
 }

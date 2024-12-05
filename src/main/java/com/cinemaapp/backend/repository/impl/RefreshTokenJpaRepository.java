@@ -6,6 +6,7 @@ import com.cinemaapp.backend.repository.crud.CrudRefreshTokenRepository;
 import com.cinemaapp.backend.repository.crud.CrudUserRepository;
 import com.cinemaapp.backend.repository.entity.RefreshTokenEntity;
 import com.cinemaapp.backend.service.domain.model.RefreshToken;
+import com.cinemaapp.backend.service.domain.request.auth.LogoutRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -60,12 +61,12 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
     }
 
     @Override
-    public void deleteToken(String token, UUID userId) {
-        List<RefreshTokenEntity> tokens = crudRefreshTokenRepository.findByUserEntity_Id(userId);
+    public void deleteToken(LogoutRequest logoutRequest) {
+        List<RefreshTokenEntity> tokens = crudRefreshTokenRepository.findByUserEntity_Id(logoutRequest.getUserId());
 
         // Filter and find the matching token based on the hash
         RefreshTokenEntity matchingToken = tokens.stream()
-                .filter(entity -> passwordEncoder.matches(token, entity.getTokenHash()))
+                .filter(entity -> passwordEncoder.matches(logoutRequest.getRefreshToken(), entity.getTokenHash()))
                 .findFirst()
                 .orElseThrow(() -> new TokenNotFoundException("Token not found or already deleted"));
 
