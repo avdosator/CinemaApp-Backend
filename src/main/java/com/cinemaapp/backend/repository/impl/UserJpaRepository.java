@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.impl;
 
+import com.cinemaapp.backend.exception.InvalidCredentialsException;
 import com.cinemaapp.backend.repository.UserRepository;
 import com.cinemaapp.backend.repository.crud.CrudUserRepository;
 import com.cinemaapp.backend.repository.entity.UserEntity;
@@ -7,6 +8,7 @@ import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -52,7 +54,12 @@ public class UserJpaRepository implements UserRepository {
         userEntity.setRole("ROLE_USER");
         userEntity.setCreatedAt(LocalDateTime.now());
         userEntity.setUpdatedAt(LocalDateTime.now());
-        UserEntity savedUserEntity = crudUserRepository.save(userEntity);
+        UserEntity savedUserEntity;
+        try {
+            savedUserEntity = crudUserRepository.save(userEntity);
+        } catch (DataIntegrityViolationException e) {
+            throw new InvalidCredentialsException(e.getMessage());
+        }
         return savedUserEntity.toDomainModel();
     }
 
@@ -61,7 +68,12 @@ public class UserJpaRepository implements UserRepository {
         UserEntity userEntity = crudUserRepository.findByEmail(changePasswordRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email"));
         userEntity.setPasswordHash(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
-        UserEntity updatedUser = crudUserRepository.save(userEntity);
+        UserEntity updatedUser;
+        try {
+            updatedUser = crudUserRepository.save(userEntity);
+        } catch (DataIntegrityViolationException e) {
+            throw new InvalidCredentialsException(e.getMessage());
+        }
         return updatedUser.toDomainModel();
     }
 }
