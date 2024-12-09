@@ -1,15 +1,11 @@
 package com.cinemaapp.backend.repository.entity;
 
-import com.cinemaapp.backend.service.domain.model.Payment;
-import com.cinemaapp.backend.service.domain.model.Reservation;
-import com.cinemaapp.backend.service.domain.model.SeatReservation;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -166,30 +162,15 @@ public class UserEntity {
 
     // add payments and reservations after their implementation
     public User toDomainModel() {
-        List<Payment> payments = (this.paymentEntities == null ? Collections.emptyList() :
-                this.paymentEntities.stream()
-                        .map(PaymentEntity::toDomainModel)
-                        .toList());
-        List<Reservation> reservations = (this.reservationEntities == null ? Collections.emptyList() :
-                this.reservationEntities.stream()
-                        .map(ReservationEntity::toDomainModel)
-                        .toList());
-        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ? Collections.emptyList() :
-                this.seatReservationEntities.stream()
-                        .map(SeatReservationEntity::toDomainModel)
-                        .toList());
 
         return User.builder()
                 .id(this.id)
-                .firstName(this.firstName)
-                .lastName(this.lastName)
+                //.firstName(this.firstName)
+                //.lastName(this.lastName)
                 .email(this.email)
                 .passwordHash(this.passwordHash)
-                .phone(this.phone)
-                .city(this.cityEntity.toDomainModel())
-                .payments(payments)
-                .reservations(reservations)
-                .seatReservations(seatReservations)
+                //.phone(this.phone)
+                //.city(this.cityEntity.toDomainModel())
                 .role(this.role)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)

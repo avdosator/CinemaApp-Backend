@@ -1,10 +1,10 @@
-package com.cinemaapp.backend.service.domain.request;
+package com.cinemaapp.backend.service.domain.request.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class CreateUserRequest {
+public class AuthRequest {
 
     @Email(message = "Please provide valid email address")
     @NotBlank(message = "Email can't be blank")
@@ -14,10 +14,7 @@ public class CreateUserRequest {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
-    public CreateUserRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    private boolean rememberMe = false;
 
     public String getEmail() {
         return email;
@@ -33,5 +30,13 @@ public class CreateUserRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }

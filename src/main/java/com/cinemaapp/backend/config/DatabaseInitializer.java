@@ -70,7 +70,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         user.setFirstName("Avdo");
         user.setLastName("Sator");
-        user.setEmail("avdo.sator@hotmail.com");
+        user.setEmail("avdosator@hotmail.com");
         user.setPasswordHash("hashed_password");
         user.setPhone("+38762183628");
         user.setCityEntity(sarajevo);
