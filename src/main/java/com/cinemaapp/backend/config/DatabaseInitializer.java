@@ -23,13 +23,14 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final CrudProjectionRepository crudProjectionRepository;
     private final CrudHallRepository crudHallRepository;
     private final CrudPhotoRepository crudPhotoRepository;
-
+    private final CrudSeatRepository crudSeatRepository;
 
     @Autowired
     public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
                                CrudVenueRepository crudVenueRepository, CrudMovieRepository crudMovieRepository,
                                CrudUserRepository crudUserRepository, CrudProjectionRepository crudProjectionRepository,
-                               CrudHallRepository crudHallRepository, CrudPhotoRepository crudPhotoRepository) {
+                               CrudHallRepository crudHallRepository, CrudPhotoRepository crudPhotoRepository,
+                               CrudSeatRepository crudSeatRepository) {
         this.crudCityRepository = crudCityRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
@@ -38,6 +39,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         this.crudProjectionRepository = crudProjectionRepository;
         this.crudHallRepository = crudHallRepository;
         this.crudPhotoRepository = crudPhotoRepository;
+        this.crudSeatRepository = crudSeatRepository;
     }
 
     @Override
@@ -1154,7 +1156,25 @@ public class DatabaseInitializer implements CommandLineRunner {
         cineplexxSarajevoHall.setVenueEntity(crudVenueRepository.findByName("Cineplexx Sarajevo"));
         cineplexxSarajevoHall.setCreatedAt(LocalDateTime.now());
         cineplexxSarajevoHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(cineplexxSarajevoHall);
+        HallEntity savedCineplexxSarajevoHall = crudHallRepository.save(cineplexxSarajevoHall);
+
+        String[] rows = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+        String[] seatTypes = {"regular", "regular", "regular", "regular", "regular", "regular", "VIP", "VIP", "love"};
+
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedCineplexxSarajevoHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         VenueEntity venue2 = new VenueEntity();
         venue2.setName("Cinema City Sarajevo");
@@ -1177,7 +1197,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         cinemaCitySarajevoHall.setVenueEntity(crudVenueRepository.findByName("Cinema City Sarajevo"));
         cinemaCitySarajevoHall.setCreatedAt(LocalDateTime.now());
         cinemaCitySarajevoHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(cinemaCitySarajevoHall);
+        HallEntity savedCinemaCitySarajevoHall = crudHallRepository.save(cinemaCitySarajevoHall);
+
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedCinemaCitySarajevoHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         VenueEntity venue3 = new VenueEntity();
         venue3.setName("Mostar Cinema");
@@ -1200,7 +1235,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         mostarCinemaHall.setVenueEntity(crudVenueRepository.findByName("Mostar Cinema"));
         mostarCinemaHall.setCreatedAt(LocalDateTime.now());
         mostarCinemaHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(mostarCinemaHall);
+        HallEntity savedMostarCinemaHall = crudHallRepository.save(mostarCinemaHall);
+
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedMostarCinemaHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         VenueEntity venue4 = new VenueEntity();
         venue4.setName("Sarajevo Film Center");
@@ -1223,7 +1273,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         sarajevoFilmCenterHall.setVenueEntity(crudVenueRepository.findByName("Sarajevo Film Center"));
         sarajevoFilmCenterHall.setCreatedAt(LocalDateTime.now());
         sarajevoFilmCenterHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(sarajevoFilmCenterHall);
+        HallEntity savedSarajevoFilmCenterHall = crudHallRepository.save(sarajevoFilmCenterHall);
+
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedSarajevoFilmCenterHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         VenueEntity venue5 = new VenueEntity();
         venue5.setName("Multiplex Mostar");
@@ -1246,7 +1311,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         multiplexMostarHall.setVenueEntity(crudVenueRepository.findByName("Multiplex Mostar"));
         multiplexMostarHall.setCreatedAt(LocalDateTime.now());
         multiplexMostarHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(multiplexMostarHall);
+        HallEntity savedMultiplexMostarHall = crudHallRepository.save(multiplexMostarHall);
+
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedMultiplexMostarHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         VenueEntity venue6 = new VenueEntity();
         venue6.setName("CineStar Sarajevo");
@@ -1269,7 +1349,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         cinestarSarajevoHall.setVenueEntity(crudVenueRepository.findByName("CineStar Sarajevo"));
         cinestarSarajevoHall.setCreatedAt(LocalDateTime.now());
         cinestarSarajevoHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(cinestarSarajevoHall);
+        HallEntity savedCinestarSarajevoHall = crudHallRepository.save(cinestarSarajevoHall);
+
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedCinestarSarajevoHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         VenueEntity venue7 = new VenueEntity();
         venue7.setName("Cinema City Mostar");
@@ -1292,8 +1387,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         cinemaCityMostarHall.setVenueEntity(crudVenueRepository.findByName("Cinema City Mostar"));
         cinemaCityMostarHall.setCreatedAt(LocalDateTime.now());
         cinemaCityMostarHall.setUpdatedAt(LocalDateTime.now());
-        crudHallRepository.save(cinemaCityMostarHall);
+        HallEntity savedCinemaCityMostarHall = crudHallRepository.save(cinemaCityMostarHall);
 
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setHallEntity(savedCinemaCityMostarHall);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                crudSeatRepository.save(seatEntity);
+            }
+        }
 
         // Seed projections
         String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:50"};
