@@ -2,10 +2,11 @@ package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.cinemaapp.backend.service.domain.model.SeatReservation;
-import com.cinemaapp.backend.utils.SeatsStatusConverter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,8 +38,8 @@ public class ProjectionInstanceEntity {
     @Column(name = "time", nullable = false)
     private String time;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "seats_status", columnDefinition = "jsonb", nullable = false)
-    @Convert(converter = SeatsStatusConverter.class) // Custom converter for JSONB mapping
     private Map<String, String> seatsStatus;
 
     @Column(name = "created_at")

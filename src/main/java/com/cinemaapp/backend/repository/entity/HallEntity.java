@@ -1,13 +1,11 @@
 package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Hall;
-import com.cinemaapp.backend.service.domain.model.Seat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // Converts JSONB from database to Map<String, String> field and other way around
-@Converter
+@Converter()
 public class SeatsStatusConverter implements AttributeConverter<Map<String, String>, String> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
