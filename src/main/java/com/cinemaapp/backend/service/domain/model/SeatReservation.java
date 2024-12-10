@@ -6,7 +6,7 @@ import java.util.UUID;
 public class SeatReservation {
 
     private final UUID id;
-    private final Projection projection;
+    private final ProjectionInstance projectionInstance;
     private final Seat seat;
     private final User user;
     private final Ticket ticket;
@@ -16,10 +16,11 @@ public class SeatReservation {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public SeatReservation(UUID id, Projection projection, Seat seat, User user, Ticket ticket, Reservation reservation,
-                           String status, LocalDateTime reservationTime, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public SeatReservation(UUID id, ProjectionInstance projectionInstance, Seat seat, User user, Ticket ticket,
+                           Reservation reservation, String status, LocalDateTime reservationTime, LocalDateTime createdAt,
+                           LocalDateTime updatedAt) {
         this.id = id;
-        this.projection = projection;
+        this.projectionInstance = projectionInstance;
         this.seat = seat;
         this.user = user;
         this.ticket = ticket;
@@ -34,8 +35,8 @@ public class SeatReservation {
         return id;
     }
 
-    public Projection getProjection() {
-        return projection;
+    public ProjectionInstance getProjection() {
+        return projectionInstance;
     }
 
     public Seat getSeat() {
@@ -76,7 +77,7 @@ public class SeatReservation {
 
     public static class SeatReservationBuilder {
         private UUID id;
-        private Projection projection;
+        private ProjectionInstance projectionInstance;
         private Seat seat;
         private User user;
         private Ticket ticket;
@@ -91,8 +92,8 @@ public class SeatReservation {
             return this;
         }
 
-        public SeatReservationBuilder projection(Projection projection) {
-            this.projection = projection;
+        public SeatReservationBuilder projectionInstance(ProjectionInstance projectionInstance) {
+            this.projectionInstance = projectionInstance;
             return this;
         }
 
@@ -139,7 +140,7 @@ public class SeatReservation {
         public SeatReservation build() {
             return new SeatReservation(
                     this.id,
-                    this.projection,
+                    this.projectionInstance,
                     this.seat,
                     this.user,
                     this.ticket,

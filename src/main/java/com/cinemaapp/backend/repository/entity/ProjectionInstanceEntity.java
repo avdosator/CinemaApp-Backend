@@ -1,5 +1,7 @@
 package com.cinemaapp.backend.repository.entity;
 
+import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
+import com.cinemaapp.backend.service.domain.model.SeatReservation;
 import com.cinemaapp.backend.utils.SeatsStatusConverter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -7,6 +9,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,6 +27,9 @@ public class ProjectionInstanceEntity {
     @ManyToOne
     @JoinColumn(name = "projection_id", referencedColumnName = "id")
     private ProjectionEntity projectionEntity;
+
+    @OneToMany(mappedBy = "projectionInstanceEntity")
+    private List<SeatReservationEntity> seatReservationEntities;
 
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -54,6 +61,14 @@ public class ProjectionInstanceEntity {
 
     public void setProjectionEntity(ProjectionEntity projectionEntity) {
         this.projectionEntity = projectionEntity;
+    }
+
+    public List<SeatReservationEntity> getSeatReservationEntities() {
+        return seatReservationEntities;
+    }
+
+    public void setSeatReservationEntities(List<SeatReservationEntity> seatReservationEntities) {
+        this.seatReservationEntities = seatReservationEntities;
     }
 
     public LocalDate getDate() {
@@ -94,5 +109,24 @@ public class ProjectionInstanceEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public ProjectionInstance toDomainModel() {
+
+        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ?
+                Collections.emptyList() : this.seatReservationEntities.stream()
+                .map(SeatReservationEntity::toDomainModel)
+                .toList());
+
+        return ProjectionInstance.builder()
+                .id(this.id)
+                .projection(this.projectionEntity.toDomainModel())
+                .seatReservations(seatReservations)
+                .date(this.date)
+                .time(this.time)
+                .seatsStatus(seatsStatus)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }
