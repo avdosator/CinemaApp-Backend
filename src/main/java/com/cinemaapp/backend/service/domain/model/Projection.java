@@ -2,7 +2,6 @@ package com.cinemaapp.backend.service.domain.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 public class Projection {
@@ -13,24 +12,19 @@ public class Projection {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String[] startTime;
-    private final int availableSeats;
     private final String status;
-    private final List<SeatReservation> seatReservations;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     public Projection(UUID id, Hall hall, UUID movieId, LocalDate startDate, LocalDate endDate, String[] startTime,
-                      int availableSeats, String status, List<SeatReservation> seatReservations,
-                      LocalDateTime createdAt, LocalDateTime updatedAt) {
+                      String status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.hall = hall;
         this.movieId = movieId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
-        this.availableSeats = availableSeats;
         this.status = status;
-        this.seatReservations = seatReservations;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -59,16 +53,8 @@ public class Projection {
         return startTime;
     }
 
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public List<SeatReservation> getSeatReservations() {
-        return seatReservations;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -90,9 +76,7 @@ public class Projection {
         private LocalDate startDate;
         private LocalDate endDate;
         private String[] startTime;
-        private int availableSeats;
         private String status;
-        private List<SeatReservation> seatReservations;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
@@ -129,18 +113,8 @@ public class Projection {
             return this;
         }
 
-        public ProjectionBuilder availableSeats(int availableSeats) {
-            this.availableSeats = availableSeats;
-            return this;
-        }
-
         public ProjectionBuilder status(String status) {
             this.status = status;
-            return this;
-        }
-
-        public ProjectionBuilder seatReservations(List<SeatReservation> seatReservations) {
-            this.seatReservations = seatReservations;
             return this;
         }
 
@@ -162,9 +136,7 @@ public class Projection {
                     this.startDate,
                     this.endDate,
                     this.startTime,
-                    this.availableSeats,
                     this.status,
-                    this.seatReservations,
                     this.createdAt,
                     this.updatedAt
             );
