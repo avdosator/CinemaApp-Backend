@@ -1,7 +1,6 @@
 package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
-import com.cinemaapp.backend.service.domain.model.SeatReservation;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -10,7 +9,6 @@ import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -114,15 +112,15 @@ public class ProjectionInstanceEntity {
 
     public ProjectionInstance toDomainModel() {
 
-        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ?
+        /*List<SeatReservation> seatReservations = (this.seatReservationEntities == null ?
                 Collections.emptyList() : this.seatReservationEntities.stream()
                 .map(SeatReservationEntity::toDomainModel)
-                .toList());
+                .toList());*/
 
         return ProjectionInstance.builder()
                 .id(this.id)
                 .projection(this.projectionEntity.toDomainModel())
-                .seatReservations(seatReservations)
+                //.seatReservations(seatReservations)
                 .date(this.date)
                 .time(this.time)
                 .seatsStatus(seatsStatus)
