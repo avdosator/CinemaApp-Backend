@@ -8,6 +8,9 @@ import java.util.UUID;
 public class SearchProjectionInstanceRequest {
 
     @NotNull
+    private UUID movie;
+
+    @NotNull
     private UUID city;
 
     @NotNull
@@ -19,35 +22,43 @@ public class SearchProjectionInstanceRequest {
     @NotNull
     private String time;
 
-    public @NotNull UUID getCity() {
+    public @NotNull UUID getMovie() {
+        return movie;
+    }
+
+    public void setMovie(UUID movie) {
+        this.movie = movie;
+    }
+
+    public UUID getCity() {
         return city;
     }
 
-    public void setCity(@NotNull UUID city) {
+    public void setCity(UUID city) {
         this.city = city;
     }
 
-    public @NotNull UUID getVenue() {
+    public UUID getVenue() {
         return venue;
     }
 
-    public void setVenue(@NotNull UUID venue) {
+    public void setVenue(UUID venue) {
         this.venue = venue;
     }
 
-    public @NotNull LocalDate getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(@NotNull LocalDate date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public @NotNull String getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(@NotNull String time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }
