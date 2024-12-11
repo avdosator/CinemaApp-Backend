@@ -1454,7 +1454,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         inceptionProjection.setMovieEntity(crudMovieRepository.findByTitle("Inception"));
         inceptionProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Sarajevo").getHallEntities().get(0));
         inceptionProjection.setStartDate(LocalDate.now().minusDays(4));
-        inceptionProjection.setEndDate(LocalDate.now().plusDays(6));
+        inceptionProjection.setEndDate(LocalDate.now().plusDays(4));
         inceptionProjection.setStartTime(new String[]{startTimes[1], startTimes[2]});
         inceptionProjection.setStatus("active");
         inceptionProjection.setCreatedAt(LocalDateTime.now());
@@ -1484,7 +1484,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         titanicProjection.setMovieEntity(crudMovieRepository.findByTitle("Titanic"));
         titanicProjection.setHallEntity(crudVenueRepository.findByName("Mostar Cinema").getHallEntities().get(0));
         titanicProjection.setStartDate(LocalDate.now().minusDays(3));
-        titanicProjection.setEndDate(LocalDate.now().plusDays(7));
+        titanicProjection.setEndDate(LocalDate.now().plusDays(6));
         titanicProjection.setStartTime(new String[]{startTimes[2], startTimes[3]});
         titanicProjection.setStatus("active");
         titanicProjection.setCreatedAt(LocalDateTime.now());
@@ -1514,7 +1514,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         darkKnightProjection.setMovieEntity(crudMovieRepository.findByTitle("The Dark Knight"));
         darkKnightProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
         darkKnightProjection.setStartDate(LocalDate.now().minusDays(2));
-        darkKnightProjection.setEndDate(LocalDate.now().plusDays(8));
+        darkKnightProjection.setEndDate(LocalDate.now().plusDays(5));
         darkKnightProjection.setStartTime(new String[]{startTimes[3], startTimes[4]});
         darkKnightProjection.setStatus("active");
         darkKnightProjection.setCreatedAt(LocalDateTime.now());
@@ -1544,7 +1544,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         matrixProjection.setMovieEntity(crudMovieRepository.findByTitle("The Matrix"));
         matrixProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
         matrixProjection.setStartDate(LocalDate.now().minusDays(1));
-        matrixProjection.setEndDate(LocalDate.now().plusDays(9));
+        matrixProjection.setEndDate(LocalDate.now().plusDays(7));
         matrixProjection.setStartTime(new String[]{startTimes[4], startTimes[5]});
         matrixProjection.setStatus("active");
         matrixProjection.setCreatedAt(LocalDateTime.now());
@@ -1573,7 +1573,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         ProjectionEntity interstellarProjection = new ProjectionEntity();
         interstellarProjection.setMovieEntity(crudMovieRepository.findByTitle("Interstellar"));
         interstellarProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
-        interstellarProjection.setStartDate(LocalDate.now().minusDays(5));
+        interstellarProjection.setStartDate(LocalDate.now().minusDays(4));
         interstellarProjection.setEndDate(LocalDate.now().plusDays(5));
         interstellarProjection.setStartTime(new String[]{startTimes[0], startTimes[2]}); // Using 14:00, 18:00
         interstellarProjection.setStatus("active");
@@ -1633,7 +1633,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         ProjectionEntity godfatherProjection = new ProjectionEntity();
         godfatherProjection.setMovieEntity(crudMovieRepository.findByTitle("The Godfather"));
         godfatherProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Mostar").getHallEntities().get(0));
-        godfatherProjection.setStartDate(LocalDate.now().minusDays(3));
+        godfatherProjection.setStartDate(LocalDate.now().minusDays(2));
         godfatherProjection.setEndDate(LocalDate.now().plusDays(7));
         godfatherProjection.setStartTime(new String[]{startTimes[2], startTimes[4]}); // Using 18:00, 22:15
         godfatherProjection.setStatus("active");
@@ -1783,7 +1783,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         ProjectionEntity lionKingProjection = new ProjectionEntity();
         lionKingProjection.setMovieEntity(crudMovieRepository.findByTitle("The Lion King"));
         lionKingProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
-        lionKingProjection.setStartDate(LocalDate.now().minusDays(3));
+        lionKingProjection.setStartDate(LocalDate.now().minusDays(2));
         lionKingProjection.setEndDate(LocalDate.now().plusDays(7));
         lionKingProjection.setStartTime(new String[]{startTimes[2], startTimes[3]});
         lionKingProjection.setStatus("active");
@@ -1844,7 +1844,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         shawshankRedemptionProjection.setMovieEntity(crudMovieRepository.findByTitle("Shawshank Redemption"));
         shawshankRedemptionProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
         shawshankRedemptionProjection.setStartDate(LocalDate.now().minusDays(1));
-        shawshankRedemptionProjection.setEndDate(LocalDate.now().plusDays(9));
+        shawshankRedemptionProjection.setEndDate(LocalDate.now().plusDays(8));
         shawshankRedemptionProjection.setStartTime(new String[]{startTimes[4], startTimes[5]});
         shawshankRedemptionProjection.setStatus("active");
         shawshankRedemptionProjection.setCreatedAt(LocalDateTime.now());
@@ -1873,7 +1873,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         ProjectionEntity greenMileProjection = new ProjectionEntity();
         greenMileProjection.setMovieEntity(crudMovieRepository.findByTitle("The Green Mile"));
         greenMileProjection.setHallEntity(crudVenueRepository.findByName("CineStar Sarajevo").getHallEntities().get(0));
-        greenMileProjection.setStartDate(LocalDate.now().minusDays(5));
+        greenMileProjection.setStartDate(LocalDate.now().minusDays(3));
         greenMileProjection.setEndDate(LocalDate.now().plusDays(5));
         greenMileProjection.setStartTime(new String[]{startTimes[0], startTimes[2]});
         greenMileProjection.setStatus("active");
@@ -1903,7 +1903,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         ProjectionEntity avengersProjection = new ProjectionEntity();
         avengersProjection.setMovieEntity(crudMovieRepository.findByTitle("The Avengers"));
         avengersProjection.setHallEntity(crudVenueRepository.findByName("Multiplex Mostar").getHallEntities().get(0));
-        avengersProjection.setStartDate(LocalDate.now().minusDays(4));
+        avengersProjection.setStartDate(LocalDate.now().minusDays(2));
         avengersProjection.setEndDate(LocalDate.now().plusDays(6));
         avengersProjection.setStartTime(new String[]{startTimes[1], startTimes[3]});
         avengersProjection.setStatus("active");
@@ -1933,7 +1933,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         ProjectionEntity jurassicParkProjection = new ProjectionEntity();
         jurassicParkProjection.setMovieEntity(crudMovieRepository.findByTitle("Jurassic Park"));
         jurassicParkProjection.setHallEntity(crudVenueRepository.findByName("Cinema City Mostar").getHallEntities().get(0));
-        jurassicParkProjection.setStartDate(LocalDate.now().minusDays(3));
+        jurassicParkProjection.setStartDate(LocalDate.now().minusDays(2));
         jurassicParkProjection.setEndDate(LocalDate.now().plusDays(7));
         jurassicParkProjection.setStartTime(new String[]{startTimes[2], startTimes[4]});
         jurassicParkProjection.setStatus("active");
@@ -1964,7 +1964,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         silenceOfLambsProjection.setMovieEntity(crudMovieRepository.findByTitle("The Silence of the Lambs"));
         silenceOfLambsProjection.setHallEntity(crudVenueRepository.findByName("Sarajevo Film Center").getHallEntities().get(0));
         silenceOfLambsProjection.setStartDate(LocalDate.now().minusDays(2));
-        silenceOfLambsProjection.setEndDate(LocalDate.now().plusDays(8));
+        silenceOfLambsProjection.setEndDate(LocalDate.now().plusDays(7));
         silenceOfLambsProjection.setStartTime(new String[]{startTimes[3], startTimes[5]});
         silenceOfLambsProjection.setStatus("active");
         silenceOfLambsProjection.setCreatedAt(LocalDateTime.now());
@@ -1994,7 +1994,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         lotrFellowshipProjection.setMovieEntity(crudMovieRepository.findByTitle("The Lord of the Rings: The Fellowship of the Ring"));
         lotrFellowshipProjection.setHallEntity(crudVenueRepository.findByName("Cineplexx Sarajevo").getHallEntities().get(0));
         lotrFellowshipProjection.setStartDate(LocalDate.now().minusDays(1));
-        lotrFellowshipProjection.setEndDate(LocalDate.now().plusDays(9));
+        lotrFellowshipProjection.setEndDate(LocalDate.now().plusDays(7));
         lotrFellowshipProjection.setStartTime(new String[]{startTimes[4], startTimes[0]});
         lotrFellowshipProjection.setStatus("active");
         lotrFellowshipProjection.setCreatedAt(LocalDateTime.now());
