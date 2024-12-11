@@ -117,7 +117,7 @@ public class HallEntity {
         return Hall.builder()
                 .id(this.id)
                 .name(this.name)
-                //.venue(this.venueEntity.toDomainModel())
+                .venue(this.venueEntity.toDomainModel())
                 //.projections(projections)
                 //.seats(seats)
                 //.totalSeats(this.totalSeats)
