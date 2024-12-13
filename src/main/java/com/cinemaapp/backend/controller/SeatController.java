@@ -20,9 +20,8 @@ public class SeatController {
         this.seatService = seatService;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<Seat> getSeatsByHall(@RequestParam("hall") UUID hallId) {
-        List<Seat> seats = seatService.getSeatsByHall(hallId);
-        return seats;
+        return seatService.getSeatsByHall(hallId);
     }
 }

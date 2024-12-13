@@ -7,6 +7,7 @@ import com.cinemaapp.backend.service.domain.model.Seat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,11 @@ public class SeatJpaRepository implements SeatRepository {
 
     @Override
     public List<Seat> getSeatsByHall(UUID hallId) {
-        List<SeatEntity> seatEntities =  crudSeatRepository.findAllByHallEntity_Id(hallId);
+        List<SeatEntity> seatEntities = crudSeatRepository.findAllByHallEntity_Id(hallId);
+        List<Seat> seats = new ArrayList<>();
+        for (SeatEntity seatEntity : seatEntities) {
+            seats.add(seatEntity.toDomainModel());
+        }
+        return seats;
     }
 }
