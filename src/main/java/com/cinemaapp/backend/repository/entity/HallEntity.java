@@ -1,11 +1,13 @@
 package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Hall;
+import com.cinemaapp.backend.service.domain.model.Seat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -110,16 +112,16 @@ public class HallEntity {
 //                Collections.emptyList() : this.projectionEntities.stream()
 //                .map(ProjectionEntity::toDomainModel)
 //                .toList());
-//        List<Seat> seats = (this.projectionEntities == null ? Collections.emptyList() : this.seatEntities.stream()
-//                .map(SeatEntity::toDomainModel)
-//                .toList());
+        List<Seat> seats = (this.projectionEntities == null ? Collections.emptyList() : this.seatEntities.stream()
+                .map(SeatEntity::toDomainModel)
+                .toList());
 
         return Hall.builder()
                 .id(this.id)
                 .name(this.name)
                 .venue(this.venueEntity.toDomainModel())
                 //.projections(projections)
-                //.seats(seats)
+                .seats(seats)
                 //.totalSeats(this.totalSeats)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)

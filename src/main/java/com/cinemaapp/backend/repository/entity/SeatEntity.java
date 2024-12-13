@@ -105,11 +105,11 @@ public class SeatEntity {
         return Seat.builder()
                 .id(this.id)
                 .number(this.number)
-                .hall(this.hallEntity.toDomainModel())
-                .seatReservations(seatReservations)
+                //.hall(this.hallEntity.toDomainModel())
+                //.seatReservations(seatReservations)
                 .type(this.type)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }
