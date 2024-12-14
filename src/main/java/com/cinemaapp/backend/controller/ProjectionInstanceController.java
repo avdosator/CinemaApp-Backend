@@ -6,13 +6,12 @@ import com.cinemaapp.backend.service.domain.request.SearchProjectionInstanceRequ
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/projection/instance")
+@RequestMapping("/projections/instance")
 @Tag(name = "Projection instances", description = "Endpoints for managing projection instances")
 public class ProjectionInstanceController {
 
@@ -26,5 +25,10 @@ public class ProjectionInstanceController {
     @GetMapping()
     public ProjectionInstance getProjectionInstance(@ModelAttribute @Valid SearchProjectionInstanceRequest searchProjectionInstanceRequest) {
         return projectionInstanceService.findProjectionInstance(searchProjectionInstanceRequest);
+    }
+
+    @GetMapping("/{id}")
+    public ProjectionInstance getProjectionInstanceById(@PathVariable UUID id) {
+        return projectionInstanceService.findById(id);
     }
 }

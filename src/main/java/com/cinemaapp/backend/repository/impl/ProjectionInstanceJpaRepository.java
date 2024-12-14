@@ -8,6 +8,8 @@ import com.cinemaapp.backend.service.domain.request.SearchProjectionInstanceRequ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public class ProjectionInstanceJpaRepository implements ProjectionInstanceRepository {
 
@@ -28,5 +30,11 @@ public class ProjectionInstanceJpaRepository implements ProjectionInstanceReposi
                 searchProjectionInstanceRequest.getTime()
         ).orElseThrow(); // Handle Optional as per your application's needs
         return projectionInstanceEntity.toDomainModel();
+    }
+
+    @Override
+    public ProjectionInstance findById(UUID id) {
+        ProjectionInstanceEntity projectionInstanceEntity = crudProjectionInstanceRepository.findById(id).orElse(null);
+        return projectionInstanceEntity == null ? null : projectionInstanceEntity.toDomainModel();
     }
 }

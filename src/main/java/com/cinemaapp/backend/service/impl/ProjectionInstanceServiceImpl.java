@@ -7,6 +7,8 @@ import com.cinemaapp.backend.service.domain.request.SearchProjectionInstanceRequ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class ProjectionInstanceServiceImpl implements ProjectionInstanceService {
 
@@ -20,5 +22,10 @@ public class ProjectionInstanceServiceImpl implements ProjectionInstanceService 
     @Override
     public ProjectionInstance findProjectionInstance(SearchProjectionInstanceRequest searchProjectionInstanceRequest) {
         return projectionInstanceRepository.findProjectionInstance(searchProjectionInstanceRequest);
+    }
+
+    @Override
+    public ProjectionInstance findById(UUID id) {
+        return projectionInstanceRepository.findById(id);
     }
 }
