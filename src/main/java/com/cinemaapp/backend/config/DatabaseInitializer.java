@@ -23,13 +23,15 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final CrudPhotoRepository crudPhotoRepository;
     private final CrudSeatRepository crudSeatRepository;
     private final CrudProjectionInstanceRepository crudProjectionInstanceRepository;
+    private final CrudSeatReservationRepository crudSeatReservationRepository;
 
     @Autowired
     public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
                                CrudVenueRepository crudVenueRepository, CrudMovieRepository crudMovieRepository,
                                CrudUserRepository crudUserRepository, CrudProjectionRepository crudProjectionRepository,
                                CrudHallRepository crudHallRepository, CrudPhotoRepository crudPhotoRepository,
-                               CrudSeatRepository crudSeatRepository, CrudProjectionInstanceRepository crudProjectionInstanceRepository) {
+                               CrudSeatRepository crudSeatRepository, CrudProjectionInstanceRepository crudProjectionInstanceRepository,
+                               CrudSeatReservationRepository crudSeatReservationRepository) {
         this.crudCityRepository = crudCityRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
@@ -40,6 +42,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         this.crudPhotoRepository = crudPhotoRepository;
         this.crudSeatRepository = crudSeatRepository;
         this.crudProjectionInstanceRepository = crudProjectionInstanceRepository;
+        this.crudSeatReservationRepository = crudSeatReservationRepository;
     }
 
     @Override
@@ -1168,11 +1171,14 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             for (int j = 1; j <= seatCount; j++) {
                 SeatEntity seatEntity = new SeatEntity();
+                SeatReservationEntity seatReservationEntity = new SeatReservationEntity();
+                seatReservationEntity.setStatus("reserved");
                 seatEntity.setType(seatType);
                 seatEntity.setHallEntity(savedCineplexxSarajevoHall);
                 seatEntity.setCreatedAt(LocalDateTime.now());
                 seatEntity.setNumber(row + j);
-                crudSeatRepository.save(seatEntity);
+                seatReservationEntity.setSeatEntity(crudSeatRepository.save(seatEntity));
+                crudSeatReservationRepository.save(seatReservationEntity);
             }
         }
 
@@ -1409,10 +1415,10 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i];
-            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+            int seatCount = (i == 8) ? 4 : 8;
             for (int j = 1; j <= seatCount; j++) {
                 String seatNumber = row + j;
-                seatStatusTemplate.put(seatNumber, "available"); // All seats are initially available
+                seatStatusTemplate.put(seatNumber, "available");
             }
         }
 
@@ -1431,6 +1437,10 @@ public class DatabaseInitializer implements CommandLineRunner {
         avatarProjection.setUpdatedAt(LocalDateTime.now());
         ProjectionEntity savedAvatarProjection = crudProjectionRepository.save(avatarProjection);
 
+        // Create projection instances for Avatar projection in Cineplexx Sarajevo and create seat reservations
+        // for that projection to show how it looks when seats are reserved
+        List<SeatReservationEntity> seatReservationEntities = crudSeatReservationRepository.findAll();
+
         LocalDate currentDate = savedAvatarProjection.getStartDate();
         while (!currentDate.isAfter(savedAvatarProjection.getEndDate())) {
             for (String startTime : savedAvatarProjection.getStartTime()) {
@@ -1442,9 +1452,22 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
+                List<SeatReservationEntity> newSeatReservationEntities = new ArrayList<>();
+                for (SeatReservationEntity seatReservation : seatReservationEntities) {
+                    SeatReservationEntity newReservation = new SeatReservationEntity();
+                    newReservation.setProjectionInstanceEntity(projectionInstance);
+                    newReservation.setSeatEntity(seatReservation.getSeatEntity()); // Assuming 'seat' field exists
+                    newReservation.setStatus(seatReservation.getStatus()); // Assuming 'status' field exists
+                    newReservation.setCreatedAt(LocalDateTime.now());
+                    newReservation.setUpdatedAt(LocalDateTime.now());
+                    newSeatReservationEntities.add(newReservation);
+                    //projectionInstance.getSeatReservationEntities().add(seatReservation); // Add to the collection
+                    //crudSeatReservationRepository.save(seatReservation);
+                }
+                projectionInstance.setSeatReservationEntities(newSeatReservationEntities);
 
                 // Save the ProjectionInstanceEntity
-                crudProjectionInstanceRepository.save(projectionInstance);
+                ProjectionInstanceEntity savedInstance = crudProjectionInstanceRepository.save(projectionInstance);
             }
             currentDate = currentDate.plusDays(1); // Move to the next date
         }
