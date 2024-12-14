@@ -18,7 +18,7 @@ public class SeatReservationEntity {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "projection_instance_id", referencedColumnName = "id")
     private ProjectionInstanceEntity projectionInstanceEntity;
 
@@ -135,13 +135,13 @@ public class SeatReservationEntity {
                 .id(this.id)
                 //.projectionInstance(this.projectionInstanceEntity.toDomainModel())
                 .seat(this.seatEntity.toDomainModel())
-                .user(this.userEntity.toDomainModel())
+                //.user(this.userEntity.toDomainModel())
                 //.ticket(this.ticketEntity.toDomainModel())
                 //.reservation(this.reservationEntity.toDomainModel())
                 .status(this.status)
-                .reservationTime(this.reservationTime)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.reservationTime(this.reservationTime)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }

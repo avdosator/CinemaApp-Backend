@@ -35,7 +35,7 @@ public class SeatReservation {
         return id;
     }
 
-    public ProjectionInstance getProjection() {
+    public ProjectionInstance getProjectionInstance() {
         return projectionInstance;
     }
 
