@@ -5,6 +5,7 @@ import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,4 +40,17 @@ public class MovieServiceImplTest {
         assertSame(request, requestArgumentCaptor.getValue());
         assertSame(page, moviePage);
     }
+
+    @Test
+    void test_findUpcomingMovies_returnsPage() {
+        Page<Movie> page = new Page<>();
+        ArgumentCaptor<SearchUpcomingMoviesRequest> requestArgumentCaptor = ArgumentCaptor.forClass(SearchUpcomingMoviesRequest.class);
+        when(movieRepository.findUpcomingMovies(requestArgumentCaptor.capture()))
+                .thenReturn(page);
+        SearchUpcomingMoviesRequest request = new SearchUpcomingMoviesRequest();
+        Page<Movie> moviePage = movieService.findUpcomingMovies(request);
+        assertSame(request, requestArgumentCaptor.getValue());
+        assertSame(page, moviePage);
+    }
+
 }
