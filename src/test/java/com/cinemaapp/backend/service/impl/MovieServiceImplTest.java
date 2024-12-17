@@ -6,12 +6,15 @@ import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
@@ -51,6 +54,15 @@ public class MovieServiceImplTest {
         Page<Movie> moviePage = movieService.findUpcomingMovies(request);
         assertSame(request, requestArgumentCaptor.getValue());
         assertSame(page, moviePage);
+    }
+
+    @Test
+    void findById() {
+        UUID movieId = UUID.randomUUID();
+        when(movieRepository.findById(movieId)).thenReturn(Movie.builder().id(movieId).build());
+        Movie movie = movieService.findById(movieId);
+        Assertions.assertNotNull(movie);
+        Assertions.assertEquals(movieId, movie.getId());
     }
 
 }
