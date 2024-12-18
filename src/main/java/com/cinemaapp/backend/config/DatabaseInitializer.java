@@ -1360,7 +1360,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         for (int i = 0; i < rows.length; i++) {
             String row = rows[i];
             String seatType = seatTypes[i];
-            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+            int seatCount = (i == 8) ? 4 : 8;
 
             for (int j = 1; j <= seatCount; j++) {
                 SeatEntity seatEntity = new SeatEntity();
