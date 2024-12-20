@@ -6,7 +6,7 @@ public class CreatePaymentResponse {
 
     private UUID reservationId;
     private String paymentStatus;
-    private double amount;
+    private double totalPrice;
 
     public UUID getReservationId() {
         return reservationId;
@@ -24,11 +24,11 @@ public class CreatePaymentResponse {
         this.paymentStatus = paymentStatus;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
