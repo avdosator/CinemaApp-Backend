@@ -1,8 +1,9 @@
 package com.cinemaapp.backend.service;
 
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
+import com.cinemaapp.backend.service.domain.response.CreatePaymentResponse;
 
 public interface PaymentService {
 
-    public String createPayment(CreatePaymentRequest createPaymentRequest);
+    public CreatePaymentResponse createPayment(CreatePaymentRequest createPaymentRequest);
 }

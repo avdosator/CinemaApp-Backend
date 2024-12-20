@@ -3,6 +3,7 @@ package com.cinemaapp.backend.repository.impl;
 import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.repository.crud.*;
 import com.cinemaapp.backend.repository.entity.*;
+import com.cinemaapp.backend.service.domain.model.Reservation;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,18 +37,18 @@ public class PaymentJpaRepository implements PaymentRepository {
     }
 
     @Override
-    public String createPayment(CreatePaymentRequest createPaymentRequest) {
+    public Reservation createPayment(CreatePaymentRequest createPaymentRequest) {
 
         UserEntity userEntity = crudUserRepository.findById(createPaymentRequest.getUserId()).orElseThrow();
         ReservationEntity reservationEntity = createReservation(createPaymentRequest, userEntity);
-        return "";
+        return reservationEntity.toDomainModel();
     }
 
     private ReservationEntity createReservation(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
 
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setUserEntity(userEntity);
-        reservationEntity.setStatus("confirmed");
+        reservationEntity.setStatus("pending");
         reservationEntity.setTotalPrice(createPaymentRequest.getAmount());
         reservationEntity.setSeatReservationEntities(createSeatReservations(createPaymentRequest, userEntity));
         reservationEntity.setCreatedAt(LocalDateTime.now());
