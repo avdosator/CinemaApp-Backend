@@ -41,6 +41,7 @@ public class PaymentJpaRepository implements PaymentRepository {
 
         UserEntity userEntity = crudUserRepository.findById(createPaymentRequest.getUserId()).orElseThrow();
         ReservationEntity reservationEntity = createReservation(createPaymentRequest, userEntity);
+        createPendingPayment(createPaymentRequest, userEntity);
         return reservationEntity.toDomainModel();
     }
 
@@ -69,5 +70,16 @@ public class PaymentJpaRepository implements PaymentRepository {
             seatReservationEntities.add(crudSeatReservationRepository.save(seatReservationEntity));
         }
         return seatReservationEntities;
+    }
+
+    private PaymentEntity createPendingPayment(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
+        PaymentEntity paymentEntity = new PaymentEntity();
+        paymentEntity.setAmount(createPaymentRequest.getAmount());
+        paymentEntity.setMethod("card"); // Placeholder; will refine after integrating Stripe.
+        paymentEntity.setStatus("pending");
+        paymentEntity.setPaymentTime(null); // Will be updated after payment confirmation.
+        paymentEntity.setUserEntity(userEntity);
+        paymentEntity.setUpdatedAt(LocalDateTime.now());
+        return crudPaymentRepository.save(paymentEntity);
     }
 }

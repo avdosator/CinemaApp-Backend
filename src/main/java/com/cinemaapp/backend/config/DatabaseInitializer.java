@@ -70,6 +70,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         crudCityRepository.saveAll(Arrays.asList(sarajevo, mostar));
 
+        /*
         // seed users table
         UserEntity user = new UserEntity();
 
@@ -84,6 +85,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         user.setUpdatedAt(LocalDateTime.now());
 
         crudUserRepository.save(user);
+         */
 
         // seed genre table
         List<GenreEntity> genres = new ArrayList<>();
