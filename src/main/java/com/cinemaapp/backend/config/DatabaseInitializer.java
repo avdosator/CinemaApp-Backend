@@ -1173,14 +1173,13 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             for (int j = 1; j <= seatCount; j++) {
                 SeatEntity seatEntity = new SeatEntity();
-                SeatReservationEntity seatReservationEntity = new SeatReservationEntity();
-                seatReservationEntity.setStatus("reserved");
+                //SeatReservationEntity seatReservationEntity = new SeatReservationEntity();
+                //seatReservationEntity.setStatus("reserved");
                 seatEntity.setType(seatType);
                 seatEntity.setHallEntity(savedCineplexxSarajevoHall);
                 seatEntity.setCreatedAt(LocalDateTime.now());
                 seatEntity.setNumber(row + j);
-                seatReservationEntity.setSeatEntity(crudSeatRepository.save(seatEntity));
-                crudSeatReservationRepository.save(seatReservationEntity);
+                crudSeatRepository.save(seatEntity);
             }
         }
 
@@ -1439,9 +1438,11 @@ public class DatabaseInitializer implements CommandLineRunner {
         avatarProjection.setUpdatedAt(LocalDateTime.now());
         ProjectionEntity savedAvatarProjection = crudProjectionRepository.save(avatarProjection);
 
-        // Create projection instances for Avatar projection in Cineplexx Sarajevo and create seat reservations
+
+
+        /*// Create projection instances for Avatar projection in Cineplexx Sarajevo and create seat reservations
         // for that projection to show how it looks when seats are reserved
-        List<SeatReservationEntity> seatReservationEntities = crudSeatReservationRepository.findAll();
+        List<SeatReservationEntity> seatReservationEntities = crudSeatReservationRepository.findAll();*/
 
         LocalDate currentDate = savedAvatarProjection.getStartDate();
         while (!currentDate.isAfter(savedAvatarProjection.getEndDate())) {
@@ -1454,19 +1455,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
-                List<SeatReservationEntity> newSeatReservationEntities = new ArrayList<>();
-                for (SeatReservationEntity seatReservation : seatReservationEntities) {
-                    SeatReservationEntity newReservation = new SeatReservationEntity();
-                    newReservation.setProjectionInstanceEntity(projectionInstance);
-                    newReservation.setSeatEntity(seatReservation.getSeatEntity()); // Assuming 'seat' field exists
-                    newReservation.setStatus(seatReservation.getStatus()); // Assuming 'status' field exists
-                    newReservation.setCreatedAt(LocalDateTime.now());
-                    newReservation.setUpdatedAt(LocalDateTime.now());
-                    newSeatReservationEntities.add(newReservation);
-                    //projectionInstance.getSeatReservationEntities().add(seatReservation); // Add to the collection
-                    //crudSeatReservationRepository.save(seatReservation);
-                }
-                projectionInstance.setSeatReservationEntities(newSeatReservationEntities);
 
                 // Save the ProjectionInstanceEntity
                 ProjectionInstanceEntity savedInstance = crudProjectionInstanceRepository.save(projectionInstance);
