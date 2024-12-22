@@ -12,10 +12,11 @@ public class Payment {
     private final String status;
     private final User user;
     private final Ticket ticket;
+    private final UUID reservationId;
     private final LocalDateTime updatedAt;
 
     public Payment(UUID id, double amount, String method, LocalDateTime paymentTime, String status, User user,
-                   Ticket ticket, LocalDateTime updatedAt) {
+                   Ticket ticket, UUID reservationId, LocalDateTime updatedAt) {
         this.id = id;
         this.amount = amount;
         this.method = method;
@@ -23,6 +24,7 @@ public class Payment {
         this.status = status;
         this.user = user;
         this.ticket = ticket;
+        this.reservationId = reservationId;
         this.updatedAt = updatedAt;
     }
 
@@ -54,6 +56,10 @@ public class Payment {
         return ticket;
     }
 
+    public UUID getReservationId() {
+        return reservationId;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -70,6 +76,7 @@ public class Payment {
         private String status;
         private User user;
         private Ticket ticket;
+        private UUID reservationId;
         private LocalDateTime updatedAt;
 
         PaymentBuilder() {
@@ -107,6 +114,11 @@ public class Payment {
 
         public PaymentBuilder ticket(Ticket ticket) {
             this.ticket = ticket;
+            return this;
+        }
+
+        public PaymentBuilder reservationId(UUID reservationId) {
+            this.reservationId = reservationId;
             return this;
         }
 
