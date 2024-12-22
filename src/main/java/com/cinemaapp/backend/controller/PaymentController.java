@@ -29,6 +29,6 @@ public class PaymentController {
 
     @PostMapping
     public CreatePaymentResponse createPayment(@Valid @RequestBody CreatePaymentRequest createPaymentRequest) {
-        return paymentService.createPayment(createPaymentRequest);
+        return paymentService.processReservationAndPayment(createPaymentRequest);
     }
 }

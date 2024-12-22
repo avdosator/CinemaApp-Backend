@@ -1,10 +1,10 @@
 package com.cinemaapp.backend.repository.impl;
 
+import com.cinemaapp.backend.controller.dto.PaymentProcessingResult;
 import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.repository.crud.*;
 import com.cinemaapp.backend.repository.entity.*;
 import com.cinemaapp.backend.service.domain.model.Payment;
-import com.cinemaapp.backend.service.domain.model.Reservation;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,18 +23,21 @@ public class PaymentJpaRepository implements PaymentRepository {
     private final CrudSeatRepository crudSeatRepository;
     private final CrudSeatReservationRepository crudSeatReservationRepository;
     private final CrudProjectionInstanceRepository crudProjectionInstanceRepository;
+    private final CrudTicketRepository crudTicketRepository;
 
     @Autowired
     public PaymentJpaRepository(CrudPaymentRepository crudPaymentRepository, CrudUserRepository crudUserRepository,
                                 CrudReservationRepository crudReservationRepository, CrudSeatRepository crudSeatRepository,
                                 CrudSeatReservationRepository crudSeatReservationRepository,
-                                CrudProjectionInstanceRepository crudProjectionInstanceRepository) {
+                                CrudProjectionInstanceRepository crudProjectionInstanceRepository,
+                                CrudTicketRepository crudTicketRepository) {
         this.crudPaymentRepository = crudPaymentRepository;
         this.crudUserRepository = crudUserRepository;
         this.crudReservationRepository = crudReservationRepository;
         this.crudSeatRepository = crudSeatRepository;
         this.crudSeatReservationRepository = crudSeatReservationRepository;
         this.crudProjectionInstanceRepository = crudProjectionInstanceRepository;
+        this.crudTicketRepository = crudTicketRepository;
     }
 
     @Override
@@ -45,19 +48,23 @@ public class PaymentJpaRepository implements PaymentRepository {
     }
 
     @Override
-    public Reservation createPayment(CreatePaymentRequest createPaymentRequest) {
-
+    public PaymentProcessingResult processReservationAndPayment(CreatePaymentRequest createPaymentRequest) {
         UserEntity userEntity = crudUserRepository.findById(createPaymentRequest.getUserId()).orElseThrow();
         ReservationEntity reservationEntity = createReservation(createPaymentRequest, userEntity);
-        PaymentEntity paymentEntity = createPendingPayment(createPaymentRequest, userEntity);
-        return reservationEntity.toDomainModel();
+        PaymentEntity paymentEntity = createPayment(createPaymentRequest, userEntity);
+        TicketEntity ticketEntity = createTicket(paymentEntity, reservationEntity.getSeatReservationEntities());
+        return new PaymentProcessingResult(
+                reservationEntity.toDomainModel(),
+                paymentEntity.toDomainModel(),
+                ticketEntity.toDomainModel()
+        );
     }
 
     private ReservationEntity createReservation(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
 
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setUserEntity(userEntity);
-        reservationEntity.setStatus("pending");
+        reservationEntity.setStatus("confirmed");
         reservationEntity.setTotalPrice(createPaymentRequest.getAmount());
         reservationEntity.setCreatedAt(LocalDateTime.now());
         ReservationEntity savedReservation = crudReservationRepository.save(reservationEntity);
@@ -82,14 +89,22 @@ public class PaymentJpaRepository implements PaymentRepository {
         return seatReservationEntities;
     }
 
-    private PaymentEntity createPendingPayment(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
+    private PaymentEntity createPayment(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setAmount(createPaymentRequest.getAmount());
         paymentEntity.setMethod("card"); // Placeholder; will refine after integrating Stripe.
         paymentEntity.setStatus("pending");
-        paymentEntity.setPaymentTime(null); // Will be updated after payment confirmation.
+        paymentEntity.setPaymentTime(LocalDateTime.now());
         paymentEntity.setUserEntity(userEntity);
         paymentEntity.setUpdatedAt(LocalDateTime.now());
         return crudPaymentRepository.save(paymentEntity);
+    }
+
+    private TicketEntity createTicket(PaymentEntity paymentEntity, List<SeatReservationEntity> seatReservationEntities) {
+        TicketEntity ticketEntity = new TicketEntity();
+        ticketEntity.setPaymentEntity(paymentEntity);
+        ticketEntity.setSeatReservationEntities(seatReservationEntities);
+        ticketEntity.setCreatedAt(LocalDateTime.now());
+        return crudTicketRepository.save(ticketEntity);
     }
 }
