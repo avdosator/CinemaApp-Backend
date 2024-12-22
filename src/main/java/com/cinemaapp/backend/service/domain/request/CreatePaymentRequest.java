@@ -1,5 +1,7 @@
 package com.cinemaapp.backend.service.domain.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -13,9 +15,10 @@ public class CreatePaymentRequest {
     private UUID projectionInstanceId;
 
     @NotNull
+    @Min(1)
     private int amount;
 
-    @NotNull
+    @NotEmpty
     private UUID[] selectedSeats;
 
     public @NotNull UUID getUserId() {
