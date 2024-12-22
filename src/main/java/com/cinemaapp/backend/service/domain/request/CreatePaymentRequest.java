@@ -21,36 +21,46 @@ public class CreatePaymentRequest {
     @NotEmpty
     private UUID[] selectedSeats;
 
-    public @NotNull UUID getUserId() {
+    @NotEmpty
+    private String paymentIntentId;
+
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(@NotNull UUID userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
-    public @NotNull UUID getProjectionInstanceId() {
+    public UUID getProjectionInstanceId() {
         return projectionInstanceId;
     }
 
-    public void setProjectionInstanceId(@NotNull UUID projectionInstanceId) {
+    public void setProjectionInstanceId(UUID projectionInstanceId) {
         this.projectionInstanceId = projectionInstanceId;
     }
 
-    @NotNull
     public int getAmount() {
         return amount;
     }
 
-    public void setAmount(@NotNull int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public @NotNull UUID[] getSelectedSeats() {
+    public UUID[] getSelectedSeats() {
         return selectedSeats;
     }
 
-    public void setSelectedSeats(@NotNull UUID[] selectedSeats) {
+    public void setSelectedSeats(UUID[] selectedSeats) {
         this.selectedSeats = selectedSeats;
+    }
+
+    public String getPaymentIntentId() {
+        return paymentIntentId;
+    }
+
+    public void setPaymentIntentId(String paymentIntentId) {
+        this.paymentIntentId = paymentIntentId;
     }
 }
