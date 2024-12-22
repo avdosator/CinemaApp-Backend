@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.controller;
 
 import com.cinemaapp.backend.service.PaymentService;
+import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.response.CreatePaymentResponse;
 import jakarta.validation.Valid;
@@ -19,6 +20,11 @@ public class PaymentController {
     @Autowired
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
+    }
+
+    @PostMapping("/intent")
+    public String createPaymentIntent(@Valid @RequestBody CreatePaymentIntentRequest createPaymentIntentRequest) {
+        return paymentService.createPaymentIntent(createPaymentIntentRequest);
     }
 
     @PostMapping
