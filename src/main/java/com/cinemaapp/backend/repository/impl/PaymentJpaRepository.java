@@ -51,12 +51,13 @@ public class PaymentJpaRepository implements PaymentRepository {
         reservationEntity.setUserEntity(userEntity);
         reservationEntity.setStatus("pending");
         reservationEntity.setTotalPrice(createPaymentRequest.getAmount());
-        reservationEntity.setSeatReservationEntities(createSeatReservations(createPaymentRequest, userEntity));
         reservationEntity.setCreatedAt(LocalDateTime.now());
+        ReservationEntity savedReservation = crudReservationRepository.save(reservationEntity);
+        reservationEntity.setSeatReservationEntities(createSeatReservations(savedReservation, createPaymentRequest, userEntity));
         return crudReservationRepository.save(reservationEntity);
     }
 
-    private List<SeatReservationEntity> createSeatReservations(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
+    private List<SeatReservationEntity> createSeatReservations(ReservationEntity reservationEntity, CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
         ProjectionInstanceEntity projectionInstanceEntity = crudProjectionInstanceRepository
                 .findById(createPaymentRequest.getProjectionInstanceId()).orElseThrow();
         List<SeatReservationEntity> seatReservationEntities = new ArrayList<>();
@@ -64,6 +65,7 @@ public class PaymentJpaRepository implements PaymentRepository {
             SeatReservationEntity seatReservationEntity = new SeatReservationEntity();
             seatReservationEntity.setProjectionInstanceEntity(projectionInstanceEntity);
             seatReservationEntity.setSeatEntity(crudSeatRepository.findById(seatId).orElseThrow());
+            seatReservationEntity.setReservationEntity(reservationEntity);
             seatReservationEntity.setStatus("purchased");
             seatReservationEntity.setCreatedAt(LocalDateTime.now());
             seatReservationEntity.setUserEntity(userEntity);
