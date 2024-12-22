@@ -4,9 +4,18 @@ import java.util.UUID;
 
 public class CreatePaymentResponse {
 
+    private String clientSecret;
     private UUID reservationId;
     private String paymentStatus;
     private double totalPrice;
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
 
     public UUID getReservationId() {
         return reservationId;
