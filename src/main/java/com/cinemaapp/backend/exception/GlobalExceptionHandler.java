@@ -57,4 +57,13 @@ public class GlobalExceptionHandler {
         response.put("message", ex.getMessage());
         return response;
     }
+
+    @ExceptionHandler(PaymentProcessingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handlePaymentProcessingException(PaymentProcessingException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Payment Processing Error");
+        response.put("message", ex.getMessage());
+        return response;
+    }
 }
