@@ -3,6 +3,7 @@ package com.cinemaapp.backend.repository.impl;
 import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.repository.crud.*;
 import com.cinemaapp.backend.repository.entity.*;
+import com.cinemaapp.backend.service.domain.model.Payment;
 import com.cinemaapp.backend.service.domain.model.Reservation;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,18 @@ public class PaymentJpaRepository implements PaymentRepository {
     }
 
     @Override
+    public Payment findById(UUID id) {
+        PaymentEntity paymentEntity = crudPaymentRepository.findById(id).
+                orElseThrow(() -> new IllegalArgumentException("Payment not found for ID: " + id));
+        return paymentEntity.toDomainModel();
+    }
+
+    @Override
     public Reservation createPayment(CreatePaymentRequest createPaymentRequest) {
 
         UserEntity userEntity = crudUserRepository.findById(createPaymentRequest.getUserId()).orElseThrow();
         ReservationEntity reservationEntity = createReservation(createPaymentRequest, userEntity);
-        createPendingPayment(createPaymentRequest, userEntity);
+        PaymentEntity paymentEntity = createPendingPayment(createPaymentRequest, userEntity);
         return reservationEntity.toDomainModel();
     }
 
