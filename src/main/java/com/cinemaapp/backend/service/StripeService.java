@@ -1,10 +1,13 @@
 package com.cinemaapp.backend.service;
 
 import com.cinemaapp.backend.exception.PaymentProcessingException;
+import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
+import com.stripe.param.ChargeListParams;
 import com.stripe.param.PaymentIntentCreateParams;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,6 +34,18 @@ public class StripeService {
             return PaymentIntent.retrieve(paymentIntentId);
         } catch (Exception e) {
             throw new PaymentProcessingException("Failed to retrieve PaymentIntent with ID: " + paymentIntentId, e);
+        }
+    }
+
+    public List<Charge> getChargesForPaymentIntent(String paymentIntentId) {
+        try {
+            ChargeListParams params = ChargeListParams.builder()
+                    .setPaymentIntent(paymentIntentId)
+                    .build();
+
+            return Charge.list(params).getData(); // Fetch charges related to the PaymentIntent
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to retrieve charges for PaymentIntent", e);
         }
     }
 }

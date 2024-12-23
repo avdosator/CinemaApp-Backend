@@ -12,6 +12,7 @@ import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentConfirmationResponse;
+import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,9 @@ public class PaymentServiceImpl implements PaymentService {
                 movie.getLanguage(),
                 movie.getDurationInMinutes()
         );
+
+        List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
+        String receiptUrl = charges.get(0).getReceiptUrl();
 
         return new PaymentConfirmationResponse("success", "Reservation and payment successfully processed");
     }
