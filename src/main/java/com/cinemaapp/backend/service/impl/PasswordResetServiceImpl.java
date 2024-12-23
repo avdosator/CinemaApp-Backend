@@ -47,7 +47,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
                     </body>
                 </html>
                 """.formatted(savedResetCode);
-        String emailResponse = emailService.sendEmail(user.getEmail(), "Password Reset Code", emailBody);
+        String emailResponse = emailService.sendResetCode(user.getEmail(), "Password Reset Code", emailBody);
         if (emailResponse != "Email sent!") {
             return emailResponse;
         }

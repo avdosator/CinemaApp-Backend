@@ -3,15 +3,13 @@ package com.cinemaapp.backend.service.impl;
 import com.cinemaapp.backend.controller.dto.PaymentProcessingResult;
 import com.cinemaapp.backend.exception.PaymentProcessingException;
 import com.cinemaapp.backend.repository.PaymentRepository;
-import com.cinemaapp.backend.service.MovieService;
-import com.cinemaapp.backend.service.PaymentService;
-import com.cinemaapp.backend.service.PdfService;
-import com.cinemaapp.backend.service.StripeService;
+import com.cinemaapp.backend.service.*;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentConfirmationResponse;
+import com.cinemaapp.backend.utils.UserUtils;
 import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +25,16 @@ public class PaymentServiceImpl implements PaymentService {
     private final StripeService stripeService;
     private final PdfService pdfService;
     private final MovieService movieService;
+    private final EmailService emailService;
 
     @Autowired
     public PaymentServiceImpl(PaymentRepository paymentRepository, StripeService stripeService, PdfService pdfService,
-                              MovieService movieService) {
+                              MovieService movieService, EmailService emailService) {
         this.paymentRepository = paymentRepository;
         this.stripeService = stripeService;
         this.pdfService = pdfService;
         this.movieService = movieService;
+        this.emailService = emailService;
     }
 
     @Transactional
@@ -72,8 +72,24 @@ public class PaymentServiceImpl implements PaymentService {
                 movie.getDurationInMinutes()
         );
 
+        // Step 3: Get receipt URL and download receipt PDF
         List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
         String receiptUrl = charges.get(0).getReceiptUrl();
+        byte[] receiptPdf = stripeService.downloadReceipt(receiptUrl);
+
+        emailService.sendTicketAndReceipt(
+                UserUtils.getCurrentUser().getEmail(),
+                "Your Movie Ticket and Receipt", // Simple subject
+                """
+                        Hello,
+                                    
+                        Thank you for your purchase! Attached are your movie ticket and payment receipt.
+                                                                        
+                        CinemaApp
+                        """,
+                ticketPdf,
+                receiptPdf
+        );
 
         return new PaymentConfirmationResponse("success", "Reservation and payment successfully processed");
     }
