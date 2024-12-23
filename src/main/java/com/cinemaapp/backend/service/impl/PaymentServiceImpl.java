@@ -5,10 +5,9 @@ import com.cinemaapp.backend.exception.PaymentProcessingException;
 import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.service.PaymentService;
 import com.cinemaapp.backend.service.StripeService;
-import com.cinemaapp.backend.service.domain.model.Reservation;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
-import com.cinemaapp.backend.service.domain.response.CreatePaymentResponse;
+import com.cinemaapp.backend.service.domain.response.PaymentConfirmationResponse;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Transactional
     @Override
-    public CreatePaymentResponse processReservationAndPayment(CreatePaymentRequest createPaymentRequest) {
+    public PaymentConfirmationResponse processReservationAndPayment(CreatePaymentRequest createPaymentRequest) {
 
         // Step 1: Retrieve and validate PaymentIntent from Stripe
         PaymentIntent paymentIntent = stripeService.retrievePaymentIntent(createPaymentRequest.getPaymentIntentId());
@@ -38,6 +37,8 @@ public class PaymentServiceImpl implements PaymentService {
 
         // Step 2: Create all entities (reservation, seat reservation(s), payment and ticket)
         PaymentProcessingResult paymentProcessingResult = paymentRepository.processReservationAndPayment(createPaymentRequest);
+
+        return new PaymentConfirmationResponse("success", "Reservation and payment successfully processed");
     }
 
     @Override

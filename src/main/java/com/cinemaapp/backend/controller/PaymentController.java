@@ -3,7 +3,7 @@ package com.cinemaapp.backend.controller;
 import com.cinemaapp.backend.service.PaymentService;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
-import com.cinemaapp.backend.service.domain.response.CreatePaymentResponse;
+import com.cinemaapp.backend.service.domain.response.PaymentConfirmationResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +28,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    public CreatePaymentResponse createPayment(@Valid @RequestBody CreatePaymentRequest createPaymentRequest) {
+    public PaymentConfirmationResponse createPayment(@Valid @RequestBody CreatePaymentRequest createPaymentRequest) {
         return paymentService.processReservationAndPayment(createPaymentRequest);
     }
 }
