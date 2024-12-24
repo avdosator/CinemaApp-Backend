@@ -4,7 +4,7 @@ pipeline {
     environment {
         BACKEND_IMAGE = 'ahmedhamdo/cinemaapp-backend:latest'
         SERVER_PORT = '8082'
-        DB_URL = 'postgresql://localhost:5433/cinema_app_db?user=cinema_app_user&password=password'
+        DB_URL = 'postgresql://cinemaapp-postgres:5433/cinema_app_db?user=cinema_app_user&password=password'
         JWT_EXPIRATION_TIME = '3600000'
         JWT_SECRET_KEY = '54a4f4f539b1a65c66bc5d2ed01996931a736e5e4cfaa40d0ef53eca7eff722a37d285c76879a051595ad2a75bcc1c5df55bee6b1eae571ac611ffd488942031'
         SPRING_MAIL_PASSWORD = 'jleveyashklmywxb'
@@ -61,11 +61,11 @@ pipeline {
                 docker rm -f cinemaapp-backend || true
                 docker run -d --name cinemaapp-backend \
                     -p ${SERVER_PORT}:8080 \
-                    -e DATABASE_URL=${DB_URL} \
-                    -e JWT_EXPIRATION_TIME=${JWT_EXPIRATION_TIME} \
-                    -e JWT_SECRET_KEY=${JWT_SECRET_KEY} \
-                    -e SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD} \
-                    -e SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME} \
+                    -e DATABASE_URL='${DB_URL}' \
+                    -e JWT_EXPIRATION_TIME='${JWT_EXPIRATION_TIME}' \
+                    -e JWT_SECRET_KEY='${JWT_SECRET_KEY}' \
+                    -e SPRING_MAIL_PASSWORD='${SPRING_MAIL_PASSWORD}' \
+                    -e SPRING_MAIL_USERNAME='${SPRING_MAIL_USERNAME}' \
                     ${BACKEND_IMAGE}
                 """
             }
