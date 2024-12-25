@@ -24,6 +24,9 @@ public class CreatePaymentRequest {
     @NotEmpty
     private String paymentIntentId;
 
+    @NotNull
+    private UUID movieId;
+
     public UUID getUserId() {
         return userId;
     }
@@ -62,5 +65,13 @@ public class CreatePaymentRequest {
 
     public void setPaymentIntentId(String paymentIntentId) {
         this.paymentIntentId = paymentIntentId;
+    }
+
+    public UUID getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(UUID movieId) {
+        this.movieId = movieId;
     }
 }
