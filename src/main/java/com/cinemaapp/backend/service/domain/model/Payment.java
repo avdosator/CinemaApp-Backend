@@ -136,6 +136,7 @@ public class Payment {
                     this.status,
                     this.user,
                     this.ticket,
+                    this.reservationId,
                     this.updatedAt
             );
         }
