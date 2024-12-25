@@ -1,11 +1,11 @@
 package com.cinemaapp.backend.service.domain.response;
 
-public class PaymentConfirmationResponse {
+public class PaymentCreationResponse {
 
     private String status;
     private String message;
 
-    public PaymentConfirmationResponse(String status, String message) {
+    public PaymentCreationResponse(String status, String message) {
         this.status = status;
         this.message = message;
     }

@@ -2,11 +2,10 @@ package com.cinemaapp.backend.service;
 
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
-import com.cinemaapp.backend.service.domain.response.PaymentConfirmationResponse;
+import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
 
 public interface PaymentService {
 
-    PaymentConfirmationResponse processReservationAndPayment(CreatePaymentRequest createPaymentRequest);
+    PaymentCreationResponse processReservationAndPayment(CreatePaymentRequest createPaymentRequest);
     String createPaymentIntent(CreatePaymentIntentRequest createPaymentIntentRequest);
-    //void handleFailedPayment(UUID paymentId);
 }
