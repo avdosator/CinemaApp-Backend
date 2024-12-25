@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         BACKEND_IMAGE = 'ahmedhamdo/cinemaapp-backend:latest'
-        SERVER_PORT = '8083'
+        SERVER_PORT = '8082'
 
         // Varijable povučene iz Jenkins Credentials
         DB_URL = credentials('DB_URL')
