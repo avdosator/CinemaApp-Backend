@@ -23,7 +23,7 @@ public class SeatEntity {
     private String number;
 
     @ManyToOne
-    @JoinColumn(name = "venue_id", referencedColumnName = "id")
+    @JoinColumn(name = "hall_id", referencedColumnName = "id")
     private HallEntity hallEntity;
 
     @OneToMany(mappedBy = "seatEntity")

@@ -24,6 +24,11 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final CrudSeatRepository crudSeatRepository;
     private final CrudProjectionInstanceRepository crudProjectionInstanceRepository;
     private final CrudSeatReservationRepository crudSeatReservationRepository;
+    private final CrudPasswordResetRepository crudPasswordResetRepository;
+    private final CrudPaymentRepository crudPaymentRepository;
+    private final CrudRefreshTokenRepository crudRefreshTokenRepository;
+    private final CrudReservationRepository crudReservationRepository;
+    private final CrudTicketRepository crudTicketRepository;
 
     @Autowired
     public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
@@ -31,7 +36,10 @@ public class DatabaseInitializer implements CommandLineRunner {
                                CrudUserRepository crudUserRepository, CrudProjectionRepository crudProjectionRepository,
                                CrudHallRepository crudHallRepository, CrudPhotoRepository crudPhotoRepository,
                                CrudSeatRepository crudSeatRepository, CrudProjectionInstanceRepository crudProjectionInstanceRepository,
-                               CrudSeatReservationRepository crudSeatReservationRepository) {
+                               CrudSeatReservationRepository crudSeatReservationRepository,
+                               CrudPasswordResetRepository crudPasswordResetRepository, CrudPaymentRepository crudPaymentRepository,
+                               CrudRefreshTokenRepository crudRefreshTokenRepository, CrudReservationRepository crudReservationRepository,
+                               CrudTicketRepository crudTicketRepository) {
         this.crudCityRepository = crudCityRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
@@ -43,14 +51,33 @@ public class DatabaseInitializer implements CommandLineRunner {
         this.crudSeatRepository = crudSeatRepository;
         this.crudProjectionInstanceRepository = crudProjectionInstanceRepository;
         this.crudSeatReservationRepository = crudSeatReservationRepository;
+        this.crudPasswordResetRepository = crudPasswordResetRepository;
+        this.crudPaymentRepository = crudPaymentRepository;
+        this.crudRefreshTokenRepository = crudRefreshTokenRepository;
+        this.crudReservationRepository = crudReservationRepository;
+        this.crudTicketRepository = crudTicketRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-//        if (crudCityRepository.findAll().isEmpty() && crudUserRepository.findAll().isEmpty() &&
-//                crudGenreRepository.findAll().isEmpty() && crudMovieRepository.findAll().isEmpty() &&
-//                crudVenueRepository.findAll().isEmpty()) {
+        // Delete data from all tables
+        crudSeatReservationRepository.deleteAll();
+        crudSeatRepository.deleteAll();
+        crudProjectionInstanceRepository.deleteAll();
+        crudProjectionRepository.deleteAll();
+        crudHallRepository.deleteAll();
+        crudVenueRepository.deleteAll(); // Delete venues before cities
+        crudCityRepository.deleteAll(); // Delete cities last
+        crudMovieRepository.deleteAll();
+        crudGenreRepository.deleteAll();
+        crudUserRepository.deleteAll();
+        crudPaymentRepository.deleteAll();
+        crudTicketRepository.deleteAll();
+        crudReservationRepository.deleteAll();
+        crudPhotoRepository.deleteAll();
+        crudRefreshTokenRepository.deleteAll();
+        crudPasswordResetRepository.deleteAll();
 
         // seed city table
         CityEntity sarajevo = new CityEntity();
@@ -1472,7 +1499,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         inceptionProjection.setStatus("active");
         inceptionProjection.setCreatedAt(LocalDateTime.now());
         inceptionProjection.setUpdatedAt(LocalDateTime.now());
-        ProjectionEntity savedInceptionProjection =  crudProjectionRepository.save(inceptionProjection);
+        ProjectionEntity savedInceptionProjection = crudProjectionRepository.save(inceptionProjection);
 
         LocalDate inceptionStartDate = savedInceptionProjection.getStartDate();
         while (!inceptionStartDate.isAfter(savedInceptionProjection.getEndDate())) {
