@@ -3,12 +3,14 @@ pipeline {
 
     environment {
         BACKEND_IMAGE = 'ahmedhamdo/cinemaapp-backend:latest'
-        SERVER_PORT = '8082'
-        DB_URL = 'postgresql://cinemaapp-postgres:5433/cinema_app_db?user=cinema_app_user&password=password'
-        JWT_EXPIRATION_TIME = '3600000'
-        JWT_SECRET_KEY = '54a4f4f539b1a65c66bc5d2ed01996931a736e5e4cfaa40d0ef53eca7eff722a37d285c76879a051595ad2a75bcc1c5df55bee6b1eae571ac611ffd488942031'
-        SPRING_MAIL_PASSWORD = 'jleveyashklmywxb'
-        SPRING_MAIL_USERNAME = 'cinema.app.info@gmail.com'
+        SERVER_PORT = '8083'
+
+        // Varijable povučene iz Jenkins Credentials
+        DB_URL = credentials('DB_URL')
+        JWT_EXPIRATION_TIME = credentials('JWT_EXPIRATION_TIME')
+        JWT_SECRET_KEY = credentials('JWT_SECRET_KEY')
+        SPRING_MAIL_PASSWORD = credentials('SPRING_MAIL_PASSWORD')
+        SPRING_MAIL_USERNAME = credentials('SPRING_MAIL_USERNAME')
     }
 
     stages {
@@ -20,7 +22,7 @@ pipeline {
                 docker run -d --name cinemaapp-postgres \
                     -e POSTGRES_DB=cinema_app_db \
                     -e POSTGRES_USER=cinema_app_user \
-                    -e POSTGRES_PASSWORD=password \
+                    -e POSTGRES_PASSWORD='password' \
                     -p 5433:5432 \
                     postgres:latest
                 """
@@ -81,3 +83,4 @@ pipeline {
         }
     }
 }
+
