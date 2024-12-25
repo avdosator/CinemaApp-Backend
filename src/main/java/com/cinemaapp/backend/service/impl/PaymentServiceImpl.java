@@ -8,7 +8,7 @@ import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
-import com.cinemaapp.backend.service.domain.response.PaymentConfirmationResponse;
+import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
 import com.cinemaapp.backend.utils.UserUtils;
 import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
@@ -26,20 +26,22 @@ public class PaymentServiceImpl implements PaymentService {
     private final PdfService pdfService;
     private final MovieService movieService;
     private final EmailService emailService;
+    private final ProjectionInstanceService projectionInstanceService;
 
     @Autowired
     public PaymentServiceImpl(PaymentRepository paymentRepository, StripeService stripeService, PdfService pdfService,
-                              MovieService movieService, EmailService emailService) {
+                              MovieService movieService, EmailService emailService, ProjectionInstanceService projectionInstanceService) {
         this.paymentRepository = paymentRepository;
         this.stripeService = stripeService;
         this.pdfService = pdfService;
         this.movieService = movieService;
         this.emailService = emailService;
+        this.projectionInstanceService = projectionInstanceService;
     }
 
     @Transactional
     @Override
-    public PaymentConfirmationResponse processReservationAndPayment(CreatePaymentRequest createPaymentRequest) {
+    public PaymentCreationResponse processReservationAndPayment(CreatePaymentRequest createPaymentRequest) {
 
         // Step 1: Retrieve and validate PaymentIntent from Stripe
         PaymentIntent paymentIntent = stripeService.retrievePaymentIntent(createPaymentRequest.getPaymentIntentId());
@@ -47,51 +49,55 @@ public class PaymentServiceImpl implements PaymentService {
             throw new PaymentProcessingException("Payment was not successful");
         }
 
-        // Step 2: Create all entities (reservation, seat reservation(s), payment and ticket)
-        PaymentProcessingResult paymentProcessingResult = paymentRepository.processReservationAndPayment(createPaymentRequest);
+        try {
+            // Step 2: Create all entities (reservation, seat reservation(s), payment and ticket)
+            PaymentProcessingResult paymentProcessingResult = paymentRepository.processReservationAndPayment(createPaymentRequest);
 
-        // Step 3: Generate ticket PDF
-        Movie movie = movieService.findById(paymentProcessingResult.getReservation().getSeatReservations().get(0).getProjectionInstance().getProjection().getMovieId());
-        ProjectionInstance projectionInstance = paymentProcessingResult.getReservation().getSeatReservations().get(0).getProjectionInstance();
-        List<String> seatNumbers = paymentProcessingResult.getReservation()
-                .getSeatReservations()
-                .stream()
-                .map(seatReservation -> seatReservation.getSeat().getNumber())
-                .toList();
+            // Step 3: Generate ticket PDF
+            Movie movie = movieService.findById(createPaymentRequest.getMovieId());
+            ProjectionInstance projectionInstance = projectionInstanceService.findById(createPaymentRequest.getProjectionInstanceId());
+            List<String> seatNumbers = paymentProcessingResult.getReservation()
+                    .getSeatReservations()
+                    .stream()
+                    .map(seatReservation -> seatReservation.getSeat().getNumber())
+                    .toList();
 
-        byte[] ticketPdf = pdfService.generateTicket(
-                movie.getTitle(),
-                projectionInstance.getDate().toString(),
-                projectionInstance.getTime(),
-                projectionInstance.getProjection().getHall().getVenue().getName(),
-                projectionInstance.getProjection().getHall().getName(),
-                seatNumbers,
-                paymentProcessingResult.getPayment().getAmount(),
-                movie.getPgRating(),
-                movie.getLanguage(),
-                movie.getDurationInMinutes()
-        );
+            byte[] ticketPdf = pdfService.generateTicket(
+                    movie.getTitle(),
+                    projectionInstance.getDate().toString(),
+                    projectionInstance.getTime(),
+                    projectionInstance.getProjection().getHall().getVenue().getName(),
+                    projectionInstance.getProjection().getHall().getName(),
+                    seatNumbers,
+                    paymentProcessingResult.getPayment().getAmount(),
+                    movie.getPgRating(),
+                    movie.getLanguage(),
+                    movie.getDurationInMinutes()
+            );
 
-        // Step 3: Get receipt URL and download receipt PDF
-        List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
-        String receiptUrl = charges.get(0).getReceiptUrl();
-        byte[] receiptPdf = stripeService.downloadReceipt(receiptUrl);
+            // Step 3: Get receipt URL and download receipt PDF
+            List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
+            String receiptUrl = charges.get(0).getReceiptUrl();
+            byte[] receiptPdf = stripeService.downloadReceipt(receiptUrl);
+            emailService.sendTicketAndReceipt(
+                    UserUtils.getCurrentUser().getEmail(),
+                    "Your Movie Ticket and Receipt", // Simple subject
+                    """
+                            Hello,
+                                        
+                            Thank you for your purchase! We sent you your movie ticket and payment receipt.
+                                           
+                                                                            
+                            CinemaApp
+                            """,
+                    ticketPdf,
+                    receiptPdf
+            );
+            return new PaymentCreationResponse("success", "Reservation and payment successfully processed");
+        } catch (Exception e) {
+            throw new PaymentProcessingException(e.getMessage());
+        }
 
-        emailService.sendTicketAndReceipt(
-                UserUtils.getCurrentUser().getEmail(),
-                "Your Movie Ticket and Receipt", // Simple subject
-                """
-                        Hello,
-                                    
-                        Thank you for your purchase! Attached are your movie ticket and payment receipt.
-                                                                        
-                        CinemaApp
-                        """,
-                ticketPdf,
-                receiptPdf
-        );
-
-        return new PaymentConfirmationResponse("success", "Reservation and payment successfully processed");
     }
 
     @Override
