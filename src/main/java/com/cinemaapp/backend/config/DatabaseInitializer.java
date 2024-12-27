@@ -63,21 +63,21 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         // Delete data from all tables
         crudSeatReservationRepository.deleteAll();
-        crudSeatRepository.deleteAll();
         crudProjectionInstanceRepository.deleteAll();
+        crudSeatRepository.deleteAll();
         crudProjectionRepository.deleteAll();
         crudHallRepository.deleteAll();
         crudVenueRepository.deleteAll(); // Delete venues before cities
         crudCityRepository.deleteAll(); // Delete cities last
         crudMovieRepository.deleteAll();
         crudGenreRepository.deleteAll();
-        crudUserRepository.deleteAll();
-        crudPaymentRepository.deleteAll();
         crudTicketRepository.deleteAll();
+        crudPaymentRepository.deleteAll();
         crudReservationRepository.deleteAll();
-        crudPhotoRepository.deleteAll();
         crudRefreshTokenRepository.deleteAll();
         crudPasswordResetRepository.deleteAll();
+        crudUserRepository.deleteAll();
+        crudPhotoRepository.deleteAll();
 
         // seed city table
         CityEntity sarajevo = new CityEntity();
