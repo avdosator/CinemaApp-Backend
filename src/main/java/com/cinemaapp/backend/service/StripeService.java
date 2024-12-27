@@ -7,10 +7,6 @@ import com.stripe.param.ChargeListParams;
 import com.stripe.param.PaymentIntentCreateParams;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,30 +46,6 @@ public class StripeService {
             return Charge.list(params).getData(); // Fetch charges related to the PaymentIntent
         } catch (Exception e) {
             throw new RuntimeException("Failed to retrieve charges for PaymentIntent", e);
-        }
-    }
-
-    public byte[] downloadReceipt(String receiptUrl) {
-        try {
-            URL url = new URL(receiptUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setDoOutput(true);
-
-            try (InputStream inputStream = connection.getInputStream();
-                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-
-                return outputStream.toByteArray();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to download receipt from Stripe", e);
         }
     }
 }
