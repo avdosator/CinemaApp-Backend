@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -75,13 +77,22 @@ public class PaymentServiceImpl implements PaymentService {
                     movie.getDurationInMinutes()
             );
 
-            // Step 3: Get receipt URL and download receipt PDF
+            // Step 4: Get receipt URL and create receipt PDF
             List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
             String receiptUrl = charges.get(0).getReceiptUrl();
-            byte[] receiptPdf = stripeService.downloadReceipt(receiptUrl);
+            String receiptHtmlString = JsoupService.parseHtmlFromUrl(receiptUrl);
+
+            // Validate extracted content
+            if (receiptHtmlString.isEmpty()) {
+                throw new RuntimeException("Extracted receipt content is empty! Cannot generate PDF.");
+            }
+            byte[] receiptPdf = pdfService.generateReceiptPdf(receiptHtmlString);
+            Files.write(Path.of("test_receipt.pdf"), receiptPdf); // Save for testing
+
+            // Step 5: Send receipt and ticket to user's email address
             emailService.sendTicketAndReceipt(
                     UserUtils.getCurrentUser().getEmail(),
-                    "Your Movie Ticket and Receipt", // Simple subject
+                    "Your Movie Ticket and Receipt",
                     """
                             Hello,
                                         
@@ -95,9 +106,8 @@ public class PaymentServiceImpl implements PaymentService {
             );
             return new PaymentCreationResponse("success", "Reservation and payment successfully processed");
         } catch (Exception e) {
-            throw new PaymentProcessingException(e.getMessage());
+            throw new PaymentProcessingException("An error occurred during payment processing", e);
         }
-
     }
 
     @Override
