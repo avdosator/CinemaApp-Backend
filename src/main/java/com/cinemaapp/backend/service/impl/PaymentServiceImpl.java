@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -79,31 +77,17 @@ public class PaymentServiceImpl implements PaymentService {
 
             // Step 4: Get receipt URL and create receipt PDF
             List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
-            String receiptUrl = charges.get(0).getReceiptUrl();
-            String receiptHtmlString = JsoupService.parseHtmlFromUrl(receiptUrl);
+            String receiptHtmlString = JsoupService.parseHtmlFromUrl(charges.get(0).getReceiptUrl());
 
             // Validate extracted content
             if (receiptHtmlString.isEmpty()) {
                 throw new RuntimeException("Extracted receipt content is empty! Cannot generate PDF.");
             }
             byte[] receiptPdf = pdfService.generateReceiptPdf(receiptHtmlString);
-            Files.write(Path.of("test_receipt.pdf"), receiptPdf); // Save for testing
 
             // Step 5: Send receipt and ticket to user's email address
-            emailService.sendTicketAndReceipt(
-                    UserUtils.getCurrentUser().getEmail(),
-                    "Your Movie Ticket and Receipt",
-                    """
-                            Hello,
-                                        
-                            Thank you for your purchase! We sent you your movie ticket and payment receipt.
-                                           
-                                                                            
-                            CinemaApp
-                            """,
-                    ticketPdf,
-                    receiptPdf
-            );
+            sendTicketAndReceipt(ticketPdf, receiptPdf);
+
             return new PaymentCreationResponse("success", "Reservation and payment successfully processed");
         } catch (Exception e) {
             throw new PaymentProcessingException("An error occurred during payment processing", e);
@@ -121,5 +105,22 @@ public class PaymentServiceImpl implements PaymentService {
         } catch (Exception e) {
             throw new PaymentProcessingException("Failed to create payment with Stripe", e);
         }
+    }
+
+    private void sendTicketAndReceipt(byte[] ticketPdf, byte[] receiptPdf) {
+        emailService.sendTicketAndReceipt(
+                UserUtils.getCurrentUser().getEmail(),
+                "Your Movie Ticket and Receipt",
+                """
+                        Hello,
+                                    
+                        Thank you for your purchase! We sent you your movie ticket and payment receipt.
+                                       
+                                                                        
+                        CinemaApp
+                        """,
+                ticketPdf,
+                receiptPdf
+        );
     }
 }
