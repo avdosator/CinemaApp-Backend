@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.service.impl;
 
 import com.cinemaapp.backend.service.PdfService;
+import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -17,7 +18,7 @@ import java.util.List;
 public class PdfServiceImpl implements PdfService {
 
     @Override
-    public byte[] generateTicket(String movieName, String date, String time, String venue, String hall, List<String> seats, double totalPrice, String rating, String language, int duration) {
+    public byte[] generateTicket(PdfTicketRequest pdfTicketRequest) {
         try (PDDocument document = new PDDocument(); ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             PDPage page = new PDPage();
             document.addPage(page);
@@ -39,13 +40,17 @@ public class PdfServiceImpl implements PdfService {
                 contentStream.newLine();
 
                 contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
-                contentStream.showText(movieName);
+                contentStream.showText(pdfTicketRequest.getMovieName());
                 contentStream.newLine();
-                contentStream.showText(date + " at " + time);
+                contentStream.showText(pdfTicketRequest.getDate() + " at " + pdfTicketRequest.getTime());
                 contentStream.newLine();
-                contentStream.showText(venue);
+                contentStream.showText(pdfTicketRequest.getVenueName());
                 contentStream.newLine();
-                contentStream.showText(rating + " | " + language + " | " + duration);
+                contentStream.showText(
+                        pdfTicketRequest.getPgRating() + " | " +
+                                pdfTicketRequest.getLanguage() + " | " +
+                                pdfTicketRequest.getDuration()
+                );
                 contentStream.newLine();
                 contentStream.newLine();
 
@@ -55,11 +60,11 @@ public class PdfServiceImpl implements PdfService {
                 contentStream.newLine();
 
                 contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
-                contentStream.showText("Hall: " + hall);
+                contentStream.showText("Hall: " + pdfTicketRequest.getHallName());
                 contentStream.newLine();
-                contentStream.showText("Seat(s): " + String.join(", ", seats));
+                contentStream.showText("Seat(s): " + String.join(", ", pdfTicketRequest.getSeats()));
                 contentStream.newLine();
-                contentStream.showText("Total Price: " + totalPrice + " KM");
+                contentStream.showText("Total Price: " + pdfTicketRequest.getTotalPrice() + " KM");
                 contentStream.newLine();
 
                 contentStream.endText();

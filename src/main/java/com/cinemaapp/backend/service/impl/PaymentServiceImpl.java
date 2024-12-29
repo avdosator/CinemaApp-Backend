@@ -6,9 +6,11 @@ import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.service.*;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
+import com.cinemaapp.backend.service.domain.model.SeatReservation;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
+import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
 import com.cinemaapp.backend.utils.UserUtils;
 import com.stripe.model.Charge;
@@ -60,23 +62,12 @@ public class PaymentServiceImpl implements PaymentService {
             // Step 3: Generate ticket PDF
             Movie movie = movieService.findById(createPaymentRequest.getMovieId());
             ProjectionInstance projectionInstance = projectionInstanceService.findById(createPaymentRequest.getProjectionInstanceId());
-            List<String> seatNumbers = paymentProcessingResult.getReservation()
-                    .getSeatReservations()
-                    .stream()
-                    .map(seatReservation -> seatReservation.getSeat().getNumber())
-                    .toList();
-
             byte[] ticketPdf = pdfService.generateTicket(
-                    movie.getTitle(),
-                    projectionInstance.getDate().toString(),
-                    projectionInstance.getTime(),
-                    projectionInstance.getProjection().getHall().getVenue().getName(),
-                    projectionInstance.getProjection().getHall().getName(),
-                    seatNumbers,
-                    paymentProcessingResult.getPayment().getAmount(),
-                    movie.getPgRating(),
-                    movie.getLanguage(),
-                    movie.getDurationInMinutes()
+                    generatePdfTicketRequest(
+                            movie,
+                            paymentProcessingResult.getReservation().getSeatReservations(),
+                            projectionInstance,
+                            paymentProcessingResult.getPayment().getAmount())
             );
 
             // Step 4: Get receipt URL and create receipt PDF
@@ -88,6 +79,7 @@ public class PaymentServiceImpl implements PaymentService {
                 throw new RuntimeException("Extracted receipt content is empty! Cannot generate PDF.");
             }
             byte[] receiptPdf = pdfService.generateReceiptPdf(receiptHtmlString);
+            
             // Step 5: Send receipt and ticket to user's email address
             sendTicketAndReceipt(ticketPdf, receiptPdf);
 
@@ -123,5 +115,29 @@ public class PaymentServiceImpl implements PaymentService {
                 CinemaApp
                 """);
         emailService.sendTicketAndReceipt(emailDetailsRequest, ticketPdf, receiptPdf);
+    }
+
+    private PdfTicketRequest generatePdfTicketRequest(Movie movie,
+                                                      List<SeatReservation> seatReservations,
+                                                      ProjectionInstance projectionInstance,
+                                                      double totalPrice) {
+        List<String> seatNumbers = seatReservations
+                .stream()
+                .map(seatReservation -> seatReservation.getSeat().getNumber())
+                .toList();
+
+        PdfTicketRequest pdfTicketRequest = new PdfTicketRequest();
+        pdfTicketRequest.setMovieName(movie.getTitle());
+        pdfTicketRequest.setDate(projectionInstance.getDate().toString());
+        pdfTicketRequest.setTime(projectionInstance.getTime());
+        pdfTicketRequest.setVenueName(projectionInstance.getProjection().getHall().getVenue().getName());
+        pdfTicketRequest.setHallName(projectionInstance.getProjection().getHall().getName());
+        pdfTicketRequest.setSeats(seatNumbers);
+        pdfTicketRequest.setTotalPrice(totalPrice);
+        pdfTicketRequest.setPgRating(movie.getPgRating());
+        pdfTicketRequest.setLanguage(movie.getLanguage());
+        pdfTicketRequest.setDuration(movie.getDurationInMinutes());
+
+        return pdfTicketRequest;
     }
 }
