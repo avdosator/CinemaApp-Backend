@@ -1,10 +1,10 @@
 package com.cinemaapp.backend.service;
 
-import com.cinemaapp.backend.service.domain.request.ResetCodeRequest;
+import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 
 public interface EmailService {
 
-    void sendResetCode(ResetCodeRequest resetCodeRequest);
+    void sendResetCode(EmailDetailsRequest emailDetailsRequest);
 
-    void sendTicketAndReceipt(String to, String subject, String body, byte[] ticketPdf, byte[] receiptPdf);
+    void sendTicketAndReceipt(EmailDetailsRequest emailDetailsRequest, byte[] ticketPdf, byte[] receiptPdf);
 }

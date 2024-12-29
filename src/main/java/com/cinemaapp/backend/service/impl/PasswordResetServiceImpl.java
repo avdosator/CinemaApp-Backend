@@ -5,7 +5,7 @@ import com.cinemaapp.backend.service.EmailService;
 import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
-import com.cinemaapp.backend.service.domain.request.ResetCodeRequest;
+import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import com.cinemaapp.backend.service.domain.request.auth.VerifyResetCodeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
 
-        emailService.sendResetCode(generateResetCodeRequest(user.getEmail(), savedResetCode));
+        emailService.sendResetCode(generateEmailDetailsRequest(user.getEmail(), savedResetCode));
         String maskedEmail = maskEmail(user.getEmail());
         return "We have sent code to your email " + maskedEmail + ". Please, enter the code below to verify.";
     }
@@ -71,8 +71,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         return maskedLocal + "@" + domain;
     }
 
-    private ResetCodeRequest generateResetCodeRequest(String email, String resetCode) {
-        ResetCodeRequest request = new ResetCodeRequest();
+    private EmailDetailsRequest generateEmailDetailsRequest(String email, String resetCode) {
+        EmailDetailsRequest request = new EmailDetailsRequest();
         request.setTo(email);
         request.setSubject("Password Reset Code");
         request.setBody("""

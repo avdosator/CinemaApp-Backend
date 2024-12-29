@@ -8,6 +8,7 @@ import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
+import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
 import com.cinemaapp.backend.utils.UserUtils;
 import com.stripe.model.Charge;
@@ -110,19 +111,17 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private void sendTicketAndReceipt(byte[] ticketPdf, byte[] receiptPdf) {
-        emailService.sendTicketAndReceipt(
-                UserUtils.getCurrentUser().getEmail(),
-                "Your Movie Ticket and Receipt",
-                """
-                        Hello,
-                                    
-                        Thank you for your purchase! We sent you your movie ticket and payment receipt.
-                                       
-                                                                        
-                        CinemaApp
-                        """,
-                ticketPdf,
-                receiptPdf
-        );
+        EmailDetailsRequest emailDetailsRequest = new EmailDetailsRequest();
+        emailDetailsRequest.setTo(UserUtils.getCurrentUser().getEmail());
+        emailDetailsRequest.setSubject("Movie Ticket and Receipt");
+        emailDetailsRequest.setBody("""
+                Hello,
+                                
+                Thank you for your purchase! We sent you your movie ticket and payment receipt.
+                                
+                                
+                CinemaApp
+                """);
+        emailService.sendTicketAndReceipt(emailDetailsRequest, ticketPdf, receiptPdf);
     }
 }

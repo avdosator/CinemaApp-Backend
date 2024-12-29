@@ -1,7 +1,7 @@
 package com.cinemaapp.backend.service.impl;
 
 import com.cinemaapp.backend.service.EmailService;
-import com.cinemaapp.backend.service.domain.request.ResetCodeRequest;
+import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +26,14 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Override
-    public void sendResetCode(ResetCodeRequest resetCodeRequest) {
+    public void sendResetCode(EmailDetailsRequest emailDetailsRequest) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setFrom(emailSender);
-            helper.setTo(resetCodeRequest.getTo());
-            helper.setSubject(resetCodeRequest.getSubject());
-            helper.setText(resetCodeRequest.getBody(), true);
+            helper.setTo(emailDetailsRequest.getTo());
+            helper.setSubject(emailDetailsRequest.getSubject());
+            helper.setText(emailDetailsRequest.getBody(), true);
             javaMailSender.send(mimeMessage);
         } catch (MailException | MessagingException e) {
             throw  new RuntimeException(e.getMessage());
@@ -41,14 +41,14 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendTicketAndReceipt(String to, String subject, String body, byte[] ticketPdf, byte[] receiptPdf) {
+    public void sendTicketAndReceipt(EmailDetailsRequest emailDetailsRequest, byte[] ticketPdf, byte[] receiptPdf) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true); // Enable multipart for attachments
             helper.setFrom(emailSender);
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(body, true);
+            helper.setTo(emailDetailsRequest.getTo());
+            helper.setSubject(emailDetailsRequest.getSubject());
+            helper.setText(emailDetailsRequest.getBody(), true);
 
             // Attach Ticket PDF
             if (ticketPdf != null) {

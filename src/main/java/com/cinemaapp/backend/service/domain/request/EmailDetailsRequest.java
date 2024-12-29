@@ -1,6 +1,6 @@
 package com.cinemaapp.backend.service.domain.request;
 
-public class ResetCodeRequest {
+public class EmailDetailsRequest {
 
     private String to;
     private String subject;
