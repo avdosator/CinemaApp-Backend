@@ -67,8 +67,8 @@ public class DatabaseInitializer implements CommandLineRunner {
         crudSeatRepository.deleteAll();
         crudProjectionRepository.deleteAll();
         crudHallRepository.deleteAll();
-        crudVenueRepository.deleteAll(); // Delete venues before cities
-        crudCityRepository.deleteAll(); // Delete cities last
+        crudVenueRepository.deleteAll();
+        crudCityRepository.deleteAll();
         crudMovieRepository.deleteAll();
         crudGenreRepository.deleteAll();
         crudTicketRepository.deleteAll();
