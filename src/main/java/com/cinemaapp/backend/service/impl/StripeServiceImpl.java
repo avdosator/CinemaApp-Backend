@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.service.impl;
 
+import com.cinemaapp.backend.exception.ChargeRetrieveException;
 import com.cinemaapp.backend.exception.PaymentProcessingException;
 import com.cinemaapp.backend.service.StripeService;
 import com.stripe.model.Charge;
@@ -49,7 +50,7 @@ public class StripeServiceImpl implements StripeService {
 
             return Charge.list(params).getData(); // Fetch charges related to the PaymentIntent
         } catch (Exception e) {
-            throw new RuntimeException("Failed to retrieve charges for PaymentIntent", e);
+            throw new ChargeRetrieveException("Failed to retrieve charges for PaymentIntent", e);
         }
     }
 }
