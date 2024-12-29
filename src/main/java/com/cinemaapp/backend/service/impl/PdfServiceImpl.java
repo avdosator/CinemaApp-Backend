@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.service.impl;
 
+import com.cinemaapp.backend.exception.PdfGeneratingException;
 import com.cinemaapp.backend.service.PdfService;
 import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -72,7 +73,7 @@ public class PdfServiceImpl implements PdfService {
             document.save(outputStream);
             return outputStream.toByteArray();
         } catch (IOException e) {
-            throw new RuntimeException("Error in generating PDF ticket", e);
+            throw new PdfGeneratingException("Error in generating PDF ticket", e);
         }
     }
 
@@ -140,7 +141,7 @@ public class PdfServiceImpl implements PdfService {
             document.save(outputStream);
             return outputStream.toByteArray();
         } catch (IOException e) {
-            throw new RuntimeException("Error generating PDF receipt", e);
+            throw new PdfGeneratingException("Error in generating PDF receipt", e);
         }
     }
 
