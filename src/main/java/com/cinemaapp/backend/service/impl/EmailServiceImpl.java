@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Override
-    public String sendResetCode(ResetCodeRequest resetCodeRequest) {
+    public void sendResetCode(ResetCodeRequest resetCodeRequest) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
@@ -35,14 +35,13 @@ public class EmailServiceImpl implements EmailService {
             helper.setSubject(resetCodeRequest.getSubject());
             helper.setText(resetCodeRequest.getBody(), true);
             javaMailSender.send(mimeMessage);
-            return "Email sent!";
         } catch (MailException | MessagingException e) {
-            return e.getMessage();
+            throw  new RuntimeException(e.getMessage());
         }
     }
 
     @Override
-    public String sendTicketAndReceipt(String to, String subject, String body, byte[] ticketPdf, byte[] receiptPdf) {
+    public void sendTicketAndReceipt(String to, String subject, String body, byte[] ticketPdf, byte[] receiptPdf) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true); // Enable multipart for attachments
@@ -62,9 +61,8 @@ public class EmailServiceImpl implements EmailService {
             }
 
             javaMailSender.send(mimeMessage);
-            return "Email with attachments sent!";
         } catch (MailException | MessagingException e) {
-            return e.getMessage();
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

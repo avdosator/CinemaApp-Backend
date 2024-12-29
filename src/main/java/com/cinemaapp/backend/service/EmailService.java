@@ -4,7 +4,7 @@ import com.cinemaapp.backend.service.domain.request.ResetCodeRequest;
 
 public interface EmailService {
 
-    String sendResetCode(ResetCodeRequest resetCodeRequest);
+    void sendResetCode(ResetCodeRequest resetCodeRequest);
 
-    String sendTicketAndReceipt(String to, String subject, String body, byte[] ticketPdf, byte[] receiptPdf);
+    void sendTicketAndReceipt(String to, String subject, String body, byte[] ticketPdf, byte[] receiptPdf);
 }

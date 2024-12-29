@@ -37,11 +37,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         SecureRandom secureRandom = new SecureRandom();
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
-        String emailResponse = emailService.sendResetCode(generateResetCodeRequest(user.getEmail(), savedResetCode));
-        if (emailResponse != "Email sent!") {
-            return emailResponse;
 
-        }
+        emailService.sendResetCode(generateResetCodeRequest(user.getEmail(), savedResetCode));
         String maskedEmail = maskEmail(user.getEmail());
         return "We have sent code to your email " + maskedEmail + ". Please, enter the code below to verify.";
     }
