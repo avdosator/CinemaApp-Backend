@@ -100,7 +100,7 @@ public class PaymentServiceImpl implements PaymentService {
     public String createPaymentIntent(CreatePaymentIntentRequest createPaymentIntentRequest) {
         try {
             PaymentIntent paymentIntent = stripeService.createPaymentIntent(
-                    createPaymentIntentRequest.getAmount(),
+                    (double) createPaymentIntentRequest.getAmount() / 2,
                     createPaymentIntentRequest.getUserId(),
                     createPaymentIntentRequest.getProjectionInstanceId());
             return paymentIntent.getClientSecret();
