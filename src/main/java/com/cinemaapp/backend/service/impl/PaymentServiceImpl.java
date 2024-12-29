@@ -27,16 +27,19 @@ public class PaymentServiceImpl implements PaymentService {
     private final MovieService movieService;
     private final EmailService emailService;
     private final ProjectionInstanceService projectionInstanceService;
+    private final JsoupService jsoupService;
 
     @Autowired
     public PaymentServiceImpl(PaymentRepository paymentRepository, StripeService stripeService, PdfService pdfService,
-                              MovieService movieService, EmailService emailService, ProjectionInstanceService projectionInstanceService) {
+                              MovieService movieService, EmailService emailService, ProjectionInstanceService projectionInstanceService,
+                              JsoupService jsoupService) {
         this.paymentRepository = paymentRepository;
         this.stripeService = stripeService;
         this.pdfService = pdfService;
         this.movieService = movieService;
         this.emailService = emailService;
         this.projectionInstanceService = projectionInstanceService;
+        this.jsoupService = jsoupService;
     }
 
     @Transactional
@@ -77,14 +80,13 @@ public class PaymentServiceImpl implements PaymentService {
 
             // Step 4: Get receipt URL and create receipt PDF
             List<Charge> charges = stripeService.getChargesForPaymentIntent(createPaymentRequest.getPaymentIntentId());
-            String receiptHtmlString = JsoupService.parseHtmlFromUrl(charges.get(0).getReceiptUrl());
+            String receiptHtmlString = jsoupService.parseHtmlFromUrl(charges.get(0).getReceiptUrl());
 
             // Validate extracted content
             if (receiptHtmlString.isEmpty()) {
                 throw new RuntimeException("Extracted receipt content is empty! Cannot generate PDF.");
             }
             byte[] receiptPdf = pdfService.generateReceiptPdf(receiptHtmlString);
-
             // Step 5: Send receipt and ticket to user's email address
             sendTicketAndReceipt(ticketPdf, receiptPdf);
 
