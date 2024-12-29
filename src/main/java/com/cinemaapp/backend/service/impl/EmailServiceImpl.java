@@ -1,5 +1,6 @@
-package com.cinemaapp.backend.service;
+package com.cinemaapp.backend.service.impl;
 
+import com.cinemaapp.backend.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
