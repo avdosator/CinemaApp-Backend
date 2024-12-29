@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.service.impl;
 
 import com.cinemaapp.backend.controller.dto.PaymentProcessingResult;
+import com.cinemaapp.backend.exception.HtmlExtractingException;
 import com.cinemaapp.backend.exception.PaymentProcessingException;
 import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.service.*;
@@ -76,7 +77,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             // Validate extracted content
             if (receiptHtmlString.isEmpty()) {
-                throw new RuntimeException("Extracted receipt content is empty! Cannot generate PDF.");
+                throw new HtmlExtractingException("Extracted receipt content is empty! Cannot generate PDF.");
             }
             byte[] receiptPdf = pdfService.generateReceiptPdf(receiptHtmlString);
 
