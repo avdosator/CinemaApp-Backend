@@ -79,7 +79,7 @@ public class PaymentServiceImpl implements PaymentService {
                 throw new RuntimeException("Extracted receipt content is empty! Cannot generate PDF.");
             }
             byte[] receiptPdf = pdfService.generateReceiptPdf(receiptHtmlString);
-            
+
             // Step 5: Send receipt and ticket to user's email address
             sendTicketAndReceipt(ticketPdf, receiptPdf);
 

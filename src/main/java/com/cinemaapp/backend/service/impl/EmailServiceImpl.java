@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.service.impl;
 
+import com.cinemaapp.backend.exception.EmailSendingException;
 import com.cinemaapp.backend.service.EmailService;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import jakarta.mail.MessagingException;
@@ -36,7 +37,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(emailDetailsRequest.getBody(), true);
             javaMailSender.send(mimeMessage);
         } catch (MailException | MessagingException e) {
-            throw  new RuntimeException(e.getMessage());
+            throw new EmailSendingException(e.getMessage(), e);
         }
     }
 
@@ -62,7 +63,7 @@ public class EmailServiceImpl implements EmailService {
 
             javaMailSender.send(mimeMessage);
         } catch (MailException | MessagingException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new EmailSendingException(e.getMessage(), e);
         }
     }
 }
