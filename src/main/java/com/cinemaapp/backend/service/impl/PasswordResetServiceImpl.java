@@ -5,6 +5,7 @@ import com.cinemaapp.backend.service.EmailService;
 import com.cinemaapp.backend.service.PasswordResetService;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.request.ResetCodeRequest;
 import com.cinemaapp.backend.service.domain.request.auth.VerifyResetCodeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,20 +37,10 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         SecureRandom secureRandom = new SecureRandom();
         String resetCode = String.format("%04d", secureRandom.nextInt(10000));
         String savedResetCode = passwordResetRepository.saveResetCode(resetCode, user.getId());
-        //String emailBody = "Your code for password reset is: " + savedResetCode + ". It will be valid 10 minutes from now.";
-        String emailBody = """
-                <html>
-                    <body>
-                        <p>Dear User,</p>
-                        <p>Your code for password reset is: <strong>%s</strong>. It will be valid for 10 minutes from now.</p>
-                        <p>If you didn’t request this, please ignore this email.</p><br>
-                        <p>Best regards,<br><br>Cinema App</p>
-                    </body>
-                </html>
-                """.formatted(savedResetCode);
-        String emailResponse = emailService.sendResetCode(user.getEmail(), "Password Reset Code", emailBody);
+        String emailResponse = emailService.sendResetCode(generateResetCodeRequest(user.getEmail(), savedResetCode));
         if (emailResponse != "Email sent!") {
             return emailResponse;
+
         }
         String maskedEmail = maskEmail(user.getEmail());
         return "We have sent code to your email " + maskedEmail + ". Please, enter the code below to verify.";
@@ -81,5 +72,22 @@ public class PasswordResetServiceImpl implements PasswordResetService {
                 + localPart.charAt(localPart.length() - 1);
 
         return maskedLocal + "@" + domain;
+    }
+
+    private ResetCodeRequest generateResetCodeRequest(String email, String resetCode) {
+        ResetCodeRequest request = new ResetCodeRequest();
+        request.setTo(email);
+        request.setSubject("Password Reset Code");
+        request.setBody("""
+                <html>
+                    <body>
+                        <p>Dear User,</p>
+                        <p>Your code for password reset is: <strong>%s</strong>. It will be valid for 10 minutes from now.</p>
+                        <p>If you didn’t request this, please ignore this email.</p><br>
+                        <p>Best regards,<br><br>Cinema App</p>
+                    </body>
+                </html>
+                """.formatted(resetCode));
+        return request;
     }
 }
