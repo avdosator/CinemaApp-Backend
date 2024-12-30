@@ -110,7 +110,7 @@ public class PaymentServiceImpl implements PaymentService {
         emailDetailsRequest.setBody("""
                 Hello,
                                 
-                Thank you for your purchase! We sent you your movie ticket and payment receipt.
+                Thank you for your purchase! We sent you movie ticket and payment receipt.
                                 
                                 
                 CinemaApp
