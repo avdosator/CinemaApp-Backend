@@ -4,6 +4,7 @@ import com.cinemaapp.backend.controller.dto.PaymentProcessingResult;
 import com.cinemaapp.backend.repository.PaymentRepository;
 import com.cinemaapp.backend.service.*;
 import com.cinemaapp.backend.service.domain.model.*;
+import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
@@ -60,6 +62,35 @@ class PaymentServiceImplTest {
         paymentService = new PaymentServiceImpl(
                 paymentRepository, stripeService, pdfService, movieService, emailService,
                 projectionInstanceService, jsoupService, securityService);
+    }
+
+    @Test
+    void createPaymentIntent() throws Exception {
+        CreatePaymentIntentRequest createPaymentIntentRequest = buildCreatePaymentIntentRequest();
+        PaymentIntent paymentIntent = new PaymentIntent();
+        paymentIntent.setAmount((long) createPaymentIntentRequest.getAmount() / 2);
+        paymentIntent.setClientSecret("clientSecret");
+        Mockito.when(stripeService.createPaymentIntent((double) createPaymentIntentRequest.getAmount() / 2, createPaymentIntentRequest.getUserId(), createPaymentIntentRequest.getProjectionInstanceId()))
+                .thenReturn(paymentIntent);
+
+        String clientSecret = paymentService.createPaymentIntent(createPaymentIntentRequest);
+
+        Mockito.verify(stripeService, times(1)).createPaymentIntent(
+                (double) createPaymentIntentRequest.getAmount() / 2,
+                createPaymentIntentRequest.getUserId(),
+                createPaymentIntentRequest.getProjectionInstanceId()
+        );
+
+        Assertions.assertEquals(10, paymentIntent.getAmount());
+        Assertions.assertEquals("clientSecret", clientSecret);
+    }
+
+    private CreatePaymentIntentRequest buildCreatePaymentIntentRequest() {
+        CreatePaymentIntentRequest createPaymentIntentRequest = new CreatePaymentIntentRequest();
+        createPaymentIntentRequest.setAmount(20);
+        createPaymentIntentRequest.setUserId(UUID.randomUUID());
+        createPaymentIntentRequest.setProjectionInstanceId(UUID.randomUUID());
+        return createPaymentIntentRequest;
     }
 
     @Test
@@ -109,7 +140,7 @@ class PaymentServiceImplTest {
 
         PaymentCreationResponse paymentCreationResponse = paymentService.processReservationAndPayment(request);
 
-        Mockito.verify(emailService, Mockito.times(1)).sendTicketAndReceipt(any(), any(), any());
+        Mockito.verify(emailService, times(1)).sendTicketAndReceipt(any(), any(), any());
         Assertions.assertNotNull(paymentCreationResponse);
         Assertions.assertEquals("success", paymentCreationResponse.getStatus());
 
