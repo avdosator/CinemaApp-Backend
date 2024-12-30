@@ -13,7 +13,6 @@ import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
-import com.cinemaapp.backend.utils.UserUtils;
 import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +31,12 @@ public class PaymentServiceImpl implements PaymentService {
     private final EmailService emailService;
     private final ProjectionInstanceService projectionInstanceService;
     private final JsoupService jsoupService;
+    private final SecurityServiceImpl securityService;
 
     @Autowired
     public PaymentServiceImpl(PaymentRepository paymentRepository, StripeService stripeService, PdfService pdfService,
                               MovieService movieService, EmailService emailService, ProjectionInstanceService projectionInstanceService,
-                              JsoupService jsoupService) {
+                              JsoupService jsoupService, SecurityServiceImpl securityService) {
         this.paymentRepository = paymentRepository;
         this.stripeService = stripeService;
         this.pdfService = pdfService;
@@ -44,6 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
         this.emailService = emailService;
         this.projectionInstanceService = projectionInstanceService;
         this.jsoupService = jsoupService;
+        this.securityService = securityService;
     }
 
     @Transactional
@@ -105,7 +106,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private void sendTicketAndReceipt(byte[] ticketPdf, byte[] receiptPdf) {
         EmailDetailsRequest emailDetailsRequest = new EmailDetailsRequest();
-        emailDetailsRequest.setTo(UserUtils.getCurrentUser().getEmail());
+        emailDetailsRequest.setTo(securityService.getCurrentUser().getEmail());
         emailDetailsRequest.setSubject("Movie Ticket and Receipt");
         emailDetailsRequest.setBody("""
                 Hello,
