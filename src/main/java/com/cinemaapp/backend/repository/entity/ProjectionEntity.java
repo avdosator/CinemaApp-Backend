@@ -41,14 +41,11 @@ public class ProjectionEntity {
     @Formula("array_to_string(start_time, ',')")
     private String startTimeString;
 
-    @Column(name = "available_seats")
-    private int availableSeats;
-
     @Column(name = "status")
     private String status; //  should be "upcoming", "active", "completed" or "canceled"
 
     @OneToMany(mappedBy = "projectionEntity")
-    private List<SeatReservationEntity> seatReservationEntities;
+    private List<ProjectionInstanceEntity> projectionInstanceEntities;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -104,16 +101,16 @@ public class ProjectionEntity {
         this.startTime = startTime;
     }
 
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
-    }
-
     public String getStartTimeString() {
         return startTimeString;
+    }
+
+    public List<ProjectionInstanceEntity> getProjectionInstanceEntities() {
+        return projectionInstanceEntities;
+    }
+
+    public void setProjectionInstanceEntities(List<ProjectionInstanceEntity> projectionInstanceEntities) {
+        this.projectionInstanceEntities = projectionInstanceEntities;
     }
 
     public String getStatus() {
@@ -122,14 +119,6 @@ public class ProjectionEntity {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public List<SeatReservationEntity> getSeatReservationEntities() {
-        return seatReservationEntities;
-    }
-
-    public void setSeatReservationEntities(List<SeatReservationEntity> seatReservationEntities) {
-        this.seatReservationEntities = seatReservationEntities;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -149,10 +138,6 @@ public class ProjectionEntity {
     }
 
     public Projection toDomainModel() {
-//        List<SeatReservation> seatReservations = (this.seatReservationEntities == null ? Collections.emptyList() :
-//                this.seatReservationEntities.stream()
-//                        .map(SeatReservationEntity::toDomainModel)
-//                        .toList());
 
         return Projection.builder()
                 .id(this.id)
@@ -161,9 +146,7 @@ public class ProjectionEntity {
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .startTime(this.startTime)
-                //.availableSeats(this.availableSeats)
                 .status(this.status)
-                //.seatReservations(seatReservations)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();
