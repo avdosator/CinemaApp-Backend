@@ -12,7 +12,7 @@ pipeline {
         POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
         POSTGRES_DB = credentials('POSTGRES_DB')
 
-        DB_URL = "postgresql://${POSTGRES_CONTAINER}:${POSTGRES_PORT}/${POSTGRES_DB}?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}"
+        DB_URL = "postgresql://${POSTGRES_CONTAINER}:5433/${POSTGRES_DB}?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}"
         DOCKER_NETWORK = 'team3-network'
 
         JWT_EXPIRATION_TIME = credentials('JWT_EXPIRATION_TIME')
@@ -43,7 +43,7 @@ pipeline {
                     -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
                     -e POSTGRES_DB=${POSTGRES_DB} \
                     -v team3_postgres_data:/var/lib/postgresql/data \
-                    -p ${POSTGRES_PORT}:5432 \
+                    -p ${POSTGRES_PORT}:5433 \
                     ${POSTGRES_IMAGE}
                 """
             }
