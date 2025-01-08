@@ -8,9 +8,9 @@ pipeline {
         POSTGRES_IMAGE = 'postgres:latest'
         POSTGRES_CONTAINER = 'team3-postgres'
         POSTGRES_PORT = '5432'
-        POSTGRES_USER = 'cinema_app_user'
-        POSTGRES_PASSWORD = 'password'
-        POSTGRES_DB = 'cinema_app_db'
+        POSTGRES_USER = credentials('POSTGRES_USER')
+        POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
+        POSTGRES_DB = credentials('POSTGRES_DB')
 
         DB_URL = "postgresql://${POSTGRES_CONTAINER}:${POSTGRES_PORT}/${POSTGRES_DB}?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}"
         DOCKER_NETWORK = 'team3-network'
