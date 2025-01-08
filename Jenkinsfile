@@ -7,7 +7,7 @@ pipeline {
 
         POSTGRES_IMAGE = 'postgres:latest'
         POSTGRES_CONTAINER = 'team3-postgres'
-        POSTGRES_PORT = '5432'
+        POSTGRES_PORT = '5433'
         POSTGRES_USER = credentials('POSTGRES_USER')
         POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
         POSTGRES_DB = credentials('POSTGRES_DB')
@@ -43,7 +43,7 @@ pipeline {
                     -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
                     -e POSTGRES_DB=${POSTGRES_DB} \
                     -v team3_postgres_data:/var/lib/postgresql/data \
-                    -p 5433:5432 \
+                    -p 5433:5433 \
                     ${POSTGRES_IMAGE}
                 """
             }
