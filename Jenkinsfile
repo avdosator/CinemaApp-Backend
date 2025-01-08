@@ -2,27 +2,49 @@ pipeline {
     agent any
 
     environment {
-        BACKEND_IMAGE = 'ahmedhamdo/cinemaapp-backend:latest'
+        BACKEND_IMAGE = 'ahmedhamdo/team3-backend:latest'
         SERVER_PORT = '8082'
-        DB_URL = 'postgresql://localhost:5433/cinema_app_db?user=cinema_app_user&password=password'
-        JWT_EXPIRATION_TIME = '3600000'
-        JWT_SECRET_KEY = '54a4f4f539b1a65c66bc5d2ed01996931a736e5e4cfaa40d0ef53eca7eff722a37d285c76879a051595ad2a75bcc1c5df55bee6b1eae571ac611ffd488942031'
-        SPRING_MAIL_PASSWORD = 'jleveyashklmywxb'
-        SPRING_MAIL_USERNAME = 'cinema.app.info@gmail.com'
+
+        POSTGRES_IMAGE = 'postgres:latest'
+        POSTGRES_CONTAINER = 'team3-postgres'
+        POSTGRES_PORT = '5432'
+        POSTGRES_USER = credentials('POSTGRES_USER')
+        POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
+        POSTGRES_DB = credentials('POSTGRES_DB')
+
+        DB_URL = "postgresql://${POSTGRES_CONTAINER}:${POSTGRES_PORT}/${POSTGRES_DB}?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}"
+        DOCKER_NETWORK = 'team3-network'
+
+        JWT_EXPIRATION_TIME = credentials('JWT_EXPIRATION_TIME')
+        JWT_SECRET_KEY = credentials('JWT_SECRET_KEY')
+        SPRING_MAIL_PASSWORD = credentials('SPRING_MAIL_PASSWORD')
+        SPRING_MAIL_USERNAME = credentials('SPRING_MAIL_USERNAME')
     }
 
     stages {
+        stage('Create Docker Network') {
+            steps {
+                echo "Creating Docker network if not exists"
+                sh """
+                docker network inspect ${DOCKER_NETWORK} >/dev/null 2>&1 || \
+                docker network create ${DOCKER_NETWORK}
+                """
+            }
+        }
+
         stage('Deploy PostgreSQL') {
             steps {
                 echo "Deploying PostgreSQL database"
                 sh """
-                docker rm -f cinemaapp-postgres || true
-                docker run -d --name cinemaapp-postgres \
-                    -e POSTGRES_DB=cinema_app_db \
-                    -e POSTGRES_USER=cinema_app_user \
-                    -e POSTGRES_PASSWORD=password \
+                docker rm -f ${POSTGRES_CONTAINER} || true
+                docker run -d --name ${POSTGRES_CONTAINER} \
+                    --network ${DOCKER_NETWORK} \
+                    -e POSTGRES_USER=${POSTGRES_USER} \
+                    -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+                    -e POSTGRES_DB=${POSTGRES_DB} \
+                    -v team3_postgres_data:/var/lib/postgresql/data \
                     -p 5433:5432 \
-                    postgres:latest
+                    ${POSTGRES_IMAGE}
                 """
             }
         }
@@ -58,14 +80,15 @@ pipeline {
             steps {
                 echo "Deploying backend container on port ${SERVER_PORT}"
                 sh """
-                docker rm -f cinemaapp-backend || true
-                docker run -d --name cinemaapp-backend \
+                docker rm -f team3-backend || true
+                docker run -d --name team3-backend \
+                    --network ${DOCKER_NETWORK} \
                     -p ${SERVER_PORT}:8080 \
-                    -e DATABASE_URL=${DB_URL} \
-                    -e JWT_EXPIRATION_TIME=${JWT_EXPIRATION_TIME} \
-                    -e JWT_SECRET_KEY=${JWT_SECRET_KEY} \
-                    -e SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD} \
-                    -e SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME} \
+                    -e DATABASE_URL="${DB_URL}" \
+                    -e JWT_EXPIRATION_TIME="${JWT_EXPIRATION_TIME}" \
+                    -e JWT_SECRET_KEY="${JWT_SECRET_KEY}" \
+                    -e SPRING_MAIL_PASSWORD="${SPRING_MAIL_PASSWORD}" \
+                    -e SPRING_MAIL_USERNAME="${SPRING_MAIL_USERNAME}" \
                     ${BACKEND_IMAGE}
                 """
             }
