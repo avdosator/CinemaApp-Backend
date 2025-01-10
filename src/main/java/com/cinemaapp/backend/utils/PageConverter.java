@@ -15,7 +15,7 @@ public class PageConverter {
         Page<D> page = new Page<>();
         page.setPageNumber(springPage.getNumber());
         page.setPageSize(springPage.getSize());
-        page.setTotalElements(springPage.getNumberOfElements());
+        page.setTotalElements((int) springPage.getTotalElements());
         page.setTotalPages(springPage.getTotalPages());
         List<D> domainModels = new ArrayList<>();
         for (E entity : springPage) {
