@@ -1,9 +1,10 @@
 package com.cinemaapp.backend.service.domain.request;
 
-import jakarta.validation.constraints.Min;
+import com.cinemaapp.backend.service.domain.model.Seat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 public class CreatePaymentRequest {
@@ -15,11 +16,7 @@ public class CreatePaymentRequest {
     private UUID projectionInstanceId;
 
     @NotNull
-    @Min(1)
-    private int amount;
-
-    @NotEmpty
-    private UUID[] selectedSeats;
+    private List<Seat> selectedSeats;
 
     @NotEmpty
     private String paymentIntentId;
@@ -43,22 +40,14 @@ public class CreatePaymentRequest {
         this.projectionInstanceId = projectionInstanceId;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public UUID[] getSelectedSeats() {
+    public List<Seat> getSelectedSeats() {
         return selectedSeats;
     }
 
-    public void setSelectedSeats(UUID[] selectedSeats) {
+    public void setSelectedSeats(List<Seat> selectedSeats) {
         this.selectedSeats = selectedSeats;
     }
-
+    
     public String getPaymentIntentId() {
         return paymentIntentId;
     }

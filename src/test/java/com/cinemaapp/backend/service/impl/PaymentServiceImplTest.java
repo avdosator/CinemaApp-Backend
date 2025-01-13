@@ -207,7 +207,7 @@ class PaymentServiceImplTest {
         CreatePaymentRequest request = new CreatePaymentRequest();
         Seat seat = new Seat(null, "H1", null, null, "regular", null, null);
         request.setPaymentIntentId("paymentIntentId");
-        request.setAmount(20);
+        request.setSelectedSeats(20);
         request.setMovieId(UUID.randomUUID());
         request.setProjectionInstanceId(UUID.randomUUID());
         request.setUserId(userId);

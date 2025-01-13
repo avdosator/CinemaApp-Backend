@@ -2,10 +2,14 @@ package com.cinemaapp.backend.repository.impl;
 
 import com.cinemaapp.backend.controller.dto.PaymentProcessingResult;
 import com.cinemaapp.backend.repository.PaymentRepository;
+import com.cinemaapp.backend.repository.TicketPriceRepository;
 import com.cinemaapp.backend.repository.crud.*;
 import com.cinemaapp.backend.repository.entity.*;
 import com.cinemaapp.backend.service.domain.model.Payment;
+import com.cinemaapp.backend.service.domain.model.Seat;
+import com.cinemaapp.backend.service.domain.model.TicketPrice;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
+import com.cinemaapp.backend.utils.PaymentAmountCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,13 +28,14 @@ public class PaymentJpaRepository implements PaymentRepository {
     private final CrudSeatReservationRepository crudSeatReservationRepository;
     private final CrudProjectionInstanceRepository crudProjectionInstanceRepository;
     private final CrudTicketRepository crudTicketRepository;
+    private final TicketPriceRepository ticketPriceRepository;
 
     @Autowired
     public PaymentJpaRepository(CrudPaymentRepository crudPaymentRepository, CrudUserRepository crudUserRepository,
                                 CrudReservationRepository crudReservationRepository, CrudSeatRepository crudSeatRepository,
                                 CrudSeatReservationRepository crudSeatReservationRepository,
                                 CrudProjectionInstanceRepository crudProjectionInstanceRepository,
-                                CrudTicketRepository crudTicketRepository) {
+                                CrudTicketRepository crudTicketRepository, TicketPriceRepository ticketPriceRepository) {
         this.crudPaymentRepository = crudPaymentRepository;
         this.crudUserRepository = crudUserRepository;
         this.crudReservationRepository = crudReservationRepository;
@@ -38,6 +43,7 @@ public class PaymentJpaRepository implements PaymentRepository {
         this.crudSeatReservationRepository = crudSeatReservationRepository;
         this.crudProjectionInstanceRepository = crudProjectionInstanceRepository;
         this.crudTicketRepository = crudTicketRepository;
+        this.ticketPriceRepository = ticketPriceRepository;
     }
 
     @Override
@@ -49,9 +55,11 @@ public class PaymentJpaRepository implements PaymentRepository {
 
     @Override
     public PaymentProcessingResult processReservationAndPayment(CreatePaymentRequest createPaymentRequest) {
+        List<TicketPrice> ticketPrices = ticketPriceRepository.findAll();
+        double totalAmount = PaymentAmountCalculator.calculateTotalAmount(createPaymentRequest.getSelectedSeats(), ticketPrices);
         UserEntity userEntity = crudUserRepository.findById(createPaymentRequest.getUserId()).orElseThrow();
-        ReservationEntity reservationEntity = createReservation(createPaymentRequest, userEntity);
-        PaymentEntity paymentEntity = createPayment(createPaymentRequest, userEntity);
+        ReservationEntity reservationEntity = createReservation(createPaymentRequest, userEntity, totalAmount);
+        PaymentEntity paymentEntity = createPayment(createPaymentRequest, userEntity, totalAmount);
         TicketEntity ticketEntity = createTicket(paymentEntity, reservationEntity.getSeatReservationEntities());
         return new PaymentProcessingResult(
                 reservationEntity.toDomainModel(),
@@ -60,12 +68,12 @@ public class PaymentJpaRepository implements PaymentRepository {
         );
     }
 
-    private ReservationEntity createReservation(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
+    private ReservationEntity createReservation(CreatePaymentRequest createPaymentRequest, UserEntity userEntity, double totalAmount) {
 
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setUserEntity(userEntity);
         reservationEntity.setStatus("confirmed");
-        reservationEntity.setTotalPrice(createPaymentRequest.getAmount());
+        reservationEntity.setTotalPrice(totalAmount);
         reservationEntity.setCreatedAt(LocalDateTime.now());
         ReservationEntity savedReservation = crudReservationRepository.save(reservationEntity);
         reservationEntity.setSeatReservationEntities(createSeatReservations(savedReservation, createPaymentRequest, userEntity));
@@ -76,10 +84,10 @@ public class PaymentJpaRepository implements PaymentRepository {
         ProjectionInstanceEntity projectionInstanceEntity = crudProjectionInstanceRepository
                 .findById(createPaymentRequest.getProjectionInstanceId()).orElseThrow();
         List<SeatReservationEntity> seatReservationEntities = new ArrayList<>();
-        for (UUID seatId : createPaymentRequest.getSelectedSeats()) {
+        for (Seat seat : createPaymentRequest.getSelectedSeats()) {
             SeatReservationEntity seatReservationEntity = new SeatReservationEntity();
             seatReservationEntity.setProjectionInstanceEntity(projectionInstanceEntity);
-            seatReservationEntity.setSeatEntity(crudSeatRepository.findById(seatId).orElseThrow());
+            seatReservationEntity.setSeatEntity(crudSeatRepository.findById(seat.getId()).orElseThrow());
             seatReservationEntity.setReservationEntity(reservationEntity);
             seatReservationEntity.setStatus("purchased");
             seatReservationEntity.setCreatedAt(LocalDateTime.now());
@@ -89,10 +97,10 @@ public class PaymentJpaRepository implements PaymentRepository {
         return seatReservationEntities;
     }
 
-    private PaymentEntity createPayment(CreatePaymentRequest createPaymentRequest, UserEntity userEntity) {
+    private PaymentEntity createPayment(CreatePaymentRequest createPaymentRequest, UserEntity userEntity, double totalAmount) {
         PaymentEntity paymentEntity = new PaymentEntity();
-        paymentEntity.setAmount(createPaymentRequest.getAmount());
-        paymentEntity.setMethod("card"); // Placeholder; will refine after integrating Stripe.
+        paymentEntity.setAmount(totalAmount);
+        paymentEntity.setMethod("card");
         paymentEntity.setStatus("pending");
         paymentEntity.setPaymentTime(LocalDateTime.now());
         paymentEntity.setUserEntity(userEntity);

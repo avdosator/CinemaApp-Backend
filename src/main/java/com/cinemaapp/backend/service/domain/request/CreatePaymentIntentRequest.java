@@ -1,7 +1,6 @@
 package com.cinemaapp.backend.service.domain.request;
 
 import com.cinemaapp.backend.service.domain.model.Seat;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -16,7 +15,6 @@ public class CreatePaymentIntentRequest {
     private UUID projectionInstanceId;
 
     @NotNull
-    @Min(1)
     private List<Seat> selectedSeats;
 
     public UUID getUserId() {
