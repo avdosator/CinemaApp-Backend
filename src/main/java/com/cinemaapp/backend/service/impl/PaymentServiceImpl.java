@@ -14,6 +14,7 @@ import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
+import com.cinemaapp.backend.utils.PaymentAmountCalculator;
 import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,16 +98,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public String createPaymentIntent(CreatePaymentIntentRequest createPaymentIntentRequest) {
         List<TicketPrice> ticketPrices = ticketPriceService.findAll();
-
-        double totalAmount = createPaymentIntentRequest.getSelectedSeats().stream()
-                .mapToDouble(seat -> {
-                    TicketPrice ticketPrice = ticketPrices.stream()
-                            .filter(price -> price.getSeatType().equalsIgnoreCase(seat.getType()))
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalArgumentException("Invalid seat type: " + seat.getType()));
-                    return ticketPrice.getPrice();
-                })
-                .sum();
+        double totalAmount = PaymentAmountCalculator.calculateTotalAmount(createPaymentIntentRequest.getSelectedSeats(), ticketPrices);
 
         try {
             PaymentIntent paymentIntent = stripeService.createPaymentIntent(
