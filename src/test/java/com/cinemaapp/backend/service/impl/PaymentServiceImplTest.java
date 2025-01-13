@@ -54,6 +54,8 @@ class PaymentServiceImplTest {
     @Mock
     private SecurityServiceImpl securityService;
 
+    @Mock TicketPriceService ticketPriceService;
+
     private PaymentService paymentService;
 
 
@@ -61,22 +63,22 @@ class PaymentServiceImplTest {
     public void setUp() {
         paymentService = new PaymentServiceImpl(
                 paymentRepository, stripeService, pdfService, movieService, emailService,
-                projectionInstanceService, jsoupService, securityService);
+                projectionInstanceService, jsoupService, securityService, ticketPriceService);
     }
 
     @Test
     void createPaymentIntent() throws Exception {
         CreatePaymentIntentRequest createPaymentIntentRequest = buildCreatePaymentIntentRequest();
         PaymentIntent paymentIntent = new PaymentIntent();
-        paymentIntent.setAmount((long) createPaymentIntentRequest.getAmount() / 2);
+        paymentIntent.setAmount((long) createPaymentIntentRequest.getSelectedSeats() / 2);
         paymentIntent.setClientSecret("clientSecret");
-        Mockito.when(stripeService.createPaymentIntent((double) createPaymentIntentRequest.getAmount() / 2, createPaymentIntentRequest.getUserId(), createPaymentIntentRequest.getProjectionInstanceId()))
+        Mockito.when(stripeService.createPaymentIntent((double) createPaymentIntentRequest.getSelectedSeats() / 2, createPaymentIntentRequest.getUserId(), createPaymentIntentRequest.getProjectionInstanceId()))
                 .thenReturn(paymentIntent);
 
         String clientSecret = paymentService.createPaymentIntent(createPaymentIntentRequest);
 
         Mockito.verify(stripeService, times(1)).createPaymentIntent(
-                (double) createPaymentIntentRequest.getAmount() / 2,
+                (double) createPaymentIntentRequest.getSelectedSeats() / 2,
                 createPaymentIntentRequest.getUserId(),
                 createPaymentIntentRequest.getProjectionInstanceId()
         );
@@ -87,7 +89,7 @@ class PaymentServiceImplTest {
 
     private CreatePaymentIntentRequest buildCreatePaymentIntentRequest() {
         CreatePaymentIntentRequest createPaymentIntentRequest = new CreatePaymentIntentRequest();
-        createPaymentIntentRequest.setAmount(20);
+        createPaymentIntentRequest.setSelectedSeats(20);
         createPaymentIntentRequest.setUserId(UUID.randomUUID());
         createPaymentIntentRequest.setProjectionInstanceId(UUID.randomUUID());
         return createPaymentIntentRequest;

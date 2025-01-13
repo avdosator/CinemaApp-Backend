@@ -8,6 +8,7 @@ import com.cinemaapp.backend.service.*;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.cinemaapp.backend.service.domain.model.SeatReservation;
+import com.cinemaapp.backend.service.domain.model.TicketPrice;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentIntentRequest;
 import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
@@ -32,11 +33,12 @@ public class PaymentServiceImpl implements PaymentService {
     private final ProjectionInstanceService projectionInstanceService;
     private final JsoupService jsoupService;
     private final SecurityServiceImpl securityService;
+    private final TicketPriceService ticketPriceService;
 
     @Autowired
     public PaymentServiceImpl(PaymentRepository paymentRepository, StripeService stripeService, PdfService pdfService,
                               MovieService movieService, EmailService emailService, ProjectionInstanceService projectionInstanceService,
-                              JsoupService jsoupService, SecurityServiceImpl securityService) {
+                              JsoupService jsoupService, SecurityServiceImpl securityService, TicketPriceService ticketPriceService) {
         this.paymentRepository = paymentRepository;
         this.stripeService = stripeService;
         this.pdfService = pdfService;
@@ -45,6 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
         this.projectionInstanceService = projectionInstanceService;
         this.jsoupService = jsoupService;
         this.securityService = securityService;
+        this.ticketPriceService = ticketPriceService;
     }
 
     @Transactional
@@ -93,9 +96,21 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String createPaymentIntent(CreatePaymentIntentRequest createPaymentIntentRequest) {
+        List<TicketPrice> ticketPrices = ticketPriceService.findAll();
+
+        double totalAmount = createPaymentIntentRequest.getSelectedSeats().stream()
+                .mapToDouble(seat -> {
+                    TicketPrice ticketPrice = ticketPrices.stream()
+                            .filter(price -> price.getSeatType().equalsIgnoreCase(seat.getType()))
+                            .findFirst()
+                            .orElseThrow(() -> new IllegalArgumentException("Invalid seat type: " + seat.getType()));
+                    return ticketPrice.getPrice();
+                })
+                .sum();
+
         try {
             PaymentIntent paymentIntent = stripeService.createPaymentIntent(
-                    (double) createPaymentIntentRequest.getAmount() / 2,
+                    totalAmount / 2, // Divide by 2 because stripe will calculate it in euros
                     createPaymentIntentRequest.getUserId(),
                     createPaymentIntentRequest.getProjectionInstanceId());
             return paymentIntent.getClientSecret();
