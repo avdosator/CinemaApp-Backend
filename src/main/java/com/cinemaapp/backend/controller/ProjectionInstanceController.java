@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/projections/instance")
+@RequestMapping("/projections/instances")
 @Tag(name = "Projection instances", description = "Endpoints for managing projection instances")
 public class ProjectionInstanceController {
 

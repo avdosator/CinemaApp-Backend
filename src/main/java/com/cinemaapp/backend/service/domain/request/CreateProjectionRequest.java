@@ -15,4 +15,28 @@ public class CreateProjectionRequest {
 
     @NotNull
     private UUID venueId;
+
+    public String getProjectionTime() {
+        return projectionTime;
+    }
+
+    public void setProjectionTime(String projectionTime) {
+        this.projectionTime = projectionTime;
+    }
+
+    public UUID getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(UUID cityId) {
+        this.cityId = cityId;
+    }
+
+    public UUID getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(UUID venueId) {
+        this.venueId = venueId;
+    }
 }
