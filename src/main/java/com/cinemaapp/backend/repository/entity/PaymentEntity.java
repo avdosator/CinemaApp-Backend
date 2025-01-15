@@ -112,7 +112,7 @@ public class PaymentEntity {
                 .paymentTime(this.paymentTime)
                 .status(this.status)
                 .user(this.userEntity.toDomainModel())
-                .ticket(ticketEntity.toDomainModel())
+                //.ticket(ticketEntity.toDomainModel())
                 .updatedAt(this.updatedAt)
                 .build();
     }
