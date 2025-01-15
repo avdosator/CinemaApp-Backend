@@ -14,8 +14,8 @@ public class Movie {
     private final int durationInMinutes;
     private final String[] writers;
     private final String[] actors;
-    private final double imdbRating;
-    private final double rottenTomatoesRating;
+    private final String imdbRating;
+    private final String rottenTomatoesRating;
     private final String synopsis;
     private final String trailerUrl;
     private final UUID coverPhotoId;
@@ -27,7 +27,7 @@ public class Movie {
     private final LocalDateTime updatedAt;
 
     Movie(UUID id, String title, String language, String director, String pgRating, int durationInMinutes,
-          String[] writers, String[] actors, double imdbRating, double rottenTomatoesRating, String synopsis,
+          String[] writers, String[] actors, String imdbRating, String rottenTomatoesRating, String synopsis,
           String trailerUrl, UUID coverPhotoId, String status, List<Genre> genres, List<Projection> projections,
           List<Photo> photos, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
@@ -83,11 +83,11 @@ public class Movie {
         return actors;
     }
 
-    public double getImdbRating() {
+    public String getImdbRating() {
         return imdbRating;
     }
 
-    public double getRottenTomatoesRating() {
+    public String getRottenTomatoesRating() {
         return rottenTomatoesRating;
     }
 
@@ -144,8 +144,8 @@ public class Movie {
         private int durationInMinutes;
         private String[] writers;
         private String[] actors;
-        private double imdbRating;
-        private double rottenTomatoesRating;
+        private String imdbRating;
+        private String rottenTomatoesRating;
         private String synopsis;
         private String trailerUrl;
         private UUID coverPhotoId;
@@ -199,12 +199,12 @@ public class Movie {
             return this;
         }
 
-        public MovieBuilder imdbRating(double imdbRating) {
+        public MovieBuilder imdbRating(String imdbRating) {
             this.imdbRating = imdbRating;
             return this;
         }
 
-        public MovieBuilder rottenTomatoesRating(double rottenTomatoesRating) {
+        public MovieBuilder rottenTomatoesRating(String rottenTomatoesRating) {
             this.rottenTomatoesRating = rottenTomatoesRating;
             return this;
         }
