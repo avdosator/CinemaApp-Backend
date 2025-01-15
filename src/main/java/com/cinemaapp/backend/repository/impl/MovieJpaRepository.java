@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.impl;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.repository.crud.CrudMovieRepository;
 import com.cinemaapp.backend.repository.crud.CrudPhotoRepository;
@@ -8,9 +9,8 @@ import com.cinemaapp.backend.repository.entity.PhotoEntity;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.Photo;
-import com.cinemaapp.backend.service.domain.model.Venue;
+import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
-import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,28 @@ public class MovieJpaRepository implements MovieRepository {
         }
         movie.setPhotos(moviePhotos);
         return movie;
+    }
+
+    @Override
+    public Movie createMovie(CreateMovieRequest createMovieRequest) {
+        MovieEntity movieEntity = new MovieEntity();
+        movieEntity.setTitle(createMovieRequest.getTitle());
+        movieEntity.setLanguage(createMovieRequest.getLanguage());
+        movieEntity.setDirector(createMovieRequest.getDirector());
+        movieEntity.setPgRating(createMovieRequest.getPgRating());
+        movieEntity.setDurationInMinutes(createMovieRequest.getDuration());
+        movieEntity.setWriters(createMovieRequest.getWriters());
+        movieEntity.setActors(createMovieRequest.getCast());
+        movieEntity.setSynopsis(createMovieRequest.getSynopsis());
+        movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
+        movieEntity.setStatus("active");
+        /*Find genres and set them*/
+        /*Set Cover photo id*/
+        /* Integrate imdb api and set rating*/
+        /* Integrate RT api and set rating*/
+        movieEntity.setCreatedAt(LocalDateTime.now());
+        movieEntity.setUpdatedAt(LocalDateTime.now());
+        MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
     }
 
     public Page<Movie> mapPhotosToMovies(Page<Movie> movies) {
