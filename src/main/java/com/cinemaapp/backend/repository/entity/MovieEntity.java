@@ -44,10 +44,10 @@ public class MovieEntity {
     private String[] actors;
 
     @Column(name = "imdb_rating")
-    private double imdbRating;
+    private String imdbRating;
 
     @Column(name = "rotten_tomatoes_rating")
-    private double rottenTomatoesRating;
+    private String rottenTomatoesRating;
 
     @Column(name = "synopsis")
     private String synopsis;
@@ -142,19 +142,19 @@ public class MovieEntity {
         this.actors = actors;
     }
 
-    public double getImdbRating() {
+    public String getImdbRating() {
         return imdbRating;
     }
 
-    public void setImdbRating(double imdbRating) {
+    public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
 
-    public double getRottenTomatoesRating() {
+    public String getRottenTomatoesRating() {
         return rottenTomatoesRating;
     }
 
-    public void setRottenTomatoesRating(double rottenTomatoesRating) {
+    public void setRottenTomatoesRating(String rottenTomatoesRating) {
         this.rottenTomatoesRating = rottenTomatoesRating;
     }
 
