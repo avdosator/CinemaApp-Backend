@@ -1438,18 +1438,6 @@ public class DatabaseInitializer implements CommandLineRunner {
             }
         }
 
-        // Initialize seat status template
-        Map<String, String> seatStatusTemplate = new HashMap<>();
-
-        for (int i = 0; i < rows.length; i++) {
-            String row = rows[i];
-            int seatCount = (i == 8) ? 4 : 8;
-            for (int j = 1; j <= seatCount; j++) {
-                String seatNumber = row + j;
-                seatStatusTemplate.put(seatNumber, "available");
-            }
-        }
-
         // Seed projections and projection instances
         String[] startTimes = {"14:00", "16:00", "18:00", "20:00", "22:15", "23:50"};
 
@@ -1464,7 +1452,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         avatarProjection.setCreatedAt(LocalDateTime.now());
         avatarProjection.setUpdatedAt(LocalDateTime.now());
         ProjectionEntity savedAvatarProjection = crudProjectionRepository.save(avatarProjection);
-        
+
 
         LocalDate currentDate = savedAvatarProjection.getStartDate();
         while (!currentDate.isAfter(savedAvatarProjection.getEndDate())) {
@@ -1474,7 +1462,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedAvatarProjection);
                 projectionInstance.setDate(currentDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1504,7 +1491,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedInceptionProjection);
                 projectionInstance.setDate(inceptionStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1534,7 +1520,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedTitanicProjection);
                 projectionInstance.setDate(titanicStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1564,7 +1549,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedDarkKnightProjection);
                 projectionInstance.setDate(darkKnightStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1594,7 +1578,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedMatrixProjection);
                 projectionInstance.setDate(matrixStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1624,7 +1607,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedInterstellarProjection);
                 projectionInstance.setDate(interstellarStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1654,7 +1636,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedGladiatorProjection);
                 projectionInstance.setDate(gladiatorStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1684,7 +1665,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedGodfatherProjection);
                 projectionInstance.setDate(godfatherStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1714,7 +1694,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedPulpFictionProjection);
                 projectionInstance.setDate(pulpFictionStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1744,7 +1723,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedSchListProjection);
                 projectionInstance.setDate(schListStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1774,7 +1752,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedFightClubProjection);
                 projectionInstance.setDate(fightClubStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1804,7 +1781,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedForrestGumpProjection);
                 projectionInstance.setDate(forrestGumpStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1834,7 +1810,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedLionKingProjection);
                 projectionInstance.setDate(lionKingStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1864,7 +1839,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedSprProjection);
                 projectionInstance.setDate(sprStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1894,7 +1868,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedShRedemptionProjection);
                 projectionInstance.setDate(shRedemptionStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1924,7 +1897,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedGreenMileProjection);
                 projectionInstance.setDate(greenMileStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1954,7 +1926,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedAvengersProjection);
                 projectionInstance.setDate(avengersStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -1984,7 +1955,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedJpProjection);
                 projectionInstance.setDate(jpStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -2014,7 +1984,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedLambsProjection);
                 projectionInstance.setDate(lambsStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
@@ -2044,7 +2013,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                 projectionInstance.setProjectionEntity(savedLotrProjection);
                 projectionInstance.setDate(lotrStartDate);
                 projectionInstance.setTime(startTime);
-                projectionInstance.setSeatsStatus(seatStatusTemplate);
                 projectionInstance.setCreatedAt(LocalDateTime.now());
                 projectionInstance.setUpdatedAt(LocalDateTime.now());
 
