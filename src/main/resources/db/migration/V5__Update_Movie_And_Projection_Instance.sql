@@ -6,5 +6,5 @@ DROP COLUMN seats_status;
 
 -- Change imdb_rating and rotten_tomatoes_rating columns in the movie table to VARCHAR
 ALTER TABLE movie
-ALTER COLUMN imdb_rating TYPE VARCHAR(10),
-ALTER COLUMN rotten_tomatoes_rating TYPE VARCHAR(10);
+ALTER COLUMN imdb_rating TYPE VARCHAR(15),
+ALTER COLUMN rotten_tomatoes_rating TYPE VARCHAR(15);
