@@ -2,8 +2,10 @@ package com.cinemaapp.backend.repository.impl;
 
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
+import com.cinemaapp.backend.repository.crud.CrudGenreRepository;
 import com.cinemaapp.backend.repository.crud.CrudMovieRepository;
 import com.cinemaapp.backend.repository.crud.CrudPhotoRepository;
+import com.cinemaapp.backend.repository.entity.GenreEntity;
 import com.cinemaapp.backend.repository.entity.MovieEntity;
 import com.cinemaapp.backend.repository.entity.PhotoEntity;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
@@ -32,11 +34,14 @@ public class MovieJpaRepository implements MovieRepository {
 
     private final CrudMovieRepository crudMovieRepository;
     private final CrudPhotoRepository crudPhotoRepository;
+    private final CrudGenreRepository crudGenreRepository;
 
     @Autowired
-    public MovieJpaRepository(CrudMovieRepository crudMovieRepository, CrudPhotoRepository crudPhotoRepository) {
+    public MovieJpaRepository(CrudMovieRepository crudMovieRepository, CrudPhotoRepository crudPhotoRepository,
+                              CrudGenreRepository crudGenreRepository) {
         this.crudMovieRepository = crudMovieRepository;
         this.crudPhotoRepository = crudPhotoRepository;
+        this.crudGenreRepository = crudGenreRepository;
     }
 
     @Override
@@ -99,6 +104,8 @@ public class MovieJpaRepository implements MovieRepository {
 
     @Override
     public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+        List<GenreEntity> genreEntities = crudGenreRepository.findByNameIn(createMovieRequest.getGenres());
+
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setTitle(createMovieRequest.getTitle());
         movieEntity.setLanguage(createMovieRequest.getLanguage());
@@ -110,10 +117,10 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setSynopsis(createMovieRequest.getSynopsis());
         movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
         movieEntity.setStatus("active");
-        /*Find genres and set them*/
+        movieEntity.setGenreEntities(genreEntities);
         /*Set Cover photo id*/
-        /* Integrate imdb api and set rating*/
-        /* Integrate RT api and set rating*/
+        movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
+        movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
         movieEntity.setCreatedAt(LocalDateTime.now());
         movieEntity.setUpdatedAt(LocalDateTime.now());
         MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
