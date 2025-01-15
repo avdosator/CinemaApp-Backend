@@ -5,6 +5,7 @@ import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 
 import java.util.UUID;
 
@@ -12,5 +13,5 @@ public interface MovieRepository {
     Page<Movie> findActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest);
     Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest);
     Movie findById(UUID id);
-    Movie createMovie(CreateMovieRequest createMovieRequest);
+    Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse);
 }

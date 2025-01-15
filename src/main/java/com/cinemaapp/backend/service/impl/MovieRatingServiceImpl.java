@@ -4,6 +4,7 @@ import com.cinemaapp.backend.service.MovieRatingService;
 import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,6 +17,7 @@ public class MovieRatingServiceImpl implements MovieRatingService {
     @Value("${omdb.api.key}")
     private String apiKey;
 
+    @Autowired
     public MovieRatingServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("http://www.omdbapi.com").build();
     }

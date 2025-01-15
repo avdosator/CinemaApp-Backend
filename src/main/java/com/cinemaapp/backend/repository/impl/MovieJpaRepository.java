@@ -12,6 +12,7 @@ import com.cinemaapp.backend.service.domain.model.Photo;
 import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -97,7 +98,7 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
-    public Movie createMovie(CreateMovieRequest createMovieRequest) {
+    public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setTitle(createMovieRequest.getTitle());
         movieEntity.setLanguage(createMovieRequest.getLanguage());
