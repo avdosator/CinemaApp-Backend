@@ -1,6 +1,8 @@
 package com.cinemaapp.backend.service;
 
+import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
+
 public interface MovieRatingService {
 
-    String getMovieRatings(String title);
+    MovieRatingsResponse getMovieRatings(String title);
 }
