@@ -4,6 +4,7 @@ import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie findById(UUID id) {
         return movieRepository.findById(id);
+    }
+
+    @Override
+    public Movie createMovie(CreateMovieRequest createMovieRequest) {
+        return movieRepository.createMovie(createMovieRequest);
     }
 }
