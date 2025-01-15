@@ -3,7 +3,6 @@ package com.cinemaapp.backend.service.domain.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class ProjectionInstance {
@@ -13,19 +12,17 @@ public class ProjectionInstance {
     private final List<SeatReservation> seatReservations;
     private final LocalDate date;
     private final String time;
-    private final Map<String, String> seatsStatus;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     public ProjectionInstance(UUID id, Projection projection, List<SeatReservation> seatReservations, LocalDate date,
-                              String time, Map<String, String> seatsStatus, LocalDateTime createdAt,
+                              String time, LocalDateTime createdAt,
                               LocalDateTime updatedAt) {
         this.id = id;
         this.projection = projection;
         this.seatReservations = seatReservations;
         this.date = date;
         this.time = time;
-        this.seatsStatus = seatsStatus;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -50,10 +47,6 @@ public class ProjectionInstance {
         return time;
     }
 
-    public Map<String, String> getSeatsStatus() {
-        return seatsStatus;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -72,7 +65,6 @@ public class ProjectionInstance {
         private List<SeatReservation> seatReservations;
         private LocalDate date;
         private String time;
-        private Map<String, String> seatsStatus;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
@@ -104,11 +96,6 @@ public class ProjectionInstance {
             return this;
         }
 
-        public ProjectionInstanceBuilder seatsStatus(Map<String, String> seatsStatus) {
-            this.seatsStatus = seatsStatus;
-            return this;
-        }
-
         public ProjectionInstanceBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
@@ -126,7 +113,6 @@ public class ProjectionInstance {
                     this.seatReservations,
                     this.date,
                     this.time,
-                    this.seatsStatus,
                     this.createdAt,
                     this.updatedAt
             );
