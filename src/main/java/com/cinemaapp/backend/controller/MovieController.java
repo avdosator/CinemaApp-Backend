@@ -3,11 +3,13 @@ package com.cinemaapp.backend.controller;
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
+import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +50,13 @@ public class MovieController {
             @Parameter(description = "Unique identifier of the movie")
             @PathVariable UUID id) {
         return movieService.findById(id);
+    }
+
+    @Operation(summary = "Create movie", description = "Create movie and its projections")
+    @PostMapping
+    public String createMovie(
+            @Parameter(description = "Data needed for movie creation")
+            @RequestBody @Valid CreateMovieRequest createMovieRequest) {
+        return "";
     }
 }
