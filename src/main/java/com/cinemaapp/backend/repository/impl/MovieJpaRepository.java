@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,16 +32,19 @@ public class MovieJpaRepository implements MovieRepository {
     private final CrudGenreRepository crudGenreRepository;
     private final CrudVenueRepository crudVenueRepository;
     private final CrudProjectionRepository crudProjectionRepository;
+    private final CrudProjectionInstanceRepository crudProjectionInstanceRepository;
 
     @Autowired
     public MovieJpaRepository(CrudMovieRepository crudMovieRepository, CrudPhotoRepository crudPhotoRepository,
                               CrudGenreRepository crudGenreRepository, CrudVenueRepository crudVenueRepository,
-                              CrudProjectionRepository crudProjectionRepository) {
+                              CrudProjectionRepository crudProjectionRepository,
+                              CrudProjectionInstanceRepository crudProjectionInstanceRepository) {
         this.crudMovieRepository = crudMovieRepository;
         this.crudPhotoRepository = crudPhotoRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
         this.crudProjectionRepository = crudProjectionRepository;
+        this.crudProjectionInstanceRepository = crudProjectionInstanceRepository;
     }
 
     @Override
@@ -122,7 +126,12 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
         movieEntity.setCreatedAt(LocalDateTime.now());
         movieEntity.setUpdatedAt(LocalDateTime.now());
+
         MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
+        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, savedMovieEntity);
+        movieEntity.setProjectionEntities(projectionEntities);
+
+        return savedMovieEntity.toDomainModel();
     }
 
     private List<ProjectionEntity> createProjectionEntities(CreateMovieRequest createMovieRequest, MovieEntity movieEntity) {
@@ -156,10 +165,38 @@ public class MovieJpaRepository implements MovieRepository {
             projectionEntity.setStartTime(startTimes.toArray(new String[0])); // Convert to array
             projectionEntity.setCreatedAt(LocalDateTime.now());
             projectionEntity.setUpdatedAt(LocalDateTime.now());
-            projectionEntities.add(projectionEntity);
+            ProjectionEntity savedProjectionEntity = crudProjectionRepository.save(projectionEntity);
+            projectionEntities.add(savedProjectionEntity);
+
+            createProjectionInstances(projectionRequests, savedProjectionEntity);
         }
 
-        return crudProjectionRepository.saveAll(projectionEntities);
+        return projectionEntities;
+    }
+
+    private void createProjectionInstances(List<CreateProjectionRequest> projectionRequests, ProjectionEntity projectionEntity) {
+        List<ProjectionInstanceEntity> projectionInstanceEntities = new ArrayList<>();
+
+        for (CreateProjectionRequest request : projectionRequests) {
+            // Loop through all dates in the projectionEntity's date range
+            LocalDate currentDate = projectionEntity.getStartDate();
+            while (!currentDate.isAfter(projectionEntity.getEndDate())) {
+                // Create a ProjectionInstanceEntity for the current date and time
+                ProjectionInstanceEntity instance = new ProjectionInstanceEntity();
+                instance.setProjectionEntity(projectionEntity);
+                instance.setDate(currentDate);
+                instance.setTime(request.getProjectionTime());
+                instance.setCreatedAt(LocalDateTime.now());
+                instance.setUpdatedAt(LocalDateTime.now());
+
+                projectionInstanceEntities.add(instance);
+
+                currentDate = currentDate.plusDays(1);
+            }
+        }
+
+        // Save all instances to the database
+        crudProjectionInstanceRepository.saveAll(projectionInstanceEntities);
     }
 
     public Page<Movie> mapPhotosToMovies(Page<Movie> movies) {
