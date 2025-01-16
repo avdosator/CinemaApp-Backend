@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class CreateMovieRequest {
 
@@ -26,7 +27,7 @@ public class CreateMovieRequest {
     private Integer duration;
 
     @NotEmpty
-    private List<String> genres;
+    private List<UUID> genreIds;
 
     @NotEmpty
     private String trailer;
@@ -92,12 +93,12 @@ public class CreateMovieRequest {
         this.duration = duration;
     }
 
-    public List<String> getGenres() {
-        return genres;
+    public List<UUID> getGenreIdS() {
+        return genreIds;
     }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
+    public void setGenreIds(List<UUID> genreIds) {
+        this.genreIds = genreIds;
     }
 
     public String getTrailer() {

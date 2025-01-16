@@ -107,8 +107,6 @@ public class MovieJpaRepository implements MovieRepository {
 
     @Override
     public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
-        List<GenreEntity> genreEntities = crudGenreRepository.findByNameIn(createMovieRequest.getGenres());
-
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setTitle(createMovieRequest.getTitle());
         movieEntity.setLanguage(createMovieRequest.getLanguage());
@@ -120,7 +118,7 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setSynopsis(createMovieRequest.getSynopsis());
         movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
         movieEntity.setStatus("active");
-        movieEntity.setGenreEntities(genreEntities);
+        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIdS()));
         /*Set Cover photo id*/
         movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
         movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
