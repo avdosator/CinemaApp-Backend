@@ -54,9 +54,9 @@ public class MovieController {
 
     @Operation(summary = "Create movie", description = "Create movie and its projections")
     @PostMapping
-    public String createMovie(
+    public Movie createMovie(
             @Parameter(description = "Data needed for movie creation")
             @RequestBody @Valid CreateMovieRequest createMovieRequest) {
-        return "";
+        return movieService.createMovie(createMovieRequest);
     }
 }
