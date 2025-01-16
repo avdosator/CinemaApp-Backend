@@ -19,6 +19,7 @@ pipeline {
         JWT_SECRET_KEY = credentials('JWT_SECRET_KEY')
         SPRING_MAIL_PASSWORD = credentials('SPRING_MAIL_PASSWORD')
         SPRING_MAIL_USERNAME = credentials('SPRING_MAIL_USERNAME')
+        STRIPE_SECRET_KEY = credentials('STRIPE_SECRET_KEY')
     }
 
     stages {
@@ -89,6 +90,7 @@ pipeline {
                     -e JWT_SECRET_KEY="${JWT_SECRET_KEY}" \
                     -e SPRING_MAIL_PASSWORD="${SPRING_MAIL_PASSWORD}" \
                     -e SPRING_MAIL_USERNAME="${SPRING_MAIL_USERNAME}" \
+                    -e STRIPE_SECRET_KEY="${STRIPE_SECRET_KEY}" \
                     ${BACKEND_IMAGE}
                 """
             }
@@ -103,6 +105,3 @@ pipeline {
             echo "Backend build or deployment failed."
         }
     }
-}
-
-
