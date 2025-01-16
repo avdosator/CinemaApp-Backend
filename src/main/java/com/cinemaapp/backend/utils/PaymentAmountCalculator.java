@@ -11,7 +11,7 @@ public class PaymentAmountCalculator {
         return selectedSeats.stream()
                 .mapToDouble(seat -> {
                     TicketPrice ticketPrice = ticketPrices.stream()
-                            .filter(price -> price.getSeatType().equalsIgnoreCase(seat.getType()))
+                            .filter(price -> price.getSeatType().trim().equalsIgnoreCase(seat.getType().trim()))
                             .findFirst()
                             .orElseThrow(() -> new IllegalArgumentException("Invalid seat type: " + seat.getType()));
                     return ticketPrice.getPrice();
