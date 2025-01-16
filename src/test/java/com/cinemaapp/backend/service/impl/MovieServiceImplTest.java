@@ -2,6 +2,7 @@ package com.cinemaapp.backend.service.impl;
 
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
+import com.cinemaapp.backend.service.MovieRatingService;
 import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
@@ -25,11 +26,15 @@ public class MovieServiceImplTest {
 
     @Mock
     private MovieRepository movieRepository;
+
+    @Mock
+    private MovieRatingService movieRatingService;
+
     private MovieService movieService;
 
     @BeforeEach
     public void setUp() {
-        movieService = new MovieServiceImpl(movieRepository);
+        movieService = new MovieServiceImpl(movieRepository, movieRatingService);
     }
 
     @Test
