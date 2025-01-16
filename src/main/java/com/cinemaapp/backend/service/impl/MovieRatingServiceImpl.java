@@ -49,7 +49,7 @@ public class MovieRatingServiceImpl implements MovieRatingService {
                     String value = rating.get("Value").asText();
 
                     if ("Internet Movie Database".equals(source)) {
-                        ratings.setImdbRating(value);
+                        ratings.setImdbRating(value.split("/")[0]);
                     } else if ("Rotten Tomatoes".equals(source)) {
                         ratings.setRottenTomatoesRating(value);
                     }
