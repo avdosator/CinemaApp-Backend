@@ -9,6 +9,7 @@ import com.cinemaapp.backend.service.domain.request.CreatePaymentRequest;
 import com.cinemaapp.backend.service.domain.request.EmailDetailsRequest;
 import com.cinemaapp.backend.service.domain.request.PdfTicketRequest;
 import com.cinemaapp.backend.service.domain.response.PaymentCreationResponse;
+import com.cinemaapp.backend.utils.PaymentAmountCalculator;
 import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import org.junit.jupiter.api.Assertions;
@@ -54,7 +55,11 @@ class PaymentServiceImplTest {
     @Mock
     private SecurityServiceImpl securityService;
 
-    @Mock TicketPriceService ticketPriceService;
+    @Mock
+    private TicketPriceService ticketPriceService;
+
+    @Mock
+    private PaymentAmountCalculator paymentAmountCalculator;
 
     private PaymentService paymentService;
 
@@ -69,30 +74,59 @@ class PaymentServiceImplTest {
     @Test
     void createPaymentIntent() throws Exception {
         CreatePaymentIntentRequest createPaymentIntentRequest = buildCreatePaymentIntentRequest();
+
+        // Mock Ticket Prices
+        Mockito.when(ticketPriceService.findAll()).thenReturn(buildTicketPrices());
+
+        // Calculate expected amount
+        double totalAmount = PaymentAmountCalculator.calculateTotalAmount(createPaymentIntentRequest.getSelectedSeats(), buildTicketPrices());
+        double expectedAmount = totalAmount / 2; // Match the division by 2 in the service
+
         PaymentIntent paymentIntent = new PaymentIntent();
-        paymentIntent.setAmount((long) createPaymentIntentRequest.getSelectedSeats() / 2);
+        paymentIntent.setAmount((long) totalAmount);
         paymentIntent.setClientSecret("clientSecret");
-        Mockito.when(stripeService.createPaymentIntent((double) createPaymentIntentRequest.getSelectedSeats() / 2, createPaymentIntentRequest.getUserId(), createPaymentIntentRequest.getProjectionInstanceId()))
+
+        // Mock Stripe Service
+        Mockito.when(stripeService.createPaymentIntent(expectedAmount, createPaymentIntentRequest.getUserId(), createPaymentIntentRequest.getProjectionInstanceId()))
                 .thenReturn(paymentIntent);
 
+        // Execute the service method
         String clientSecret = paymentService.createPaymentIntent(createPaymentIntentRequest);
 
+        // Verify the method call
         Mockito.verify(stripeService, times(1)).createPaymentIntent(
-                (double) createPaymentIntentRequest.getSelectedSeats() / 2,
+                expectedAmount,
                 createPaymentIntentRequest.getUserId(),
                 createPaymentIntentRequest.getProjectionInstanceId()
         );
 
-        Assertions.assertEquals(10, paymentIntent.getAmount());
+        // Assertions
         Assertions.assertEquals("clientSecret", clientSecret);
+        Assertions.assertEquals(41, paymentIntent.getAmount());
+    }
+
+    private List<TicketPrice> buildTicketPrices() {
+        return List.of(
+                TicketPrice.builder().seatType("regular").price(7).build(),
+                TicketPrice.builder().seatType("vip").price(10).build(),
+                TicketPrice.builder().seatType("love").price(24).build()
+        );
     }
 
     private CreatePaymentIntentRequest buildCreatePaymentIntentRequest() {
         CreatePaymentIntentRequest createPaymentIntentRequest = new CreatePaymentIntentRequest();
-        createPaymentIntentRequest.setSelectedSeats(20);
+        createPaymentIntentRequest.setSelectedSeats(buildSelectedSeats());
         createPaymentIntentRequest.setUserId(UUID.randomUUID());
         createPaymentIntentRequest.setProjectionInstanceId(UUID.randomUUID());
         return createPaymentIntentRequest;
+    }
+
+    private List<Seat> buildSelectedSeats() {
+        return List.of(
+                Seat.builder().number("A1").type("regular").build(),
+                Seat.builder().number("I2").type("love").build(),
+                Seat.builder().number("G1").type("vip").build()
+        );
     }
 
     @Test
@@ -205,13 +239,12 @@ class PaymentServiceImplTest {
 
     private CreatePaymentRequest buildPaymentRequest(UUID userId) {
         CreatePaymentRequest request = new CreatePaymentRequest();
-        Seat seat = new Seat(null, "H1", null, null, "regular", null, null);
+        // Seat seat = new Seat(null, "H1", null, null, "regular", null, null);
         request.setPaymentIntentId("paymentIntentId");
-        request.setSelectedSeats(20);
+        request.setSelectedSeats(buildSelectedSeats());
         request.setMovieId(UUID.randomUUID());
         request.setProjectionInstanceId(UUID.randomUUID());
         request.setUserId(userId);
-        request.setSelectedSeats(new UUID[]{seat.getId()});
         return request;
     }
 
@@ -234,7 +267,7 @@ class PaymentServiceImplTest {
     }
 
     private Seat buildSeat() {
-        return Seat.builder().number("H1").build();
+        return Seat.builder().number("A1").type("regular").build();
     }
 
     private PaymentIntent buildPaymentIntent(String paymentIntendId) {
