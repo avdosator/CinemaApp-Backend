@@ -4,6 +4,7 @@ import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
 import com.cinemaapp.backend.service.MovieRatingService;
 import com.cinemaapp.backend.service.MovieService;
+import com.cinemaapp.backend.service.UploadcareService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
@@ -30,11 +31,14 @@ public class MovieServiceImplTest {
     @Mock
     private MovieRatingService movieRatingService;
 
+    @Mock
+    private UploadcareService uploadcareService;
+
     private MovieService movieService;
 
     @BeforeEach
     public void setUp() {
-        movieService = new MovieServiceImpl(movieRepository, movieRatingService);
+        movieService = new MovieServiceImpl(movieRepository, movieRatingService, uploadcareService);
     }
 
     @Test
