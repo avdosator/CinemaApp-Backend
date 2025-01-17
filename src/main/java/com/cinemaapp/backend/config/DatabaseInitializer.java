@@ -4,6 +4,7 @@ import com.cinemaapp.backend.repository.crud.*;
 import com.cinemaapp.backend.repository.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final CrudRefreshTokenRepository crudRefreshTokenRepository;
     private final CrudReservationRepository crudReservationRepository;
     private final CrudTicketRepository crudTicketRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public DatabaseInitializer(CrudCityRepository crudCityRepository, CrudGenreRepository crudGenreRepository,
@@ -39,7 +41,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                                CrudSeatReservationRepository crudSeatReservationRepository,
                                CrudPasswordResetRepository crudPasswordResetRepository, CrudPaymentRepository crudPaymentRepository,
                                CrudRefreshTokenRepository crudRefreshTokenRepository, CrudReservationRepository crudReservationRepository,
-                               CrudTicketRepository crudTicketRepository) {
+                               CrudTicketRepository crudTicketRepository, PasswordEncoder passwordEncoder) {
         this.crudCityRepository = crudCityRepository;
         this.crudGenreRepository = crudGenreRepository;
         this.crudVenueRepository = crudVenueRepository;
@@ -56,6 +58,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         this.crudRefreshTokenRepository = crudRefreshTokenRepository;
         this.crudReservationRepository = crudReservationRepository;
         this.crudTicketRepository = crudTicketRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -97,22 +100,21 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         crudCityRepository.saveAll(Arrays.asList(sarajevo, mostar));
 
-        /*
         // seed users table
         UserEntity user = new UserEntity();
 
         user.setFirstName("Avdo");
         user.setLastName("Sator");
-        user.setEmail("avdosator@hotmail.com");
-        user.setPasswordHash("hashed_password");
+        user.setEmail("avdo.sator@hotmail.com");
+        user.setPasswordHash(passwordEncoder.encode("12345678"));
         user.setPhone("+38762183628");
         user.setCityEntity(sarajevo);
-        user.setRole("ROLE_USER");
+        user.setRole("ROLE_ADMIN");
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 
         crudUserRepository.save(user);
-         */
+
 
         // seed genre table
         List<GenreEntity> genres = new ArrayList<>();
