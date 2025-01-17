@@ -53,6 +53,9 @@ public class CreateMovieRequest {
     @NotEmpty
     private List<CreateProjectionRequest> projections;
 
+    @NotEmpty
+    private String coverPhotoUrl;
+
     public String getTitle() {
         return title;
     }
@@ -93,7 +96,7 @@ public class CreateMovieRequest {
         this.duration = duration;
     }
 
-    public List<UUID> getGenreIdS() {
+    public List<UUID> getGenreIds() {
         return genreIds;
     }
 
@@ -163,5 +166,13 @@ public class CreateMovieRequest {
 
     public void setProjections(List<CreateProjectionRequest> projections) {
         this.projections = projections;
+    }
+
+    public String getCoverPhotoUrl() {
+        return coverPhotoUrl;
+    }
+
+    public void setCoverPhotoUrl(String coverPhotoUrl) {
+        this.coverPhotoUrl = coverPhotoUrl;
     }
 }
