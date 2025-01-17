@@ -49,7 +49,6 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-
     /*@Bean
     public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
 
@@ -67,16 +66,18 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // disabled in development
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/refresh-token").authenticated()
+                        .requestMatchers(
+                                "/api/auth/refresh-token",
+                                "/api/admin/*",
+                                "/api/projections/instances"
+                        ).authenticated()
                         .anyRequest().permitAll() // Allow all requests to all endpoints in development (This need to be changed, based on app needs)
 
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-                //.authenticationProvider(authenticationProvider);
+        //.authenticationProvider(authenticationProvider);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-
-
     }
 }
