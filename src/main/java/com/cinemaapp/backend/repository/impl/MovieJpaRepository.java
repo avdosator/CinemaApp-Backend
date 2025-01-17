@@ -118,18 +118,69 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setSynopsis(createMovieRequest.getSynopsis());
         movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
         movieEntity.setStatus("active");
-        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIdS()));
-        /*Set Cover photo id*/
+        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIds()));
         movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
         movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
         movieEntity.setCreatedAt(LocalDateTime.now());
         movieEntity.setUpdatedAt(LocalDateTime.now());
 
         MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
-        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, savedMovieEntity);
-        movieEntity.setProjectionEntities(projectionEntities);
+        // Process photos and get the cover photo ID along with saved photos
+        Map.Entry<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(savedMovieEntity.getId(), createMovieRequest);
+        UUID coverPhotoId = photoProcessingResult.getKey();
+        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getValue();
+        savedMovieEntity.setCoverPhotoId(coverPhotoId);
 
-        return savedMovieEntity.toDomainModel();
+        // Save the updated MovieEntity with the cover photo ID
+        savedMovieEntity = crudMovieRepository.save(savedMovieEntity);
+
+        // Create projections for the movie
+        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, savedMovieEntity);
+        savedMovieEntity.setProjectionEntities(projectionEntities);
+
+        // Map saved photos to domain model
+        List<Photo> photos = savedPhotoEntities.stream()
+                .map(PhotoEntity::toDomainModel)
+                .collect(Collectors.toList());
+
+        // Convert to domain model and set photos
+        Movie movie = savedMovieEntity.toDomainModel();
+        movie.setPhotos(photos);
+
+        return movie;
+    }
+
+    private Map.Entry<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
+        // Create and save photo entities
+        List<PhotoEntity> photoEntities = createPhotoEntities(movieId, createMovieRequest);
+
+        // Find the cover photo ID
+        UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), photoEntities);
+
+        // Return both the cover photo ID and the saved photo entities
+        return Map.entry(coverPhotoId, photoEntities);
+    }
+
+    private List<PhotoEntity> createPhotoEntities(UUID movieId, CreateMovieRequest createMovieRequest) {
+        List<PhotoEntity> photoEntities = new ArrayList<>();
+        for (String photoUrl : createMovieRequest.getPhotoUrls()) {
+            PhotoEntity photoEntity = new PhotoEntity();
+            photoEntity.setEntityType("movie");
+            photoEntity.setUrl(photoUrl);
+            photoEntity.setRefEntityId(movieId);
+            photoEntity.setCreatedAt(LocalDateTime.now());
+            photoEntity.setUpdatedAt(LocalDateTime.now());
+            photoEntities.add(photoEntity);
+        }
+        return crudPhotoRepository.saveAll(photoEntities);
+    }
+
+    private UUID getCoverPhotoId(String coverPhotoUrl, List<PhotoEntity> photoEntities) {
+        return photoEntities.stream()
+                .filter(photoEntity -> photoEntity.getUrl().equals(coverPhotoUrl))
+                .map(PhotoEntity::getId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Cover photo URL not found in saved photo entities."));
     }
 
     private List<ProjectionEntity> createProjectionEntities(CreateMovieRequest createMovieRequest, MovieEntity movieEntity) {
