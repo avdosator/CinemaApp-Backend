@@ -67,10 +67,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // disabled in development
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
-                                "/api/auth/refresh-token",
-                                "/api/admin/*",
-                                "/api/projections/instances"
-                        ).authenticated()
+                                "/api/auth/refresh-token").authenticated()
                         .anyRequest().permitAll() // Allow all requests to all endpoints in development (This need to be changed, based on app needs)
 
                 )
