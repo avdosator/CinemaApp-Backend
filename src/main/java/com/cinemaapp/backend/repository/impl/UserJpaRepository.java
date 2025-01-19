@@ -32,11 +32,6 @@ public class UserJpaRepository implements UserRepository {
         UserEntity userEntity = crudUserRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " does not exist."));
         return userEntity.toDomainModel();
-
-        // Is this better solution because it is normal to not find user by email so null is maybe better than exception
-        /*return crudUserRepository.findByEmail(email)
-                .map(UserEntity::toDomainModel)
-                .orElse(null);*/
     }
 
     @Override
@@ -58,7 +53,7 @@ public class UserJpaRepository implements UserRepository {
         try {
             savedUserEntity = crudUserRepository.save(userEntity);
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidCredentialsException(e.getMessage());
+            throw new InvalidCredentialsException(createUserRequest.getEmail() + " email is already taken.");
         }
         return savedUserEntity.toDomainModel();
     }

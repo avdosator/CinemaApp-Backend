@@ -18,9 +18,9 @@ public class SeatReservationEntity {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "projection_id", referencedColumnName = "id")
-    private ProjectionEntity projectionEntity;
+    @ManyToOne()
+    @JoinColumn(name = "projection_instance_id", referencedColumnName = "id")
+    private ProjectionInstanceEntity projectionInstanceEntity;
 
     @ManyToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "id")
@@ -58,12 +58,12 @@ public class SeatReservationEntity {
         this.id = id;
     }
 
-    public ProjectionEntity getProjectionEntity() {
-        return projectionEntity;
+    public ProjectionInstanceEntity getProjectionInstanceEntity() {
+        return projectionInstanceEntity;
     }
 
-    public void setProjectionEntity(ProjectionEntity projectionEntity) {
-        this.projectionEntity = projectionEntity;
+    public void setProjectionInstanceEntity(ProjectionInstanceEntity projectionInstanceEntity) {
+        this.projectionInstanceEntity = projectionInstanceEntity;
     }
 
     public SeatEntity getSeatEntity() {
@@ -133,15 +133,15 @@ public class SeatReservationEntity {
     public SeatReservation toDomainModel() {
         return SeatReservation.builder()
                 .id(this.id)
-                .projection(this.projectionEntity.toDomainModel())
+                //.projectionInstance(this.projectionInstanceEntity.toDomainModel())
                 .seat(this.seatEntity.toDomainModel())
-                .user(this.userEntity.toDomainModel())
-                .ticket(this.ticketEntity.toDomainModel())
-                .reservation(this.reservationEntity.toDomainModel())
+                //.user(this.userEntity.toDomainModel())
+                //.ticket(this.ticketEntity.toDomainModel())
+                //.reservation(this.reservationEntity.toDomainModel())
                 .status(this.status)
-                .reservationTime(this.reservationTime)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                //.reservationTime(this.reservationTime)
+                //.createdAt(this.createdAt)
+                //.updatedAt(this.updatedAt)
                 .build();
     }
 }
