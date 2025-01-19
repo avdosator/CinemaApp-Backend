@@ -26,17 +26,17 @@ pipeline {
         stage('Create Docker Network') {
             steps {
                 echo "Creating Docker network if not exists"
-                sh """
+                sh '''
                 docker network inspect ${DOCKER_NETWORK} >/dev/null 2>&1 || \
                 docker network create ${DOCKER_NETWORK}
-                """
+                '''
             }
         }
 
         stage('Deploy PostgreSQL') {
             steps {
                 echo "Deploying PostgreSQL database"
-                sh """
+                sh '''
                 docker rm -f ${POSTGRES_CONTAINER} || true
                 docker run -d --name ${POSTGRES_CONTAINER} \
                     --network ${DOCKER_NETWORK} \
@@ -46,7 +46,7 @@ pipeline {
                     -v team3_postgres_data:/var/lib/postgresql/data \
                     -p ${POSTGRES_PORT}:5432 \
                     ${POSTGRES_IMAGE}
-                """
+                '''
             }
         }
 
@@ -62,9 +62,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building backend Docker image"
-                sh """
+                sh '''
                 docker build -t ${BACKEND_IMAGE} .
-                """
+                '''
             }
         }
 
@@ -80,19 +80,19 @@ pipeline {
         stage('Deploy Backend Container') {
             steps {
                 echo "Deploying backend container on port ${SERVER_PORT}"
-                sh """
+                sh '''
                 docker rm -f team3-backend || true
                 docker run -d --name team3-backend \
                     --network ${DOCKER_NETWORK} \
                     -p ${SERVER_PORT}:8080 \
-                    -e DATABASE_URL="${DB_URL}" \
-                    -e JWT_EXPIRATION_TIME="${JWT_EXPIRATION_TIME}" \
-                    -e JWT_SECRET_KEY="${JWT_SECRET_KEY}" \
-                    -e SPRING_MAIL_PASSWORD="${SPRING_MAIL_PASSWORD}" \
-                    -e SPRING_MAIL_USERNAME="${SPRING_MAIL_USERNAME}" \
-                    -e STRIPE_SECRET_KEY="${STRIPE_SECRET_KEY}" \
+                    -e DATABASE_URL=${DB_URL} \
+                    -e JWT_EXPIRATION_TIME=${JWT_EXPIRATION_TIME} \
+                    -e JWT_SECRET_KEY=${JWT_SECRET_KEY} \
+                    -e SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD} \
+                    -e SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME} \
+                    -e STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY} \
                     ${BACKEND_IMAGE}
-                """
+                '''
             }
         }
     }
@@ -105,3 +105,4 @@ pipeline {
             echo "Backend build or deployment failed."
         }
     }
+}
