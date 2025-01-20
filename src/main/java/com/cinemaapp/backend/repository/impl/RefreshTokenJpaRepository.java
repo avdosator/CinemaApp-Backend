@@ -40,21 +40,33 @@ public class RefreshTokenJpaRepository implements RefreshTokenRepository {
     public String createRefreshToken(UUID userId) {
         byte[] randomBytes = new byte[TOKEN_LENGTH];
         new SecureRandom().nextBytes(randomBytes);
-        String token = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
-        String tokenHash = passwordEncoder.encode(token);
+        String rawToken = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
+
+        // Hash the raw token using bcrypt
+        String hashedToken = passwordEncoder.encode(rawToken);
+
+        // Save the hashed token in the database
         RefreshTokenEntity refreshTokenEntity = new RefreshTokenEntity();
-        refreshTokenEntity.setTokenHash(tokenHash);
+        refreshTokenEntity.setTokenHash(hashedToken); // Store bcrypt hash
         refreshTokenEntity.setUserEntity(crudUserRepository.findById(userId).orElseThrow());
         refreshTokenEntity.setExpiration(LocalDateTime.now().plusDays(TOKEN_DURATION));
         refreshTokenEntity.setCreatedAt(LocalDateTime.now());
         crudRefreshTokenRepository.save(refreshTokenEntity);
-        return token;
+
+        // Return the raw token to the client
+        return rawToken;
     }
 
     @Override
     public RefreshToken validateToken(String token, UUID userId) {
-        return crudRefreshTokenRepository.findByUserEntity_Id(userId).stream()
-                .filter(entity -> passwordEncoder.matches(token, entity.getTokenHash()))
+        // Retrieve all tokens for the user
+        List<RefreshTokenEntity> tokens = crudRefreshTokenRepository.findByUserEntity_Id(userId);
+
+        return tokens.stream()
+                .filter(entity -> {
+                    // Compare the raw token with the stored bcrypt hash
+                    return passwordEncoder.matches(token, entity.getTokenHash());
+                })
                 .findFirst()
                 .map(RefreshTokenEntity::toDomainModel)
                 .orElseThrow(() -> new TokenNotFoundException("Invalid or expired refresh token!"));
