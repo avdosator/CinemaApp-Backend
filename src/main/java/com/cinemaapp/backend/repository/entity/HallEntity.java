@@ -31,7 +31,7 @@ public class HallEntity {
     @OneToMany(mappedBy = "hallEntity", cascade = CascadeType.MERGE)
     private List<ProjectionEntity> projectionEntities;
 
-    @OneToMany(mappedBy = "hallEntity")
+    @OneToMany(mappedBy = "hallEntity", cascade = CascadeType.MERGE)
     private List<SeatEntity> seatEntities;
 
     @Column(name = "total_seats")
