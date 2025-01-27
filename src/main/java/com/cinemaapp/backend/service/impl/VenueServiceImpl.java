@@ -4,6 +4,7 @@ import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.VenueRepository;
 import com.cinemaapp.backend.service.VenueService;
 import com.cinemaapp.backend.service.domain.model.Venue;
+import com.cinemaapp.backend.service.domain.request.CreateVenueRequest;
 import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public Page<Venue> findVenues(SearchVenuesRequest searchVenuesRequest) {
         return venueRepository.findVenues(searchVenuesRequest);
+    }
+
+    @Override
+    public Venue createVenue(CreateVenueRequest createVenueRequest) {
+        return venueRepository.createVenue(createVenueRequest);
     }
 }
