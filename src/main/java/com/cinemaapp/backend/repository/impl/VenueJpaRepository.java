@@ -2,12 +2,10 @@ package com.cinemaapp.backend.repository.impl;
 
 import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.VenueRepository;
-import com.cinemaapp.backend.repository.crud.CrudCityRepository;
-import com.cinemaapp.backend.repository.crud.CrudHallRepository;
-import com.cinemaapp.backend.repository.crud.CrudPhotoRepository;
-import com.cinemaapp.backend.repository.crud.CrudVenueRepository;
+import com.cinemaapp.backend.repository.crud.*;
 import com.cinemaapp.backend.repository.entity.HallEntity;
 import com.cinemaapp.backend.repository.entity.PhotoEntity;
+import com.cinemaapp.backend.repository.entity.SeatEntity;
 import com.cinemaapp.backend.repository.entity.VenueEntity;
 import com.cinemaapp.backend.repository.specification.VenueSpecification;
 import com.cinemaapp.backend.service.domain.model.Photo;
@@ -21,6 +19,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,13 +32,15 @@ public class VenueJpaRepository implements VenueRepository {
     private final CrudPhotoRepository crudPhotoRepository;
     private final CrudCityRepository crudCityRepository;
     private final CrudHallRepository crudHallRepository;
+    private final CrudSeatRepository crudSeatRepository;
 
     @Autowired
-    public VenueJpaRepository(CrudVenueRepository crudVenueRepository, CrudPhotoRepository crudPhotoRepository, CrudCityRepository crudCityRepository, CrudHallRepository crudHallRepository) {
+    public VenueJpaRepository(CrudVenueRepository crudVenueRepository, CrudPhotoRepository crudPhotoRepository, CrudCityRepository crudCityRepository, CrudHallRepository crudHallRepository, CrudSeatRepository crudSeatRepository) {
         this.crudVenueRepository = crudVenueRepository;
         this.crudPhotoRepository = crudPhotoRepository;
         this.crudCityRepository = crudCityRepository;
         this.crudHallRepository = crudHallRepository;
+        this.crudSeatRepository = crudSeatRepository;
     }
 
     @Override
@@ -81,7 +82,35 @@ public class VenueJpaRepository implements VenueRepository {
         venueEntity.setHallEntities(createHall());
         venueEntity.setCreatedAt(LocalDateTime.now());
         venueEntity.setUpdatedAt(LocalDateTime.now());
+        return crudVenueRepository.save(venueEntity).toDomainModel();
     }
 
-   
+    private List<HallEntity> createHall() {
+        HallEntity hallEntity = new HallEntity();
+        hallEntity.setName("Hall 1");
+        hallEntity.setSeatEntities(createSeats());
+        hallEntity.setCreatedAt(LocalDateTime.now());
+        hallEntity.setUpdatedAt(LocalDateTime.now());
+        return List.of(crudHallRepository.save(hallEntity));
+    }
+
+    private List<SeatEntity> createSeats() {
+        String[] rows = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+        String[] seatTypes = {"regular", "regular", "regular", "regular", "regular", "regular", "VIP", "VIP", "love"};
+        List<SeatEntity> seatEntities = new ArrayList<>();
+        for (int i = 0; i < rows.length; i++) {
+            String row = rows[i];
+            String seatType = seatTypes[i];
+            int seatCount = (i == 8) ? 4 : 8; // Row "I" (index 8) should have only 4 seats.
+
+            for (int j = 1; j <= seatCount; j++) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setType(seatType);
+                seatEntity.setCreatedAt(LocalDateTime.now());
+                seatEntity.setNumber(row + j);
+                seatEntities.add(seatEntity);
+            }
+        }
+        return crudSeatRepository.saveAll(seatEntities);
+    }
 }
