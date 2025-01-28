@@ -6,8 +6,11 @@ import com.cinemaapp.backend.service.VenueService;
 import com.cinemaapp.backend.service.domain.model.Venue;
 import com.cinemaapp.backend.service.domain.request.CreateVenueRequest;
 import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
+import com.cinemaapp.backend.service.domain.request.UpdateVenueRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class VenueServiceImpl implements VenueService {
@@ -27,5 +30,10 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public Venue createVenue(CreateVenueRequest createVenueRequest) {
         return venueRepository.createVenue(createVenueRequest);
+    }
+
+    @Override
+    public Venue updateVenue(UUID id, UpdateVenueRequest updateVenueRequest) {
+        return venueRepository.updateVenue(id, updateVenueRequest);
     }
 }
