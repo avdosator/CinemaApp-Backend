@@ -12,6 +12,7 @@ import com.cinemaapp.backend.service.domain.model.Photo;
 import com.cinemaapp.backend.service.domain.model.Venue;
 import com.cinemaapp.backend.service.domain.request.CreateVenueRequest;
 import com.cinemaapp.backend.service.domain.request.SearchVenuesRequest;
+import com.cinemaapp.backend.service.domain.request.UpdateVenueRequest;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -88,6 +89,41 @@ public class VenueJpaRepository implements VenueRepository {
         Venue venue = savedVenueEntity.toDomainModel();
         venue.setPhoto(photo);
 
+        return venue;
+    }
+
+    @Override
+    public Venue updateVenue(UUID id, UpdateVenueRequest updateVenueRequest) {
+        VenueEntity venueEntity = crudVenueRepository.findById(id).orElseThrow();
+
+        // Update fields if present in the request
+        if (updateVenueRequest.getName() != null) {
+            venueEntity.setName(updateVenueRequest.getName());
+        }
+
+        if (updateVenueRequest.getPhone() != null) {
+            venueEntity.setPhone(updateVenueRequest.getPhone());
+        }
+
+        if (updateVenueRequest.getStreet() != null) {
+            venueEntity.setStreet(updateVenueRequest.getStreet());
+        }
+
+        if (updateVenueRequest.getStreetNumber() != null) {
+            venueEntity.setStreetNumber(updateVenueRequest.getStreetNumber());
+        }
+
+        if (updateVenueRequest.getCityId() != null) {
+            venueEntity.setCityEntity(crudCityRepository.findById(updateVenueRequest.getCityId()).orElseThrow());
+        }
+
+        Photo photo = null;
+        if (updateVenueRequest.getPhotoUrl() != null) {
+            photo = createPhoto(updateVenueRequest.getPhotoUrl(), venueEntity.getId());
+        }
+
+        Venue venue = crudVenueRepository.save(venueEntity).toDomainModel();
+        venue.setPhoto(photo);
         return venue;
     }
 
