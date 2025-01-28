@@ -14,4 +14,6 @@ public interface VenueService {
     Venue createVenue(CreateVenueRequest createVenueRequest);
 
     Venue updateVenue(UUID id, UpdateVenueRequest updateVenueRequest);
+
+    void deleteVenue(UUID id);
 }

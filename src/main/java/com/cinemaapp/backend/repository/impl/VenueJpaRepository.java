@@ -127,6 +127,11 @@ public class VenueJpaRepository implements VenueRepository {
         return venue;
     }
 
+    @Override
+    public void deleteVenue(UUID id) {
+        crudVenueRepository.deleteById(id);
+    }
+
     private Photo createPhoto(String photoUrl, UUID venueId) {
         PhotoEntity photoEntity = new PhotoEntity();
         photoEntity.setEntityType("venue");

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,10 +48,20 @@ public class VenueController {
     @Operation(summary = "Update venue", description = "Update a venue by its unique identifier.")
     @PatchMapping("/{id}/edit")
     @PreAuthorize("hasRole('ADMIN')")
-    public Venue getMovieById(
+    public Venue updateVenue(
             @Parameter(description = "Unique identifier of the venue")
             @PathVariable UUID id,
             @RequestBody UpdateVenueRequest updateVenueRequest) {
         return venueService.updateVenue(id, updateVenueRequest);
+    }
+
+    @Operation(summary = "Delete venue", description = "Delete a venue with ID from path.")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteVenue(
+            @Parameter(description = "Unique identifier of the venue")
+            @PathVariable UUID id) {
+        venueService.deleteVenue(id);
+        return ResponseEntity.ok("Venue deleted successfully.");
     }
 }

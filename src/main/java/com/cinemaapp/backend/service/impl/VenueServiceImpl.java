@@ -36,4 +36,9 @@ public class VenueServiceImpl implements VenueService {
     public Venue updateVenue(UUID id, UpdateVenueRequest updateVenueRequest) {
         return venueRepository.updateVenue(id, updateVenueRequest);
     }
+
+    @Override
+    public void deleteVenue(UUID id) {
+        venueRepository.deleteVenue(id);
+    }
 }
