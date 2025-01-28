@@ -82,7 +82,24 @@ public class VenueJpaRepository implements VenueRepository {
         venueEntity.setHallEntities(createHall());
         venueEntity.setCreatedAt(LocalDateTime.now());
         venueEntity.setUpdatedAt(LocalDateTime.now());
-        return crudVenueRepository.save(venueEntity).toDomainModel();
+
+        VenueEntity savedVenueEntity = crudVenueRepository.save(venueEntity);
+        Photo photo = createPhoto(createVenueRequest.getPhotoUrl(), savedVenueEntity.getId());
+        Venue venue = savedVenueEntity.toDomainModel();
+        venue.setPhoto(photo);
+
+        return venue;
+    }
+
+    private Photo createPhoto(String photoUrl, UUID venueId) {
+        PhotoEntity photoEntity = new PhotoEntity();
+        photoEntity.setEntityType("venue");
+        photoEntity.setUrl(photoUrl);
+        photoEntity.setRefEntityId(venueId);
+        photoEntity.setCreatedAt(LocalDateTime.now());
+        photoEntity.setUpdatedAt(LocalDateTime.now());
+
+        return crudPhotoRepository.save(photoEntity).toDomainModel();
     }
 
     private List<HallEntity> createHall() {
