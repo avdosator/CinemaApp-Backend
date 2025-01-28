@@ -21,7 +21,7 @@ public class WebConfig {
                 registry.addMapping("/**")
                         //.allowedOrigins("http://localhost:5173") TO DO - specify appropriate UI origin (local and on railway)
                         .allowedOriginPatterns("*") // only in development
-                        .allowedMethods("GET", "POST", "PUT", "PATCH", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "OPTIONS", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }
