@@ -119,16 +119,31 @@ public class VenueJpaRepository implements VenueRepository {
 
         Photo photo = null;
         if (updateVenueRequest.getPhotoUrl() != null) {
+            // First, delete the existing photo (only if a new photo is provided)
+            crudPhotoRepository.deleteFirstByRefEntityId(venueEntity.getId());
+
+            // Create new photo
             photo = createPhoto(updateVenueRequest.getPhotoUrl(), venueEntity.getId());
+        } else {
+            // Preserve the existing photo if no new one was uploaded
+            PhotoEntity existingPhotoEntity = crudPhotoRepository.findPhotoByRefEntityId(venueEntity.getId());
+            if (existingPhotoEntity != null) {
+                photo = existingPhotoEntity.toDomainModel();
+            }
         }
 
+        // Save updated venue
         Venue venue = crudVenueRepository.save(venueEntity).toDomainModel();
+
+        // Set the old photo if no new one was uploaded
         venue.setPhoto(photo);
+
         return venue;
     }
 
     @Override
     public void deleteVenue(UUID id) {
+        crudPhotoRepository.deleteFirstByRefEntityId(id);
         crudVenueRepository.deleteById(id);
     }
 
