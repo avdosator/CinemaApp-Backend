@@ -20,6 +20,10 @@ pipeline {
         SPRING_MAIL_PASSWORD = credentials('SPRING_MAIL_PASSWORD')
         SPRING_MAIL_USERNAME = credentials('SPRING_MAIL_USERNAME')
         STRIPE_SECRET_KEY = credentials('STRIPE_SECRET_KEY')
+
+        UPLOADCARE_PUBLIC_KEY = credentials('UPLOADCARE_PUBLIC_KEY')
+        UPLOADCARE_SECRET_KEY = credentials('UPLOADCARE_SECRET_KEY')
+        OMDB_API_KEY = credentials('OMDB_API_KEY')
     }
 
     stages {
@@ -91,6 +95,9 @@ pipeline {
                     -e SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD} \
                     -e SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME} \
                     -e STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY} \
+                    -e UPLOADCARE_PUBLIC_KEY=${UPLOADCARE_PUBLIC_KEY} \
+                    -e UPLOADCARE_SECRET_KEY=${UPLOADCARE_SECRET_KEY} \
+                    -e OMDB_API_KEY=${OMDB_API_KEY} \
                     ${BACKEND_IMAGE}
                 '''
             }
