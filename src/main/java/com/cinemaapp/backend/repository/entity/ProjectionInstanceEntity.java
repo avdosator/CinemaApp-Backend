@@ -5,12 +5,13 @@ import com.cinemaapp.backend.service.domain.model.SeatReservation;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "projection_instance")
@@ -34,10 +35,6 @@ public class ProjectionInstanceEntity {
 
     @Column(name = "time", nullable = false)
     private String time;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "seats_status", columnDefinition = "jsonb", nullable = false)
-    private Map<String, String> seatsStatus;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -85,14 +82,6 @@ public class ProjectionInstanceEntity {
         this.time = time;
     }
 
-    public Map<String, String> getSeatsStatus() {
-        return seatsStatus;
-    }
-
-    public void setSeatsStatus(Map<String, String> seatsStatus) {
-        this.seatsStatus = seatsStatus;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -122,7 +111,6 @@ public class ProjectionInstanceEntity {
                 .seatReservations(seatReservations)
                 .date(this.date)
                 .time(this.time)
-                .seatsStatus(seatsStatus)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

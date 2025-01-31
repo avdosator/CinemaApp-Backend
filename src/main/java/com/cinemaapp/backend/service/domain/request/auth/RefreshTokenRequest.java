@@ -1,12 +1,12 @@
 package com.cinemaapp.backend.service.domain.request.auth;
 
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
 public class RefreshTokenRequest {
 
-    @Size(min = 86, max = 86)
+    @NotNull
     private String refreshToken;
 
     private UUID userId;

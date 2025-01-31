@@ -1,17 +1,17 @@
 package com.cinemaapp.backend.repository.impl;
 
+import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.repository.MovieRepository;
-import com.cinemaapp.backend.repository.crud.CrudMovieRepository;
-import com.cinemaapp.backend.repository.crud.CrudPhotoRepository;
-import com.cinemaapp.backend.repository.entity.MovieEntity;
-import com.cinemaapp.backend.repository.entity.PhotoEntity;
+import com.cinemaapp.backend.repository.crud.*;
+import com.cinemaapp.backend.repository.entity.*;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.Photo;
-import com.cinemaapp.backend.service.domain.model.Venue;
+import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
+import com.cinemaapp.backend.service.domain.request.CreateProjectionRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
-import com.cinemaapp.backend.controller.dto.Page;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -19,10 +19,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -30,11 +29,22 @@ public class MovieJpaRepository implements MovieRepository {
 
     private final CrudMovieRepository crudMovieRepository;
     private final CrudPhotoRepository crudPhotoRepository;
+    private final CrudGenreRepository crudGenreRepository;
+    private final CrudVenueRepository crudVenueRepository;
+    private final CrudProjectionRepository crudProjectionRepository;
+    private final CrudProjectionInstanceRepository crudProjectionInstanceRepository;
 
     @Autowired
-    public MovieJpaRepository(CrudMovieRepository crudMovieRepository, CrudPhotoRepository crudPhotoRepository) {
+    public MovieJpaRepository(CrudMovieRepository crudMovieRepository, CrudPhotoRepository crudPhotoRepository,
+                              CrudGenreRepository crudGenreRepository, CrudVenueRepository crudVenueRepository,
+                              CrudProjectionRepository crudProjectionRepository,
+                              CrudProjectionInstanceRepository crudProjectionInstanceRepository) {
         this.crudMovieRepository = crudMovieRepository;
         this.crudPhotoRepository = crudPhotoRepository;
+        this.crudGenreRepository = crudGenreRepository;
+        this.crudVenueRepository = crudVenueRepository;
+        this.crudProjectionRepository = crudProjectionRepository;
+        this.crudProjectionInstanceRepository = crudProjectionInstanceRepository;
     }
 
     @Override
@@ -93,6 +103,149 @@ public class MovieJpaRepository implements MovieRepository {
         }
         movie.setPhotos(moviePhotos);
         return movie;
+    }
+
+    @Override
+    public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+        MovieEntity movieEntity = new MovieEntity();
+        movieEntity.setTitle(createMovieRequest.getTitle());
+        movieEntity.setLanguage(createMovieRequest.getLanguage());
+        movieEntity.setDirector(createMovieRequest.getDirector());
+        movieEntity.setPgRating(createMovieRequest.getPgRating());
+        movieEntity.setDurationInMinutes(createMovieRequest.getDuration());
+        movieEntity.setWriters(createMovieRequest.getWriters());
+        movieEntity.setActors(createMovieRequest.getCast());
+        movieEntity.setSynopsis(createMovieRequest.getSynopsis());
+        movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
+        movieEntity.setStatus("active");
+        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIds()));
+        movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
+        movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
+        movieEntity.setCreatedAt(LocalDateTime.now());
+        movieEntity.setUpdatedAt(LocalDateTime.now());
+
+        MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
+        // Process photos and get the cover photo ID along with saved photos
+        Map.Entry<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(savedMovieEntity.getId(), createMovieRequest);
+        UUID coverPhotoId = photoProcessingResult.getKey();
+        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getValue();
+        savedMovieEntity.setCoverPhotoId(coverPhotoId);
+
+        // Save the updated MovieEntity with the cover photo ID
+        savedMovieEntity = crudMovieRepository.save(savedMovieEntity);
+
+        // Create projections for the movie
+        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, savedMovieEntity);
+        savedMovieEntity.setProjectionEntities(projectionEntities);
+
+        // Map saved photos to domain model
+        List<Photo> photos = savedPhotoEntities.stream()
+                .map(PhotoEntity::toDomainModel)
+                .collect(Collectors.toList());
+
+        // Convert to domain model and set photos
+        Movie movie = savedMovieEntity.toDomainModel();
+        movie.setPhotos(photos);
+
+        return movie;
+    }
+
+    private Map.Entry<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
+        // Create and save photo entities
+        List<PhotoEntity> photoEntities = createPhotoEntities(movieId, createMovieRequest);
+
+        // Find the cover photo ID
+        UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), photoEntities);
+
+        // Return both the cover photo ID and the saved photo entities
+        return Map.entry(coverPhotoId, photoEntities);
+    }
+
+    private List<PhotoEntity> createPhotoEntities(UUID movieId, CreateMovieRequest createMovieRequest) {
+        List<PhotoEntity> photoEntities = new ArrayList<>();
+        for (String photoUrl : createMovieRequest.getPhotoUrls()) {
+            PhotoEntity photoEntity = new PhotoEntity();
+            photoEntity.setEntityType("movie");
+            photoEntity.setUrl(photoUrl);
+            photoEntity.setRefEntityId(movieId);
+            photoEntity.setCreatedAt(LocalDateTime.now());
+            photoEntity.setUpdatedAt(LocalDateTime.now());
+            photoEntities.add(photoEntity);
+        }
+        return crudPhotoRepository.saveAll(photoEntities);
+    }
+
+    private UUID getCoverPhotoId(String coverPhotoUrl, List<PhotoEntity> photoEntities) {
+        return photoEntities.stream()
+                .filter(photoEntity -> photoEntity.getUrl().equals(coverPhotoUrl))
+                .map(PhotoEntity::getId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Cover photo URL not found in saved photo entities."));
+    }
+
+    private List<ProjectionEntity> createProjectionEntities(CreateMovieRequest createMovieRequest, MovieEntity movieEntity) {
+        // Group the projection requests by venueId
+        Map<UUID, List<CreateProjectionRequest>> groupedProjections = createMovieRequest.getProjections()
+                .stream()
+                .collect(Collectors.groupingBy(CreateProjectionRequest::getVenueId));
+
+        List<ProjectionEntity> projectionEntities = new ArrayList<>();
+
+        for (Map.Entry<UUID, List<CreateProjectionRequest>> entry : groupedProjections.entrySet()) {
+            UUID venueId = entry.getKey();
+            List<CreateProjectionRequest> projectionRequests = entry.getValue();
+
+            // Find the venue entity
+            VenueEntity venueEntity = crudVenueRepository.findById(venueId)
+                    .orElseThrow(() -> new NoSuchElementException("Venue not found: " + venueId));
+
+            // Extract all start times for this venue
+            List<String> startTimes = projectionRequests.stream()
+                    .map(CreateProjectionRequest::getProjectionTime)
+                    .toList();
+
+            // Create the ProjectionEntity
+            ProjectionEntity projectionEntity = new ProjectionEntity();
+            projectionEntity.setHallEntity(venueEntity.getHallEntities().get(0)); // Assuming the first hall is used
+            projectionEntity.setMovieEntity(movieEntity);
+            projectionEntity.setStatus("upcoming");
+            projectionEntity.setStartDate(createMovieRequest.getStartDate());
+            projectionEntity.setEndDate(createMovieRequest.getEndDate());
+            projectionEntity.setStartTime(startTimes.toArray(new String[0])); // Convert to array
+            projectionEntity.setCreatedAt(LocalDateTime.now());
+            projectionEntity.setUpdatedAt(LocalDateTime.now());
+            ProjectionEntity savedProjectionEntity = crudProjectionRepository.save(projectionEntity);
+            projectionEntities.add(savedProjectionEntity);
+
+            createProjectionInstances(projectionRequests, savedProjectionEntity);
+        }
+
+        return projectionEntities;
+    }
+
+    private void createProjectionInstances(List<CreateProjectionRequest> projectionRequests, ProjectionEntity projectionEntity) {
+        List<ProjectionInstanceEntity> projectionInstanceEntities = new ArrayList<>();
+
+        for (CreateProjectionRequest request : projectionRequests) {
+            // Loop through all dates in the projectionEntity's date range
+            LocalDate currentDate = projectionEntity.getStartDate();
+            while (!currentDate.isAfter(projectionEntity.getEndDate())) {
+                // Create a ProjectionInstanceEntity for the current date and time
+                ProjectionInstanceEntity instance = new ProjectionInstanceEntity();
+                instance.setProjectionEntity(projectionEntity);
+                instance.setDate(currentDate);
+                instance.setTime(request.getProjectionTime());
+                instance.setCreatedAt(LocalDateTime.now());
+                instance.setUpdatedAt(LocalDateTime.now());
+
+                projectionInstanceEntities.add(instance);
+
+                currentDate = currentDate.plusDays(1);
+            }
+        }
+
+        // Save all instances to the database
+        crudProjectionInstanceRepository.saveAll(projectionInstanceEntities);
     }
 
     public Page<Movie> mapPhotosToMovies(Page<Movie> movies) {
