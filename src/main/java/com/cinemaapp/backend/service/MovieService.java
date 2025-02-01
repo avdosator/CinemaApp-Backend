@@ -12,5 +12,5 @@ public interface MovieService {
     Page<Movie> findActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest);
     Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest);
     Movie findById(UUID id);
-    Movie createMovie(CreateMovieRequest createMovieRequest);
+    Movie createMovie(CreateMovieRequest createMovieRequest, String status);
 }

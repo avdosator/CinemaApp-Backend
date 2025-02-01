@@ -48,7 +48,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
-    public Movie createMovie(CreateMovieRequest createMovieRequest) {
+    public Movie createMovie(CreateMovieRequest createMovieRequest, String status) {
         // Step 1: Verify photo URLs -> It works without this
         /*for (String photoUrl : createMovieRequest.getPhotoUrls()) {
             boolean isValid = uploadcareService.verifyPhotoUrl(photoUrl);

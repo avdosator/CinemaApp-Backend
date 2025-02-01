@@ -57,7 +57,8 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     public Movie createMovie(
             @Parameter(description = "Data needed for movie creation")
-            @RequestBody CreateMovieRequest createMovieRequest) {
-        return movieService.createMovie(createMovieRequest);
+            @RequestBody CreateMovieRequest createMovieRequest,
+            @RequestParam String status) {
+        return movieService.createMovie(createMovieRequest, status);
     }
 }
