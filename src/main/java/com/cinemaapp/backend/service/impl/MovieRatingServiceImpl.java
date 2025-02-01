@@ -57,8 +57,8 @@ public class MovieRatingServiceImpl implements MovieRatingService {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            ratings.setImdbRating("Undefined");
-            ratings.setRottenTomatoesRating("Undefined");
+            ratings.setImdbRating("N/A");
+            ratings.setRottenTomatoesRating("N/A");
         }
 
         return ratings;

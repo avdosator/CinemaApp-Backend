@@ -107,6 +107,14 @@ public class MovieJpaRepository implements MovieRepository {
 
     @Override
     public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+
+        if (createMovieRequest.getMovieId() != null) {
+            MovieEntity movieEntity = findAndEditMovie(createMovieRequest, movieRatingsResponse, status);
+        } else {
+            MovieEntity movieEntity = createNewMovie(createMovieRequest, movieRatingsResponse, status);
+        }
+
+
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setTitle(createMovieRequest.getTitle());
         movieEntity.setLanguage(createMovieRequest.getLanguage());
@@ -148,6 +156,27 @@ public class MovieJpaRepository implements MovieRepository {
         movie.setPhotos(photos);
 
         return movie;
+    }
+
+    private MovieEntity createNewMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        MovieEntity movieEntity = new MovieEntity();
+        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
+        return movieEntity;
+    }
+
+    private MovieEntity findAndEditMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
+        MovieEntity movieEntity = crudMovieRepository.findById(createMovieRequest.getMovieId()).orElseThrow();
+    }
+
+    private void validateRequestFields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        if (status.equals("draft-1")) {
+            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
+        } else if (status.equals("draft-2")) {
+            validateDraft2Fields(createMovieRequest, movieRatingsResponse);
+        } else {
+            validateAllFields(createMovieRequest, movieRatingsResponse);
+        }
     }
 
     private Map.Entry<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
