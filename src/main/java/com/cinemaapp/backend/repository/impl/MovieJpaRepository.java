@@ -106,7 +106,7 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
-    public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+    public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setTitle(createMovieRequest.getTitle());
         movieEntity.setLanguage(createMovieRequest.getLanguage());

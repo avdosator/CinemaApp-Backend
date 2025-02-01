@@ -13,5 +13,5 @@ public interface MovieRepository {
     Page<Movie> findActiveMovies(SearchActiveMoviesRequest searchActiveMoviesRequest);
     Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest);
     Movie findById(UUID id);
-    Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse);
+    Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status);
 }

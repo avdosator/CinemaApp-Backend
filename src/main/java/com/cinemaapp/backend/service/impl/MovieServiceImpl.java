@@ -58,6 +58,6 @@ public class MovieServiceImpl implements MovieService {
         }*/
 
         MovieRatingsResponse movieRatingsResponse = movieRatingService.getMovieRatings(createMovieRequest.getTitle());
-        return movieRepository.createMovie(createMovieRequest, movieRatingsResponse);
+        return movieRepository.createMovie(createMovieRequest, movieRatingsResponse, status);
     }
 }
