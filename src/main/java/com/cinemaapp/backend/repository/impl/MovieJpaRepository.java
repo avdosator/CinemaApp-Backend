@@ -112,6 +112,7 @@ public class MovieJpaRepository implements MovieRepository {
             MovieEntity movieEntity = findAndEditMovie(createMovieRequest, movieRatingsResponse, status);
         } else {
             MovieEntity movieEntity = createNewMovie(createMovieRequest, movieRatingsResponse, status);
+            return crudMovieRepository.save(movieEntity).toDomainModel();
         }
 
 
@@ -161,7 +162,44 @@ public class MovieJpaRepository implements MovieRepository {
     private MovieEntity createNewMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         validateRequestFields(createMovieRequest, movieRatingsResponse, status);
         MovieEntity movieEntity = new MovieEntity();
+        if (status.equals("draft-1")) {
+            setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else if (status.equals("draft-2")) {
+            setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else {
+            setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        }
         return movieEntity;
+    }
+
+    
+
+    private void setDraft1Fields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        movieEntity.setTitle(createMovieRequest.getTitle());
+        movieEntity.setLanguage(createMovieRequest.getLanguage());
+        movieEntity.setDirector(createMovieRequest.getDirector());
+        movieEntity.setPgRating(createMovieRequest.getPgRating());
+        movieEntity.setDurationInMinutes(createMovieRequest.getDuration());
+        movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
+        movieEntity.setSynopsis(createMovieRequest.getSynopsis());
+        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIds()));
+        movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
+        movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
+        movieEntity.setStatus(status);
+
+        // Create projection placeholder
+        createProjectionPlaceholder(movieEntity, createMovieRequest);
+    }
+
+    private void createProjectionPlaceholder(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        ProjectionEntity draftProjection = new ProjectionEntity();
+        draftProjection.setMovieEntity(movieEntity);
+        draftProjection.setStartDate(createMovieRequest.getStartDate());
+        draftProjection.setEndDate(createMovieRequest.getEndDate());
+        draftProjection.setStatus("placeholder");
+        draftProjection.setCreatedAt(LocalDateTime.now());
+        draftProjection.setUpdatedAt(LocalDateTime.now());
+        crudProjectionRepository.save(draftProjection);
     }
 
     private MovieEntity findAndEditMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
