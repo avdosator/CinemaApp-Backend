@@ -9,7 +9,6 @@ import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     public Movie createMovie(
             @Parameter(description = "Data needed for movie creation")
-            @RequestBody @Valid CreateMovieRequest createMovieRequest) {
+            @RequestBody CreateMovieRequest createMovieRequest) {
         return movieService.createMovie(createMovieRequest);
     }
 }
