@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public class CreateMovieRequest {
 
+    private UUID movieId;
+
     private String title;
 
     private String language;
@@ -35,6 +37,14 @@ public class CreateMovieRequest {
     private List<CreateProjectionRequest> projections;
 
     private String coverPhotoUrl;
+
+    public UUID getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(UUID movieId) {
+        this.movieId = movieId;
+    }
 
     public String getTitle() {
         return title;
