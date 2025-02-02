@@ -185,7 +185,7 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
         movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
         movieEntity.setStatus(status);
-        
+
         // Create projection placeholder
         updateProjectionDate(movieEntity, createMovieRequest);
         return crudMovieRepository.save(movieEntity).toDomainModel();
@@ -200,6 +200,20 @@ public class MovieJpaRepository implements MovieRepository {
         }
     }
 
+    //
+    private void assertValidDates(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        if (sameDates(movieEntity, createMovieRequest)) {
+            throw new IllegalArgumentException("Date change at this step is not supported");
+        }
+    }
+
+    private boolean sameDates(ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest) {
+        if (projectionEntity.getStartDate() != createMovieRequest.getStartDate() ||
+                projectionEntity.getEndDate() != createMovieRequest.getEndDate()) {
+            return false;
+        }
+        return true;
+    }
 
 
     private void createProjectionPlaceholder(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
