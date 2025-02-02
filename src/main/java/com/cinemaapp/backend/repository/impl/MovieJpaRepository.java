@@ -117,7 +117,7 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     private Movie createNewMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
-        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
+
         MovieEntity movieEntity = new MovieEntity();
         if (status.equals("draft-1")) {
             return setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
@@ -195,49 +195,6 @@ public class MovieJpaRepository implements MovieRepository {
         draftProjection.setCreatedAt(LocalDateTime.now());
         draftProjection.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(draftProjection);
-    }
-
-    private void validateRequestFields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
-        if (status.equals("draft-1")) {
-            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
-        } else if (status.equals("draft-2")) {
-            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
-            validateDraft2Fields(createMovieRequest, movieRatingsResponse);
-        } else {
-            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
-            validateDraft2Fields(createMovieRequest, movieRatingsResponse);
-            validateDraft3Fields(createMovieRequest, movieRatingsResponse);
-        }
-    }
-
-    private void validateDraft3Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
-        if (createMovieRequest.getProjections().isEmpty()) {
-            throw new IllegalArgumentException("Missing movie data");
-        }
-    }
-
-    private void validateDraft2Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
-        if (createMovieRequest.getWriters().length < 1
-                || createMovieRequest.getCast().length < 1
-                || createMovieRequest.getPhotoUrls().isEmpty()
-                || createMovieRequest.getCoverPhotoUrl() == null) {
-            throw new IllegalArgumentException("Missing movie data");
-        }
-    }
-
-    private void validateDraft1Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
-        if (createMovieRequest.getTitle() == null
-                || createMovieRequest.getLanguage() == null
-                || createMovieRequest.getStartDate() == null
-                || createMovieRequest.getEndDate() == null
-                || createMovieRequest.getDirector() == null
-                || createMovieRequest.getPgRating() == null
-                || createMovieRequest.getDuration() == null
-                || createMovieRequest.getGenreIds().isEmpty()
-                || createMovieRequest.getTrailer() == null
-                || createMovieRequest.getSynopsis() == null) {
-            throw new IllegalArgumentException("Missing movie data");
-        }
     }
 
     private Map.Entry<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
