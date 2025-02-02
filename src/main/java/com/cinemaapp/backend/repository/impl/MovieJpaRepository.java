@@ -112,49 +112,40 @@ public class MovieJpaRepository implements MovieRepository {
             MovieEntity movieEntity = findAndEditMovie(createMovieRequest, movieRatingsResponse, status);
             return crudMovieRepository.save(movieEntity).toDomainModel();
         } else {
-            MovieEntity movieEntity = createNewMovie(createMovieRequest, movieRatingsResponse, status);
-            return crudMovieRepository.save(movieEntity).toDomainModel();
+            return createNewMovie(createMovieRequest, movieRatingsResponse, status);
         }
-
-
-        MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
-        // Process photos and get the cover photo ID along with saved photos
-        Map.Entry<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(savedMovieEntity.getId(), createMovieRequest);
-        UUID coverPhotoId = photoProcessingResult.getKey();
-        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getValue();
-        savedMovieEntity.setCoverPhotoId(coverPhotoId);
-
-        // Save the updated MovieEntity with the cover photo ID
-        savedMovieEntity = crudMovieRepository.save(savedMovieEntity);
-
-        // Create projections for the movie
-        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, savedMovieEntity);
-        savedMovieEntity.setProjectionEntities(projectionEntities);
-
-        // Map saved photos to domain model
-        List<Photo> photos = savedPhotoEntities.stream()
-                .map(PhotoEntity::toDomainModel)
-                .collect(Collectors.toList());
-
-        // Convert to domain model and set photos
-        Movie movie = savedMovieEntity.toDomainModel();
-        movie.setPhotos(photos);
-
-        return movie;
     }
 
     private Movie createNewMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         validateRequestFields(createMovieRequest, movieRatingsResponse, status);
         MovieEntity movieEntity = new MovieEntity();
-        Movie movie = null;
         if (status.equals("draft-1")) {
-            movie = setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+            return setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
         } else if (status.equals("draft-2")) {
-            movie = setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+            return setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
         } else {
-            setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+            return setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
         }
-        return movie;
+    }
+
+    private MovieEntity findAndEditMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
+        MovieEntity movieEntity = crudMovieRepository.findById(createMovieRequest.getMovieId()).orElseThrow();
+    }
+
+    private Movie setAllFields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+
+        // Delete Projection placeholder
+        ProjectionEntity placeholderProjection = crudProjectionRepository.findByMovieEntityAndStatus(movieEntity, "placeholder");
+        crudProjectionRepository.delete(placeholderProjection);
+
+        // Create projections
+        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, movieEntity);
+        movieEntity.setProjectionEntities(projectionEntities);
+
+        return crudMovieRepository.save(movieEntity).toDomainModel();
     }
 
     private Movie setDraft2Fields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
@@ -204,11 +195,6 @@ public class MovieJpaRepository implements MovieRepository {
         draftProjection.setCreatedAt(LocalDateTime.now());
         draftProjection.setUpdatedAt(LocalDateTime.now());
         crudProjectionRepository.save(draftProjection);
-    }
-
-    private MovieEntity findAndEditMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
-        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
-        MovieEntity movieEntity = crudMovieRepository.findById(createMovieRequest.getMovieId()).orElseThrow();
     }
 
     private void validateRequestFields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
