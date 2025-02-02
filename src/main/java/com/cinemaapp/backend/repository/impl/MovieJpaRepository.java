@@ -249,15 +249,40 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     private Pair<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
-        // Create and save photo entities
-        List<PhotoEntity> photoEntities = createPhotoEntities(movieId, createMovieRequest);
+        // Fetch existing photos (if any)
+        List<PhotoEntity> existingPhotos = crudPhotoRepository.findByRefEntityId(movieId);
+
+        // Get new photo URLs from request
+        List<String> newPhotoUrls = createMovieRequest.getPhotoUrls();
+
+        List<PhotoEntity> updatedPhotoEntities = new ArrayList<>();
+
+        if (existingPhotos.isEmpty()) {
+            // No existing photos → Create new ones
+            updatedPhotoEntities = createPhotoEntities(movieId, createMovieRequest);
+        } else {
+            // Update existing photos if there were some changes
+            for (int i = 0; i < existingPhotos.size(); i++) {
+                PhotoEntity existingPhoto = existingPhotos.get(i);
+                String newPhotoUrl = newPhotoUrls.get(i);
+
+                if (!existingPhoto.getUrl().equals(newPhotoUrl)) {
+                    // URL has changed → Update the existing entity
+                    existingPhoto.setUrl(newPhotoUrl);
+                    existingPhoto.setUpdatedAt(LocalDateTime.now());
+                }
+
+                updatedPhotoEntities.add(existingPhoto);
+            }
+
+            // Save only updated photos
+            updatedPhotoEntities = crudPhotoRepository.saveAll(updatedPhotoEntities);
+        }
 
         // Find the cover photo ID
-        UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), photoEntities);
+        UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), updatedPhotoEntities);
 
-        // Return both the cover photo ID and the saved photo entities
-
-        return Pair.of(coverPhotoId, photoEntities);
+        return Pair.of(coverPhotoId, updatedPhotoEntities);
     }
 
     private List<PhotoEntity> createPhotoEntities(UUID movieId, CreateMovieRequest createMovieRequest) {
