@@ -55,7 +55,8 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasProjectionInCity(searchActiveMoviesRequest.getCity()))
                 .and(MovieSpecification.hasProjectionInVenue(searchActiveMoviesRequest.getVenue()))
                 .and(MovieSpecification.hasGenre(searchActiveMoviesRequest.getGenre()))
-                .and(MovieSpecification.hasProjectionWithTime(searchActiveMoviesRequest.getTime()));
+                .and(MovieSpecification.hasProjectionWithTime(searchActiveMoviesRequest.getTime())
+                        .and(MovieSpecification.isReleasedMovie()));
 
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(),
@@ -78,7 +79,8 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasTitleContaining(searchUpcomingMoviesRequest.getTitle()))
                 .and(MovieSpecification.hasProjectionInCity(searchUpcomingMoviesRequest.getCity()))
                 .and(MovieSpecification.hasProjectionInVenue(searchUpcomingMoviesRequest.getVenue()))
-                .and(MovieSpecification.hasGenre(searchUpcomingMoviesRequest.getGenre()));
+                .and(MovieSpecification.hasGenre(searchUpcomingMoviesRequest.getGenre())
+                        .and(MovieSpecification.isReleasedMovie()));
 
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(),
