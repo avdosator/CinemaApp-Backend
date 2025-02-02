@@ -115,7 +115,6 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     private Movie createNewMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
-
         MovieEntity movieEntity = new MovieEntity();
         if (status.equals("draft-1")) {
             return setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
@@ -187,22 +186,22 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setStatus(status);
 
         // Create projection placeholder
-        updateProjectionDate(movieEntity, createMovieRequest);
+        updateProjectionDate(movieEntity, createMovieRequest, status);
         return crudMovieRepository.save(movieEntity).toDomainModel();
     }
 
-    private void updateProjectionDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+    private void updateProjectionDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, String status) {
         List<ProjectionEntity> projectionEntities = crudProjectionRepository.findByMovieEntity(movieEntity);
         if (projectionEntities.isEmpty()) {
             createProjectionPlaceholder(movieEntity, createMovieRequest);
         } else {
-            updateProjectionAndInstances(movieEntity, projectionEntities.get(0), createMovieRequest);
+            updateProjectionAndInstances(movieEntity, projectionEntities.get(0), createMovieRequest, status);
         }
     }
 
-    //
+    // Possible option - don't allow projection date range change
     private void assertValidDates(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
-        if (sameDates(movieEntity, createMovieRequest)) {
+        if (sameDates(movieEntity.getProjectionEntities().get(0), createMovieRequest)) {
             throw new IllegalArgumentException("Date change at this step is not supported");
         }
     }
@@ -215,6 +214,26 @@ public class MovieJpaRepository implements MovieRepository {
         return true;
     }
 
+    private void updateProjectionAndInstances(MovieEntity movieEntity, ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest, String status) {
+        if (!sameDates(projectionEntity, createMovieRequest)) {
+            if (!"draft-3".equals(movieEntity.getStatus())) {
+                updatePlaceholderDate(movieEntity, createMovieRequest);
+            } else {
+                crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
+                createProjectionEntities(createMovieRequest, movieEntity);
+            }
+        } else if ("draft-3".equals(status)) {
+            crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
+            createProjectionEntities(createMovieRequest, movieEntity);
+        }
+    }
+
+    private void updatePlaceholderDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        ProjectionEntity projectionEntity = crudProjectionRepository.findAnyByMovieEntity(movieEntity);
+        projectionEntity.setStartDate(createMovieRequest.getStartDate());
+        projectionEntity.setEndDate(createMovieRequest.getEndDate());
+        crudProjectionRepository.save(projectionEntity);
+    }
 
     private void createProjectionPlaceholder(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
         ProjectionEntity draftProjection = new ProjectionEntity();
