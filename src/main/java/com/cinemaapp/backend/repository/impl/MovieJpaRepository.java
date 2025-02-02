@@ -217,16 +217,16 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     private void updateProjectionAndInstances(MovieEntity movieEntity, ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest, String status) {
-        if (!sameDates(projectionEntity, createMovieRequest)) {
+        if ("draft-3".equals(status)) {
+            crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
+            createProjectionEntities(createMovieRequest, movieEntity);
+        } else if (!sameDates(projectionEntity, createMovieRequest)) {
             if (!"draft-3".equals(movieEntity.getStatus())) {
                 updatePlaceholderDate(movieEntity, createMovieRequest);
             } else {
                 crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
                 createProjectionEntities(createMovieRequest, movieEntity);
             }
-        } else if ("draft-3".equals(status)) {
-            crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
-            createProjectionEntities(createMovieRequest, movieEntity);
         }
     }
 
