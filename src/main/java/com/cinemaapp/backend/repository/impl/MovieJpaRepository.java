@@ -107,10 +107,8 @@ public class MovieJpaRepository implements MovieRepository {
 
     @Override
     public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
-
         if (createMovieRequest.getMovieId() != null) {
-            MovieEntity movieEntity = findAndEditMovie(createMovieRequest, movieRatingsResponse, status);
-            return crudMovieRepository.save(movieEntity).toDomainModel();
+            return applyChanges(createMovieRequest, movieRatingsResponse, status);
         } else {
             return createNewMovie(createMovieRequest, movieRatingsResponse, status);
         }
@@ -128,11 +126,18 @@ public class MovieJpaRepository implements MovieRepository {
         }
     }
 
-    private MovieEntity findAndEditMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
-        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
+    private Movie applyChanges(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         MovieEntity movieEntity = crudMovieRepository.findById(createMovieRequest.getMovieId()).orElseThrow();
-    }
 
+        if (status.equals("draft-1")) {
+            return setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else if (status.equals("draft-2")) {
+            return setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else {
+            return setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        }
+    }
+    
     private Movie setAllFields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
         setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
