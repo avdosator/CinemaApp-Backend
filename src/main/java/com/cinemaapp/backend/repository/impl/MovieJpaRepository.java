@@ -13,6 +13,7 @@ import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import com.cinemaapp.backend.utils.PageConverter;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -161,10 +162,9 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity = crudMovieRepository.save(movieEntity);
 
         // Process photos and get the cover photo ID along with saved photos
-        Map.Entry<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(movieEntity.getId(), createMovieRequest);
-        UUID coverPhotoId = photoProcessingResult.getKey();
-        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getValue();
-        movieEntity.setCoverPhotoId(coverPhotoId);
+        Pair<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(movieEntity.getId(), createMovieRequest);
+        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getRight();
+        movieEntity.setCoverPhotoId(photoProcessingResult.getLeft());
         List<Photo> photos = savedPhotoEntities.stream()
                 .map(PhotoEntity::toDomainModel)
                 .toList();
@@ -248,7 +248,7 @@ public class MovieJpaRepository implements MovieRepository {
         crudProjectionRepository.save(draftProjection);
     }
 
-    private Map.Entry<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
+    private Pair<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
         // Create and save photo entities
         List<PhotoEntity> photoEntities = createPhotoEntities(movieId, createMovieRequest);
 
@@ -256,7 +256,8 @@ public class MovieJpaRepository implements MovieRepository {
         UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), photoEntities);
 
         // Return both the cover photo ID and the saved photo entities
-        return Map.entry(coverPhotoId, photoEntities);
+
+        return Pair.of(coverPhotoId, photoEntities);
     }
 
     private List<PhotoEntity> createPhotoEntities(UUID movieId, CreateMovieRequest createMovieRequest) {
