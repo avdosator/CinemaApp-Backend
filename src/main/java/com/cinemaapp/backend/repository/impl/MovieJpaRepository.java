@@ -137,7 +137,7 @@ public class MovieJpaRepository implements MovieRepository {
             return setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
         }
     }
-    
+
     private Movie setAllFields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
         setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
@@ -185,11 +185,22 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
         movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
         movieEntity.setStatus(status);
-
+        
         // Create projection placeholder
-        createProjectionPlaceholder(movieEntity, createMovieRequest);
+        updateProjectionDate(movieEntity, createMovieRequest);
         return crudMovieRepository.save(movieEntity).toDomainModel();
     }
+
+    private void updateProjectionDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        List<ProjectionEntity> projectionEntities = crudProjectionRepository.findByMovieEntity(movieEntity);
+        if (projectionEntities.isEmpty()) {
+            createProjectionPlaceholder(movieEntity, createMovieRequest);
+        } else {
+            updateProjectionAndInstances(movieEntity, projectionEntities.get(0), createMovieRequest);
+        }
+    }
+
+
 
     private void createProjectionPlaceholder(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
         ProjectionEntity draftProjection = new ProjectionEntity();
