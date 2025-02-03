@@ -17,4 +17,6 @@ public interface MovieRepository {
     Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status);
 
     Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
+
+    Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
 }

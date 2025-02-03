@@ -111,6 +111,24 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
+    public Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        Specification<MovieEntity> specification = Specification
+                .where(MovieSpecification.hasArchivedStatus());
+
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification,
+                PageRequest.of(searchDraftMoviesRequest.getPage(),
+                        searchDraftMoviesRequest.getSize(),
+                        Sort.by(Sort.Direction.ASC, "title")
+                )
+        );
+
+        Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        movies = mapPhotosToMovies(movies);
+        return movies;
+    }
+
+    @Override
     public Movie findById(UUID id) {
         MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
         Movie movie = movieEntity.toDomainModel();
