@@ -12,14 +12,21 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class MovieRatingServiceImpl implements MovieRatingService {
 
+    @Value("${omdb.base.url}")
+    private String omdbBaseUrl;
+
     private final WebClient webClient;
 
     @Value("${omdb.api.key}")
     private String apiKey;
 
+    public String getOmdbBaseUrl() {
+        return omdbBaseUrl;
+    }
+
     @Autowired
     public MovieRatingServiceImpl(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://www.omdbapi.com").build();
+        this.webClient = webClientBuilder.baseUrl(getOmdbBaseUrl()).build();
     }
 
     @Override
