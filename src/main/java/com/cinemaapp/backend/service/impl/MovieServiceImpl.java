@@ -8,6 +8,7 @@ import com.cinemaapp.backend.service.UploadcareService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchDraftMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Page<Movie> findUpcomingMovies(SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         return movieRepository.findUpcomingMovies(searchUpcomingMoviesRequest);
+    }
+
+    @Override
+    public Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        return movieRepository.findDraftMovies(searchDraftMoviesRequest);
     }
 
     @Override
