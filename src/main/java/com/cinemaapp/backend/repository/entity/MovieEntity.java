@@ -69,7 +69,7 @@ public class MovieEntity {
     )
     private List<GenreEntity> genreEntities;
 
-    @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "movieEntity", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<ProjectionEntity> projectionEntities;
 
     @Column(name = "created_at")
@@ -245,12 +245,12 @@ public class MovieEntity {
                 .synopsis(this.synopsis)
                 .trailerUrl(this.trailerUrl)
                 .coverPhotoId(this.coverPhotoId)
-                //.status(this.status)
+                .status(this.status)
                 .genres(genres)
                 .projections(projections)
                 //.photos(photos)
-                //.createdAt(this.createdAt)
-                //.updatedAt(this.updatedAt)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
                 .build();
     }
 }
