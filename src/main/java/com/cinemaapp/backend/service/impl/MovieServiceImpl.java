@@ -81,8 +81,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     private void validateDraft2Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
-        if (createMovieRequest.getWriters().length < 1
-                || createMovieRequest.getCast().length < 1
+        if (createMovieRequest.getWriters().isEmpty()
+                || createMovieRequest.getCast().isEmpty()
                 || createMovieRequest.getPhotoUrls().isEmpty()
                 || createMovieRequest.getCoverPhotoUrl() == null) {
             throw new IllegalArgumentException("Missing movie data");
