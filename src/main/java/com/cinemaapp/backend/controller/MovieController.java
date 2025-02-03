@@ -53,6 +53,14 @@ public class MovieController {
         return movieService.findDraftMovies(searchDraftMoviesRequest);
     }
 
+    @Operation(summary = "Get archived movies", description = "Retrieve a paginated list of archived movies.")
+    @GetMapping("/archived")
+    public Page<Movie> getArchivedMovies(
+            @Parameter(description = "Search criteria for archived movies")
+            @ModelAttribute SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        return movieService.findArchivedMovies(searchDraftMoviesRequest);
+    }
+
     @Operation(summary = "Get movie by ID", description = "Retrieve a movie by its unique identifier.")
     @GetMapping("/{id}")
     public Movie getMovieById(
