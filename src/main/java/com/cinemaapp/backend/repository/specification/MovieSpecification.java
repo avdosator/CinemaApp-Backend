@@ -133,4 +133,9 @@ public class MovieSpecification {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.like(root.get("status"), prefix + "%");
     }
+
+    public static Specification<MovieEntity> hasArchivedStatus() {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("status"), "archived");
+    }
 }
