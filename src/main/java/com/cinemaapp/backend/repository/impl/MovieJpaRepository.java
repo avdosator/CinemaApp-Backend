@@ -146,7 +146,9 @@ public class MovieJpaRepository implements MovieRepository {
 
         // Delete Projection placeholder
         ProjectionEntity placeholderProjection = crudProjectionRepository.findByMovieEntityAndStatus(movieEntity, "placeholder");
-        crudProjectionRepository.delete(placeholderProjection);
+        if (placeholderProjection != null) {
+            crudProjectionRepository.delete(placeholderProjection);
+        }
 
         // Create projections
         List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, movieEntity);
@@ -187,9 +189,11 @@ public class MovieJpaRepository implements MovieRepository {
         movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
         movieEntity.setStatus(status);
 
+        MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
+
         // Create projection placeholder
-        updateProjectionDate(movieEntity, createMovieRequest, status);
-        return crudMovieRepository.save(movieEntity).toDomainModel();
+        updateProjectionDate(savedMovieEntity, createMovieRequest, status);
+        return crudMovieRepository.save(savedMovieEntity).toDomainModel();
     }
 
     private void updateProjectionDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, String status) {
@@ -209,24 +213,27 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     private boolean sameDates(ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest) {
-        if (projectionEntity.getStartDate() != createMovieRequest.getStartDate() ||
-                projectionEntity.getEndDate() != createMovieRequest.getEndDate()) {
-            return false;
-        }
-        return true;
+        return projectionEntity.getStartDate() == createMovieRequest.getStartDate() &&
+                projectionEntity.getEndDate() == createMovieRequest.getEndDate();
     }
 
     private void updateProjectionAndInstances(MovieEntity movieEntity, ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest, String status) {
-        if ("draft-3".equals(status)) {
-            crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
-            createProjectionEntities(createMovieRequest, movieEntity);
-        } else if (!sameDates(projectionEntity, createMovieRequest)) {
-            if (!"draft-3".equals(movieEntity.getStatus())) {
-                updatePlaceholderDate(movieEntity, createMovieRequest);
-            } else {
-                crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
-                createProjectionEntities(createMovieRequest, movieEntity);
+        if ("draft-3".equals(status) || "active".equals(status)) {
+            List<ProjectionEntity> existingProjections = crudProjectionRepository.findByMovieEntity(movieEntity);
+            for (ProjectionEntity projection : existingProjections) {
+                crudProjectionInstanceRepository.deleteAllByProjectionEntity(projection);
             }
+
+            crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
+            movieEntity.getProjectionEntities().clear();
+
+            List<ProjectionEntity> newProjections = createProjectionEntities(createMovieRequest, movieEntity);
+            movieEntity.setProjectionEntities(newProjections);
+
+            crudMovieRepository.save(movieEntity);
+
+        } else if (!sameDates(projectionEntity, createMovieRequest)) {
+            updatePlaceholderDate(movieEntity, createMovieRequest);
         }
     }
 
@@ -245,7 +252,14 @@ public class MovieJpaRepository implements MovieRepository {
         draftProjection.setStatus("placeholder");
         draftProjection.setCreatedAt(LocalDateTime.now());
         draftProjection.setUpdatedAt(LocalDateTime.now());
-        crudProjectionRepository.save(draftProjection);
+
+        ProjectionEntity savedProjection = crudProjectionRepository.save(draftProjection);
+
+        // Ensure movieEntity contains this projection in its list
+        if (movieEntity.getProjectionEntities() == null) {
+            movieEntity.setProjectionEntities(new ArrayList<>());
+        }
+        movieEntity.getProjectionEntities().add(savedProjection);
     }
 
     private Pair<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
@@ -343,7 +357,6 @@ public class MovieJpaRepository implements MovieRepository {
 
             createProjectionInstances(projectionRequests, savedProjectionEntity);
         }
-
         return projectionEntities;
     }
 
