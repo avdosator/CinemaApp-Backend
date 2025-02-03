@@ -48,6 +48,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        return movieRepository.findArchivedMovies(searchDraftMoviesRequest);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         return movieRepository.findById(id);
     }

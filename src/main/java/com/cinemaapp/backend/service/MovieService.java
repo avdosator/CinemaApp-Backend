@@ -16,4 +16,6 @@ public interface MovieService {
     Movie createMovie(CreateMovieRequest createMovieRequest, String status);
 
     Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
+
+    Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
 }
