@@ -2,6 +2,7 @@ package com.cinemaapp.backend.service.domain.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class Projection {
@@ -13,11 +14,12 @@ public class Projection {
     private final LocalDate endDate;
     private final String[] startTime;
     private final String status;
+    private final List<ProjectionInstance> projectionInstances;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
     public Projection(UUID id, Hall hall, UUID movieId, LocalDate startDate, LocalDate endDate, String[] startTime,
-                      String status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+                      String status, List<ProjectionInstance> projectionInstances, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.hall = hall;
         this.movieId = movieId;
@@ -25,6 +27,7 @@ public class Projection {
         this.endDate = endDate;
         this.startTime = startTime;
         this.status = status;
+        this.projectionInstances = projectionInstances;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -57,6 +60,10 @@ public class Projection {
         return status;
     }
 
+    public List<ProjectionInstance> getProjectionInstances() {
+        return projectionInstances;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -77,6 +84,7 @@ public class Projection {
         private LocalDate endDate;
         private String[] startTime;
         private String status;
+        private List<ProjectionInstance> projectionInstances;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
@@ -118,6 +126,11 @@ public class Projection {
             return this;
         }
 
+        public ProjectionBuilder projectionInstances(List<ProjectionInstance> projectionInstances) {
+            this.projectionInstances = projectionInstances;
+            return this;
+        }
+
         public ProjectionBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
@@ -137,6 +150,7 @@ public class Projection {
                     this.endDate,
                     this.startTime,
                     this.status,
+                    this.projectionInstances,
                     this.createdAt,
                     this.updatedAt
             );
