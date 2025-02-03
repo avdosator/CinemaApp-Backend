@@ -128,4 +128,9 @@ public class MovieSpecification {
             );
         };
     }
+
+    public static Specification<MovieEntity> hasStatusStartingWith(String prefix) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("status"), prefix + "%");
+    }
 }
