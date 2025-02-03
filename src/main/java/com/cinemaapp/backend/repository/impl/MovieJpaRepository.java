@@ -7,10 +7,7 @@ import com.cinemaapp.backend.repository.entity.*;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.Photo;
-import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
-import com.cinemaapp.backend.service.domain.request.CreateProjectionRequest;
-import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
-import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.*;
 import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import com.cinemaapp.backend.utils.PageConverter;
 import org.apache.commons.lang3.tuple.Pair;
@@ -86,6 +83,24 @@ public class MovieJpaRepository implements MovieRepository {
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(),
                         searchUpcomingMoviesRequest.getSize(),
+                        Sort.by(Sort.Direction.ASC, "title")
+                )
+        );
+
+        Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        movies = mapPhotosToMovies(movies);
+        return movies;
+    }
+
+    @Override
+    public Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        Specification<MovieEntity> specification = Specification
+                .where(MovieSpecification.hasStatusStartingWith("draft"));
+
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification,
+                PageRequest.of(searchDraftMoviesRequest.getPage(),
+                        searchDraftMoviesRequest.getSize(),
                         Sort.by(Sort.Direction.ASC, "title")
                 )
         );
@@ -386,11 +401,15 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     public Page<Movie> mapPhotosToMovies(Page<Movie> movies) {
-
-        // Collect Movie IDs from the page content
+        // Collect Movie IDs that are NOT in draft-1 status
         List<UUID> movieIds = movies.getContent().stream()
+                .filter(movie -> !movie.getStatus().equals("draft-1")) // Exclude draft-1
                 .map(Movie::getId)
                 .toList();
+
+        if (movieIds.isEmpty()) {
+            return movies; // No movies to fetch photos for
+        }
 
         List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
 
@@ -401,8 +420,12 @@ public class MovieJpaRepository implements MovieRepository {
 
         // Assign photos to each movie by fetching from the map
         for (Movie movie : movies.getContent()) {
-            List<Photo> moviePhotos = photosByMovieId.getOrDefault(movie.getId(), new ArrayList<>());
-            movie.setPhotos(moviePhotos);
+            if (!movie.getStatus().equals("draft-1")) {
+                List<Photo> moviePhotos = photosByMovieId.getOrDefault(movie.getId(), new ArrayList<>());
+                movie.setPhotos(moviePhotos);
+            } else {
+                movie.setPhotos(new ArrayList<>()); // Ensure draft-1 movies have an empty list
+            }
         }
         return movies;
     }
