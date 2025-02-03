@@ -157,8 +157,8 @@ public class MovieJpaRepository implements MovieRepository {
 
     private Movie setDraft2Fields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
-        movieEntity.setActors(createMovieRequest.getCast());
-        movieEntity.setWriters(createMovieRequest.getWriters());
+        movieEntity.setActors(createMovieRequest.getCast().toArray(String[]::new));
+        movieEntity.setWriters(createMovieRequest.getWriters().toArray(String[]::new));
         movieEntity = crudMovieRepository.save(movieEntity);
 
         // Process photos and get the cover photo ID along with saved photos

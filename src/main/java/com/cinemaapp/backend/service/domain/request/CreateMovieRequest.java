@@ -28,9 +28,9 @@ public class CreateMovieRequest {
 
     private LocalDate endDate;
 
-    private String[] writers;
+    private List<String> writers;
 
-    private String[] cast;
+    private List<String> cast;
 
     private List<String> photoUrls;
 
@@ -126,19 +126,19 @@ public class CreateMovieRequest {
         this.endDate = endDate;
     }
 
-    public String[] getWriters() {
+    public List<String> getWriters() {
         return writers;
     }
 
-    public void setWriters(String[] writers) {
+    public void setWriters(List<String> writers) {
         this.writers = writers;
     }
 
-    public String[] getCast() {
+    public List<String> getCast() {
         return cast;
     }
 
-    public void setCast(String[] cast) {
+    public void setCast(List<String> cast) {
         this.cast = cast;
     }
 
