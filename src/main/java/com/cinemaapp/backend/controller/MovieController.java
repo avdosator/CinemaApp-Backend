@@ -5,6 +5,7 @@ import com.cinemaapp.backend.service.MovieService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchDraftMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -42,6 +43,14 @@ public class MovieController {
             @Parameter(description = "Search criteria for upcoming movies")
             @ModelAttribute SearchUpcomingMoviesRequest searchUpcomingMoviesRequest) {
         return movieService.findUpcomingMovies(searchUpcomingMoviesRequest);
+    }
+
+    @Operation(summary = "Get draft movies", description = "Retrieve a paginated list of draft movies.")
+    @GetMapping("/drafts")
+    public Page<Movie> getDraftMovies(
+            @Parameter(description = "Search criteria for draft movies")
+            @ModelAttribute SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        return movieService.findDraftMovies(searchDraftMoviesRequest);
     }
 
     @Operation(summary = "Get movie by ID", description = "Retrieve a movie by its unique identifier.")
