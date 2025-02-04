@@ -22,4 +22,6 @@ public interface MovieService {
     void archiveMovie(UUID id);
 
     void moveToDrafts(UUID id);
+
+    void publishMovie(UUID id);
 }

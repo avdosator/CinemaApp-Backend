@@ -63,6 +63,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public void publishMovie(UUID id) {
+        movieRepository.publishMovie(id);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         return movieRepository.findById(id);
     }

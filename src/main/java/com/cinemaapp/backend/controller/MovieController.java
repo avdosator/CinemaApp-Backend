@@ -81,6 +81,7 @@ public class MovieController {
 
     @Operation(summary = "Move to archived", description = "Move movie with ID from query params to archived")
     @PatchMapping("/archive/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void archiveMovie(
             @Parameter(description = "Unique identifier of the movie")
             @PathVariable UUID id) {
@@ -89,9 +90,19 @@ public class MovieController {
 
     @Operation(summary = "Move to drafts", description = "Move movie with ID from query params to draft movies")
     @PatchMapping("/drafts/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void moveToDrafts(
             @Parameter(description = "Unique identifier of the movie")
             @PathVariable UUID id) {
         movieService.moveToDrafts(id);
+    }
+
+    @Operation(summary = "Publish movie", description = "Publish completed draft movie")
+    @PatchMapping("/drafts/publish/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void publishMovie(
+            @Parameter(description = "Unique identifier of the movie")
+            @PathVariable UUID id) {
+        movieService.publishMovie(id);
     }
 }
