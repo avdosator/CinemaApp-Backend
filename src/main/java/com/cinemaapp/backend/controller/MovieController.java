@@ -78,4 +78,12 @@ public class MovieController {
             @RequestParam String status) {
         return movieService.createMovie(createMovieRequest, status);
     }
+
+    @Operation(summary = "Move to archived", description = "Move movie with ID from query params to archived")
+    @PatchMapping("/archive/{id}")
+    public void archiveMovie(
+            @Parameter(description = "Unique identifier of the movie")
+            @PathVariable UUID id) {
+         movieService.archiveMovie(id);
+    }
 }

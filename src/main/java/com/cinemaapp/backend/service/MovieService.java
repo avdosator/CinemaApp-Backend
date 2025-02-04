@@ -18,4 +18,6 @@ public interface MovieService {
     Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
 
     Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
+
+    void archiveMovie(UUID id);
 }

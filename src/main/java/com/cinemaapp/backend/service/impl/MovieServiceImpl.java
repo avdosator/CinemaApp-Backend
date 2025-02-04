@@ -53,6 +53,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public void archiveMovie(UUID id) {
+        movieRepository.archiveMovie(id);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         return movieRepository.findById(id);
     }

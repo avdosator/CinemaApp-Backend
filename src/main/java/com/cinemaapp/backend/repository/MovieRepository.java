@@ -19,4 +19,6 @@ public interface MovieRepository {
     Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
 
     Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
+
+    void archiveMovie(UUID id);
 }

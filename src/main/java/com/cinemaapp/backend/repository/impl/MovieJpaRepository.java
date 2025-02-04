@@ -129,6 +129,13 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
+    public void archiveMovie(UUID id) {
+        MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
+        movieEntity.setStatus("archived");
+        crudMovieRepository.save(movieEntity);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
         Movie movie = movieEntity.toDomainModel();
