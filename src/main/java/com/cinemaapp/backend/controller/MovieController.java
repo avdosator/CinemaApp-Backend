@@ -86,4 +86,12 @@ public class MovieController {
             @PathVariable UUID id) {
          movieService.archiveMovie(id);
     }
+
+    @Operation(summary = "Move to drafts", description = "Move movie with ID from query params to draft movies")
+    @PatchMapping("/drafts/{id}")
+    public void moveToDrafts(
+            @Parameter(description = "Unique identifier of the movie")
+            @PathVariable UUID id) {
+        movieService.moveToDrafts(id);
+    }
 }

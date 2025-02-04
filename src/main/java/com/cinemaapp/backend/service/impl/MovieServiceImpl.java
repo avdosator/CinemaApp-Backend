@@ -58,6 +58,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public void moveToDrafts(UUID id) {
+        movieRepository.moveToDrafts(id);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         return movieRepository.findById(id);
     }

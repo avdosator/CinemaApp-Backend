@@ -136,6 +136,20 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
+    public void moveToDrafts(UUID id) {
+        MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
+        if (!movieEntity.getProjectionEntities().isEmpty()
+                && !Objects.equals(movieEntity.getProjectionEntities().get(0).getStatus(), "placeholder")) {
+            movieEntity.setStatus("draft-3");
+        } else if (movieEntity.getWriters() != null) {
+            movieEntity.setStatus("draft-2");
+        } else {
+            movieEntity.setStatus("draft-1");
+        }
+        crudMovieRepository.save(movieEntity);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
         Movie movie = movieEntity.toDomainModel();

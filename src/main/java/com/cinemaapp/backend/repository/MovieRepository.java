@@ -21,4 +21,6 @@ public interface MovieRepository {
     Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest);
 
     void archiveMovie(UUID id);
+
+    void moveToDrafts(UUID id);
 }
