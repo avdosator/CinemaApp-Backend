@@ -308,13 +308,15 @@ public class MovieJpaRepository implements MovieRepository {
             // No existing photos → Create new ones
             updatedPhotoEntities = createPhotoEntities(movieId, createMovieRequest);
         } else {
-            // Update existing photos if there were some changes
-            for (int i = 0; i < existingPhotos.size(); i++) {
+            // Ensure we do not go out of bounds
+            int minSize = Math.min(existingPhotos.size(), newPhotoUrls.size());
+
+            // Update existing photos
+            for (int i = 0; i < minSize; i++) {
                 PhotoEntity existingPhoto = existingPhotos.get(i);
                 String newPhotoUrl = newPhotoUrls.get(i);
 
                 if (!existingPhoto.getUrl().equals(newPhotoUrl)) {
-                    // URL has changed → Update the existing entity
                     existingPhoto.setUrl(newPhotoUrl);
                     existingPhoto.setUpdatedAt(LocalDateTime.now());
                 }
@@ -322,7 +324,24 @@ public class MovieJpaRepository implements MovieRepository {
                 updatedPhotoEntities.add(existingPhoto);
             }
 
-            // Save only updated photos
+            // If new photos were added, create them
+            for (int i = minSize; i < newPhotoUrls.size(); i++) {
+                PhotoEntity newPhoto = new PhotoEntity();
+                newPhoto.setEntityType("movie");
+                newPhoto.setUrl(newPhotoUrls.get(i));
+                newPhoto.setRefEntityId(movieId);
+                newPhoto.setCreatedAt(LocalDateTime.now());
+                newPhoto.setUpdatedAt(LocalDateTime.now());
+                updatedPhotoEntities.add(newPhoto);
+            }
+
+            // Remove extra existing photos that are no longer in the new list
+            if (existingPhotos.size() > newPhotoUrls.size()) {
+                List<PhotoEntity> toDelete = existingPhotos.subList(newPhotoUrls.size(), existingPhotos.size());
+                crudPhotoRepository.deleteAll(toDelete);
+            }
+
+            // Save all changes
             updatedPhotoEntities = crudPhotoRepository.saveAll(updatedPhotoEntities);
         }
 
