@@ -32,11 +32,12 @@ public class PaymentServiceImpl implements PaymentService {
     private final JsoupService jsoupService;
     private final SecurityServiceImpl securityService;
     private final TicketPriceService ticketPriceService;
+    private final ProjectionService projectionService;
 
     @Autowired
     public PaymentServiceImpl(PaymentRepository paymentRepository, StripeService stripeService, PdfService pdfService,
                               MovieService movieService, EmailService emailService, ProjectionInstanceService projectionInstanceService,
-                              JsoupService jsoupService, SecurityServiceImpl securityService, TicketPriceService ticketPriceService) {
+                              JsoupService jsoupService, SecurityServiceImpl securityService, TicketPriceService ticketPriceService, ProjectionService projectionService) {
         this.paymentRepository = paymentRepository;
         this.stripeService = stripeService;
         this.pdfService = pdfService;
@@ -46,6 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
         this.jsoupService = jsoupService;
         this.securityService = securityService;
         this.ticketPriceService = ticketPriceService;
+        this.projectionService = projectionService;
     }
 
     @Transactional
@@ -127,6 +129,8 @@ public class PaymentServiceImpl implements PaymentService {
                                                       List<SeatReservation> seatReservations,
                                                       ProjectionInstance projectionInstance,
                                                       double totalPrice) {
+
+        Projection projection = projectionService.findById(projectionInstance.getProjectionId());
         List<String> seatNumbers = seatReservations
                 .stream()
                 .map(seatReservation -> seatReservation.getSeat().getNumber())
@@ -136,8 +140,8 @@ public class PaymentServiceImpl implements PaymentService {
         pdfTicketRequest.setMovieName(movie.getTitle());
         pdfTicketRequest.setDate(projectionInstance.getDate().toString());
         pdfTicketRequest.setTime(projectionInstance.getTime());
-        pdfTicketRequest.setVenueName(projectionInstance.getProjection().getHall().getVenue().getName());
-        pdfTicketRequest.setHallName(projectionInstance.getProjection().getHall().getName());
+        pdfTicketRequest.setVenueName(projection.getHall().getVenue().getName());
+        pdfTicketRequest.setHallName(projection.getHall().getName());
         pdfTicketRequest.setSeats(seatNumbers);
         pdfTicketRequest.setTotalPrice(totalPrice);
         pdfTicketRequest.setPgRating(movie.getPgRating());
