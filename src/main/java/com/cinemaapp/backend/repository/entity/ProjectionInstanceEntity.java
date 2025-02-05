@@ -107,7 +107,7 @@ public class ProjectionInstanceEntity {
 
         return ProjectionInstance.builder()
                 .id(this.id)
-                //.projection(this.projectionEntity.toDomainModel())
+                .projectionId(this.projectionEntity.getId())
                 .seatReservations(seatReservations)
                 .date(this.date)
                 .time(this.time)
