@@ -2421,7 +2421,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         PhotoEntity photo19 = new PhotoEntity();
         photo19.setEntityType("movie");
         photo19.setRefEntityId(crudMovieRepository.findByTitle("The Silence of the Lambs").getId());
-        photo19.setUrl("https://play-lh.googleusercontent.com/8Zyaxu-u4c_mfuC37GPGRUqiuTDLDjthcXY3NU6THy_nOvzG82zIBX9QkVe44UPNvcU=w240-h480-rw");
+        photo19.setUrl("https://m.media-amazon.com/images/M/MV5BMTczMDE3NzU2M15BMl5BanBnXkFtZTcwNjkwNjM5NA@@._V1_.jpg");
         movie19.setCoverPhotoId(crudPhotoRepository.save(photo19).getId());
         crudMovieRepository.save(movie19);
 
