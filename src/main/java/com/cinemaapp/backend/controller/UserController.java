@@ -3,6 +3,7 @@ package com.cinemaapp.backend.controller;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.UpdateUserRequest;
 import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
 import com.cinemaapp.backend.service.domain.response.auth.LoginResponse;
 import com.cinemaapp.backend.service.impl.AuthServiceImpl;
@@ -45,5 +46,12 @@ public class UserController {
     public LoginResponse changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
         User user = userService.changePassword(changePasswordRequest);
         return authService.authenticateAndLogin(user, true);
+    }
+
+    @PatchMapping("/{id}")
+    public User updateUser(
+            @PathVariable UUID id,
+            @RequestBody UpdateUserRequest updateUserRequest) {
+        return userService.updateUser(id, updateUserRequest);
     }
 }
