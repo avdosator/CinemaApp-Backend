@@ -170,7 +170,7 @@ public class UserEntity {
                 .email(this.email)
                 .passwordHash(this.passwordHash)
                 .phone(this.phone)
-                .city(this.cityEntity.toDomainModel())
+                .city(cityEntity != null ? this.cityEntity.toDomainModel() : null)
                 .role(this.role)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
