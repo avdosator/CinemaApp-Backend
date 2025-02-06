@@ -44,7 +44,7 @@ public class ProjectionEntity {
     @Column(name = "status")
     private String status; //  should be "upcoming", "active", "completed" or "canceled"
 
-    @OneToMany(mappedBy = "projectionEntity")
+    @OneToMany(mappedBy = "projectionEntity", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<ProjectionInstanceEntity> projectionInstanceEntities;
 
     @Column(name = "created_at")

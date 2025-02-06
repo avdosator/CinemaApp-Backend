@@ -28,10 +28,10 @@ public class HallEntity {
     @JoinColumn(name = "venue_id", referencedColumnName = "id")
     private VenueEntity venueEntity;
 
-    @OneToMany(mappedBy = "hallEntity", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "hallEntity", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<ProjectionEntity> projectionEntities;
 
-    @OneToMany(mappedBy = "hallEntity")
+    @OneToMany(mappedBy = "hallEntity", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<SeatEntity> seatEntities;
 
     @Column(name = "total_seats")

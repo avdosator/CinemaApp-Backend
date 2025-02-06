@@ -1,27 +1,14 @@
 package com.cinemaapp.backend.service.domain.request;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-
 import java.util.UUID;
 
-public class CreateVenueRequest {
+public class UpdateVenueRequest {
 
-    @NotEmpty
     private String name;
-
-    @NotEmpty
     private String phone;
-
-    @NotEmpty
     private String street;
-
-    @NotEmpty
     private String streetNumber;
-
-    @NotNull
     private UUID cityId;
-
     private String photoUrl;
 
     public String getName() {
