@@ -13,6 +13,7 @@ public class User {
     private final String phone;
     private final City city;
     private final String role;
+    private Photo photo;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
@@ -60,6 +61,14 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
     public LocalDateTime getCreatedAt() {
