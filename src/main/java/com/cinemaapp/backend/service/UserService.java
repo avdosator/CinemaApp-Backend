@@ -17,4 +17,6 @@ public interface UserService {
     User changePassword(ChangePasswordRequest changePasswordRequest);
 
     User updateUser(UUID id, UpdateUserRequest updateUserRequest);
+
+    void deleteUser(UUID id);
 }

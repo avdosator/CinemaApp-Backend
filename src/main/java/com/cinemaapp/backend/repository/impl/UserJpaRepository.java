@@ -4,6 +4,7 @@ import com.cinemaapp.backend.exception.InvalidCredentialsException;
 import com.cinemaapp.backend.repository.UserRepository;
 import com.cinemaapp.backend.repository.crud.CrudCityRepository;
 import com.cinemaapp.backend.repository.crud.CrudPhotoRepository;
+import com.cinemaapp.backend.repository.crud.CrudRefreshTokenRepository;
 import com.cinemaapp.backend.repository.crud.CrudUserRepository;
 import com.cinemaapp.backend.repository.entity.PhotoEntity;
 import com.cinemaapp.backend.repository.entity.UserEntity;
@@ -28,13 +29,15 @@ public class UserJpaRepository implements UserRepository {
     private final PasswordEncoder passwordEncoder;
     private final CrudCityRepository crudCityRepository;
     private final CrudPhotoRepository crudPhotoRepository;
+    private final CrudRefreshTokenRepository crudRefreshTokenRepository;
 
     @Autowired
-    public UserJpaRepository(CrudUserRepository crudUserRepository, PasswordEncoder passwordEncoder, CrudCityRepository crudCityRepository, CrudPhotoRepository crudPhotoRepository) {
+    public UserJpaRepository(CrudUserRepository crudUserRepository, PasswordEncoder passwordEncoder, CrudCityRepository crudCityRepository, CrudPhotoRepository crudPhotoRepository, CrudRefreshTokenRepository crudRefreshTokenRepository) {
         this.crudUserRepository = crudUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.crudCityRepository = crudCityRepository;
         this.crudPhotoRepository = crudPhotoRepository;
+        this.crudRefreshTokenRepository = crudRefreshTokenRepository;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class UserJpaRepository implements UserRepository {
         if (updateUserRequest.getPhotoUrl() != null) {
             Optional<PhotoEntity> optionalPhotoEntity = Optional.ofNullable(crudPhotoRepository.findPhotoByRefEntityId(id));
 
-             photo = optionalPhotoEntity.map(photoEntity -> {
+            photo = optionalPhotoEntity.map(photoEntity -> {
                 photoEntity.setUrl(updateUserRequest.getPhotoUrl());
                 photoEntity.setUpdatedAt(LocalDateTime.now());
                 return crudPhotoRepository.save(photoEntity).toDomainModel();
@@ -124,6 +127,14 @@ public class UserJpaRepository implements UserRepository {
             user.setPhoto(photo);
         }
         return user;
+    }
+
+    @Override
+    public void deleteUser(UUID id) {
+        UserEntity userEntity = crudUserRepository.findById(id).orElseThrow();
+        crudRefreshTokenRepository.deleteByUserEntity(userEntity);
+        crudPhotoRepository.deleteFirstByRefEntityId(userEntity.getId());
+        crudUserRepository.delete(userEntity);
     }
 
     private Photo createPhoto(UpdateUserRequest updateUserRequest, UUID userId) {

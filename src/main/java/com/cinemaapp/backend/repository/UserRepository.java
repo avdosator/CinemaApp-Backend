@@ -14,4 +14,6 @@ public interface UserRepository {
     User createUser(CreateUserRequest createUserRequest);
     User changePassword(ChangePasswordRequest changePasswordRequest);
     User updateUser(UUID id, UpdateUserRequest updateUserRequest);
+
+    void deleteUser(UUID id);
 }

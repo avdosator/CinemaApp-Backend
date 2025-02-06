@@ -69,4 +69,10 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UUID id, UpdateUserRequest updateUserRequest) {
         return userRepository.updateUser(id, updateUserRequest);
     }
+
+    @Transactional
+    @Override
+    public void deleteUser(UUID id) {
+        userRepository.deleteUser(id);
+    }
 }

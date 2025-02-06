@@ -38,13 +38,13 @@ public class UserEntity {
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private CityEntity cityEntity;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<PaymentEntity> paymentEntities;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ReservationEntity> reservationEntities;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<SeatReservationEntity> seatReservationEntities;
 
     @Column(name = "role")

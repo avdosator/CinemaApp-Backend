@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.repository.crud;
 
 import com.cinemaapp.backend.repository.entity.RefreshTokenEntity;
+import com.cinemaapp.backend.repository.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,4 +20,8 @@ public interface CrudRefreshTokenRepository extends JpaRepository<RefreshTokenEn
     @Modifying
     @Transactional
     int deleteByExpirationBefore(LocalDateTime now);
+
+    @Modifying
+    @Transactional
+    void deleteByUserEntity(UserEntity userEntity);
 }
