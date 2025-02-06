@@ -1,60 +1,50 @@
 package com.cinemaapp.backend.service.domain.request;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 public class CreateMovieRequest {
 
-    @NotEmpty
+    private UUID movieId;
+
     private String title;
 
-    @NotEmpty
     private String language;
 
-    @NotEmpty
     private String director;
 
-    @NotEmpty
     private String pgRating;
 
-    @NotNull
-    @Min(1)
     private Integer duration;
 
-    @NotEmpty
     private List<UUID> genreIds;
 
-    @NotEmpty
     private String trailer;
 
-    @NotEmpty
     private String synopsis;
 
-    @NotNull
     private LocalDate startDate;
 
-    @NotNull
     private LocalDate endDate;
 
-    @NotEmpty
-    private String[] writers;
+    private List<String> writers;
 
-    @NotEmpty
-    private String[] cast;
+    private List<String> cast;
 
-    @NotEmpty
     private List<String> photoUrls;
 
-    @NotEmpty
     private List<CreateProjectionRequest> projections;
 
-    @NotEmpty
     private String coverPhotoUrl;
+
+    public UUID getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(UUID movieId) {
+        this.movieId = movieId;
+    }
 
     public String getTitle() {
         return title;
@@ -136,19 +126,19 @@ public class CreateMovieRequest {
         this.endDate = endDate;
     }
 
-    public String[] getWriters() {
+    public List<String> getWriters() {
         return writers;
     }
 
-    public void setWriters(String[] writers) {
+    public void setWriters(List<String> writers) {
         this.writers = writers;
     }
 
-    public String[] getCast() {
+    public List<String> getCast() {
         return cast;
     }
 
-    public void setCast(String[] cast) {
+    public void setCast(List<String> cast) {
         this.cast = cast;
     }
 

@@ -59,6 +59,9 @@ class PaymentServiceImplTest {
     private TicketPriceService ticketPriceService;
 
     @Mock
+    private ProjectionService projectionService;
+
+    @Mock
     private PaymentAmountCalculator paymentAmountCalculator;
 
     private PaymentService paymentService;
@@ -68,7 +71,7 @@ class PaymentServiceImplTest {
     public void setUp() {
         paymentService = new PaymentServiceImpl(
                 paymentRepository, stripeService, pdfService, movieService, emailService,
-                projectionInstanceService, jsoupService, securityService, ticketPriceService);
+                projectionInstanceService, jsoupService, securityService, ticketPriceService, projectionService);
     }
 
     @Test
@@ -146,9 +149,11 @@ class PaymentServiceImplTest {
         Mockito.when(movieService.findById(request.getMovieId()))
                 .thenReturn(movie);
 
-        ProjectionInstance projectionInstance = buildProjectionInstance(request.getProjectionInstanceId());
-        Mockito.when(projectionInstanceService.findById(request.getProjectionInstanceId()))
-                .thenReturn(projectionInstance);
+        Projection projection = buildProjection(buildHall(buildVenue()));
+        Mockito.when(projectionService.findById(projection.getId())).thenReturn(projection);
+
+        ProjectionInstance projectionInstance = buildProjectionInstance(request.getProjectionInstanceId(), projection.getId());
+        Mockito.when(projectionInstanceService.findById(request.getProjectionInstanceId())).thenReturn(projectionInstance);
 
 
         byte[] ticketPdf = buildTicketPdf();
@@ -189,7 +194,7 @@ class PaymentServiceImplTest {
         Assertions.assertEquals("test@gmail.com", emailDetailsRequest.getTo());
     }
 
-    private ProjectionInstance buildProjectionInstance(UUID projectionInstanceId) {
+    private ProjectionInstance buildProjectionInstance(UUID projectionInstanceId, UUID projectionId) {
         Venue venue = buildVenue();
         Hall hall = buildHall(venue);
         Projection projection = buildProjection(hall);
@@ -197,12 +202,12 @@ class PaymentServiceImplTest {
                 .id(projectionInstanceId)
                 .date(LocalDate.now())
                 .time("14:00")
-                .projection(projection)
+                .projectionId(projectionId)
                 .build();
     }
 
     private Projection buildProjection(Hall hall) {
-        return Projection.builder().hall(hall).build();
+        return Projection.builder().id(UUID.randomUUID()).hall(hall).build();
     }
 
     private Hall buildHall(Venue venue) {

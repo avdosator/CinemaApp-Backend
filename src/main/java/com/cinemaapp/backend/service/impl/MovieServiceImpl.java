@@ -8,6 +8,7 @@ import com.cinemaapp.backend.service.UploadcareService;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
 import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.SearchDraftMoviesRequest;
 import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
 import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,38 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        return movieRepository.findDraftMovies(searchDraftMoviesRequest);
+    }
+
+    @Override
+    public Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        return movieRepository.findArchivedMovies(searchDraftMoviesRequest);
+    }
+
+    @Override
+    public void archiveMovie(UUID id) {
+        movieRepository.archiveMovie(id);
+    }
+
+    @Override
+    public void moveToDrafts(UUID id) {
+        movieRepository.moveToDrafts(id);
+    }
+
+    @Override
+    public void publishMovie(UUID id) {
+        movieRepository.publishMovie(id);
+    }
+
+    @Override
     public Movie findById(UUID id) {
         return movieRepository.findById(id);
     }
 
     @Override
     @Transactional
-    public Movie createMovie(CreateMovieRequest createMovieRequest) {
+    public Movie createMovie(CreateMovieRequest createMovieRequest, String status) {
         // Step 1: Verify photo URLs -> It works without this
         /*for (String photoUrl : createMovieRequest.getPhotoUrls()) {
             boolean isValid = uploadcareService.verifyPhotoUrl(photoUrl);
@@ -56,8 +82,51 @@ public class MovieServiceImpl implements MovieService {
                 throw new IllegalArgumentException("Invalid photo URL: " + photoUrl);
             }
         }*/
-
         MovieRatingsResponse movieRatingsResponse = movieRatingService.getMovieRatings(createMovieRequest.getTitle());
-        return movieRepository.createMovie(createMovieRequest, movieRatingsResponse);
+        validateRequestFields(createMovieRequest, movieRatingsResponse, status);
+        return movieRepository.createMovie(createMovieRequest, movieRatingsResponse, status);
+    }
+
+    private void validateRequestFields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        if (status.equals("draft-1")) {
+            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
+        } else if (status.equals("draft-2")) {
+            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
+            validateDraft2Fields(createMovieRequest, movieRatingsResponse);
+        } else {
+            validateDraft1Fields(createMovieRequest, movieRatingsResponse);
+            validateDraft2Fields(createMovieRequest, movieRatingsResponse);
+            validateDraft3Fields(createMovieRequest, movieRatingsResponse);
+        }
+    }
+
+    private void validateDraft3Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+        if (createMovieRequest.getProjections().isEmpty()) {
+            throw new IllegalArgumentException("Missing movie data");
+        }
+    }
+
+    private void validateDraft2Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+        if (createMovieRequest.getWriters().isEmpty()
+                || createMovieRequest.getCast().isEmpty()
+                || createMovieRequest.getPhotoUrls().isEmpty()
+                || createMovieRequest.getCoverPhotoUrl() == null) {
+            throw new IllegalArgumentException("Missing movie data");
+        }
+    }
+
+    private void validateDraft1Fields(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+        if (createMovieRequest.getTitle() == null
+                || createMovieRequest.getLanguage() == null
+                || createMovieRequest.getStartDate() == null
+                || createMovieRequest.getEndDate() == null
+                || createMovieRequest.getDirector() == null
+                || createMovieRequest.getPgRating() == null
+                || createMovieRequest.getDuration() == null
+                || createMovieRequest.getGenreIds().isEmpty()
+                || createMovieRequest.getTrailer() == null
+                || createMovieRequest.getSynopsis() == null) {
+            throw new IllegalArgumentException("Missing movie data");
+        }
     }
 }

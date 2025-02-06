@@ -8,18 +8,18 @@ import java.util.UUID;
 public class ProjectionInstance {
 
     private final UUID id;
-    private final Projection projection;
+    private final UUID projectionId;
     private final List<SeatReservation> seatReservations;
     private final LocalDate date;
     private final String time;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public ProjectionInstance(UUID id, Projection projection, List<SeatReservation> seatReservations, LocalDate date,
+    public ProjectionInstance(UUID id, UUID projectionId, List<SeatReservation> seatReservations, LocalDate date,
                               String time, LocalDateTime createdAt,
                               LocalDateTime updatedAt) {
         this.id = id;
-        this.projection = projection;
+        this.projectionId = projectionId;
         this.seatReservations = seatReservations;
         this.date = date;
         this.time = time;
@@ -31,8 +31,8 @@ public class ProjectionInstance {
         return id;
     }
 
-    public Projection getProjection() {
-        return projection;
+    public UUID getProjectionId() {
+        return projectionId;
     }
 
     public List<SeatReservation> getSeatReservations() {
@@ -61,7 +61,7 @@ public class ProjectionInstance {
 
     public static class ProjectionInstanceBuilder {
         private UUID id;
-        private Projection projection;
+        private UUID projectionId;
         private List<SeatReservation> seatReservations;
         private LocalDate date;
         private String time;
@@ -76,8 +76,8 @@ public class ProjectionInstance {
             return this;
         }
 
-        public ProjectionInstanceBuilder projection(Projection projection) {
-            this.projection = projection;
+        public ProjectionInstanceBuilder projectionId(UUID projectionId) {
+            this.projectionId = projectionId;
             return this;
         }
 
@@ -109,7 +109,7 @@ public class ProjectionInstance {
         public ProjectionInstance build() {
             return new ProjectionInstance(
                     this.id,
-                    this.projection,
+                    this.projectionId,
                     this.seatReservations,
                     this.date,
                     this.time,

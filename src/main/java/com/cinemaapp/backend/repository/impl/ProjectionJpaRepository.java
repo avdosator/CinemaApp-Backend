@@ -3,12 +3,14 @@ package com.cinemaapp.backend.repository.impl;
 import com.cinemaapp.backend.repository.ProjectionRepository;
 import com.cinemaapp.backend.repository.crud.CrudProjectionRepository;
 import com.cinemaapp.backend.repository.entity.ProjectionEntity;
+import com.cinemaapp.backend.service.domain.model.Projection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Repository
 public class ProjectionJpaRepository implements ProjectionRepository {
@@ -30,5 +32,11 @@ public class ProjectionJpaRepository implements ProjectionRepository {
             }
         }
         return projectionTimes.stream().sorted().toList();
+    }
+
+    @Override
+    public Projection findById(UUID id) {
+        ProjectionEntity projectionEntity = crudProjectionRepository.findById(id).orElseThrow();
+        return projectionEntity.toDomainModel();
     }
 }

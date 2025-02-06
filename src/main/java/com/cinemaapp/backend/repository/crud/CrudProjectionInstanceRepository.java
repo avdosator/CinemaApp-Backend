@@ -1,5 +1,6 @@
 package com.cinemaapp.backend.repository.crud;
 
+import com.cinemaapp.backend.repository.entity.ProjectionEntity;
 import com.cinemaapp.backend.repository.entity.ProjectionInstanceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,4 +32,5 @@ public interface CrudProjectionInstanceRepository extends JpaRepository<Projecti
             @Param("date") LocalDate date,
             @Param("time") String time
     );
+    void deleteAllByProjectionEntity(ProjectionEntity projectionEntity);
 }

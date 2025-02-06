@@ -7,12 +7,10 @@ import com.cinemaapp.backend.repository.entity.*;
 import com.cinemaapp.backend.repository.specification.MovieSpecification;
 import com.cinemaapp.backend.service.domain.model.Movie;
 import com.cinemaapp.backend.service.domain.model.Photo;
-import com.cinemaapp.backend.service.domain.request.CreateMovieRequest;
-import com.cinemaapp.backend.service.domain.request.CreateProjectionRequest;
-import com.cinemaapp.backend.service.domain.request.SearchActiveMoviesRequest;
-import com.cinemaapp.backend.service.domain.request.SearchUpcomingMoviesRequest;
+import com.cinemaapp.backend.service.domain.request.*;
 import com.cinemaapp.backend.service.domain.response.MovieRatingsResponse;
 import com.cinemaapp.backend.utils.PageConverter;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -55,7 +53,8 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasProjectionInCity(searchActiveMoviesRequest.getCity()))
                 .and(MovieSpecification.hasProjectionInVenue(searchActiveMoviesRequest.getVenue()))
                 .and(MovieSpecification.hasGenre(searchActiveMoviesRequest.getGenre()))
-                .and(MovieSpecification.hasProjectionWithTime(searchActiveMoviesRequest.getTime()));
+                .and(MovieSpecification.hasProjectionWithTime(searchActiveMoviesRequest.getTime())
+                        .and(MovieSpecification.isReleasedMovie()));
 
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchActiveMoviesRequest.getPage(),
@@ -78,7 +77,8 @@ public class MovieJpaRepository implements MovieRepository {
                 .and(MovieSpecification.hasTitleContaining(searchUpcomingMoviesRequest.getTitle()))
                 .and(MovieSpecification.hasProjectionInCity(searchUpcomingMoviesRequest.getCity()))
                 .and(MovieSpecification.hasProjectionInVenue(searchUpcomingMoviesRequest.getVenue()))
-                .and(MovieSpecification.hasGenre(searchUpcomingMoviesRequest.getGenre()));
+                .and(MovieSpecification.hasGenre(searchUpcomingMoviesRequest.getGenre())
+                        .and(MovieSpecification.isReleasedMovie()));
 
         org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
                 specification, PageRequest.of(searchUpcomingMoviesRequest.getPage(),
@@ -90,6 +90,70 @@ public class MovieJpaRepository implements MovieRepository {
         Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
         movies = mapPhotosToMovies(movies);
         return movies;
+    }
+
+    @Override
+    public Page<Movie> findDraftMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        Specification<MovieEntity> specification = Specification
+                .where(MovieSpecification.hasStatusStartingWith("draft"));
+
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification,
+                PageRequest.of(searchDraftMoviesRequest.getPage(),
+                        searchDraftMoviesRequest.getSize(),
+                        Sort.by(Sort.Direction.ASC, "title")
+                )
+        );
+
+        Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        movies = mapPhotosToMovies(movies);
+        return movies;
+    }
+
+    @Override
+    public Page<Movie> findArchivedMovies(SearchDraftMoviesRequest searchDraftMoviesRequest) {
+        Specification<MovieEntity> specification = Specification
+                .where(MovieSpecification.hasArchivedStatus());
+
+        org.springframework.data.domain.Page<MovieEntity> movieEntities = crudMovieRepository.findAll(
+                specification,
+                PageRequest.of(searchDraftMoviesRequest.getPage(),
+                        searchDraftMoviesRequest.getSize(),
+                        Sort.by(Sort.Direction.ASC, "title")
+                )
+        );
+
+        Page<Movie> movies = PageConverter.convertToPage(movieEntities, MovieEntity::toDomainModel);
+        movies = mapPhotosToMovies(movies);
+        return movies;
+    }
+
+    @Override
+    public void archiveMovie(UUID id) {
+        MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
+        movieEntity.setStatus("archived");
+        crudMovieRepository.save(movieEntity);
+    }
+
+    @Override
+    public void moveToDrafts(UUID id) {
+        MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
+        if (!movieEntity.getProjectionEntities().isEmpty()
+                && !Objects.equals(movieEntity.getProjectionEntities().get(0).getStatus(), "placeholder")) {
+            movieEntity.setStatus("draft-3");
+        } else if (movieEntity.getWriters() != null) {
+            movieEntity.setStatus("draft-2");
+        } else {
+            movieEntity.setStatus("draft-1");
+        }
+        crudMovieRepository.save(movieEntity);
+    }
+
+    @Override
+    public void publishMovie(UUID id) {
+        MovieEntity movieEntity = crudMovieRepository.findById(id).orElseThrow();
+        movieEntity.setStatus("active");
+        crudMovieRepository.save(movieEntity);
     }
 
     @Override
@@ -106,59 +170,213 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     @Override
-    public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse) {
+    public Movie createMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        if (createMovieRequest.getMovieId() != null) {
+            return applyChanges(createMovieRequest, movieRatingsResponse, status);
+        } else {
+            return createNewMovie(createMovieRequest, movieRatingsResponse, status);
+        }
+    }
+
+    private Movie createNewMovie(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
         MovieEntity movieEntity = new MovieEntity();
-        movieEntity.setTitle(createMovieRequest.getTitle());
-        movieEntity.setLanguage(createMovieRequest.getLanguage());
-        movieEntity.setDirector(createMovieRequest.getDirector());
-        movieEntity.setPgRating(createMovieRequest.getPgRating());
-        movieEntity.setDurationInMinutes(createMovieRequest.getDuration());
-        movieEntity.setWriters(createMovieRequest.getWriters());
-        movieEntity.setActors(createMovieRequest.getCast());
-        movieEntity.setSynopsis(createMovieRequest.getSynopsis());
-        movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
-        movieEntity.setStatus("active");
-        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIds()));
-        movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
-        movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
-        movieEntity.setCreatedAt(LocalDateTime.now());
-        movieEntity.setUpdatedAt(LocalDateTime.now());
+        if (status.equals("draft-1")) {
+            return setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else if (status.equals("draft-2")) {
+            return setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else {
+            return setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        }
+    }
 
-        MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
+    private Movie applyChanges(CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        MovieEntity movieEntity = crudMovieRepository.findById(createMovieRequest.getMovieId()).orElseThrow();
+
+        if (status.equals("draft-1")) {
+            return setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else if (status.equals("draft-2")) {
+            return setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        } else {
+            return setAllFields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        }
+    }
+
+    private Movie setAllFields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        setDraft2Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+
+        // Delete Projection placeholder
+        ProjectionEntity placeholderProjection = crudProjectionRepository.findByMovieEntityAndStatus(movieEntity, "placeholder");
+        if (placeholderProjection != null) {
+            crudProjectionRepository.delete(placeholderProjection);
+        }
+
+        // Create projections
+        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, movieEntity);
+        movieEntity.setProjectionEntities(projectionEntities);
+
+        return crudMovieRepository.save(movieEntity).toDomainModel();
+    }
+
+    private Movie setDraft2Fields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        setDraft1Fields(movieEntity, createMovieRequest, movieRatingsResponse, status);
+        movieEntity.setActors(createMovieRequest.getCast().toArray(String[]::new));
+        movieEntity.setWriters(createMovieRequest.getWriters().toArray(String[]::new));
+        movieEntity = crudMovieRepository.save(movieEntity);
+
         // Process photos and get the cover photo ID along with saved photos
-        Map.Entry<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(savedMovieEntity.getId(), createMovieRequest);
-        UUID coverPhotoId = photoProcessingResult.getKey();
-        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getValue();
-        savedMovieEntity.setCoverPhotoId(coverPhotoId);
-
-        // Save the updated MovieEntity with the cover photo ID
-        savedMovieEntity = crudMovieRepository.save(savedMovieEntity);
-
-        // Create projections for the movie
-        List<ProjectionEntity> projectionEntities = createProjectionEntities(createMovieRequest, savedMovieEntity);
-        savedMovieEntity.setProjectionEntities(projectionEntities);
-
-        // Map saved photos to domain model
+        Pair<UUID, List<PhotoEntity>> photoProcessingResult = processPhotosAndFindCoverPhoto(movieEntity.getId(), createMovieRequest);
+        List<PhotoEntity> savedPhotoEntities = photoProcessingResult.getRight();
+        movieEntity.setCoverPhotoId(photoProcessingResult.getLeft());
         List<Photo> photos = savedPhotoEntities.stream()
                 .map(PhotoEntity::toDomainModel)
-                .collect(Collectors.toList());
-
-        // Convert to domain model and set photos
-        Movie movie = savedMovieEntity.toDomainModel();
+                .toList();
+        Movie movie = movieEntity.toDomainModel();
         movie.setPhotos(photos);
 
         return movie;
     }
 
-    private Map.Entry<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
-        // Create and save photo entities
-        List<PhotoEntity> photoEntities = createPhotoEntities(movieId, createMovieRequest);
+    private Movie setDraft1Fields(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, MovieRatingsResponse movieRatingsResponse, String status) {
+        movieEntity.setTitle(createMovieRequest.getTitle());
+        movieEntity.setLanguage(createMovieRequest.getLanguage());
+        movieEntity.setDirector(createMovieRequest.getDirector());
+        movieEntity.setPgRating(createMovieRequest.getPgRating());
+        movieEntity.setDurationInMinutes(createMovieRequest.getDuration());
+        movieEntity.setTrailerUrl(createMovieRequest.getTrailer());
+        movieEntity.setSynopsis(createMovieRequest.getSynopsis());
+        movieEntity.setGenreEntities(crudGenreRepository.findAllById(createMovieRequest.getGenreIds()));
+        movieEntity.setImdbRating(movieRatingsResponse.getImdbRating());
+        movieEntity.setRottenTomatoesRating(movieRatingsResponse.getRottenTomatoesRating());
+        movieEntity.setStatus(status);
+
+        MovieEntity savedMovieEntity = crudMovieRepository.save(movieEntity);
+
+        // Create projection placeholder
+        updateProjectionDate(savedMovieEntity, createMovieRequest, status);
+        return crudMovieRepository.save(savedMovieEntity).toDomainModel();
+    }
+
+    private void updateProjectionDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest, String status) {
+        List<ProjectionEntity> projectionEntities = crudProjectionRepository.findByMovieEntity(movieEntity);
+        if (projectionEntities.isEmpty()) {
+            createProjectionPlaceholder(movieEntity, createMovieRequest);
+        } else {
+            updateProjectionAndInstances(movieEntity, projectionEntities.get(0), createMovieRequest, status);
+        }
+    }
+
+    // Possible option - don't allow projection date range change
+    private void assertValidDates(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        if (sameDates(movieEntity.getProjectionEntities().get(0), createMovieRequest)) {
+            throw new IllegalArgumentException("Date change at this step is not supported");
+        }
+    }
+
+    private boolean sameDates(ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest) {
+        return projectionEntity.getStartDate() == createMovieRequest.getStartDate() &&
+                projectionEntity.getEndDate() == createMovieRequest.getEndDate();
+    }
+
+    private void updateProjectionAndInstances(MovieEntity movieEntity, ProjectionEntity projectionEntity, CreateMovieRequest createMovieRequest, String status) {
+        if ("draft-3".equals(status) || "active".equals(status)) {
+            List<ProjectionEntity> existingProjections = crudProjectionRepository.findByMovieEntity(movieEntity);
+            for (ProjectionEntity projection : existingProjections) {
+                crudProjectionInstanceRepository.deleteAllByProjectionEntity(projection);
+            }
+
+            crudProjectionRepository.deleteAllByMovieEntity(movieEntity);
+            movieEntity.getProjectionEntities().clear();
+
+            List<ProjectionEntity> newProjections = createProjectionEntities(createMovieRequest, movieEntity);
+            movieEntity.setProjectionEntities(newProjections);
+
+            crudMovieRepository.save(movieEntity);
+
+        } else if (!sameDates(projectionEntity, createMovieRequest)) {
+            updatePlaceholderDate(movieEntity, createMovieRequest);
+        }
+    }
+
+    private void updatePlaceholderDate(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        ProjectionEntity projectionEntity = crudProjectionRepository.findAnyByMovieEntity(movieEntity);
+        projectionEntity.setStartDate(createMovieRequest.getStartDate());
+        projectionEntity.setEndDate(createMovieRequest.getEndDate());
+        crudProjectionRepository.save(projectionEntity);
+    }
+
+    private void createProjectionPlaceholder(MovieEntity movieEntity, CreateMovieRequest createMovieRequest) {
+        ProjectionEntity draftProjection = new ProjectionEntity();
+        draftProjection.setMovieEntity(movieEntity);
+        draftProjection.setStartDate(createMovieRequest.getStartDate());
+        draftProjection.setEndDate(createMovieRequest.getEndDate());
+        draftProjection.setStatus("placeholder");
+        draftProjection.setCreatedAt(LocalDateTime.now());
+        draftProjection.setUpdatedAt(LocalDateTime.now());
+
+        ProjectionEntity savedProjection = crudProjectionRepository.save(draftProjection);
+
+        // Ensure movieEntity contains this projection in its list
+        if (movieEntity.getProjectionEntities() == null) {
+            movieEntity.setProjectionEntities(new ArrayList<>());
+        }
+        movieEntity.getProjectionEntities().add(savedProjection);
+    }
+
+    private Pair<UUID, List<PhotoEntity>> processPhotosAndFindCoverPhoto(UUID movieId, CreateMovieRequest createMovieRequest) {
+        // Fetch existing photos (if any)
+        List<PhotoEntity> existingPhotos = crudPhotoRepository.findByRefEntityId(movieId);
+
+        // Get new photo URLs from request
+        List<String> newPhotoUrls = createMovieRequest.getPhotoUrls();
+
+        List<PhotoEntity> updatedPhotoEntities = new ArrayList<>();
+
+        if (existingPhotos.isEmpty()) {
+            // No existing photos → Create new ones
+            updatedPhotoEntities = createPhotoEntities(movieId, createMovieRequest);
+        } else {
+            // Ensure we do not go out of bounds
+            int minSize = Math.min(existingPhotos.size(), newPhotoUrls.size());
+
+            // Update existing photos
+            for (int i = 0; i < minSize; i++) {
+                PhotoEntity existingPhoto = existingPhotos.get(i);
+                String newPhotoUrl = newPhotoUrls.get(i);
+
+                if (!existingPhoto.getUrl().equals(newPhotoUrl)) {
+                    existingPhoto.setUrl(newPhotoUrl);
+                    existingPhoto.setUpdatedAt(LocalDateTime.now());
+                }
+
+                updatedPhotoEntities.add(existingPhoto);
+            }
+
+            // If new photos were added, create them
+            for (int i = minSize; i < newPhotoUrls.size(); i++) {
+                PhotoEntity newPhoto = new PhotoEntity();
+                newPhoto.setEntityType("movie");
+                newPhoto.setUrl(newPhotoUrls.get(i));
+                newPhoto.setRefEntityId(movieId);
+                newPhoto.setCreatedAt(LocalDateTime.now());
+                newPhoto.setUpdatedAt(LocalDateTime.now());
+                updatedPhotoEntities.add(newPhoto);
+            }
+
+            // Remove extra existing photos that are no longer in the new list
+            if (existingPhotos.size() > newPhotoUrls.size()) {
+                List<PhotoEntity> toDelete = existingPhotos.subList(newPhotoUrls.size(), existingPhotos.size());
+                crudPhotoRepository.deleteAll(toDelete);
+            }
+
+            // Save all changes
+            updatedPhotoEntities = crudPhotoRepository.saveAll(updatedPhotoEntities);
+        }
 
         // Find the cover photo ID
-        UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), photoEntities);
+        UUID coverPhotoId = getCoverPhotoId(createMovieRequest.getCoverPhotoUrl(), updatedPhotoEntities);
 
-        // Return both the cover photo ID and the saved photo entities
-        return Map.entry(coverPhotoId, photoEntities);
+        return Pair.of(coverPhotoId, updatedPhotoEntities);
     }
 
     private List<PhotoEntity> createPhotoEntities(UUID movieId, CreateMovieRequest createMovieRequest) {
@@ -219,7 +437,6 @@ public class MovieJpaRepository implements MovieRepository {
 
             createProjectionInstances(projectionRequests, savedProjectionEntity);
         }
-
         return projectionEntities;
     }
 
@@ -249,11 +466,15 @@ public class MovieJpaRepository implements MovieRepository {
     }
 
     public Page<Movie> mapPhotosToMovies(Page<Movie> movies) {
-
-        // Collect Movie IDs from the page content
+        // Collect Movie IDs that are NOT in draft-1 status
         List<UUID> movieIds = movies.getContent().stream()
+                .filter(movie -> !movie.getStatus().equals("draft-1")) // Exclude draft-1
                 .map(Movie::getId)
                 .toList();
+
+        if (movieIds.isEmpty()) {
+            return movies; // No movies to fetch photos for
+        }
 
         List<PhotoEntity> allPhotos = crudPhotoRepository.findAllByRefEntityIdIn(movieIds);
 
@@ -264,8 +485,12 @@ public class MovieJpaRepository implements MovieRepository {
 
         // Assign photos to each movie by fetching from the map
         for (Movie movie : movies.getContent()) {
-            List<Photo> moviePhotos = photosByMovieId.getOrDefault(movie.getId(), new ArrayList<>());
-            movie.setPhotos(moviePhotos);
+            if (!movie.getStatus().equals("draft-1")) {
+                List<Photo> moviePhotos = photosByMovieId.getOrDefault(movie.getId(), new ArrayList<>());
+                movie.setPhotos(moviePhotos);
+            } else {
+                movie.setPhotos(new ArrayList<>()); // Ensure draft-1 movies have an empty list
+            }
         }
         return movies;
     }

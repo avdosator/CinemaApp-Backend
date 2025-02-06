@@ -1,6 +1,7 @@
 package com.cinemaapp.backend.repository.entity;
 
 import com.cinemaapp.backend.service.domain.model.Projection;
+import com.cinemaapp.backend.service.domain.model.ProjectionInstance;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -139,14 +141,20 @@ public class ProjectionEntity {
 
     public Projection toDomainModel() {
 
+        List<ProjectionInstance> projectionInstances = (this.projectionInstanceEntities == null ?
+                Collections.emptyList() : this.projectionInstanceEntities.stream()
+                .map(ProjectionInstanceEntity::toDomainModel)
+                .toList());
+
         return Projection.builder()
                 .id(this.id)
-                .hall(this.hallEntity.toDomainModel())
+                .hall(hallEntity != null ? this.hallEntity.toDomainModel() : null)
                 .movie(this.movieEntity.getId())
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .startTime(this.startTime)
                 .status(this.status)
+                .projectionInstances(projectionInstances)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .build();

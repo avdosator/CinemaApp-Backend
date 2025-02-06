@@ -119,4 +119,23 @@ public class MovieSpecification {
             return criteriaBuilder.like(projections.get("startTimeString"), "%" + time + "%");
         };
     }
+
+    public static Specification<MovieEntity> isReleasedMovie() {
+        return (root, query, criteriaBuilder) -> {
+            return criteriaBuilder.and(
+                    criteriaBuilder.notLike(root.get("status"), "draft%"),
+                    criteriaBuilder.notEqual(root.get("status"), "archived")
+            );
+        };
+    }
+
+    public static Specification<MovieEntity> hasStatusStartingWith(String prefix) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("status"), prefix + "%");
+    }
+
+    public static Specification<MovieEntity> hasArchivedStatus() {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("status"), "archived");
+    }
 }
