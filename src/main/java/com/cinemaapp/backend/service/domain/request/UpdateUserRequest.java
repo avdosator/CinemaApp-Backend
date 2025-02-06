@@ -4,21 +4,12 @@ import java.util.UUID;
 
 public class UpdateUserRequest {
 
-    private UUID userId;
     private String firstName;
     private String lastName;
     private String phone;
     private String email;
     private UUID cityId;
     private String photoUrl;
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
 
     public String getFirstName() {
         return firstName;
