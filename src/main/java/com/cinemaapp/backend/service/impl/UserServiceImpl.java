@@ -4,14 +4,16 @@ import com.cinemaapp.backend.exception.InvalidCredentialsException;
 import com.cinemaapp.backend.repository.UserRepository;
 import com.cinemaapp.backend.service.UserService;
 import com.cinemaapp.backend.service.domain.model.User;
+import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.UpdateUserRequest;
 import com.cinemaapp.backend.service.domain.request.auth.AuthRequest;
 import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
-import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -60,5 +62,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User changePassword(ChangePasswordRequest changePasswordRequest) {
         return userRepository.changePassword(changePasswordRequest);
+    }
+
+    @Transactional
+    @Override
+    public User updateUser(UUID id, UpdateUserRequest updateUserRequest) {
+        return userRepository.updateUser(id, updateUserRequest);
     }
 }

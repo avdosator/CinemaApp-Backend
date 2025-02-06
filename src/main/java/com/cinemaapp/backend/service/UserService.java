@@ -2,6 +2,7 @@ package com.cinemaapp.backend.service;
 
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.UpdateUserRequest;
 import com.cinemaapp.backend.service.domain.request.auth.AuthRequest;
 import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
 
@@ -14,4 +15,6 @@ public interface UserService {
     User findByEmail(String email);
     User findById(UUID id);
     User changePassword(ChangePasswordRequest changePasswordRequest);
+
+    User updateUser(UUID id, UpdateUserRequest updateUserRequest);
 }

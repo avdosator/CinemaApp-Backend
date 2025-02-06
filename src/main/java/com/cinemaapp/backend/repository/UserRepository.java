@@ -2,6 +2,7 @@ package com.cinemaapp.backend.repository;
 
 import com.cinemaapp.backend.service.domain.model.User;
 import com.cinemaapp.backend.service.domain.request.CreateUserRequest;
+import com.cinemaapp.backend.service.domain.request.UpdateUserRequest;
 import com.cinemaapp.backend.service.domain.request.auth.ChangePasswordRequest;
 
 import java.util.UUID;
@@ -12,4 +13,5 @@ public interface UserRepository {
     User findById(UUID id);
     User createUser(CreateUserRequest createUserRequest);
     User changePassword(ChangePasswordRequest changePasswordRequest);
+    User updateUser(UUID id, UpdateUserRequest updateUserRequest);
 }
