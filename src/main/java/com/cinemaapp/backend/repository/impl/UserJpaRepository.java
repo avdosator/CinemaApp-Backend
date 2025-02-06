@@ -109,13 +109,13 @@ public class UserJpaRepository implements UserRepository {
 
         Photo photo = null;
         if (updateUserRequest.getPhotoUrl() != null) {
-            Optional<PhotoEntity> optionalPhotoEntity = Optional.ofNullable(crudPhotoRepository.findPhotoByRefEntityId(updateUserRequest.getUserId()));
+            Optional<PhotoEntity> optionalPhotoEntity = Optional.ofNullable(crudPhotoRepository.findPhotoByRefEntityId(id));
 
              photo = optionalPhotoEntity.map(photoEntity -> {
                 photoEntity.setUrl(updateUserRequest.getPhotoUrl());
                 photoEntity.setUpdatedAt(LocalDateTime.now());
                 return crudPhotoRepository.save(photoEntity).toDomainModel();
-            }).orElseGet(() -> createPhoto(updateUserRequest));
+            }).orElseGet(() -> createPhoto(updateUserRequest, id));
         }
 
         // Save updated user
@@ -126,9 +126,9 @@ public class UserJpaRepository implements UserRepository {
         return user;
     }
 
-    private Photo createPhoto(UpdateUserRequest updateUserRequest) {
+    private Photo createPhoto(UpdateUserRequest updateUserRequest, UUID userId) {
         PhotoEntity photoEntity = new PhotoEntity();
-        photoEntity.setRefEntityId(updateUserRequest.getUserId());
+        photoEntity.setRefEntityId(userId);
         photoEntity.setEntityType("user");
         photoEntity.setUrl(updateUserRequest.getPhotoUrl());
         photoEntity.setCreatedAt(LocalDateTime.now());
