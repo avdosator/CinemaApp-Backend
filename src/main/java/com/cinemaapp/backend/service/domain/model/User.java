@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class User {
-
+    //add payment and reservations
     private final UUID id;
     private final String firstName;
     private final String lastName;
